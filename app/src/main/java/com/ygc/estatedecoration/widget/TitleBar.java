@@ -12,6 +12,9 @@ import android.widget.TextView;
 
 import com.ygc.estatedecoration.R;
 
+/**
+ * 自定义标题
+ */
 
 public class TitleBar extends RelativeLayout {
 	private RelativeLayout mNaviTitleContent;

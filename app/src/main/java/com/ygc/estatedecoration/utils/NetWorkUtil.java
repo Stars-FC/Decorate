@@ -5,6 +5,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
 
+/**
+ * 请求网络
+ */
+
 public class NetWorkUtil {
 	/**
 	 * wifi网络
