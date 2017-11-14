@@ -1,14 +1,313 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:text="My我的"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textSize="24sp"
-        android:id="@+id/textView"/>
-</RelativeLayout>
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="300px"
+            android:background="@color/titleTop">
+
+            <com.ygc.estatedecoration.widget.CircleImageView
+                android:id="@+id/iv_company_icon"
+                android:layout_width="100px"
+                android:layout_height="100px"
+                android:layout_marginTop="50px"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/ic_launcher"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_company_icon"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="24px"
+                android:text="Name  性别 @"
+                android:textColor="@color/white"
+                android:textSize="36px"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="140px"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/mine_follow"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="19天"
+                    android:textColor="@color/orange"
+                    android:textSize="36px"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="保证金"
+                    android:textColor="@color/teacherInformationText"
+                    android:textSize="32px"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:background="@color/line"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="19天"
+                    android:textColor="@color/orange"
+                    android:textSize="36px"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="保质金"
+                    android:textColor="@color/teacherInformationText"
+                    android:textSize="32px"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:background="@color/line"/>
+
+            <LinearLayout
+                android:id="@+id/mine_collection"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1000分"
+                    android:textColor="@color/orange"
+                    android:textSize="36px"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="金币"
+                    android:textColor="@color/teacherInformationText"
+                    android:textSize="32px"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line"/>
+
+        <RelativeLayout
+            android:id="@+id/my_attestation"
+            android:layout_width="match_parent"
+            android:layout_height="98px">
+
+            <ImageView
+                android:id="@+id/iv_above"
+                android:layout_width="33px"
+                android:layout_height="33px"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="17px"
+                android:src="@mipmap/ic_launcher"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12px"
+                android:layout_toRightOf="@id/iv_above"
+                android:text="实名认证"
+                android:textColor="@color/teacherInformationText"
+                android:textSize="31px"/>
+
+            <ImageView
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="17px"
+                android:src="@mipmap/ic_launcher"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line"/>
+
+        <RelativeLayout
+            android:id="@+id/my_trade"
+            android:layout_width="match_parent"
+            android:layout_height="98px">
+
+            <ImageView
+                android:id="@+id/iv_buy"
+                android:layout_width="33px"
+                android:layout_height="33px"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="17px"
+                android:src="@mipmap/ic_launcher"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12px"
+                android:layout_toRightOf="@id/iv_buy"
+                android:text="交易管理"
+                android:textColor="@color/teacherInformationText"
+                android:textSize="31px"/>
+
+            <ImageView
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="17px"
+                android:src="@mipmap/ic_launcher"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line"/>
+
+        <RelativeLayout
+            android:id="@+id/my_moneybag"
+            android:layout_width="match_parent"
+            android:layout_height="98px">
+
+            <ImageView
+                android:id="@+id/iv_level"
+                android:layout_width="33px"
+                android:layout_height="33px"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="17px"
+                android:src="@mipmap/ic_launcher"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12px"
+                android:layout_toRightOf="@id/iv_level"
+                android:text="我的钱包"
+                android:textColor="@color/teacherInformationText"
+                android:textSize="31px"/>
+
+            <ImageView
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="17px"
+                android:src="@mipmap/ic_launcher"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line"/>
+
+        <RelativeLayout
+            android:id="@+id/my_collection"
+            android:layout_width="match_parent"
+            android:layout_height="98px">
+
+            <ImageView
+                android:id="@+id/iv_recharge"
+                android:layout_width="33px"
+                android:layout_height="33px"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="17px"
+                android:src="@mipmap/ic_launcher"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12px"
+                android:layout_toRightOf="@id/iv_recharge"
+                android:text="我的收藏"
+                android:textColor="@color/teacherInformationText"
+                android:textSize="31px"/>
+
+            <ImageView
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="17px"
+                android:src="@mipmap/ic_launcher"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line"/>
+
+        <RelativeLayout
+            android:id="@+id/my_bright"
+            android:layout_width="match_parent"
+            android:layout_height="98px">
+
+            <ImageView
+                android:id="@+id/iv_discount"
+                android:layout_width="33px"
+                android:layout_height="33px"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="17px"
+                android:src="@mipmap/ic_launcher"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12px"
+                android:layout_toRightOf="@id/iv_discount"
+                android:text="我的亮点"
+                android:textColor="@color/teacherInformationText"
+                android:textSize="31px"/>
+
+            <ImageView
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="17px"
+                android:src="@mipmap/ic_launcher"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line"/>
+    </LinearLayout>
+</ScrollView>

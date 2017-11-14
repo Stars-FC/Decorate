@@ -3,12 +3,16 @@
 
     <color name="colorPrimary">#3F51B5</color><!--首要颜色-->
     <color name="colorPrimaryDark">#303F9F</color><!--首要颜色暗色-->
-    <color name="colorAccent">#FF4081</color><!--色彩强调-->
+    <!--<color name="colorAccent">#FF4081</color>&lt;!&ndash;色彩强调&ndash;&gt;-->
+    <color name="colorAccent">#4EBE65</color><!--色彩强调-->
 
     <color name="teacherInformationText">#4f4f4f</color> <!--教师资料页面字体颜色-->
     <color name="line">#eeeeee</color><!--分割线颜色-->
     <color name="titleTop">#3caafe</color><!--顶部标题颜色-->
     <color name="recyclerBc">#f0f0f0</color><!--recycler背景颜色-->
+    <color name="checkBc">#fafafa</color><!--筛选头布局背景颜色-->
+    <color name="settingbc">#f8f8f8</color><!--设置背景色-->
+
 
     <color name="black">#000000</color><!--黑色 -->
     <color name="white">#FFFFFF</color><!--白色-->

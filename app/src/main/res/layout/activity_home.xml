@@ -21,6 +21,6 @@
         android:id="@+id/tab"
         android:layout_width="match_parent"
         android:layout_height="95px"
-        android:elevation="8dp"/>
+        android:elevation="3dp"/>
 
 </com.zhy.autolayout.AutoLinearLayout>

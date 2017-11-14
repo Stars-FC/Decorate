@@ -34,8 +34,8 @@ public abstract class BaseActivity extends AutoLayoutActivity {
 
         basicInitialize();
         mUnBinder = ButterKnife.bind(this);
-        initData(savedInstanceState);
         initView();
+        initData(savedInstanceState);
         addListener();
     }
 

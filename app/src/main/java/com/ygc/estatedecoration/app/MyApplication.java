@@ -1,4 +1,4 @@
-package com.ygc.estatedecoration;
+package com.ygc.estatedecoration.app;
 
 import android.app.Application;
 
