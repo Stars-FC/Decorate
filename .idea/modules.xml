@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Decorate.iml" filepath="$PROJECT_DIR$/Decorate.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dropdownmenu_library/dropdownmenu_library.iml" filepath="$PROJECT_DIR$/dropdownmenu_library/dropdownmenu_library.iml" />
     </modules>
   </component>
 </project>

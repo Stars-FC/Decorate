@@ -12,6 +12,7 @@
     <color name="recyclerBc">#f0f0f0</color><!--recycler背景颜色-->
     <color name="checkBc">#fafafa</color><!--筛选头布局背景颜色-->
     <color name="settingbc">#f8f8f8</color><!--设置背景色-->
+    <color name="bigline">#aaaaaa</color><!---->
 
 
     <color name="black">#000000</color><!--黑色 -->

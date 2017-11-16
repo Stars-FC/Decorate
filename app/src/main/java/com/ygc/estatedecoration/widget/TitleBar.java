@@ -95,7 +95,7 @@ public class TitleBar extends RelativeLayout {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param res
 	 */
 	public void setLeftText(int res) {

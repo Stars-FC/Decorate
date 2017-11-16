@@ -126,7 +126,7 @@
             android:background="@color/line"/>
 
         <RelativeLayout
-            android:id="@+id/my_attestation"
+            android:id="@+id/my_authentication"
             android:layout_width="match_parent"
             android:layout_height="98px">
 

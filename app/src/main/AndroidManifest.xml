@@ -11,7 +11,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        
+
         <activity android:name=".activity.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -22,8 +22,15 @@
 
         <activity android:name=".activity.MainActivity"/>
         <activity android:name=".activity.home.MyStoreAvtivity"/>
-        <activity android:name=".activity.home.NeedHallActivity"/>
+        <activity android:name=".activity.home.MyVisitorActivity"/>
+        <activity
+            android:name=".activity.home.NeedHallActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity android:name=".activity.my.SettingActivity"/>
+        <activity android:name=".activity.my.AuthenticationActivity"/>
+        <activity android:name=".activity.my.MoneyBagActivity"/>
+        <activity android:name=".activity.my.SettingSaleActivity"/>
 
 
         <meta-data

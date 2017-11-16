@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.activity.home.MyStoreAvtivity;
+import com.ygc.estatedecoration.activity.home.MyVisitorActivity;
 import com.ygc.estatedecoration.activity.home.NeedHallActivity;
 import com.ygc.estatedecoration.adapter.HomeAdapter;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
@@ -113,7 +114,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 Toast.makeText(mActivity, "交易管理", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.my_visitor://我的访客
-                Toast.makeText(mActivity, "我的访客", Toast.LENGTH_SHORT).show();
+//                intent.setClass(mActivity,MyVisitorActivity.class);
+//                startActivity(intent);
                 break;
         }
     }
