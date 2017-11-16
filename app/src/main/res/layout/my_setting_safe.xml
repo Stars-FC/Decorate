@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:backgroundTint="@color/settingbc"
+              android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line"/>
+
+    <TextView
+        android:id="@+id/tv_accountsafe"
+        android:layout_width="match_parent"
+        android:layout_height="80px"
+        android:background="@color/white"
+        android:elevation="3dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="20px"
+        android:text="银行卡管理"
+        android:textSize="32px"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20px"
+        android:background="@color/line"/>
+
+
+    <TextView
+        android:id="@+id/tv_aboutwe"
+        android:layout_width="match_parent"
+        android:layout_height="80px"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingLeft="20px"
+        android:text="修改登陆密码"
+        android:textSize="32px"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line"/>
+
+    <TextView
+        android:id="@+id/tv_opinionfeedback"
+        android:layout_width="match_parent"
+        android:layout_height="80px"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingLeft="20px"
+        android:text="修改支付密码"
+        android:textSize="32px"/>
+</LinearLayout>

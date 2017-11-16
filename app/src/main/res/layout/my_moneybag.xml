@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center_horizontal"
+              android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="95px"
+        android:layout_height="95px"
+        android:layout_marginTop="120px"
+        android:src="@mipmap/ic_launcher"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80px"
+        android:text="账户余额"
+        android:textColor="@color/black"
+        android:textSize="36px"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20px"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="￥"
+            android:textColor="@color/black"
+            android:textSize="55px"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="66.66"
+            android:textColor="@color/black"
+            android:textSize="55px"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="500px"
+        android:layout_height="85px"
+        android:layout_marginTop="50px"
+        android:background="@drawable/shape_all_my_moneybag"
+        android:text="充值"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:layout_width="500px"
+        android:layout_height="85px"
+        android:layout_marginTop="32px"
+        android:background="@drawable/shape_empty_my_moneybag"
+        android:text="提现"
+        android:textColor="@color/colorAccent"/>
+
+
+</LinearLayout>

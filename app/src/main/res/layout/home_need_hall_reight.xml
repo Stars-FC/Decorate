@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--drawlayout左侧布局-->
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="end"
+    android:fillViewport="true"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="60px"
+            android:background="@color/whitesmoke"
+            android:gravity="center_vertical"
+            android:paddingLeft="30px"
+            android:text="筛选"
+            android:textSize="28px"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="65px"
+            android:gravity="center_vertical"
+            android:paddingLeft="30px"
+            android:text="装修类型"
+            android:textColor="@color/black"
+            android:textSize="28px"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="150px"
+                android:layout_height="65px"
+                android:layout_marginLeft="20px"
+                android:background="@color/whitesmoke"
+                android:gravity="center"
+                android:text="家装"/>
+
+            <TextView
+                android:layout_width="150px"
+                android:layout_height="65px"
+                android:layout_marginLeft="20px"
+                android:background="@color/whitesmoke"
+                android:gravity="center"
+                android:text="工装"/>
+
+            <TextView
+                android:layout_width="150px"
+                android:layout_height="65px"
+                android:layout_marginLeft="20px"
+                android:background="@color/whitesmoke"
+                android:gravity="center"
+                android:text="家装"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="20px"
+            android:background="@color/line"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="65px"
+            android:gravity="center_vertical"
+            android:paddingLeft="30px"
+            android:text="房屋现状"
+            android:textColor="@color/black"
+            android:textSize="28px"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="150px"
+                android:layout_height="65px"
+                android:layout_marginLeft="20px"
+                android:background="@color/whitesmoke"
+                android:gravity="center"
+                android:text="局部改造"/>
+
+            <TextView
+                android:layout_width="150px"
+                android:layout_height="65px"
+                android:layout_marginLeft="20px"
+                android:background="@color/whitesmoke"
+                android:gravity="center"
+                android:text="毛胚房"/>
+
+            <TextView
+                android:layout_width="150px"
+                android:layout_height="65px"
+                android:layout_marginLeft="20px"
+                android:background="@color/whitesmoke"
+                android:gravity="center"
+                android:text="旧房翻新"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="20px"
+            android:background="@color/line"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="65px"
+            android:gravity="center_vertical"
+            android:paddingLeft="30px"
+            android:text="装修时间"
+            android:textColor="@color/black"
+            android:textSize="28px"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="150px"
+                android:layout_height="65px"
+                android:layout_marginLeft="20px"
+                android:background="@color/whitesmoke"
+                android:gravity="center"
+                android:text="半个月内"/>
+
+            <TextView
+                android:layout_width="150px"
+                android:layout_height="65px"
+                android:layout_marginLeft="20px"
+                android:background="@color/whitesmoke"
+                android:gravity="center"
+                android:text="一个月内"/>
+
+            <TextView
+                android:layout_width="150px"
+                android:layout_height="65px"
+                android:layout_marginLeft="20px"
+                android:background="@color/whitesmoke"
+                android:gravity="center"
+                android:text="两个月内"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="150px"
+            android:layout_height="65px"
+            android:layout_marginLeft="20px"
+            android:layout_marginTop="20px"
+            android:background="@color/whitesmoke"
+            android:gravity="center"
+            android:text="两个月以上"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="20px"
+            android:background="@color/line"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="65px"
+            android:gravity="center_vertical"
+            android:paddingLeft="30px"
+            android:text="房屋面积（平方米）"
+            android:textColor="@color/black"
+            android:textSize="28px"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="65px"
+            android:background="@color/whitesmoke"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <EditText
+                android:layout_width="195px"
+                android:layout_height="50px"
+                android:background="@color/white"
+                android:gravity="center"
+                android:hint="最低面积"
+                android:inputType="number"
+                android:textSize="24px"/>
+
+            <View
+                android:layout_width="20px"
+                android:layout_height="2px"
+                android:layout_marginLeft="10px"
+                android:background="@color/bigline"/>
+
+            <EditText
+                android:layout_width="195px"
+                android:layout_height="50px"
+                android:layout_marginLeft="10px"
+                android:background="@color/white"
+                android:gravity="center"
+                android:hint="最低面积"
+                android:inputType="number"
+                android:textSize="24px"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="20px"
+            android:background="@color/line"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="65px"
+            android:gravity="center_vertical"
+            android:paddingLeft="30px"
+            android:text="区域"
+            android:textColor="@color/black"
+            android:textSize="28px"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="150px"
+                android:layout_height="65px"
+                android:layout_marginLeft="20px"
+                android:background="@color/whitesmoke"
+                android:drawableLeft="@mipmap/ic_launcher"
+                android:gravity="center"
+                android:text="沈阳"/>
+        </LinearLayout>
+
+        <Button
+            android:layout_width="450px"
+            android:layout_height="70px"
+            android:layout_gravity="center"
+            android:layout_marginTop="70px"
+            android:background="@drawable/shape_all_my_moneybag"
+            android:elevation="2dp"
+            android:text="确定"
+            android:textColor="@color/white"
+            android:textSize="36px"/>
+    </LinearLayout>
+</ScrollView>
