@@ -1,18 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="110px">
 
-    <TextView
-        android:textSize="24sp"
-        android:textColor="#0000ff"
-        android:text="tvtvtv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="251dp"
-        android:id="@+id/tvtvtv"/>
+        <com.ygc.estatedecoration.widget.CircleImageView
+            android:id="@+id/iv_image"
+            android:layout_width="66px"
+            android:layout_height="66px"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20px"
+            android:src="@mipmap/ic_launcher"/>
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/iv_image"
+            android:text="访客"
+            android:textSize="32px"/>
+
+        <TextView
+            android:id="@+id/tv_nowtime"
+            android:layout_width="200px"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10px"
+            android:gravity="right"
+            android:text="17:30"
+            android:textSize="32px"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/line"/>
+    </RelativeLayout>
 </RelativeLayout>

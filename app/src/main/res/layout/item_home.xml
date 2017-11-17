@@ -134,7 +134,7 @@
                 android:layout_alignParentRight="true"
                 android:text="可议价"
                 android:textColor="@color/orange"
-                android:textSize="32px"/>
+                android:textSize="28px"/>
         </RelativeLayout>
 
 

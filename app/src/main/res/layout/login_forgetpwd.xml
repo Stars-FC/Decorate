@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/login_forgetpwd"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:layout_marginLeft="40px"
+        android:layout_marginRight="40px"
+        android:layout_marginTop="20px"
+        android:gravity="center_vertical"
+        android:hint="请输入您的手机号"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:layout_marginLeft="40px"
+        android:layout_marginRight="40px"
+        android:layout_marginTop="20px"
+        android:gravity="center_vertical"
+        android:hint="请输入您的新密码"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:layout_marginLeft="40px"
+        android:layout_marginRight="40px"
+        android:layout_marginTop="20px"
+        android:gravity="center_vertical"
+        android:hint="请确认你的新密码"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:orientation="horizontal">
+
+        <EditText
+            android:layout_width="360px"
+            android:layout_height="90px"
+            android:layout_marginLeft="40px"
+            android:gravity="center_vertical"
+            android:hint="请输入验证码"/>
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="70px"
+            android:layout_gravity="center"
+            android:layout_marginRight="30px"
+            android:background="@color/line"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="40px"
+            android:gravity="center"
+            android:lines="1"
+            android:text="获取验证码"
+            android:textColor="@color/colorAccent"
+            android:textSize="32px"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+
+        <Button
+            android:id="@+id/login_btn"
+            android:layout_width="520px"
+            android:layout_height="80px"
+            android:background="@drawable/shape_all_my_moneybag"
+            android:text="登录"
+            android:textColor="@android:color/white"
+            android:textSize="30px"/>
+    </RelativeLayout>
+
+</LinearLayout>

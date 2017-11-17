@@ -2,6 +2,7 @@ package com.ygc.estatedecoration.adapter;
 
 /**
  * Created by FC on 2017/11/15.
+ * 首页-需求大厅等，选择下拉菜单适配器
  */
 
 import android.content.Context;

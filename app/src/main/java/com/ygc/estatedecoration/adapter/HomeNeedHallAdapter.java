@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * Created by FC on 2017/11/14.
+ * 主页-需求大厅的适配器
  */
 
 public class HomeNeedHallAdapter extends BaseQuickAdapter<String,BaseViewHolder> {

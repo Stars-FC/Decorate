@@ -1,8 +1,5 @@
 package com.ygc.estatedecoration.adapter;
 
-import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.ygc.estatedecoration.R;
@@ -11,13 +8,13 @@ import java.util.List;
 
 /**
  * Created by FC on 2017/11/13.
- * 主页适配器
+ * 我的-我的收藏的适配器
  */
 
-public class HomeAdapter extends BaseQuickAdapter<String,BaseViewHolder> {
+public class MyCollectionAdapter extends BaseQuickAdapter<String,BaseViewHolder> {
 
-    public HomeAdapter(List<String> list) {
-        super(R.layout.item_home, list);
+    public MyCollectionAdapter(List<String> list) {
+        super(R.layout.item_my_collection, list);
     }
 
     @Override

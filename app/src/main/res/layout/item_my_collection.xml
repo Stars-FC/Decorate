@@ -25,7 +25,7 @@
                 android:layout_alignParentLeft="true"
                 android:text="需求标题"
                 android:textColor="@color/black"
-                android:textSize="16sp"/>
+                android:textSize="32px"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -41,7 +41,6 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:lines="2"
-            android:textColor="@color/grey"
             android:text="需求分析需求分析需求需求分析需需求分析需需求分析需分析需求分析需求分析需求分析需求分析需求分析需求分析需求分析需求分析需求分析"/>
 
         <RelativeLayout
@@ -61,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:text="¥"
                     android:textColor="@color/orange"
-                    android:textSize="16sp"/>
+                    android:textSize="32px"/>
 
                 <TextView
                     android:id="@+id/tv_money"
@@ -70,11 +69,11 @@
                     android:layout_marginLeft="10px"
                     android:text="5,000"
                     android:textColor="@color/orange"
-                    android:textSize="16sp"/>
+                    android:textSize="32px"/>
 
                 <TextView
-                    android:layout_width="50dp"
-                    android:layout_height="23dp"
+                    android:layout_width="100px"
+                    android:layout_height="45px"
                     android:layout_marginLeft="20px"
                     android:background="@drawable/shape_empty_home"
                     android:gravity="center"
@@ -87,6 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
@@ -95,7 +95,7 @@
                     android:layout_marginRight="20px"
                     android:text="毛呸房"
                     android:textColor="@color/forestgreen"
-                    android:textSize="16sp"/>
+                    android:textSize="32px"/>
 
                 <TextView
                     android:id="@+id/tv_acreage"
@@ -103,7 +103,7 @@
                     android:layout_height="wrap_content"
                     android:text="210 m²"
                     android:textColor="@color/forestgreen"
-                    android:textSize="16sp"/>
+                    android:textSize="32px"/>
             </LinearLayout>
 
             <View
@@ -116,26 +116,22 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
             android:layout_marginBottom="15px"
             android:layout_marginTop="15px">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:text="沈阳"
-                android:textColor="@color/orange"
-                android:textSize="14sp"/>
+            <ImageView
+                android:layout_marginLeft="50px"
+                android:layout_width="50px"
+                android:layout_height="50px"
+                android:src="@mipmap/ic_launcher"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5px"
                 android:layout_toLeftOf="@+id/tv_bidding"
-                android:text="招标："
-                android:textColor="@color/grey"
-                android:textSize="14sp"/>
+                android:textSize="28px"
+                android:text="招标："/>
 
             <TextView
                 android:id="@+id/tv_bidding"
@@ -144,7 +140,7 @@
                 android:layout_alignParentRight="true"
                 android:text="可议价"
                 android:textColor="@color/orange"
-                android:textSize="16sp"/>
+                android:textSize="32px"/>
         </RelativeLayout>
 
 

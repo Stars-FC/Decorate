@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.ygc.estatedecoration.R;
+import com.ygc.estatedecoration.activity.LoginActivity;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
 import com.ygc.estatedecoration.widget.TitleBar;
 
@@ -70,7 +71,8 @@ public class SettingActivity extends BaseActivity {
                 showToast("意见反馈");
                 break;
             case R.id.bt_logout://退出当前账号
-                showToast("退出当前账号");
+                intent.setClass(SettingActivity.this,LoginActivity.class);
+                startActivity(intent);
                 break;
         }
     }

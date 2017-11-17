@@ -24,6 +24,9 @@ import java.util.List;
  */
 public class DropDownMenu extends LinearLayout {
 
+
+    private int width;//顶部菜单的宽度
+
     //全部顶部菜单布局
     private LinearLayout estMenuView;
     //顶部菜单布局
@@ -87,15 +90,14 @@ public class DropDownMenu extends LinearLayout {
 
         // TODO: 2017/11/15获取屏幕的尺寸
         WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-        int width1 = (wm.getDefaultDisplay().getWidth() * 4) / 5;
-        
+        width = (wm.getDefaultDisplay().getWidth() * 4) / 5;
+
         //初始化tabMenuView并添加到tabMenuView
         tabMenuView = new LinearLayout(context);
-        LayoutParams params = new LayoutParams(width1, ViewGroup.LayoutParams.WRAP_CONTENT);
+//        LayoutParams params = new LayoutParams(width, ViewGroup.LayoutParams.WRAP_CONTENT);
         tabMenuView.setOrientation(HORIZONTAL);
         tabMenuView.setBackgroundColor(menuBackgroundColor);
-        tabMenuView.setLayoutParams(params);
-
+        tabMenuView.setLayoutParams(new LayoutParams(width, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         // TODO: 2017/11/16 自己定义的整个头布局文件
         estMenuView = new LinearLayout(context);
@@ -139,9 +141,15 @@ public class DropDownMenu extends LinearLayout {
         }
         containerView.addView(contentView, 0);
 
-        // TODO: 2017/11/15 获取到传入的头布局或部分界面并显示在头布局末端
-        toptView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
-        estMenuView.addView(toptView, 1);
+        if (toptView != null) {
+            tabMenuView.setLayoutParams(new LayoutParams(width, ViewGroup.LayoutParams.WRAP_CONTENT));
+            // TODO: 2017/11/15 获取到传入的头布局或部分界面并显示在头布局末端
+            toptView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+            estMenuView.addView(toptView, 1);
+        } else {
+            tabMenuView.setLayoutParams(new LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        }
+
 
         maskView = new View(getContext());
         maskView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));

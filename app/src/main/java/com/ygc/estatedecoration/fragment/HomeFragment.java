@@ -53,7 +53,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
-        bar.setTitleText("地产装饰");
+        bar.setTitleText("地标装饰");
         bar.setTitleTextColor(Color.BLACK);
         bar.setBackgroundColor(Color.WHITE);
         return true;
@@ -114,8 +114,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 Toast.makeText(mActivity, "交易管理", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.my_visitor://我的访客
-//                intent.setClass(mActivity,MyVisitorActivity.class);
-//                startActivity(intent);
+                intent.setClass(mActivity,MyVisitorActivity.class);
+                startActivity(intent);
                 break;
         }
     }

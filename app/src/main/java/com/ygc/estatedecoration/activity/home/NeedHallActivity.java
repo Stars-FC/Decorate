@@ -5,6 +5,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -46,8 +47,8 @@ public class NeedHallActivity extends BaseActivity {
     private List<View> popupViews = new ArrayList<>();
     private String headers[] = {"全部", "装修类型", "房屋现状"};//筛选的标题集合
     private String alls[] = {"不限", "沈阳", "北京", "上海", "成都", "广州", "深圳", "南京", "杭州"};
-    private String types[] = {"不限","家装", "工装", "家装", "工装"};
-    private String nows[] = {"不限","局部改造", "毛胚房", "旧房翻新"};
+    private String types[] = {"不限", "家装", "工装", "家装", "工装"};
+    private String nows[] = {"不限", "局部改造", "毛胚房", "旧房翻新"};
     private int constellationPosition = 0;//默认选择
     private GirdDropDownAdapter allsAdapter;
     private GirdDropDownAdapter typesAdapter;
@@ -75,9 +76,11 @@ public class NeedHallActivity extends BaseActivity {
         //头布局
         mTopView = View.inflate(getApplicationContext(), R.layout.top_home_needhall, null);
         //recycleyview的布局
-        mRcView = View.inflate(getApplicationContext(), R.layout.recyclerview, null);
+//        mRcView = View.inflate(getApplicationContext(), R.layout.recyclerview, null);
 
-        mRecyclerView = mRcView.findViewById(R.id.recyclerview);
+        mRcView =LayoutInflater.from(getApplicationContext()).inflate(R.layout.recyclerview,null);
+
+        mRecyclerView = (RecyclerView)mRcView.findViewById(R.id.recyclerview);
 
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);//禁止mDrawerLayout滑动显示
 

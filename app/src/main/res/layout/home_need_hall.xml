@@ -47,7 +47,7 @@
             app:ddmenuBackgroundColor="@color/checkBc"
             app:ddmenuMenuHeightPercent="0.5"
             app:ddmenuSelectedIcon="@mipmap/drop_down_selected_icon"
-            app:ddmenuTextSize="28px"
+            app:ddmenuTextSize="14sp"
             app:ddmenuUnselectedIcon="@mipmap/drop_down_unselected_icon"
             app:ddtextSelectedColor="@color/colorAccent"
             app:ddtextUnselectedColor="@color/black"

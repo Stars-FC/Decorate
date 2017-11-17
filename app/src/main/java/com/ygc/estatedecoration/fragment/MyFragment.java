@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.activity.my.AuthenticationActivity;
+import com.ygc.estatedecoration.activity.my.CollectionActivity;
+import com.ygc.estatedecoration.activity.my.GuaranteeMoneyActivity;
 import com.ygc.estatedecoration.activity.my.MoneyBagActivity;
 import com.ygc.estatedecoration.activity.my.SettingActivity;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
@@ -70,12 +72,16 @@ public class MyFragment extends BaseFragment {
         return R.layout.fragment_my;
     }
 
-    @OnClick({R.id.my_authentication, R.id.my_trade, R.id.my_moneybag, R.id.my_collection, R.id.my_bright, R.id.imageView_right_titlebar})
+    @OnClick({R.id.my_authentication, R.id.my_trade, R.id.mine_follow, R.id.my_moneybag, R.id.my_collection, R.id.my_bright, R.id.imageView_right_titlebar})
     public void onViewClicked(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.my_authentication://实名认证
                 intent.setClass(mActivity, AuthenticationActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.mine_follow://质保金
+                intent.setClass(mActivity, GuaranteeMoneyActivity.class);
                 startActivity(intent);
                 break;
             case R.id.my_trade://交易管理
@@ -86,7 +92,8 @@ public class MyFragment extends BaseFragment {
                 startActivity(intent);
                 break;
             case R.id.my_collection://我的收藏
-                showToast("我的收藏");
+                intent.setClass(mActivity, CollectionActivity.class);
+                startActivity(intent);
                 break;
             case R.id.my_bright://我的亮点
                 showToast("我的亮点");
