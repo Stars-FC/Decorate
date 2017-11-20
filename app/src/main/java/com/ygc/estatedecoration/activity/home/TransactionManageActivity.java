@@ -67,7 +67,7 @@ public class TransactionManageActivity extends BaseActivity {
 
         mBasePagers = new ArrayList<>();
         for (int i = 0; i < mList.size(); i++) {
-            mBasePagers.add(new TransactionDetailPager(getApplicationContext()));//有网络数据时传入获取打的数据集合、修改构造方法
+            mBasePagers.add(new TransactionDetailPager(TransactionManageActivity.this));//有网络数据时传入获取打的数据集合、修改构造方法
         }
 
         mAdapter = new HomeTransactionManageAdapter(mBasePagers, mList);

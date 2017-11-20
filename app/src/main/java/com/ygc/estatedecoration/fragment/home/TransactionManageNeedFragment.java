@@ -1,17 +1,27 @@
 package com.ygc.estatedecoration.fragment.home;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.ygc.estatedecoration.R;
+import com.ygc.estatedecoration.activity.home.TransactionManageOfferActivity;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.widget.TitleBar;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+
 /**
  * Created by FC on 2017/11/20.
- *   首页-交易管理-ViewPager第一界面需求详情页面
+ * 首页-交易管理-ViewPager第一界面需求详情页面
  */
 
-public class TransactionManageNeedFragment extends BaseFragment{
+public class TransactionManageNeedFragment extends BaseFragment {
+
     @Override
     protected boolean buildTitle(TitleBar bar) {
         return false;
@@ -40,5 +50,16 @@ public class TransactionManageNeedFragment extends BaseFragment{
     @Override
     protected int setLayoutResourceId() {
         return R.layout.home_need_details;
+    }
+
+    @OnClick({ R.id.tv_offer})
+    public void onViewClicked(View view) {
+        Intent intent = new Intent();
+        switch (view.getId()) {
+            case R.id.tv_offer:
+                intent.setClass(mActivity, TransactionManageOfferActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 }

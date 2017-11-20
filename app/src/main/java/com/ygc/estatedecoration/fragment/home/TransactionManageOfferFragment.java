@@ -1,10 +1,13 @@
 package com.ygc.estatedecoration.fragment.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.ygc.estatedecoration.R;
+import com.ygc.estatedecoration.activity.home.TransactionManageOfferActivity;
 import com.ygc.estatedecoration.adapter.HomeMyStoreEvaluateAdapter;
 import com.ygc.estatedecoration.adapter.HomeTransactionManageOfferAdapter;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
@@ -14,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by FC on 2017/11/20.
@@ -63,5 +67,16 @@ public class TransactionManageOfferFragment extends BaseFragment {
     @Override
     protected int setLayoutResourceId() {
         return R.layout.home_need_already_offer;
+    }
+
+    @OnClick({ R.id.tv_offer})
+    public void onViewClicked(View view) {
+        Intent intent = new Intent();
+        switch (view.getId()) {
+            case R.id.tv_offer:
+                intent.setClass(mActivity, TransactionManageOfferActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 }
