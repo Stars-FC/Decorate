@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical">
 
     <RelativeLayout
@@ -43,36 +44,18 @@
                 android:text="2017.11.14"
                 android:textSize="25px"/>
 
-            <LinearLayout
+            <com.ygc.estatedecoration.widget.StarView
+                android:id="@+id/starview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="25px"
-                    android:layout_height="25px"
-                    android:src="@mipmap/ic_launcher"/>
-
-                <ImageView
-                    android:layout_width="25px"
-                    android:layout_height="25px"
-                    android:src="@mipmap/ic_launcher"/>
-
-                <ImageView
-                    android:layout_width="25px"
-                    android:layout_height="25px"
-                    android:src="@mipmap/ic_launcher"/>
-
-                <ImageView
-                    android:layout_width="25px"
-                    android:layout_height="25px"
-                    android:src="@mipmap/ic_launcher"/>
-
-                <ImageView
-                    android:layout_width="25px"
-                    android:layout_height="25px"
-                    android:src="@mipmap/ic_launcher"/>
-            </LinearLayout>
+                app:starCount="5"
+                app:starEmpty="@mipmap/drop_down_unselected_icon"
+                app:starFill="@mipmap/drop_down_selected_icon"
+                app:starHalf="@mipmap/drop_down_checked"
+                app:starImageSize="25px"
+                app:starPadding="5px"
+                app:starStep="1.5"
+                app:stepSize="Half"/>
         </LinearLayout>
     </RelativeLayout>
 

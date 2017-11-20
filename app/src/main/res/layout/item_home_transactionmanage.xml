@@ -119,19 +119,38 @@
             android:layout_marginBottom="15px"
             android:layout_marginTop="15px">
 
-            <ImageView
-                android:layout_marginLeft="50px"
-                android:layout_width="50px"
-                android:layout_height="50px"
-                android:src="@mipmap/ic_launcher"/>
+            <TextView
+                android:id="@+id/tv_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="待选标"
+                android:textColor="@color/orange"
+                android:textSize="28px"/>
+
+            <TextView
+                android:id="@+id/tv_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20px"
+                android:textColor="@color/black"
+                android:layout_toRightOf="@+id/tv_state"
+                android:text="订单号："/>
+
+            <TextView
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5px"
+                android:layout_toRightOf="@+id/tv_num"
+                android:text="12345678"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5px"
                 android:layout_toLeftOf="@+id/tv_bidding"
-                android:textSize="28px"
-                android:text="招标："/>
+                android:text="招标："
+                android:textSize="28px"/>
 
             <TextView
                 android:id="@+id/tv_bidding"
@@ -140,7 +159,7 @@
                 android:layout_alignParentRight="true"
                 android:text="可议价"
                 android:textColor="@color/orange"
-                android:textSize="32px"/>
+                android:textSize="28px"/>
         </RelativeLayout>
 
 

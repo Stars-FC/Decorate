@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * Created by FC on 2017/11/14.
- * 主页-我的商铺-公司信息、评价ViewPager的适配器
+ * 主页-我的商铺-公司信息、评价/交易管理-每个条目详情页面ViewPager的适配器
  */
 
 public class HomeMyStoreAdapter extends FragmentPagerAdapter {

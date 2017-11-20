@@ -59,6 +59,7 @@ public class EffectFragment extends BaseFragment implements SwipeRefreshLayout.O
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        compositeDisposable=new CompositeDisposable();
         requestDataEvent(Constant.LOADMORE);
     }
 

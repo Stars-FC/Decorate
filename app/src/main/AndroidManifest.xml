@@ -21,6 +21,9 @@
         <activity android:name=".activity.MainActivity"/>
         <activity android:name=".activity.home.MyStoreAvtivity"/>
         <activity android:name=".activity.home.MyVisitorActivity"/>
+        <activity android:name=".activity.home.TransactionManageDetailActivity"/>
+        <activity android:name=".activity.home.TransactionManageActivity"/>
+
         <activity
             android:name=".activity.home.NeedHallActivity"
             android:screenOrientation="portrait"

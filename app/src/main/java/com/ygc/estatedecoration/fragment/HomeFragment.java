@@ -5,15 +5,14 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.activity.home.MyStoreAvtivity;
 import com.ygc.estatedecoration.activity.home.MyVisitorActivity;
 import com.ygc.estatedecoration.activity.home.NeedHallActivity;
+import com.ygc.estatedecoration.activity.home.TransactionManageActivity;
+import com.ygc.estatedecoration.activity.home.TransactionManageDetailActivity;
 import com.ygc.estatedecoration.adapter.HomeAdapter;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.widget.TitleBar;
@@ -22,9 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * Created by FC on 2017/11/13.
@@ -107,14 +103,15 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.need_Analysis://需求大厅
-                intent.setClass(mActivity,NeedHallActivity.class);
+                intent.setClass(mActivity, NeedHallActivity.class);
                 startActivity(intent);
                 break;
             case R.id.trade_manage://交易管理
-                Toast.makeText(mActivity, "交易管理", Toast.LENGTH_SHORT).show();
+                intent.setClass(mActivity, TransactionManageActivity.class);
+                startActivity(intent);
                 break;
             case R.id.my_visitor://我的访客
-                intent.setClass(mActivity,MyVisitorActivity.class);
+                intent.setClass(mActivity, MyVisitorActivity.class);
                 startActivity(intent);
                 break;
         }

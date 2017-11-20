@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
+import com.ygc.estatedecoration.widget.StarView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,9 @@ public class HomeMyStoreEvaluateAdapter extends BaseQuickAdapter<String,BaseView
 
     @Override
     protected void convert(BaseViewHolder helper, String item) {
+        StarView starView=helper.convertView.findViewById(R.id.starview);
+        starView.setClickable(false);//设置不可点击
 
+        starView.setStar(3);//设置显示的星星个数
     }
 }
