@@ -17,7 +17,6 @@ import com.ygc.estatedecoration.fragment.NewsFragment;
  */
 
 public class MyViewPagerAdapter extends FragmentPagerAdapter {
-
     private int size;
 
     public MyViewPagerAdapter(FragmentManager fm, int size) {

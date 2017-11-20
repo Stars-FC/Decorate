@@ -40,7 +40,6 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void initView() {
 //        PageNavigationView tab = (PageNavigationView) findViewById(R.id.tab);
-
         NavigationController navigationController = tab.custom()
                 .addItem(newItem(R.mipmap.ic_launcher, R.mipmap.ic_launcher, "首页"))
                 .addItem(newItem(R.mipmap.ic_launcher, R.mipmap.ic_launcher, "案例"))
