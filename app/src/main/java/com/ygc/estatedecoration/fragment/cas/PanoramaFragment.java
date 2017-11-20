@@ -164,5 +164,7 @@ public class PanoramaFragment extends BaseFragment implements SwipeRefreshLayout
     public void onDestroyView() {
         super.onDestroyView();
         compositeDisposable.clear();
+
+
     }
 }
