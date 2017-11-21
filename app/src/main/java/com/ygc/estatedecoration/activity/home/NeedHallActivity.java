@@ -1,8 +1,10 @@
 package com.ygc.estatedecoration.activity.home;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.adapter.GirdDropDownAdapter;
 import com.ygc.estatedecoration.adapter.HomeNeedHallAdapter;
@@ -43,6 +47,7 @@ public class NeedHallActivity extends BaseActivity {
     private View mRcView;//recycleyview的布局
 
     private RecyclerView mRecyclerView;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private List<View> popupViews = new ArrayList<>();
     private String headers[] = {"全部", "装修类型", "房屋现状"};//筛选的标题集合
@@ -53,6 +58,7 @@ public class NeedHallActivity extends BaseActivity {
     private GirdDropDownAdapter allsAdapter;
     private GirdDropDownAdapter typesAdapter;
     private GirdDropDownAdapter nowsAdapter;
+    private HomeNeedHallAdapter mAdapter;
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
@@ -69,6 +75,37 @@ public class NeedHallActivity extends BaseActivity {
                 mDrawerLayout.openDrawer(GravityCompat.END); //显示左侧筛选界面
             }
         });
+
+        //每个条目的点击事件
+        mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                showToast("mRecyclerview第" + position + "数据");
+            }
+        });
+
+        mSwipeRefreshLayout.setColorSchemeColors(Color.parseColor("#4EBE65")); //设置下拉刷新箭头颜色
+
+        //下拉加载
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mAdapter.setEnableLoadMore(false);//这里的作用是防止下拉刷新的时候还可以上拉加载
+                if (mSwipeRefreshLayout.isRefreshing()) {
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }
+            }
+        });
+
+        //上拉加载更多
+        mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                mAdapter.loadMoreComplete();//完成
+//                mAdapter.loadMoreFail();//失败
+//                mAdapter.loadMoreEnd();//结束
+            }
+        }, mRecyclerView);
     }
 
     @Override
@@ -78,9 +115,10 @@ public class NeedHallActivity extends BaseActivity {
         //recycleyview的布局
 //        mRcView = View.inflate(getApplicationContext(), R.layout.recyclerview, null);
 
-        mRcView =LayoutInflater.from(getApplicationContext()).inflate(R.layout.recyclerview,null);
+        mRcView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.recyclerview, null);
 
-        mRecyclerView = (RecyclerView)mRcView.findViewById(R.id.recyclerview);
+        mRecyclerView = (RecyclerView) mRcView.findViewById(R.id.recyclerview);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) mRcView.findViewById(R.id.swipeLayout);
 
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);//禁止mDrawerLayout滑动显示
 
@@ -154,8 +192,10 @@ public class NeedHallActivity extends BaseActivity {
             list.add("" + i);
         }
 
+        mAdapter = new HomeNeedHallAdapter(list);
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(NeedHallActivity.this));
-        mRecyclerView.setAdapter(new HomeNeedHallAdapter(list));
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override

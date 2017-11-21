@@ -20,6 +20,7 @@ import butterknife.ButterKnife;
 
 /**
  * Created by FC on 2017/11/20.
+ *首页-交易管理页面
  */
 
 public class TransactionManageActivity extends BaseActivity {
@@ -76,13 +77,13 @@ public class TransactionManageActivity extends BaseActivity {
 
         mViewpager.setAdapter(mAdapter);
 
-//        //设置tablayout下换线宽度
-//        mTablayout.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                new tablayoutUnderLine().setIndicator(mTablayout, 5, 5);
-//            }
-//        });
+        //设置tablayout下换线宽度
+        mTablayout.post(new Runnable() {
+            @Override
+            public void run() {
+                new tablayoutUnderLine().setIndicator(mTablayout, 5, 5);
+            }
+        });
 
         mTablayout.addOnTabSelectedListener(new TabListener());
 
