@@ -32,7 +32,7 @@ public class TransactionDetailPager extends BasePager {
 
         View view = View.inflate(mContext, R.layout.recyclerview, null);
 
-        mRecyclerView = view.findViewById(R.id.recyclerview);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
 
         return view;
     }

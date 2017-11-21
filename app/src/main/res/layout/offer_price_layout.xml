@@ -127,8 +127,8 @@
                 android:layout_width="399px"
                 android:layout_height="248px"
                 android:background="@null"
-                android:gravity="center"
-                android:inputType="numberDecimal"
+                android:gravity="top"
+                android:maxLength="200"
                 android:textColor="@android:color/black"
                 android:textSize="26px"/>
 

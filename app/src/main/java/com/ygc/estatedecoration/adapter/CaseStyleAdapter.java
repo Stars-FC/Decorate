@@ -10,13 +10,14 @@ import com.ygc.estatedecoration.R;
 
 import java.util.List;
 
-public class CaseEffectAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+public class CaseStyleAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
-    public CaseEffectAdapter(@LayoutRes int layoutResId, @Nullable List<String> data) {
+    public CaseStyleAdapter(@LayoutRes int layoutResId, @Nullable List<String> data) {
         super(layoutResId, data);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, String item) {
+        ((TextView)helper.getView(R.id.style_title_tv)).setText(item);
     }
 }

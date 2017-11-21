@@ -28,7 +28,7 @@ public class HomeMyStoreEvaluateAdapter extends BaseQuickAdapter<String,BaseView
 
     @Override
     protected void convert(BaseViewHolder helper, String item) {
-        StarView starView=helper.convertView.findViewById(R.id.starview);
+        StarView starView= (StarView) helper.convertView.findViewById(R.id.starview);
         starView.setClickable(false);//设置不可点击
 
         starView.setStar(3);//设置显示的星星个数

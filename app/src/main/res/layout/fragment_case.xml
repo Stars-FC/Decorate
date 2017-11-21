@@ -2,8 +2,8 @@
 <com.zhy.autolayout.AutoLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    xmlns:tl="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical">
 
@@ -28,19 +28,19 @@
 
         </com.zhy.autolayout.AutoLinearLayout>
 
-        <android.support.design.widget.TabLayout
+        <com.androidkun.xtablayout.XTabLayout
             android:id="@+id/tablayout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:elevation="3dp"
-            app:tabGravity="fill"
-            app:tabMaxWidth="0dp"
-            app:tabMode="fixed"
-            app:tabIndicatorColor="@color/colorAccent"
-            app:tabIndicatorHeight="3px"
-            app:tabTextColor="@android:color/black"
-            app:tabSelectedTextColor="@color/colorAccent"/>
+            app:xTabIndicatorColor="#4EBE65"
+            app:xTabIndicatorHeight="1.5dp"
+            app:xTabIndicatorWidth="50dp"
+            app:xTabMode="fixed"
+            app:xTabSelectedTextColor="#4EBE65"
+            app:xTabSelectedTextSize="17dp"
+            app:xTabTextColor="#000000"
+            app:xTabTextSize="17dp"/>
 
         <com.zhy.autolayout.AutoLinearLayout
             android:layout_width="wrap_content"
