@@ -70,29 +70,50 @@ public class TransactionManageActivity extends BaseActivity {
             mBasePagers.add(new TransactionDetailPager(TransactionManageActivity.this));//有网络数据时传入获取打的数据集合、修改构造方法
         }
 
+        mTablayout.setupWithViewPager(mViewpager);
+
         mAdapter = new HomeTransactionManageAdapter(mBasePagers, mList);
 
         mViewpager.setAdapter(mAdapter);
 
-        mTablayout.setupWithViewPager(mViewpager);
+//        //设置tablayout下换线宽度
+//        mTablayout.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                new tablayoutUnderLine().setIndicator(mTablayout, 5, 5);
+//            }
+//        });
 
-        //设置tablayout下换线宽度
-        mTablayout.post(new Runnable() {
-            @Override
-            public void run() {
-                new tablayoutUnderLine().setIndicator(mTablayout, 10, 10);
-            }
-        });
-
+        mTablayout.addOnTabSelectedListener(new TabListener());
 
         //滑动或禁止属性
-//        mTablayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-
-
+        mTablayout.setTabMode(TabLayout.MODE_SCROLLABLE);
     }
 
     @Override
     protected int getLayoutId() {
         return R.layout.home_transactionmanage;
+    }
+
+    /**
+     * tablayout点击的监听事件
+     */
+    public class TabListener implements TabLayout.OnTabSelectedListener {
+
+        @Override
+        public void onTabSelected(TabLayout.Tab tab) {
+            // 默认切换的时候，会有一个过渡动画，设为false后，取消动画，直接显示
+            mViewpager.setCurrentItem(tab.getPosition(), false);
+        }
+
+        @Override
+        public void onTabUnselected(TabLayout.Tab tab) {
+
+        }
+
+        @Override
+        public void onTabReselected(TabLayout.Tab tab) {
+
+        }
     }
 }

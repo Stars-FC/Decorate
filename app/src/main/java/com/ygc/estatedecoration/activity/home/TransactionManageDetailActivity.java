@@ -68,9 +68,6 @@ public class TransactionManageDetailActivity extends BaseActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         mAdapter = new HomeMyStoreAdapter(fragmentManager, mFragments, mList);
 
-        mViewpager.setAdapter(mAdapter);
-
-        mTablayout.setupWithViewPager(mViewpager);
         //设置tablayout下换线宽度
         mTablayout.post(new Runnable() {
             @Override
@@ -78,6 +75,11 @@ public class TransactionManageDetailActivity extends BaseActivity {
                 new tablayoutUnderLine().setIndicator(mTablayout, 20, 20);
             }
         });
+
+        mViewpager.setAdapter(mAdapter);
+
+        mTablayout.setupWithViewPager(mViewpager);
+
     }
 
     @Override

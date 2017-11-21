@@ -30,7 +30,7 @@ public class HomeTransactionManageAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return mList.size();
+        return mBasePagers.size();
     }
 
     @Override

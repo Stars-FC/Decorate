@@ -9,6 +9,7 @@ import com.ygc.estatedecoration.widget.TitleBar;
 
 /**
  * Created by FC on 2017/11/20.
+ * 首页-交易管理-商品条目的报价
  */
 
 public class TransactionManageOfferActivity extends BaseActivity{

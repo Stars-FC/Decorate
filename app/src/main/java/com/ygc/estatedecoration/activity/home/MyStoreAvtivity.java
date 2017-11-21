@@ -69,8 +69,6 @@ public class MyStoreAvtivity extends BaseActivity {
         mViewPager.setAdapter(mAdapter);
         //关联viewpager
         mTabLayout.setupWithViewPager(mViewPager);
-        //为TabLayout设置ViewPager
-//        mTabLayout.setTabsFromPagerAdapter(mAdapter);
         //设置lablayout的固定或可滑动属性
 //        mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 
