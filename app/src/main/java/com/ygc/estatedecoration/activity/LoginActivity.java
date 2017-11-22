@@ -66,6 +66,9 @@ public class LoginActivity extends AutoLayoutActivity {
                 startActivity(intent);
                 break;
             case R.id.login_btn://登陆
+                intent.setClass(LoginActivity.this, HomeActivity.class);
+                startActivity(intent);
+                finish();
                 break;
             case R.id.login_weixin://微信登陆
                 intent.setClass(LoginActivity.this, WeiXinLoginActivity.class);

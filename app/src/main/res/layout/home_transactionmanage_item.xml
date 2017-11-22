@@ -23,13 +23,19 @@
             android:scaleType="centerInside"
             android:src="@mipmap/ic_launcher"/>
 
-        <android.support.design.widget.TabLayout
+        <com.androidkun.xtablayout.XTabLayout
             android:id="@+id/tablayout"
             android:layout_width="wrap_content"
-            app:tabGravity="center"
-            android:layout_height="match_parent"
             android:layout_centerInParent="true"
-            app:tabSelectedTextColor="@color/colorAccent"/>
+            android:layout_height="match_parent"
+            app:xTabIndicatorColor="#4EBE65"
+            app:xTabIndicatorHeight="1.5dp"
+            app:xTabIndicatorWidth="50dp"
+            app:xTabMode="fixed"
+            app:xTabSelectedTextColor="#4EBE65"
+            app:xTabSelectedTextSize="17dp"
+            app:xTabTextColor="#000000"
+            app:xTabTextSize="17dp"/>
 
         <ImageView
             android:id="@+id/iv_follow"

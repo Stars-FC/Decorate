@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
+import com.androidkun.xtablayout.XTabLayout;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.adapter.HomeMyStoreAdapter;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
@@ -29,7 +30,7 @@ import butterknife.OnClick;
 public class TransactionManageDetailActivity extends BaseActivity {
 
     @BindView(R.id.tablayout)
-    TabLayout mTablayout;
+    XTabLayout mTablayout;
 
     @BindView(R.id.viewpager)
     ViewPager mViewpager;
@@ -69,12 +70,12 @@ public class TransactionManageDetailActivity extends BaseActivity {
         mAdapter = new HomeMyStoreAdapter(fragmentManager, mFragments, mList);
 
         //设置tablayout下换线宽度
-        mTablayout.post(new Runnable() {
-            @Override
-            public void run() {
-                new tablayoutUnderLine().setIndicator(mTablayout, 20, 20);
-            }
-        });
+//        mTablayout.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                new tablayoutUnderLine().setIndicator(mTablayout, 20, 20);
+//            }
+//        });
 
         mViewpager.setAdapter(mAdapter);
 
