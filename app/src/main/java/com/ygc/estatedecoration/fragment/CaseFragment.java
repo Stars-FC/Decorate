@@ -54,7 +54,6 @@ public class CaseFragment extends BaseFragment {
 
     private BasePopupWindow mCasePopupWindow;
 
-
     public static CaseFragment newInstance(String content) {
         Bundle args = new Bundle();
         args.putString(ARG_C, content);
@@ -95,7 +94,7 @@ public class CaseFragment extends BaseFragment {
             }
         });
         mCasePopupWindow.setContentView(popupView);
-        mCasePopupWindow.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#50000000")));
+        mCasePopupWindow.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#70000000")));
     }
 
     @Override

@@ -19,7 +19,7 @@ import me.majiajie.pagerbottomtabstrip.item.NormalItemView;
  * 软件主界面的整体Activity
  */
 
-public class HomeActivity extends BaseActivity {
+public class HomeActivity extends BaseActivity{
 
     @BindView(R.id.viewPager)
     ViewPager mViewPager;
@@ -30,6 +30,11 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected boolean buildTitle(TitleBar bar) {
         return false;
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_home;
     }
 
     @Override
@@ -54,16 +59,6 @@ public class HomeActivity extends BaseActivity {
         navigationController.setupWithViewPager(mViewPager);
     }
 
-    @Override
-    protected void initData(Bundle savedInstanceState) {
-
-    }
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.activity_home;
-    }
-
     /**
      * 创建一个Item，底部按钮
      *
@@ -78,5 +73,10 @@ public class HomeActivity extends BaseActivity {
         normalItemView.setTextDefaultColor(Color.GRAY);
         normalItemView.setTextCheckedColor(0xFF009688);
         return normalItemView;
+    }
+
+    @Override
+    protected void initData(Bundle savedInstanceState) {
+
     }
 }

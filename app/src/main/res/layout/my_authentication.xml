@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/settingbc"
-              android:orientation="vertical">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/settingbc"
+    android:orientation="vertical">
 
     <View
         android:layout_width="match_parent"
@@ -86,11 +88,13 @@
                 android:text="手持身份证正面照片"
                 android:textColor="@color/gainsboro"/>
 
-            <ImageButton
+            <ImageView
+                android:id="@+id/add_ic_iv"
                 android:layout_width="115px"
                 android:layout_height="115px"
                 android:layout_marginTop="30px"
                 android:src="@mipmap/ic_launcher"/>
+
         </LinearLayout>
 
         <View
@@ -119,5 +123,7 @@
                 android:layout_marginTop="30px"
                 android:src="@mipmap/ic_launcher"/>
         </LinearLayout>
+
     </LinearLayout>
+
 </LinearLayout>
