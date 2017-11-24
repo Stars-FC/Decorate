@@ -16,6 +16,7 @@ import com.ygc.estatedecoration.activity.login.ServiceRegisterActivity;
 import com.ygc.estatedecoration.activity.login.UserRegisterActivity;
 import com.ygc.estatedecoration.activity.login.ServiceWeiXinLoginActivity;
 import com.ygc.estatedecoration.activity.login.UserWeiXinLoginActivity;
+import com.ygc.estatedecoration.user_activity.UserHomeActivity;
 import com.zhy.autolayout.AutoLayoutActivity;
 
 import butterknife.BindView;
@@ -98,9 +99,7 @@ public class LoginActivity extends AutoLayoutActivity {
                 registerUser();
                 break;
             case R.id.login_btn://登陆
-                intent.setClass(LoginActivity.this, HomeActivity.class);
-                startActivity(intent);
-                finish();
+                loginEvent();
                 break;
             case R.id.login_weixin://微信登陆
                 bandWeiXin();
@@ -132,5 +131,17 @@ public class LoginActivity extends AutoLayoutActivity {
             startActivity(intent);
         }
 
+    }
+
+    public void loginEvent(){
+        Intent intent = new Intent();
+        if (mordinaryuser.isChecked()) {
+            intent.setClass(LoginActivity.this, UserHomeActivity.class);
+            startActivity(intent);
+        } else if (mServiceuser.isChecked()) {
+            intent.setClass(LoginActivity.this, HomeActivity.class);
+            startActivity(intent);
+        }
+        finish();
     }
 }
