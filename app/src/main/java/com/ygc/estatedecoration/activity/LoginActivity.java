@@ -3,16 +3,19 @@ package com.ygc.estatedecoration.activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.activity.login.ForgetPwdActivity;
-import com.ygc.estatedecoration.activity.login.RegisterActivity;
-import com.ygc.estatedecoration.activity.login.WeiXinLoginActivity;
-import com.ygc.estatedecoration.user_activity.UserHomeActivity;
+import com.ygc.estatedecoration.activity.login.ServiceRegisterActivity;
+import com.ygc.estatedecoration.activity.login.UserRegisterActivity;
+import com.ygc.estatedecoration.activity.login.ServiceWeiXinLoginActivity;
+import com.ygc.estatedecoration.activity.login.UserWeiXinLoginActivity;
 import com.zhy.autolayout.AutoLayoutActivity;
 
 import butterknife.BindView;
@@ -25,12 +28,25 @@ import butterknife.Unbinder;
  */
 public class LoginActivity extends AutoLayoutActivity {
 
+
     private Unbinder mUnBinder;
 
     @BindView(R.id.et_number)
     EditText mEtNumber;
+
     @BindView(R.id.et_pwd)
     EditText mEtPwd;
+
+    @BindView(R.id.rgbutton_nemu)
+    RadioGroup mRadioGroup;
+
+    @BindView(R.id.rb_ordinaryuser)
+    RadioButton mordinaryuser;
+    @BindView(R.id.rb_serviceuser)
+    RadioButton mServiceuser;
+
+    @BindView(R.id.tv_register)
+    TextView mTvRegister;   //注册textview
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +60,8 @@ public class LoginActivity extends AutoLayoutActivity {
 
         mUnBinder = ButterKnife.bind(this);
 
+        initListener();
+
     }
 
     @Override
@@ -54,6 +72,20 @@ public class LoginActivity extends AutoLayoutActivity {
         }
     }
 
+    private void initListener() {
+        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if (i == mordinaryuser.getId()) {
+                    mTvRegister.setText("装修用户登录");
+                } else if (i == mServiceuser.getId()) {
+                    mTvRegister.setText("服务商登录");
+                }
+            }
+        });
+    }
+
+
     @OnClick({R.id.tv_pwd_forget, R.id.tv_register, R.id.login_btn, R.id.login_weixin})
     public void onViewClicked(View view) {
         Intent intent = new Intent();
@@ -63,19 +95,42 @@ public class LoginActivity extends AutoLayoutActivity {
                 startActivity(intent);
                 break;
             case R.id.tv_register://注册
-                intent.setClass(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
+                registerUser();
                 break;
             case R.id.login_btn://登陆
-//                intent.setClass(LoginActivity.this, HomeActivity.class);
-                intent.setClass(LoginActivity.this, UserHomeActivity.class);
+                intent.setClass(LoginActivity.this, HomeActivity.class);
                 startActivity(intent);
                 finish();
                 break;
             case R.id.login_weixin://微信登陆
-                intent.setClass(LoginActivity.this, WeiXinLoginActivity.class);
-                startActivity(intent);
+                bandWeiXin();
                 break;
         }
+    }
+
+    /**
+     * 用户注册判断
+     */
+    public void registerUser() {
+        Intent intent = new Intent();
+        if (mordinaryuser.isChecked()) {
+            intent.setClass(LoginActivity.this, UserRegisterActivity.class);
+            startActivity(intent);
+        } else if (mServiceuser.isChecked()) {
+            intent.setClass(LoginActivity.this, ServiceRegisterActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    public void bandWeiXin(){
+        Intent intent = new Intent();
+        if (mordinaryuser.isChecked()) {
+            intent.setClass(LoginActivity.this, UserWeiXinLoginActivity.class);
+            startActivity(intent);
+        } else if (mServiceuser.isChecked()) {
+            intent.setClass(LoginActivity.this, ServiceWeiXinLoginActivity.class);
+            startActivity(intent);
+        }
+
     }
 }

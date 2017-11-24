@@ -434,7 +434,7 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
                     int bottm = popupInfoView.findViewById(R.id.ll_bottm).getBottom();
                     int y = (int) event.getY();
                     if (event.getAction() == MotionEvent.ACTION_UP) {
-                        if (y < top && y > bottm) {
+                        if (y < top || y > bottm) {
                             mModifyInfoPicPopupWindow.dismiss();
                         }
                     }

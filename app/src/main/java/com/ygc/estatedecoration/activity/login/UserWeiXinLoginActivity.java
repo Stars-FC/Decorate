@@ -7,12 +7,15 @@ import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
 import com.ygc.estatedecoration.widget.TitleBar;
 
-public class RegisterActivity extends BaseActivity {
+/**
+ * 用户登陆-微信登陆的绑定手机界面
+ */
+public class UserWeiXinLoginActivity extends BaseActivity {
 
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
-        bar.setTitleText("注册");
+        bar.setTitleText("用户绑定手机");
         bar.setTitleTextColor(Color.BLACK);
         bar.setBackgroundColor(Color.WHITE);
         bar.setLeftImageResource(R.mipmap.ic_launcher);
@@ -36,6 +39,6 @@ public class RegisterActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.login_register;
+        return R.layout.login_user_weixin;
     }
 }

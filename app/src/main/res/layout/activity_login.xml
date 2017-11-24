@@ -7,142 +7,210 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="550px"
+        android:layout_height="360px"
         android:background="@color/line">
 
         <ImageView
-            android:layout_width="165px"
-            android:layout_height="165px"
+            android:layout_width="140px"
+            android:layout_height="140px"
             android:layout_centerInParent="true"
             android:src="@mipmap/ic_launcher"/>
     </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="80px"
-        android:gravity="center_vertical">
-
-        <ImageView
-            android:layout_width="52px"
-            android:layout_height="52px"
-            android:layout_marginLeft="40px"
-            android:src="@mipmap/ic_launcher"
-            />
-
-        <EditText
-            android:id="@+id/et_number"
-            android:layout_width="match_parent"
-            android:layout_height="52px"
-            android:layout_marginRight="20px"
-            android:background="@null"
-            android:gravity="center_vertical"
-            android:hint="请输入您的账号"
-            android:inputType="number"
-            android:maxLength="11"
-            android:maxLines="1"
-            android:paddingLeft="18px"
-            android:singleLine="true"
-            android:text=""
-            android:textCursorDrawable="@null"
-            android:textSize="36px"/>
-
-    </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="80px"
-        android:layout_marginTop="30px"
-        android:gravity="center_vertical">
+        android:layout_width="530px"
+        android:layout_height="550px"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10px"
+        android:background="@drawable/shape_login_bottom"
+        android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="52px"
-            android:layout_height="52px"
-            android:layout_marginLeft="40px"
-            android:src="@mipmap/ic_launcher"
-            />
 
-        <EditText
-            android:id="@+id/et_pwd"
+        <RadioGroup
+            android:id="@+id/rgbutton_nemu"
             android:layout_width="match_parent"
-            android:layout_height="52px"
-            android:layout_marginRight="20px"
-            android:background="@null"
+            android:layout_height="88px"
+            android:background="#ffffff"
             android:gravity="center_vertical"
-            android:hint="请输入您的密码"
-            android:maxLines="1"
-            android:paddingLeft="18px"
-            android:password="true"
-            android:singleLine="true"
-            android:text=""
-            android:textCursorDrawable="@null"
-            android:textSize="36px"
-            />
+            android:orientation="horizontal">
 
-    </LinearLayout>
+            <RadioButton
+                android:id="@+id/rb_ordinaryuser"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bt_textcolor_selector_bg"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:text="装修用户登录"
+                android:textColor="@drawable/bt_textcolor_selector"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            <View
+                android:layout_width="10px"
+                android:layout_height="match_parent"/>
 
-        <TextView
-            android:id="@+id/tv_pwd_forget"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="40px"
-            android:layout_marginTop="25px"
-            android:text="忘记密码?"
-            android:textSize="30px"/>
-
-        <TextView
-            android:id="@+id/tv_register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="40px"
-            android:layout_marginTop="25px"
-            android:text="注册"
-            android:textSize="30px"/>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center">
+            <RadioButton
+                android:id="@+id/rb_serviceuser"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bt_textcolor_selector_bg"
+                android:button="@null"
+                android:gravity="center"
+                android:text="服务商登录"
+                android:textColor="@drawable/bt_textcolor_selector"/>
+        </RadioGroup>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_login_bottom"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/login_btn"
-                android:layout_width="520px"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="80px"
-                android:background="@drawable/shape_all_my_moneybag"
-                android:text="登录"
-                android:textColor="@android:color/white"
-                android:textSize="30px"/>
+                android:gravity="center_vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/login_btn"
-                android:layout_marginTop="40px"
-                android:text="微信登陆"
-                android:textSize="24px"/>
+                <ImageView
+                    android:layout_width="52px"
+                    android:layout_height="52px"
+                    android:layout_marginLeft="40px"
+                    android:src="@mipmap/ic_launcher"/>
 
-            <ImageView
-                android:id="@+id/login_weixin"
-                android:layout_width="95px"
-                android:layout_height="95px"
-                android:layout_marginTop="35px"
-                android:src="@mipmap/ic_launcher"/>
+                <EditText
+                    android:id="@+id/et_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="52px"
+                    android:layout_marginRight="20px"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入您的账号"
+                    android:inputType="number"
+                    android:maxLength="11"
+                    android:maxLines="1"
+                    android:paddingLeft="18px"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textCursorDrawable="@null"
+                    android:textSize="32px"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="475px"
+                android:layout_height="1px"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:layout_marginTop="30px"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="52px"
+                    android:layout_height="52px"
+                    android:layout_marginLeft="40px"
+                    android:src="@mipmap/ic_launcher"
+                    />
+
+                <EditText
+                    android:id="@+id/et_pwd"
+                    android:layout_width="match_parent"
+                    android:layout_height="52px"
+                    android:layout_marginRight="20px"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入您的密码"
+                    android:maxLines="1"
+                    android:paddingLeft="18px"
+                    android:password="true"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textCursorDrawable="@null"
+                    android:textSize="32px"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="475px"
+                android:layout_height="1px"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/line"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_pwd_forget"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="40px"
+                    android:layout_marginTop="25px"
+                    android:text="忘记密码?"
+                    android:textColor="@color/black"
+                    android:textSize="24px"/>
+
+                <TextView
+                    android:id="@+id/tv_register"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="40px"
+                    android:layout_marginTop="25px"
+                    android:text="装修用户注册"
+                    android:textColor="@color/black"
+                    android:textSize="24px"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/login_btn"
+                        android:layout_width="430px"
+                        android:layout_height="70px"
+                        android:background="@drawable/shape_all_my_moneybag"
+                        android:text="登录"
+                        android:textColor="@android:color/white"
+                        android:textSize="30px"/>
+                </LinearLayout>
+
+            </RelativeLayout>
+
         </LinearLayout>
 
+    </LinearLayout>
 
-    </RelativeLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40px"
+        android:text="——微信登陆——"
+        android:textColor="@color/black"
+        android:textSize="24px"/>
 
+    <ImageView
+        android:id="@+id/login_weixin"
+        android:layout_width="95px"
+        android:layout_height="95px"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="35px"
+        android:src="@mipmap/ic_launcher"/>
 
 </LinearLayout>
