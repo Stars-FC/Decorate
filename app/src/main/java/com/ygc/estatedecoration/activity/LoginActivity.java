@@ -12,6 +12,7 @@ import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.activity.login.ForgetPwdActivity;
 import com.ygc.estatedecoration.activity.login.RegisterActivity;
 import com.ygc.estatedecoration.activity.login.WeiXinLoginActivity;
+import com.ygc.estatedecoration.user_activity.UserHomeActivity;
 import com.zhy.autolayout.AutoLayoutActivity;
 
 import butterknife.BindView;
@@ -66,7 +67,8 @@ public class LoginActivity extends AutoLayoutActivity {
                 startActivity(intent);
                 break;
             case R.id.login_btn://登陆
-                intent.setClass(LoginActivity.this, HomeActivity.class);
+//                intent.setClass(LoginActivity.this, HomeActivity.class);
+                intent.setClass(LoginActivity.this, UserHomeActivity.class);
                 startActivity(intent);
                 finish();
                 break;
