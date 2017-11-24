@@ -47,7 +47,10 @@ public class ScrollInterceptScrollView extends ScrollView {
                 if (Math.abs(moveY - downY) > mTouchSlop) {
                     return true;
                 }
-
+                // 判断是否滑动，若滑动就不拦截事件
+                if (Math.abs(moveX - downX) > mTouchSlop) {
+                    return false;
+                }
                 break;
             default:
                 break;

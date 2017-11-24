@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context="com.ygc.estatedecoration.user_fragment.UserHomeFragment">
 
-    <ScrollView
+    <com.ygc.estatedecoration.widget.ScrollInterceptScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none">
@@ -424,6 +424,6 @@
 
         </com.zhy.autolayout.AutoLinearLayout>
 
-    </ScrollView>
+    </com.ygc.estatedecoration.widget.ScrollInterceptScrollView>
 
 </android.support.v4.widget.SwipeRefreshLayout>
