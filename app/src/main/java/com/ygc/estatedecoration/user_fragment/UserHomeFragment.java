@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -27,7 +30,6 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
 
     @BindView(R.id.swiperefreshLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
-
     @BindView(R.id.location_tv)
     TextView mTv_location;
     @BindView(R.id.banner)
@@ -168,6 +170,35 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
         mRv_findDesign.setLayoutManager(linearLayoutManager);
         mRv_findDesign.setAdapter(mUserFindDesignAdapter);
     }
+
+
+    /*private void setBannerData(BannerAndAdvBean bannerAndAdvBean) {
+        if (bannerAndAdvBean == null) {
+            return;
+        }
+        List<BannerAndAdvBean.BannerListBean> bannerList = bannerAndAdvBean.getBannerList();
+        if (bannerList != null && bannerList.size() > 0) {
+            List<String> imgUrlList = new ArrayList<>();
+            List<String> imgTitleList = new ArrayList<>();
+            for (int i = 0; i < bannerList.size(); i++) {
+                BannerAndAdvBean.BannerListBean bannerListBean = bannerList.get(i);
+                imgUrlList.add(UrlUtil.IP_PORT + "/" + bannerListBean.getImgUrl());
+                imgTitleList.add("");
+            }
+            BGABanner.Adapter<ImageView, String> bgaBannerAdapter = new BGABanner.Adapter<ImageView, String>() {
+                @Override
+                public void fillBannerItem(BGABanner banner, ImageView itemView, String model, int position) {
+                    Glide.with(itemView.getContext())
+                            .load(model)
+                            .dontAnimate()
+                            .centerCrop()
+                            .into(itemView);
+                }
+            };
+            mBGABanner.setAdapter(bgaBannerAdapter);
+            mBGABanner.setData(imgUrlList, imgTitleList);
+        }
+    }*/
 
     @Override
     protected void addListener() {
