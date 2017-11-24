@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ygc.estatedecoration.R;
@@ -62,7 +60,7 @@ public class PanoramaFragment extends BaseFragment implements SwipeRefreshLayout
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         compositeDisposable = new CompositeDisposable();
-        requestDataEvent(Constant.LOADMORE);
+        requestDataEvent(Constant.NORMAL_REQUEST);
     }
 
     @Override
@@ -89,7 +87,7 @@ public class PanoramaFragment extends BaseFragment implements SwipeRefreshLayout
             public void onLoadMoreRequested() {
                 curPagerNum++;
                 if (curPagerNum <= allPagerNum) {
-                    requestDataEvent(Constant.LOADMORE);
+                    requestDataEvent(Constant.NORMAL_REQUEST);
                 }
             }
         }, mRecyclerView);
@@ -119,7 +117,7 @@ public class PanoramaFragment extends BaseFragment implements SwipeRefreshLayout
             mSwipeRefreshLayout.setRefreshing(false);
         }
         mCasePanoramaAdapter.setEnableLoadMore(false);
-        requestDataEvent(Constant.REFRESH);
+        requestDataEvent(Constant.REFRESH_REQUEST);
     }
 
     private void requestDataEvent(final String requestMark) {
@@ -155,7 +153,7 @@ public class PanoramaFragment extends BaseFragment implements SwipeRefreshLayout
         if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
         }
-        if (requestMark.equals(Constant.REFRESH)) {
+        if (requestMark.equals(Constant.REFRESH_REQUEST)) {
             mCasePanoramaAdapter.setEnableLoadMore(true);
         }
     }

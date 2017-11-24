@@ -60,7 +60,7 @@ public class EffectFragment extends BaseFragment implements SwipeRefreshLayout.O
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         compositeDisposable=new CompositeDisposable();
-        requestDataEvent(Constant.LOADMORE);
+        requestDataEvent(Constant.NORMAL_REQUEST);
     }
 
     @Override
@@ -105,7 +105,7 @@ public class EffectFragment extends BaseFragment implements SwipeRefreshLayout.O
         mCaseEffectAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                requestDataEvent(Constant.LOADMORE);
+                requestDataEvent(Constant.NORMAL_REQUEST);
             }
         }, mRecyclerView);
     }
@@ -115,7 +115,7 @@ public class EffectFragment extends BaseFragment implements SwipeRefreshLayout.O
         if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
         }
-        requestDataEvent(Constant.REFRESH);
+        requestDataEvent(Constant.REFRESH_REQUEST);
     }
 
     private void requestDataEvent(String requestMark) {

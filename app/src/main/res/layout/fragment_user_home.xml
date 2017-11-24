@@ -1,0 +1,429 @@
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swiperefreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ygc.estatedecoration.user_fragment.UserHomeFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:orientation="vertical">
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="90px"
+                android:gravity="center_vertical"
+                android:paddingLeft="35px">
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:id="@+id/location_ll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="24px"
+                        android:layout_height="30px"/>
+
+                    <TextView
+                        android:id="@+id/location_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16px"
+                        android:text="辽宁省沈阳市浑南新区"
+                        android:textColor="@color/color_29b7b3"
+                        android:textSize="29px"/>
+
+                </com.zhy.autolayout.AutoLinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+
+                <com.zhy.autolayout.AutoRelativeLayout
+                    android:id="@+id/search_ll"
+                    android:layout_width="86px"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="36px"
+                        android:layout_height="36px"
+                        android:layout_centerInParent="true"/>
+
+                </com.zhy.autolayout.AutoRelativeLayout>
+
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <cn.bingoogolapple.bgabanner.BGABanner
+                android:id="@+id/banner"
+                style="@style/BannerDefaultStyle"
+                android:layout_width="match_parent"
+                android:layout_height="304px"
+                app:banner_transitionEffect="accordion"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20px"
+                android:background="@color/color_f2f4ec"/>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="20px"
+                android:paddingRight="22px">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="32px"
+                    android:paddingTop="32px"
+                    android:text="找设计"
+                    android:textColor="@android:color/black"
+                    android:textSize="26px"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:id="@+id/find_design_more_ll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="32px"
+                    android:paddingTop="32px">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="更多"
+                        android:textColor="@android:color/black"
+                        android:textSize="26px"/>
+
+                    <ImageView
+                        android:layout_width="12px"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="9px"/>
+
+                </com.zhy.autolayout.AutoLinearLayout>
+
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/find_design_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="340px"
+                android:paddingBottom="24px"
+                android:paddingLeft="20px">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20px"
+                android:background="@color/color_f2f4ec"/>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="20px"
+                android:paddingRight="22px">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="32px"
+                    android:paddingTop="32px"
+                    android:text="找施工"
+                    android:textColor="@android:color/black"
+                    android:textSize="26px"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:id="@+id/find_implement_more_ll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="32px"
+                    android:paddingTop="32px">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="更多"
+                        android:textColor="@android:color/black"
+                        android:textSize="26px"/>
+
+                    <ImageView
+                        android:layout_width="12px"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="9px"/>
+
+                </com.zhy.autolayout.AutoLinearLayout>
+
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/find_implement_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="340px"
+                android:paddingBottom="24px"
+                android:paddingLeft="20px">
+            </android.support.v7.widget.RecyclerView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20px"
+                android:background="@color/color_f2f4ec"/>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="20px"
+                android:paddingRight="22px">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="32px"
+                    android:paddingTop="32px"
+                    android:text="找监理"
+                    android:textColor="@android:color/black"
+                    android:textSize="26px"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:id="@+id/find_supervisor_more_ll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="32px"
+                    android:paddingTop="32px">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="更多"
+                        android:textColor="@android:color/black"
+                        android:textSize="26px"/>
+
+                    <ImageView
+                        android:layout_width="12px"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="9px"/>
+
+                </com.zhy.autolayout.AutoLinearLayout>
+
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/find_supervisor_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="340px"
+                android:paddingBottom="24px"
+                android:paddingLeft="20px">
+            </android.support.v7.widget.RecyclerView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20px"
+                android:background="@color/color_f2f4ec"/>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="20px"
+                android:paddingRight="22px">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="32px"
+                    android:paddingTop="32px"
+                    android:text="找材料"
+                    android:textColor="@android:color/black"
+                    android:textSize="26px"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:id="@+id/find_materials_more_ll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="32px"
+                    android:paddingTop="32px">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="更多"
+                        android:textColor="@android:color/black"
+                        android:textSize="26px"/>
+
+                    <ImageView
+                        android:layout_width="12px"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="9px"/>
+
+                </com.zhy.autolayout.AutoLinearLayout>
+
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/find_materials_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="340px"
+                android:paddingBottom="24px">
+            </android.support.v7.widget.RecyclerView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20px"
+                android:background="@color/color_f2f4ec"/>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="20px"
+                android:paddingRight="22px">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="32px"
+                    android:paddingTop="32px"
+                    android:text="那些你可能还不知道的小技巧"
+                    android:textColor="@android:color/black"
+                    android:textSize="26px"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:id="@+id/tips_more_ll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="32px"
+                    android:paddingTop="32px">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="更多"
+                        android:textColor="@android:color/black"
+                        android:textSize="26px"/>
+
+                    <ImageView
+                        android:layout_width="12px"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="9px"/>
+
+                </com.zhy.autolayout.AutoLinearLayout>
+
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/tips_riv"
+                android:layout_width="match_parent"
+                android:layout_height="280px"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="20px"
+                android:background="#fafafa"
+                app:riv_corner_radius="20dp"/>
+
+            <TextView
+                android:id="@+id/tips_title_tv"
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:gravity="center_vertical"
+                android:paddingLeft="20px"
+                android:text="技巧标题"
+                android:textColor="@android:color/black"
+                android:textSize="26px"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20px"
+                android:background="@color/color_f2f4ec"/>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="20px"
+                android:paddingRight="22px">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="32px"
+                    android:paddingTop="32px"
+                    android:text="推荐活动"
+                    android:textColor="@android:color/black"
+                    android:textSize="26px"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:id="@+id/recommend_activity_ll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="32px"
+                    android:paddingTop="32px">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="更多"
+                        android:textColor="@android:color/black"
+                        android:textSize="26px"/>
+
+                    <ImageView
+                        android:layout_width="12px"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="9px"/>
+
+                </com.zhy.autolayout.AutoLinearLayout>
+
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recommend_activity_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="316px"
+                android:paddingLeft="20px">
+            </android.support.v7.widget.RecyclerView>
+
+        </com.zhy.autolayout.AutoLinearLayout>
+
+    </ScrollView>
+
+</android.support.v4.widget.SwipeRefreshLayout>

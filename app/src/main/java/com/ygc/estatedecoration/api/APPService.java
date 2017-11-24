@@ -32,4 +32,8 @@ public interface APPService {
     @POST("")
     Observable<Base> queryCasePanoramaData();
 
+
+    @FormUrlEncoded
+    @POST("")
+    Observable<Base> queryUserHomeData();
 }

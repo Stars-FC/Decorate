@@ -13,6 +13,7 @@
     <color name="checkBc">#fafafa</color><!--筛选头布局背景颜色-->
     <color name="settingbc">#f8f8f8</color><!--设置背景色-->
     <color name="bigline">#aaaaaa</color><!---->
+    <color name="color_29b7b3">#29b7b3</color>
 
 
     <color name="black">#000000</color><!--黑色 -->
@@ -153,7 +154,8 @@
     <color name="mediumvioletred">#c71585</color><!--中紫罗兰色 -->
     <color name="palevioletred">#db7093</color><!--苍紫罗兰色 -->
     <color name="darkviolet">#9400d3</color><!--暗紫罗兰色 -->
-    <color name="mediumorchid">#ba55d3</color><!--中粉紫色 -->
+    <color name="mediumorchid">#ba55d3</color>
+    <color name="color_f2f4ec">#f2f4ec</color><!--中粉紫色 -->
 
 
 </resources>

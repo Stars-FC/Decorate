@@ -28,7 +28,6 @@
         <activity android:name=".activity.home.TransactionManageDetailActivity"/>
         <activity android:name=".activity.home.TransactionManageActivity"/>
         <activity android:name=".activity.home.TransactionManageOfferActivity"/>
-
         <activity
             android:name=".activity.home.NeedHallActivity"
             android:screenOrientation="portrait"
@@ -51,6 +50,8 @@
         <activity android:name=".activity.my.GuaranteeMoneyActivity">
         </activity>
         <activity android:name=".activity.my.CollectionActivity">
+        </activity>
+        <activity android:name=".user_activity.UserHomeActivity">
         </activity>
     </application>
 
