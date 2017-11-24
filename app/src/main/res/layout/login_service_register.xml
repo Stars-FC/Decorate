@@ -17,6 +17,38 @@
         android:layout_height="1px"
         android:background="@color/colorAccent"/>
 
+    <TextView
+        android:id="@+id/tv_service_provider"
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:layout_marginTop="20px"
+        android:background="@null"
+        android:drawableRight="@mipmap/ic_launcher"
+        android:gravity="center_vertical"
+        android:paddingRight="50px"
+        android:text="服务商身份"
+        android:textColor="@color/black"
+        android:textSize="24px"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/colorAccent"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:layout_marginTop="20px"
+        android:background="@null"
+        android:gravity="center_vertical"
+        android:text="随机数"
+        android:textSize="24px"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/colorAccent"/>
+
     <EditText
         style="@style/EtStyle"
         android:hint="请输入您的新密码"/>
@@ -25,7 +57,6 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/colorAccent"/>
-
 
     <EditText
         style="@style/EtStyle"
@@ -84,13 +115,12 @@
         android:layout_height="match_parent"
         android:gravity="center">
 
-
         <Button
-            android:id="@+id/login_btn"
+            android:id="@+id/bt_register_login"
             android:layout_width="520px"
             android:layout_height="80px"
             android:background="@drawable/shape_all_my_moneybag"
-            android:text="登录"
+            android:text="完成注册"
             android:textColor="@android:color/white"
             android:textSize="30px"/>
     </RelativeLayout>

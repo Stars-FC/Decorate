@@ -38,8 +38,10 @@
         <activity android:name=".activity.my.MoneyBagActivity"/>
         <activity android:name=".activity.my.SettingSaleActivity"/>
         <activity android:name=".activity.login.ForgetPwdActivity"/>
-        <activity android:name=".activity.login.RegisterActivity"/>
-        <activity android:name=".activity.login.WeiXinLoginActivity"/>
+        <activity android:name=".activity.login.ServiceRegisterActivity"/>
+        <activity android:name=".activity.login.UserRegisterActivity"/>
+        <activity android:name=".activity.login.ServiceWeiXinLoginActivity"/>
+        <activity android:name=".activity.login.UserWeiXinLoginActivity"/>
 
         <meta-data
             android:name="design_width"
