@@ -24,6 +24,7 @@ import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.entity.base.Constant;
 import com.ygc.estatedecoration.fragment.cas.EffectFragment;
 import com.ygc.estatedecoration.fragment.cas.PanoramaFragment;
+import com.ygc.estatedecoration.utils.LogUtil;
 import com.ygc.estatedecoration.utils.RecyclerSpace;
 import com.ygc.estatedecoration.widget.BasePopupWindow;
 import com.ygc.estatedecoration.widget.TitleBar;
@@ -120,6 +121,7 @@ public class CaseFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        LogUtil.e("案例初始化");
         initTabLayoutAndViewPager();
     }
 

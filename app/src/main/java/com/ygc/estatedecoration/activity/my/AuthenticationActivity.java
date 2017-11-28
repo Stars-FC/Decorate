@@ -312,4 +312,13 @@ public class AuthenticationActivity extends BaseActivity implements EasyPermissi
         bos.close();
         return myCaptureFile;
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //删除储存bitmap的file
+        if (filepath != null && filepath.exists()) {
+            filepath.delete();
+        }
+    }
 }

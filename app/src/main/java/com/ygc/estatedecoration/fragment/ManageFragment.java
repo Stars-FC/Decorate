@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
+import com.ygc.estatedecoration.utils.LogUtil;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 /**
@@ -39,7 +40,7 @@ public class ManageFragment extends BaseFragment {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-
+        LogUtil.e("管理初始化");
     }
 
     @Override

@@ -18,6 +18,7 @@ import com.ygc.estatedecoration.activity.home.TransactionManageActivity;
 import com.ygc.estatedecoration.activity.home.TransactionManageDetailActivity;
 import com.ygc.estatedecoration.adapter.HomeAdapter;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
+import com.ygc.estatedecoration.utils.LogUtil;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import java.util.ArrayList;
@@ -68,6 +69,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        LogUtil.e("主页初始化");
         List<String> list = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             list.add("" + i);

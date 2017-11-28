@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
+import com.ygc.estatedecoration.utils.LogUtil;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 /**
@@ -38,7 +39,7 @@ public class NewsFragment extends BaseFragment {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-
+        LogUtil.e("消息初始化");
     }
 
     @Override

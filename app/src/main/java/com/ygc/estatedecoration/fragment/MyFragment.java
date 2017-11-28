@@ -31,6 +31,7 @@ import com.ygc.estatedecoration.activity.my.GuaranteeMoneyActivity;
 import com.ygc.estatedecoration.activity.my.MoneyBagActivity;
 import com.ygc.estatedecoration.activity.my.SettingActivity;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
+import com.ygc.estatedecoration.utils.LogUtil;
 import com.ygc.estatedecoration.widget.BasePopupWindow;
 import com.ygc.estatedecoration.widget.CircleImageView;
 import com.ygc.estatedecoration.widget.TitleBar;
@@ -102,7 +103,7 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-
+        LogUtil.e("我的初始化");
     }
 
     @Override
@@ -443,5 +444,14 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
             });
         }
         mModifyInfoPicPopupWindow.showAtLocation(mLl_parentLayout, Gravity.CENTER, 0, 0);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //删除储存bitmap的file
+        if (filepath != null && filepath.exists()) {
+            filepath.delete();
+        }
     }
 }

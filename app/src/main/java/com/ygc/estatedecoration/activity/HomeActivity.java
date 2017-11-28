@@ -3,6 +3,7 @@ package com.ygc.estatedecoration.activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.widget.RadioGroup;
 
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.adapter.MyViewPagerAdapter;
@@ -10,8 +11,6 @@ import com.ygc.estatedecoration.app.activity.BaseActivity;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import butterknife.BindView;
-import me.majiajie.pagerbottomtabstrip.NavigationController;
-import me.majiajie.pagerbottomtabstrip.PageNavigationView;
 import me.majiajie.pagerbottomtabstrip.item.BaseTabItem;
 import me.majiajie.pagerbottomtabstrip.item.NormalItemView;
 
@@ -19,13 +18,13 @@ import me.majiajie.pagerbottomtabstrip.item.NormalItemView;
  * 软件主界面的整体Activity
  */
 
-public class HomeActivity extends BaseActivity{
+public class HomeActivity extends BaseActivity {
 
     @BindView(R.id.viewPager)
     ViewPager mViewPager;
 
-    @BindView(R.id.tab)
-    PageNavigationView tab;
+    @BindView(R.id.rg_main)
+    RadioGroup mRadioGroup;
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
@@ -44,18 +43,61 @@ public class HomeActivity extends BaseActivity{
 
     @Override
     protected void initView() {
-        NavigationController navigationController = tab.custom()
-                .addItem(newItem(R.mipmap.ic_launcher, R.mipmap.ic_launcher, "首页"))
-                .addItem(newItem(R.mipmap.ic_launcher, R.mipmap.ic_launcher, "案例"))
-                .addItem(newItem(R.mipmap.ic_launcher, R.mipmap.ic_launcher, "管理"))
-                .addItem(newItem(R.mipmap.ic_launcher, R.mipmap.ic_launcher, "消息"))
-                .addItem(newItem(R.mipmap.ic_launcher, R.mipmap.ic_launcher, "我的"))
-                .build();
+//        NavigationController navigationController = tab.custom()
+//                .addItem(newItem(R.mipmap.ic_launcher, R.mipmap.ic_launcher, "首页"))
+//                .addItem(newItem(R.mipmap.ic_launcher, R.mipmap.ic_launcher, "案例"))
+//                .addItem(newItem(R.mipmap.ic_launcher, R.mipmap.ic_launcher, "管理"))
+//                .addItem(newItem(R.mipmap.ic_launcher, R.mipmap.ic_launcher, "消息"))
+//                .addItem(newItem(R.mipmap.ic_launcher, R.mipmap.ic_launcher, "我的"))
+//                .build();
 
-        mViewPager.setAdapter(new MyViewPagerAdapter(getSupportFragmentManager(), navigationController.getItemCount()));
+        mViewPager.setAdapter(new MyViewPagerAdapter(getSupportFragmentManager(), 5));
+        //设置单选按钮的点击事件
+        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i) {
+                    case R.id.rb_home:
+                        mViewPager.setCurrentItem(0, false);
+                        break;
+                    case R.id.rb_case:
+                        mViewPager.setCurrentItem(1, false);
+                        break;
+                    case R.id.rb_manage:
+                        mViewPager.setCurrentItem(2, false);
+                        break;
+                    case R.id.rb_news:
+                        mViewPager.setCurrentItem(3, false);
+                        break;
+                    case R.id.rb_my:
+                        mViewPager.setCurrentItem(4, false);
+                        break;
+                }
+            }
+        });
+        //设置监听viewpager滑动的事件
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-        //自动适配ViewPager页面切换
-        navigationController.setupWithViewPager(mViewPager);
+            }
+
+            /**
+             * 当某个页面呗被中的时候调用这个方法
+             * @param position 被选中页面的位置
+             */
+            @Override
+            public void onPageSelected(int position) {
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+        //设置默认选中页面
+        mRadioGroup.check(R.id.rb_home);
     }
 
     /**

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--底部导航按钮图片的样式选择器-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_checked="false" android:drawable="@android:drawable/ic_media_pause"/>
+    <item android:state_checked="true" android:drawable="@android:drawable/ic_media_play"/>
+
+</selector>

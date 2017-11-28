@@ -1,30 +1,29 @@
-package com.ygc.estatedecoration.activity.my;
+package com.ygc.estatedecoration.user_fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygc.estatedecoration.R;
-import com.ygc.estatedecoration.adapter.HomeAdapter;
-import com.ygc.estatedecoration.adapter.MyCollectionAdapter;
-import com.ygc.estatedecoration.app.activity.BaseActivity;
+import com.ygc.estatedecoration.adapter.UserMyCollectionGoodsAdapter;
+import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
- * 我的-我的收藏页面
+ * Created by FC on 2017/11/28.
  */
-public class CollectionActivity extends BaseActivity {
+
+public class UserMyCollectionFragment extends BaseFragment {
 
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerview;
@@ -32,17 +31,28 @@ public class CollectionActivity extends BaseActivity {
     @BindView(R.id.swipeLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
-    private MyCollectionAdapter mAdapter;
+    private UserMyCollectionGoodsAdapter mAdapter;
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
-        bar.setTitleText("我的收藏");
-        bar.setTitleTextColor(Color.BLACK);
-        bar.setBackgroundColor(Color.WHITE);
-        bar.setLeftImageResource(R.mipmap.ic_launcher);
-        bar.setRightText("编辑");
-        bar.setRightTextColor(Color.BLACK);
-        return true;
+        return false;
+    }
+
+    @Override
+    protected void initData(Bundle arguments) {
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            list.add("" + i);
+        }
+        mAdapter = new UserMyCollectionGoodsAdapter(list);
+
+        mRecyclerview.setLayoutManager(new GridLayoutManager(mActivity, 2));
+        mRecyclerview.setAdapter(mAdapter);
+    }
+
+    @Override
+    protected void initView(Bundle savedInstanceState) {
+
     }
 
     @Override
@@ -80,25 +90,12 @@ public class CollectionActivity extends BaseActivity {
     }
 
     @Override
-    protected void initView() {
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            list.add("" + i);
-        }
-        mAdapter = new MyCollectionAdapter(list);
-
-        mRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        mRecyclerview.setAdapter(mAdapter);
-    }
-
-    @Override
-    protected void initData(Bundle savedInstanceState) {
+    protected void onLazyLoad() {
 
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_home;
+    protected int setLayoutResourceId() {
+        return R.layout.recyclerview;
     }
-
 }
