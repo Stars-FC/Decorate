@@ -55,6 +55,8 @@
         </activity>
         <activity android:name=".user_activity.UserHomeActivity">
         </activity>
+        <activity android:name=".user_activity.UserSearchActivity">
+        </activity>
     </application>
 
 </manifest>

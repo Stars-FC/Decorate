@@ -1,8 +1,6 @@
 package com.ygc.estatedecoration.fragment.cas;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -20,7 +18,7 @@ import java.util.List;
 import butterknife.BindView;
 import io.reactivex.disposables.CompositeDisposable;
 
-public class PanoramaFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+public class PanoramaFragment extends BaseFragment{
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -28,8 +26,6 @@ public class PanoramaFragment extends BaseFragment implements SwipeRefreshLayout
     private String mParam1;
     private String mParam2;
 
-    @BindView(R.id.swiperefreshLayout)
-    SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerView;
     private CasePanoramaAdapter mCasePanoramaAdapter;
@@ -80,15 +76,14 @@ public class PanoramaFragment extends BaseFragment implements SwipeRefreshLayout
 
     @Override
     protected void addListener() {
-        mSwipeRefreshLayout.setColorSchemeColors(Color.parseColor("#4EBE65"));
-        mSwipeRefreshLayout.setOnRefreshListener(this);
         mCasePanoramaAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                curPagerNum++;
+               /* curPagerNum++;
                 if (curPagerNum <= allPagerNum) {
                     requestDataEvent(Constant.NORMAL_REQUEST);
-                }
+                }*/
+               mCasePanoramaAdapter.loadMoreComplete();
             }
         }, mRecyclerView);
     }
@@ -104,20 +99,13 @@ public class PanoramaFragment extends BaseFragment implements SwipeRefreshLayout
     }
 
     private void initRecyclerView() {
-        mCasePanoramaAdapter = new CasePanoramaAdapter(R.layout.item_case_panorama, dataList);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
-        mRecyclerView.setAdapter(mCasePanoramaAdapter);
-    }
-
-    @Override
-    public void onRefresh() {
-        curPagerNum = 1;
-        mCasePanoramaAdapter.setEnableLoadMore(false);//这里的作用是防止下拉刷新的时候还可以上拉加载
-        if (mSwipeRefreshLayout.isRefreshing()) {
-            mSwipeRefreshLayout.setRefreshing(false);
+        for (int i = 0; i < 10; i++) {
+            dataList.add("haha" + (i + 1));
         }
-        mCasePanoramaAdapter.setEnableLoadMore(false);
-        requestDataEvent(Constant.REFRESH_REQUEST);
+        mCasePanoramaAdapter = new CasePanoramaAdapter(R.layout.item_case_panorama, dataList);
+        mRecyclerView.setNestedScrollingEnabled(true);
+        mRecyclerView.setLayoutManager( new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
+        mRecyclerView.setAdapter(mCasePanoramaAdapter);
     }
 
     private void requestDataEvent(final String requestMark) {
@@ -150,9 +138,6 @@ public class PanoramaFragment extends BaseFragment implements SwipeRefreshLayout
     }
 
     private void requestFinishEvent(Base base, String requestMark) {
-        if (mSwipeRefreshLayout.isRefreshing()) {
-            mSwipeRefreshLayout.setRefreshing(false);
-        }
         if (requestMark.equals(Constant.REFRESH_REQUEST)) {
             mCasePanoramaAdapter.setEnableLoadMore(true);
         }

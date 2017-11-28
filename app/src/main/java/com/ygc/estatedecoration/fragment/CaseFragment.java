@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.androidkun.xtablayout.XTabLayout;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -19,6 +21,7 @@ import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.adapter.CaseStyleAdapter;
 import com.ygc.estatedecoration.adapter.HomeMyStoreAdapter;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
+import com.ygc.estatedecoration.entity.base.Constant;
 import com.ygc.estatedecoration.fragment.cas.EffectFragment;
 import com.ygc.estatedecoration.fragment.cas.PanoramaFragment;
 import com.ygc.estatedecoration.utils.RecyclerSpace;
@@ -37,13 +40,14 @@ import butterknife.OnClick;
  * 案例界面
  */
 
-public class CaseFragment extends BaseFragment {
+public class CaseFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private static final String ARG_C = "content";
 
+    @BindView(R.id.swiperefreshLayout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.style_container_ll)
     LinearLayout mLl_styleContainer;
-
     @BindView(R.id.tablayout)
     XTabLayout mTabLayout;
     @BindView(R.id.viewpager)
@@ -99,7 +103,6 @@ public class CaseFragment extends BaseFragment {
 
     @Override
     protected void initData(Bundle arguments) {
-
     }
 
     private void initFragmentTitle() {
@@ -128,7 +131,8 @@ public class CaseFragment extends BaseFragment {
 
     @Override
     protected void addListener() {
-
+        mSwipeRefreshLayout.setColorSchemeColors(Color.parseColor("#4EBE65"));
+        mSwipeRefreshLayout.setOnRefreshListener(this);
     }
 
     @Override
@@ -157,5 +161,12 @@ public class CaseFragment extends BaseFragment {
             initStylePopupWindow();
         }
         mCasePopupWindow.showAsDropDown(mLl_styleContainer);
+    }
+
+    @Override
+    public void onRefresh() {
+        if (mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
     }
 }

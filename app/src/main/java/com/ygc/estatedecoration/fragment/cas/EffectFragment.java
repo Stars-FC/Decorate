@@ -1,9 +1,7 @@
 package com.ygc.estatedecoration.fragment.cas;
 
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -20,7 +18,7 @@ import java.util.List;
 import butterknife.BindView;
 import io.reactivex.disposables.CompositeDisposable;
 
-public class EffectFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+public class EffectFragment extends BaseFragment{
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -36,8 +34,6 @@ public class EffectFragment extends BaseFragment implements SwipeRefreshLayout.O
     private int curPagerNum = 1;//当前页数
     private CompositeDisposable compositeDisposable;
 
-    @BindView(R.id.swiperefreshLayout)
-    SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerView;
     private List<String> dataList = new ArrayList<>();
@@ -82,8 +78,7 @@ public class EffectFragment extends BaseFragment implements SwipeRefreshLayout.O
 
     @Override
     protected void addListener() {
-        mSwipeRefreshLayout.setColorSchemeColors(Color.parseColor("#4EBE65"));
-        mSwipeRefreshLayout.setOnRefreshListener(this);
+
     }
 
     @Override
@@ -97,26 +92,29 @@ public class EffectFragment extends BaseFragment implements SwipeRefreshLayout.O
     }
 
     private void initRecyclerView() {
-
+        for (int i = 0; i < 10; i++) {
+            dataList.add("heh"+(i+1));
+        }
         mCaseEffectAdapter = new CaseEffectAdapter(R.layout.item_case_effect, dataList);
+        mRecyclerView.setNestedScrollingEnabled(true);
         mRecyclerView.setLayoutManager(new GridLayoutManager(mActivity, 2));
         mRecyclerView.setAdapter(mCaseEffectAdapter);
-
         mCaseEffectAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                requestDataEvent(Constant.NORMAL_REQUEST);
+
+//                requestDataEvent(Constant.NORMAL_REQUEST);
             }
         }, mRecyclerView);
     }
 
-    @Override
+    /*@Override
     public void onRefresh() {
         if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
         }
         requestDataEvent(Constant.REFRESH_REQUEST);
-    }
+    }*/
 
     private void requestDataEvent(String requestMark) {
 

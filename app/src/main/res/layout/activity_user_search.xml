@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    tools:context="com.ygc.estatedecoration.user_activity.UserSearchActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="11px"
+        android:paddingTop="11px">
+
+        <RelativeLayout
+            android:id="@+id/finish_rl"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="27px"
+            android:paddingRight="27px">
+
+            <ImageView
+                android:layout_width="17px"
+                android:layout_height="30px"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="64px"
+            android:layout_marginLeft="28px"
+            android:layout_weight="1"
+            android:background="@drawable/bg_et"
+            android:hint="请输入关键词"
+            android:paddingLeft="20px"
+            android:textColorHint="#a0a0a0"
+            android:textSize="25px"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="20px"
+            android:paddingRight="20px"
+            android:text="搜索"
+            android:textColor="#4fbc66"
+            android:textSize="25px"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#eeeeee"/>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swiperefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="23px"
+                        android:paddingLeft="47px"
+                        android:paddingTop="23px"
+                        android:text="热门搜索"
+                        android:textColor="@android:color/black"
+                        android:textSize="25px"/>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/keyword_recyclerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="33px"
+                        android:paddingRight="33px">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="29px"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:paddingBottom="21px"
+                            android:paddingLeft="47px"
+                            android:paddingTop="21px"
+                            android:text="搜索历史"
+                            android:textColor="@android:color/black"
+                            android:textSize="25px"/>
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:paddingLeft="22px"
+                            android:paddingRight="22px"
+                            android:text="清空"
+                            android:textColor="#4fbc66"
+                            android:textSize="25px"/>
+
+                    </LinearLayout>
+
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/search_history_recyclerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="33px"
+                        android:paddingRight="33px">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</LinearLayout>

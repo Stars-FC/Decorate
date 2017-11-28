@@ -1,6 +1,7 @@
 package com.ygc.estatedecoration.user_fragment;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -17,6 +18,7 @@ import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.adapter.UserFindDesignAdapter;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.entity.base.Constant;
+import com.ygc.estatedecoration.user_activity.UserSearchActivity;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import java.util.ArrayList;
@@ -224,6 +226,8 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
                 case R.id.location_ll://定位
                     break;
                 case R.id.search_ll://搜索
+                    Intent intent = new Intent(mActivity, UserSearchActivity.class);
+                    startActivity(intent);
                     break;
                 case R.id.find_design_more_ll:
                     break;
