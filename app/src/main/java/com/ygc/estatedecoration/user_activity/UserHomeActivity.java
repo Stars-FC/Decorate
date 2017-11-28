@@ -8,10 +8,10 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
+import com.ygc.estatedecoration.fragment.CaseFragment;
 import com.ygc.estatedecoration.user_fragment.UserHomeFragment;
 import com.ygc.estatedecoration.user_fragment.UserMsgFragment;
 import com.ygc.estatedecoration.user_fragment.UserMyFragment;
-import com.ygc.estatedecoration.user_fragment.UserPlanFragment;
 import com.ygc.estatedecoration.user_fragment.UserPublishFragment;
 import com.ygc.estatedecoration.widget.TitleBar;
 
@@ -31,7 +31,7 @@ public class UserHomeActivity extends BaseActivity implements OnTabItemSelectedL
 
     private NavigationController mNavigationController;
     private UserHomeFragment mUserHomeFragment;
-    private UserPlanFragment mUserPlanFragment;
+    private CaseFragment mUserPlanFragment;
     private UserPublishFragment mUserPublishFragment;
     private UserMsgFragment mUserMsgFragment;
     private UserMyFragment mUserMyFragment;
@@ -91,8 +91,8 @@ public class UserHomeActivity extends BaseActivity implements OnTabItemSelectedL
             for (Fragment fragment : fragmentList) {
                 if (fragment instanceof UserHomeFragment) {
                     mUserHomeFragment = (UserHomeFragment) fragment;
-                } else if (fragment instanceof UserPlanFragment) {
-                    mUserPlanFragment = (UserPlanFragment) fragment;
+                } else if (fragment instanceof CaseFragment) {
+                    mUserPlanFragment = (CaseFragment) fragment;
                 } else if (fragment instanceof UserPublishFragment) {
                     mUserPublishFragment = (UserPublishFragment) fragment;
                 } else if (fragment instanceof UserMsgFragment){
@@ -190,7 +190,7 @@ public class UserHomeActivity extends BaseActivity implements OnTabItemSelectedL
 
     private void createUserPlanFragment(FragmentTransaction fragmentTransaction) {
         if (mUserPlanFragment == null) {
-            mUserPlanFragment = UserPlanFragment.newInstance("", "");
+            mUserPlanFragment = CaseFragment.newInstance("");
             fragmentTransaction.add(R.id.fragment_container, mUserPlanFragment).commit();
         } else {
             fragmentTransaction.show(mUserPlanFragment).commit();

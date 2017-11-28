@@ -1,6 +1,5 @@
 package com.ygc.estatedecoration.fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
 
 import com.ygc.estatedecoration.R;
@@ -27,8 +26,6 @@ public class NewsFragment extends BaseFragment {
     @Override
     protected boolean buildTitle(TitleBar bar) {
         bar.setTitleText("消息");
-        bar.setTitleTextColor(Color.BLACK);
-        bar.setBackgroundColor(Color.WHITE);
         return true;
     }
 

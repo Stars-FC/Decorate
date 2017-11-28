@@ -1,14 +1,17 @@
-package com.ygc.estatedecoration.user_fragment;
+package com.ygc.estatedecoration.fragment.home;
 
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.widget.TitleBar;
 
-public class UserPlanFragment extends BaseFragment {
-
+public class ServiceProgressFragment extends BaseFragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -17,12 +20,12 @@ public class UserPlanFragment extends BaseFragment {
     private String mParam2;
 
 
-    public UserPlanFragment() {
+    public ServiceProgressFragment() {
         // Required empty public constructor
     }
 
-    public static UserPlanFragment newInstance(String param1, String param2) {
-        UserPlanFragment fragment = new UserPlanFragment();
+    public static ServiceProgressFragment newInstance(String param1, String param2) {
+        ServiceProgressFragment fragment = new ServiceProgressFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -66,7 +69,7 @@ public class UserPlanFragment extends BaseFragment {
 
     @Override
     protected int setLayoutResourceId() {
-        return R.layout.fragment_user_plan;
+        return R.layout.fragment_service_progress;
     }
 
 }

@@ -1,15 +1,18 @@
 package com.ygc.estatedecoration.fragment.cas;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.adapter.CaseEffectAdapter;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.entity.base.Constant;
+import com.ygc.estatedecoration.user_activity.CaseDetailActivity;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import java.util.ArrayList;
@@ -99,6 +102,13 @@ public class EffectFragment extends BaseFragment{
         mRecyclerView.setNestedScrollingEnabled(true);
         mRecyclerView.setLayoutManager(new GridLayoutManager(mActivity, 2));
         mRecyclerView.setAdapter(mCaseEffectAdapter);
+        mCaseEffectAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(mActivity, CaseDetailActivity.class);
+                startActivity(intent);
+            }
+        });
         mCaseEffectAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {

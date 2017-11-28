@@ -1,7 +1,6 @@
 package com.ygc.estatedecoration.activity.home;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -11,9 +10,8 @@ import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.adapter.HomeMyStoreAdapter;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
-import com.ygc.estatedecoration.fragment.home.TransactionManageNeedFragment;
-import com.ygc.estatedecoration.fragment.home.TransactionManageOfferFragment;
-import com.ygc.estatedecoration.utils.tablayoutUnderLine;
+import com.ygc.estatedecoration.fragment.home.ServiceNeedFragment;
+import com.ygc.estatedecoration.fragment.home.ServiceProgressFragment;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import java.util.ArrayList;
@@ -22,24 +20,22 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-/**
- * Created by FC on 2017/11/20.
- * 首页-交易管理界面
- */
-
-public class TransactionManageDetailActivity extends BaseActivity {
+public class DemandAndProgressActivity extends BaseActivity {
 
     @BindView(R.id.tablayout)
-    XTabLayout mTablayout;
+    XTabLayout mTabLayout;
 
     @BindView(R.id.viewpager)
     ViewPager mViewpager;
 
-    private ArrayList<BaseFragment> mFragments;
+    private List<String> titleList = new ArrayList<>();
 
-    private List<String> mList;
+    private ArrayList<BaseFragment> fragmentList = new ArrayList<>();
 
-    private HomeMyStoreAdapter mAdapter;
+    private ServiceNeedFragment mServiceNeedFragment;
+
+    private ServiceProgressFragment mServiceProgressFragment;
+
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
@@ -58,26 +54,24 @@ public class TransactionManageDetailActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        mList=new ArrayList<>();
-        mList.add("需求详情");
-        mList.add("报  价");
 
-        mFragments=new ArrayList<>();
-        mFragments.add(new TransactionManageNeedFragment());
-        mFragments.add(new TransactionManageOfferFragment());
+        titleList.add("需求详情");
+        titleList.add("进  度");
+
+        fragmentList.add(ServiceNeedFragment.newInstance("", ""));
+        fragmentList.add(ServiceProgressFragment.newInstance("", ""));
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        mAdapter = new HomeMyStoreAdapter(fragmentManager, mFragments, mList);
+        HomeMyStoreAdapter adapter = new HomeMyStoreAdapter(fragmentManager, fragmentList, titleList);
 
-        mViewpager.setAdapter(mAdapter);
+        mViewpager.setAdapter(adapter);
 
-        mTablayout.setupWithViewPager(mViewpager);
-
+        mTabLayout.setupWithViewPager(mViewpager);
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.home_transactionmanage_item;
+        return R.layout.activity_demand_and_progress;
     }
 
     @OnClick({R.id.back, R.id.iv_follow})

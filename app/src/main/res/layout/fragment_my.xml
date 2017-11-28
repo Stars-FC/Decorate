@@ -4,7 +4,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-    <LinearLayout
+    <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -336,5 +336,5 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/line"/>
-    </LinearLayout>
+    </com.zhy.autolayout.AutoLinearLayout>
 </ScrollView>

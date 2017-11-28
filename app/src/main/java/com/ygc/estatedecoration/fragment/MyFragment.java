@@ -90,8 +90,6 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
     @Override
     protected boolean buildTitle(TitleBar bar) {
         bar.setTitleText("我的");
-        bar.setTitleTextColor(Color.BLACK);
-        bar.setBackgroundColor(Color.WHITE);
         bar.setRightImageResource(R.mipmap.ic_launcher);
         return true;
     }

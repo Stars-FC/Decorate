@@ -57,9 +57,13 @@
         </activity>
         <activity android:name=".user_activity.UserSearchActivity">
         </activity>
+        <activity android:name=".user_activity.CaseDetailActivity">
+        </activity>
         <activity android:name=".user_activity.UserCollectionActivity">
         </activity>
         <activity android:name=".user_activity.UserGoodsDetailActivity">
+        </activity>
+        <activity android:name=".activity.home.DemandAndProgressActivity">
         </activity>
     </application>
 

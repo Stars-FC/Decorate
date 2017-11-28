@@ -11,6 +11,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygc.estatedecoration.R;
+import com.ygc.estatedecoration.activity.home.DemandAndProgressActivity;
 import com.ygc.estatedecoration.activity.home.MyStoreAvtivity;
 import com.ygc.estatedecoration.activity.home.MyVisitorActivity;
 import com.ygc.estatedecoration.activity.home.NeedHallActivity;
@@ -95,7 +96,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                showToast("mRecyclerview第" + position + "数据");
+//                showToast("mRecyclerview第" + position + "数据");
+                Intent intent = new Intent(mActivity, DemandAndProgressActivity.class);
+                startActivity(intent);
             }
         });
 
