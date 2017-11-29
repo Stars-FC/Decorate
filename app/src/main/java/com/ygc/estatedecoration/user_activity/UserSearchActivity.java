@@ -1,11 +1,13 @@
 package com.ygc.estatedecoration.user_activity;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.adapter.UserSearchAdapter;
@@ -48,7 +50,6 @@ public class UserSearchActivity extends BaseActivity implements SwipeRefreshLayo
 
     @Override
     protected void initView() {
-
         initRecyclerView();
     }
 
@@ -99,9 +100,18 @@ public class UserSearchActivity extends BaseActivity implements SwipeRefreshLayo
         if (view != null) {
             switch (view.getId()) {
                 case R.id.finish_rl:
+                    closeKeyboard();
                     finish();
                     break;
             }
+        }
+    }
+
+    private void closeKeyboard() {
+        View view = getWindow().peekDecorView();
+        if (view != null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 }
