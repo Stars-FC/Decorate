@@ -420,7 +420,8 @@
                 <ImageView
                     android:id="@+id/imageView2"
                     android:layout_width="match_parent"
-                    android:layout_height="448px" android:background="#f00"/>
+                    android:layout_height="448px"
+                    android:background="#f00"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#faf9f9"
+        android:orientation="vertical"
+        android:paddingBottom="22px"
+        android:paddingLeft="10px"
+        android:paddingTop="22px">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="106px">
+
+            <com.ygc.estatedecoration.widget.CircleImageView
+                android:layout_width="106px"
+                android:layout_height="106px"
+                android:src="#ebebeb"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="19px"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingRight="10px">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="设计师名称"
+                        android:textColor="#000"
+                        android:textSize="26px"/>
+
+                    <TextView
+                        android:layout_width="42px"
+                        android:layout_height="26px"
+                        android:layout_marginLeft="10px"
+                        android:background="@drawable/bg_team"
+                        android:gravity="center"
+                        android:text="团队"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="17px"/>
+
+                    <View
+                        android:layout_width="150px"
+                        android:layout_height="1px"/>
+
+                    <com.ygc.estatedecoration.widget.StarView
+                        android:id="@+id/starview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:starCount="5"
+                        app:starFill="@mipmap/drop_down_selected_icon"
+                        app:starHalf="@mipmap/drop_down_checked"
+                        app:starImageSize="25px"
+                        app:starPadding="5px"
+                        app:starStep="1.5"
+                        app:stepSize="Half"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="57px">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="57px"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="江苏 苏州"
+                            android:textColor="#000"
+                            android:textSize="20px"/>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="10年设计经验"
+                            android:textColor="#000"
+                            android:textSize="20px"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="57px"
+                        android:layout_marginLeft="21px"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="成交量"
+                                android:textColor="#000"
+                                android:textSize="20px"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="4px"
+                                android:text="1500"
+                                android:textColor="@color/colorAccent"
+                                android:textSize="20px"/>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="擅长普通户型"
+                            android:textColor="#000"
+                            android:textSize="20px"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <com.ygc.estatedecoration.widget.ScrollRecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollrecyclerview"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -18,6 +18,7 @@ import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.adapter.UserFindDesignAdapter;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.entity.base.Constant;
+import com.ygc.estatedecoration.user_activity.UserFindDesigerActivity;
 import com.ygc.estatedecoration.user_activity.UserSearchActivity;
 import com.ygc.estatedecoration.widget.TitleBar;
 
@@ -57,7 +58,8 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
     private UserFindDesignAdapter mUserFindDesignAdapter;
 
 
-    public UserHomeFragment() {}
+    public UserHomeFragment() {
+    }
 
     public static UserHomeFragment newInstance() {
         return new UserHomeFragment();
@@ -230,6 +232,8 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
                     startActivity(intent);
                     break;
                 case R.id.find_design_more_ll:
+                    Intent desigeIntent = new Intent(mActivity, UserFindDesigerActivity.class);
+                    startActivity(desigeIntent);
                     break;
                 case R.id.find_implement_more_ll:
                     break;

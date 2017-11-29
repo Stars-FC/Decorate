@@ -1,7 +1,8 @@
-package com.ygc.estatedecoration.activity.my;
+package com.ygc.estatedecoration.user_activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,39 +11,42 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygc.estatedecoration.R;
-import com.ygc.estatedecoration.adapter.HomeAdapter;
 import com.ygc.estatedecoration.adapter.MyCollectionAdapter;
+import com.ygc.estatedecoration.adapter.UserFindDesignerAdapter;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
+import com.ygc.estatedecoration.widget.BetterRecyclerView;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * 我的-我的收藏页面
+ * Created by FC on 2017/11/29.
  */
-public class CollectionActivity extends BaseActivity {
+
+public class UserFindDesigerActivity extends BaseActivity {
 
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerview;
 
+    @BindView(R.id.appbarlayout)
+    AppBarLayout mBarLayout;
+
     @BindView(R.id.swipeLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
-    private MyCollectionAdapter mAdapter;
+    private UserFindDesignerAdapter mAdapter;
+    private LinearLayoutManager mLayoutManager;
+
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
-        bar.setTitleText("我的收藏");
-        bar.setTitleTextColor(Color.BLACK);
-        bar.setBackgroundColor(Color.WHITE);
         bar.setLeftImageResource(R.mipmap.ic_launcher);
-        bar.setRightText("编辑");
-        bar.setRightTextColor(Color.BLACK);
+        bar.setTitleText("找设计");
+        bar.setRightImageResource(R.mipmap.ic_launcher);
         return true;
     }
 
@@ -82,26 +86,47 @@ public class CollectionActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            list.add("" + i);
-        }
-        mAdapter = new MyCollectionAdapter(list);
-
-        mRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        mRecyclerview.setAdapter(mAdapter);
+        mLayoutManager = new LinearLayoutManager(UserFindDesigerActivity.this);
     }
 
     @Override
     protected void initData(Bundle savedInstanceState) {
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            list.add("" + i);
+        }
+        mAdapter = new UserFindDesignerAdapter(list, UserFindDesigerActivity.this);
+        /**
+         * 自定义RecyclerView实现对AppBarLayout的滚动效果
+         */
+        mRecyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    int firstVisiblePosition = mLayoutManager.findFirstCompletelyVisibleItemPosition();
+                    if (firstVisiblePosition == 0) {
+                        mBarLayout.setExpanded(true, true);
+                    }
+                }
+            }
 
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
+
+        mRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        mRecyclerview.setNestedScrollingEnabled(false);
+        mRecyclerview.setAdapter(mAdapter);
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_home;
-
+        return R.layout.user_find_designer;
     }
+
     @OnClick({R.id.naviButtonLeft})
     public void onViewClicked(View view) {
         switch (view.getId()) {
