@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:gravity="center_horizontal"
-              android:orientation="vertical">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
 
     <ImageView
         android:layout_width="95px"
@@ -42,7 +43,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/top_up_btn"
         android:layout_width="500px"
         android:layout_height="85px"
         android:layout_marginTop="50px"
@@ -51,12 +52,12 @@
         android:textColor="@color/white"/>
 
     <Button
+        android:id="@+id/ti_xian_btn"
         android:layout_width="500px"
         android:layout_height="85px"
         android:layout_marginTop="32px"
         android:background="@drawable/shape_empty_my_moneybag"
         android:text="提现"
         android:textColor="@color/colorAccent"/>
-
 
 </LinearLayout>

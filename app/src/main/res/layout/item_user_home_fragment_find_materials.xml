@@ -25,14 +25,29 @@
             android:textColor="@android:color/black"
             android:textSize="23px"/>
 
-        <TextView
-            android:layout_width="wrap_content"
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_marginLeft="20px"
-            android:layout_marginTop="16px"
-            android:text="￥ 2380"
-            android:textColor="#eb2223"
-            android:textSize="19px"/>
+            android:layout_marginTop="16px">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥ 2380"
+                android:textColor="#eb2223"
+                android:textSize="19px"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="11px"
+                android:text="1200人付款"
+                android:textColor="@android:color/black"
+                android:textSize="19px"/>
+        </com.zhy.autolayout.AutoRelativeLayout>
 
     </com.zhy.autolayout.AutoLinearLayout>
 

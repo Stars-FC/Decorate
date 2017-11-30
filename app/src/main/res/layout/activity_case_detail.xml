@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:hedgehog="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical"
     tools:context="com.ygc.estatedecoration.user_activity.CaseDetailActivity">
@@ -87,13 +87,13 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="448px"
-                    android:background="#f00"/>
+                    android:background="#eee"/>
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="448px"
                     android:layout_marginTop="22px"
-                    android:background="#f00"/>
+                    android:background="#eee"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -111,7 +111,7 @@
                         <com.ygc.estatedecoration.widget.CircleImageView
                             android:layout_width="106px"
                             android:layout_height="106px"
-                            android:background="#ebebeb"/>
+                            android:src="@color/line"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -142,6 +142,26 @@
                                     android:text="团队"
                                     android:textColor="@color/colorAccent"
                                     android:textSize="17px"/>
+
+                                <View
+                                    android:layout_width="0dp"
+                                    android:layout_height="26px"
+                                    android:layout_weight="1"/>
+
+                                <com.ygc.estatedecoration.widget.RatingBar
+                                    android:id="@+id/ratingbar"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="26px"
+                                    android:layout_gravity="center"
+                                    hedgehog:clickable1="true"
+                                    hedgehog:halfstart1="true"
+                                    hedgehog:starCount1="5"
+                                    hedgehog:starEmpty1="@drawable/ic_star_empty"
+                                    hedgehog:starFill1="@drawable/ic_star_fill"
+                                    hedgehog:starHalf1="@drawable/ic_star_fill"
+                                    hedgehog:starImageHeight1="30px"
+                                    hedgehog:starImagePadding1="5px"
+                                    hedgehog:starImageWidth1="30px"/>
 
                             </LinearLayout>
 
@@ -272,7 +292,7 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="448px"
-                    android:background="#f00"/>
+                    android:background="#eee"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -421,7 +441,7 @@
                     android:id="@+id/imageView2"
                     android:layout_width="match_parent"
                     android:layout_height="448px"
-                    android:background="#f00"/>
+                    android:background="#eee"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -569,7 +589,7 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="448px"
-                    android:background="#f00"/>
+                    android:background="#eee"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -696,7 +716,7 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="448px"
-                    android:background="#f00"/>
+                    android:background="#eee"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"

@@ -78,6 +78,21 @@
         <activity android:name=".activity.my.BackOpinionActivity"
             android:windowSoftInputMode="stateHidden">
         </activity>
+        <activity android:name=".user_activity.UserFindSupervisorActivity">
+        </activity>
+        <activity android:name=".activity.my.AccountDetailActivity">
+        </activity>
+        <activity android:name=".activity.my.TopUpAndTiXianActivity">
+        </activity>
+        <activity
+            android:name=".activity.home.InitiatingAcceptanceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.home.SupplementaryContractActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.home.InitiatingContractActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

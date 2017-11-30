@@ -1,45 +1,57 @@
 package com.ygc.estatedecoration.fragment.home;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.ygc.estatedecoration.R;
+import com.ygc.estatedecoration.activity.home.InitiatingAcceptanceActivity;
+import com.ygc.estatedecoration.activity.home.InitiatingContractActivity;
+import com.ygc.estatedecoration.activity.home.SupplementaryContractActivity;
+import com.ygc.estatedecoration.adapter.ScheduleAdapter;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
+import com.ygc.estatedecoration.bean.ScheduleBean;
+import com.ygc.estatedecoration.event.ChangeContractStateMsg;
+import com.ygc.estatedecoration.event.ContractStateMsg;
 import com.ygc.estatedecoration.widget.TitleBar;
 
-public class ServiceProgressFragment extends BaseFragment {
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
-    private String mParam1;
-    private String mParam2;
+import butterknife.BindView;
 
+public class ServiceProgressFragment extends BaseFragment implements AdapterView.OnItemClickListener {
 
-    public ServiceProgressFragment() {
-        // Required empty public constructor
-    }
+    @BindView(R.id.schedule_list_view)
+    ListView listView;
+    private List<ScheduleBean> list = new ArrayList<>();
+    private ScheduleAdapter adapter;
+    private List<String> titleList = new ArrayList<>();
+    private List<String> contentList = new ArrayList<>();
+    private List<String> timeList = new ArrayList<>();
+    private ScheduleBean scheduleBean;
 
-    public static ServiceProgressFragment newInstance(String param1, String param2) {
+    public static ServiceProgressFragment newInstance() {
         ServiceProgressFragment fragment = new ServiceProgressFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -49,7 +61,37 @@ public class ServiceProgressFragment extends BaseFragment {
 
     @Override
     protected void initData(Bundle arguments) {
+        EventBus.getDefault().register(this);
+        SimpleDateFormat formatter = new SimpleDateFormat ("yyyy.MM.dd HH:mm:ss ");
+        Date curDate = new Date(System.currentTimeMillis());//获取当前时间
+        String time = formatter.format(curDate);
+        String title[]={"确认工作","签署合同","服务商工作中","评价"};
+        String content[]={"雇主XXX雇佣了您，赶紧发起合同吧","您已和雇主签署了合同","XXXXXXXXXXXXXXXXXXXXXX",""};
+        titleList= Arrays.asList(title);
+        contentList= Arrays.asList(content);
+        timeList.add(time);
+        for (int i = 0; i < 1; i++) {
+            ScheduleBean bean = new ScheduleBean();
+            bean.setTitle(titleList.get(i));
+            bean.setTime(timeList.get(i));
+            if (i >= 1) {
+                bean.setType("" + (i + 1));
+            } else {
+                bean.setType("" + i);
+            }
+            bean.setContent(contentList.get(i));
+            list.add(bean);
 
+        }
+        adapter = new ScheduleAdapter(mActivity, list);
+        listView.setAdapter(adapter);
+        if (list != null && list.size() != 0) {
+            if (list.get(list.size() - 1).getType().equals("0")) {
+                EventBus.getDefault().post(new ContractStateMsg(1));
+            } else {
+                EventBus.getDefault().post(new ContractStateMsg(2));
+            }
+        }
     }
 
     @Override
@@ -59,7 +101,7 @@ public class ServiceProgressFragment extends BaseFragment {
 
     @Override
     protected void addListener() {
-
+        listView.setOnItemClickListener(this);
     }
 
     @Override
@@ -72,4 +114,103 @@ public class ServiceProgressFragment extends BaseFragment {
         return R.layout.fragment_service_progress;
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (list.get(position).getType().equals("3")) {
+            Intent intent = new Intent(mActivity, InitiatingAcceptanceActivity.class);
+            intent.putExtra("bean", list.get(position));
+            startActivityForResult(intent, 10);
+        } else if (list.get(position).getType().equals("2")) {
+            Intent intent = new Intent(mActivity, InitiatingContractActivity.class);
+            startActivity(intent);
+        }else if (list.get(position).getType().equals("1")) {
+            startActivityForResult(new Intent(mActivity, SupplementaryContractActivity.class), 12);
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void changeContractStateMsg(ChangeContractStateMsg changeContractStateMsg) {
+        Intent data = changeContractStateMsg.getIntent();
+        int requestCode = changeContractStateMsg.getRequestCode();
+        int resultCode = changeContractStateMsg.getResultCode();
+
+        if (data != null) {
+            scheduleBean = new ScheduleBean();
+            scheduleBean = (ScheduleBean) data.getSerializableExtra("bean");
+            String time="";
+            switch (requestCode) {
+                case 10:
+                    list.clear();
+                    time=data.getStringExtra("time");
+                    timeList.add(2,time);
+
+                    for (int i = 0; i < 4; i++) {
+                        ScheduleBean bean = new ScheduleBean();
+                        bean.setTitle(titleList.get(i));
+                        bean.setTime(timeList.get(i));
+                        if (i >= 1) {
+                            if (i == 2) {
+                                bean.setType(scheduleBean.getType());
+                            } else {
+                                bean.setType("" + (i + 1));
+                            }
+
+                        } else {
+                            bean.setType("" + i);
+                        }
+                        bean.setContent(contentList.get(i));
+
+                        list.add(bean);
+                    }
+
+                    break;
+                case 11:
+                    list.clear();
+                    time=data.getStringExtra("time");
+                    timeList.add(time);
+                    for (int i = 0; i < 2; i++) {
+                        ScheduleBean bean = new ScheduleBean();
+                        bean.setTitle(titleList.get(i));
+                        bean.setTime(timeList.get(i));
+                        bean.setType("" + i);
+                        bean.setContent(contentList.get(i));
+                        list.add(bean);
+                    }
+                    EventBus.getDefault().post(new ContractStateMsg(2));
+                    break;
+                case 12:
+                    list.clear();
+                    SimpleDateFormat formatter = new SimpleDateFormat ("yyyy.MM.dd HH:mm:ss ");
+                    Date curDate = new Date(System.currentTimeMillis());//获取当前时间
+                    time = formatter.format(curDate);
+                    timeList.add(time);
+                    timeList.add(time);
+                    for (int i = 0; i < 4; i++) {
+                        ScheduleBean bean = new ScheduleBean();
+                        bean.setTitle(titleList.get(i));
+                        bean.setTime(timeList.get(i));
+                        if (i>=1){
+                            bean.setType("" + (i+1));
+
+                        }else {
+                            bean.setType("" + i);
+
+                        }
+                        bean.setContent(contentList.get(i));
+                        list.add(bean);
+                    }
+                    EventBus.getDefault().post(new ContractStateMsg(2));
+                    break;
+            }
+            adapter.notifyDataSetChanged();
+        } else {
+            return;
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

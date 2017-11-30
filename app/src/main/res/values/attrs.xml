@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!--<圆形图片的自定义控件属性>-->
     <declare-styleable name="CircleImageView">
         <attr name="civ_border_width" format="dimension"/>
@@ -32,4 +32,19 @@
             <enum name="Full" value="1"/>
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="RatingBar1" tools:ignore="ResourceName">
+        <attr name="starImageSize1" format="dimension"/>
+        <attr name="starImageWidth1" format="dimension"/>
+        <attr name="starImageHeight1" format="dimension"/>
+        <attr name="starImagePadding1" format="dimension"/>
+        <attr name="starCount1" format="integer"/>
+        <attr name="starNum1" format="integer"/>
+        <attr name="starEmpty1" format="reference"/>
+        <attr name="starFill1" format="reference"/>
+        <attr name="starHalf1" format="reference"/>
+        <attr name="clickable1" format="boolean"/>
+        <attr name="halfstart1" format="boolean"/>
+    </declare-styleable>
+
 </resources>

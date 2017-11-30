@@ -15,6 +15,14 @@
     <color name="bigline">#aaaaaa</color><!---->
     <color name="color_29b7b3">#29b7b3</color>
 
+    <color name="gray_e5e5e5">#e5e5e5</color>
+    <color name="black_010101">#010101</color>
+    <color name="green_4fbc64">#4fbc64</color>
+    <color name="gray_a8a8a8">#a8a8a8</color>
+    <color name="gray_eeeeee">#eeeeee</color>
+    <color name="gray_f8f8f8">#f8f8f8</color>
+    <color name="gray_8a8a8a">#8a8a8a</color>
+
 
     <color name="black">#000000</color><!--黑色 -->
     <color name="white">#FFFFFF</color><!--白色-->

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--需求详情页面-->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,8 +21,8 @@
                 android:id="@+id/iv_customer_icon"
                 android:layout_width="66px"
                 android:layout_height="66px"
-                android:layout_marginLeft="30px"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="30px"
                 android:src="@mipmap/ic_launcher"/>
 
             <TextView
@@ -132,9 +133,9 @@
                     android:src="@mipmap/ic_launcher"/>
 
                 <TextView
-                    android:gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:gravity="center"
                     android:text="2017.11.11"/>
             </LinearLayout>
 
@@ -151,9 +152,9 @@
                     android:src="@mipmap/ic_launcher"/>
 
                 <TextView
-                    android:gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:gravity="center"
                     android:text="辽宁 沈阳"/>
             </LinearLayout>
 
@@ -170,9 +171,9 @@
                     android:src="@mipmap/ic_launcher"/>
 
                 <TextView
-                    android:gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:gravity="center"
                     android:text="剩5天5个小时"/>
             </LinearLayout>
 
@@ -238,73 +239,7 @@
                 android:layout_height="match_parent"
                 android:text="备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说明,备注说"/>
         </ScrollView>
-    </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/line"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="90px">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="52px"
-                android:layout_height="52px"
-                android:src="@mipmap/ic_launcher"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="打电话"/>
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="1px"
-            android:layout_height="match_parent"
-            android:background="@color/line"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="52px"
-                android:layout_height="52px"
-                android:src="@mipmap/ic_launcher"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="留言"/>
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="1px"
-            android:layout_height="match_parent"
-            android:background="@color/line"/>
-
-        <TextView
-            android:id="@+id/tv_offer"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:background="@color/colorAccent"
-            android:gravity="center"
-            android:text="报价"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -135,7 +135,7 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
                     android:gravity="center_vertical"
-                    app:starCount="5"
+                    app:starCount="3"
                     app:starEmpty="@mipmap/drop_down_unselected_icon"
                     app:starFill="@mipmap/drop_down_selected_icon"
                     app:starHalf="@mipmap/drop_down_selected_icon"

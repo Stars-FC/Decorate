@@ -51,8 +51,6 @@ public class AuthenticationActivity extends BaseActivity implements EasyPermissi
     @Override
     protected boolean buildTitle(TitleBar bar) {
         bar.setTitleText("实名认证");
-        bar.setTitleTextColor(Color.BLACK);
-        bar.setBackgroundColor(Color.LTGRAY);
         bar.setLeftImageResource(R.mipmap.ic_launcher);
         return true;
     }
@@ -77,13 +75,14 @@ public class AuthenticationActivity extends BaseActivity implements EasyPermissi
         return R.layout.my_authentication;
     }
 
-    @OnClick({R.id.naviButtonLeft,R.id.button,R.id.add_ic_iv})
+    @OnClick({R.id.naviFrameLeft,R.id.button,R.id.add_ic_iv})
     public void onClickEvent(View view) {
         if (view != null) {
             switch (view.getId()) {
-                case R.id.naviButtonLeft:
+                case R.id.naviFrameLeft:
                     finish();
-                    break;case R.id.add_ic_iv://头像
+                    break;
+                case R.id.add_ic_iv:
                     addICEvent();
                     break;
                 case R.id.button:

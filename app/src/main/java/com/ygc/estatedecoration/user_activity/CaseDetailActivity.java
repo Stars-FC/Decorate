@@ -5,11 +5,16 @@ import android.view.View;
 
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
+import com.ygc.estatedecoration.widget.RatingBar;
 import com.ygc.estatedecoration.widget.TitleBar;
 
+import butterknife.BindView;
 import butterknife.OnClick;
 
 public class CaseDetailActivity extends BaseActivity {
+
+    @BindView(R.id.ratingbar)
+    RatingBar mRatingBar;
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
@@ -25,7 +30,7 @@ public class CaseDetailActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
+        mRatingBar.setStar(4.5f);
     }
 
     @Override

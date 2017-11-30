@@ -3,193 +3,189 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     android:orientation="vertical"
     tools:context="com.ygc.estatedecoration.user_fragment.UserPublishFragment">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/ic_launcher" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="发布需求"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#F0F0F0"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="130dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
-
-
-        <LinearLayout
-            android:id="@+id/ll_nos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal">
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="2dp"
-                android:layout_margin="15dp"
-                android:layout_weight="1"
-                android:background="@drawable/startshape" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="没有装修想法？"
-                android:textColor="#50BC66"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="2dp"
-                android:layout_margin="15dp"
-                android:layout_weight="1"
-                android:background="@drawable/endshape" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tv_release"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ll_nos"
-            android:layout_centerHorizontal="true"
-            android:text="发布详细需求"
-            android:textColor="#50BC66"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/tv_landmark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_release"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp"
-            android:text="地标装饰帮您解决装修难题"
-            android:textColor="#50BC66"
-            android:textSize="20sp" />
-    </RelativeLayout>
+        android:background="#eeeeee"/>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
 
-        <RelativeLayout
+        <com.zhy.autolayout.AutoRelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:paddingBottom="112px"
+            android:paddingTop="32px">
 
-            <LinearLayout
+            <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/ll_nos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="115px"
+                    android:layout_height="3px"
+                    android:background="@drawable/startshape"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15px"
+                    android:text="没有装修想法？"
+                    android:textColor="#50BC66"
+                    android:textSize="34px"
+                    android:textStyle="bold"/>
+
+                <View
+                    android:layout_width="115px"
+                    android:layout_height="3px"
+                    android:layout_marginLeft="15px"
+                    android:background="@drawable/endshape"/>
+
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <TextView
+                android:id="@+id/tv_release"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ll_nos"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8px"
+                android:text="发布详细需求"
+                android:textColor="#50BC66"
+                android:textSize="34px"/>
+
+            <TextView
+                android:id="@+id/tv_landmark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_release"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8px"
+                android:text="地标装饰帮您解决装修难题"
+                android:textColor="#50BC66"
+                android:textSize="34px"/>
+
+            <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_below="@id/tv_landmark"
+                android:orientation="vertical"
+                android:paddingLeft="30px"
+                android:paddingTop="57px">
 
-                <LinearLayout
+                <com.zhy.autolayout.AutoLinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/textView4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="1、需求类型（多选）"
-                        android:textSize="16sp" />
+                        android:text="1、需求类型(多选)"
+                        android:textColor="@android:color/black"
+                        android:textSize="26px"/>
 
-                    <LinearLayout
+                    <com.zhy.autolayout.AutoRelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_height="wrap_content">
 
-                        <CheckBox
-                            style="@style/CustomCheckboxTheme"
-                            android:layout_width="0dp"
+                        <com.zhy.autolayout.AutoLinearLayout
+                            android:id="@+id/top"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="全部服务"
-                            android:textSize="12sp" />
+                            android:layout_marginTop="46px"
+                            android:orientation="horizontal"
+                            android:paddingLeft="14px">
 
-                        <CheckBox
-                            style="@style/CustomCheckboxTheme"
-                            android:layout_width="0dp"
+                            <CheckBox
+                                style="@style/CustomCheckboxTheme"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="全部服务"
+                                android:textColor="@android:color/black"
+                                android:textSize="26px"/>
+
+
+                            <CheckBox
+                                style="@style/CustomCheckboxTheme"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="设计服务"
+                                android:textColor="@android:color/black"
+                                android:textSize="26px"/>
+
+                            <CheckBox
+                                style="@style/CustomCheckboxTheme"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="施工服务"
+                                android:textColor="@android:color/black"
+                                android:textSize="26px"/>
+
+                        </com.zhy.autolayout.AutoLinearLayout>
+
+                        <com.zhy.autolayout.AutoLinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="设计服务"
-                            android:textSize="12sp" />
+                            android:layout_below="@+id/top"
+                            android:layout_marginTop="38px"
+                            android:orientation="horizontal"
+                            android:paddingLeft="14px">
 
-                        <CheckBox
-                            style="@style/CustomCheckboxTheme"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="施工服务"
-                            android:textSize="12sp" />
+                            <CheckBox
+                                style="@style/CustomCheckboxTheme"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="监理服务"
+                                android:textSize="26px"/>
 
-                    </LinearLayout>
+                            <CheckBox
+                                style="@style/CustomCheckboxTheme"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:text="装修材料服务"
+                                android:textSize="26px"/>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        </com.zhy.autolayout.AutoLinearLayout>
 
-                        <CheckBox
-                            style="@style/CustomCheckboxTheme"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="监理服务"
-                            android:textSize="12sp" />
+                    </com.zhy.autolayout.AutoRelativeLayout>
 
-                        <CheckBox
-                            style="@style/CustomCheckboxTheme"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:text="装修材料服务"
-                            android:textSize="12sp" />
+                </com.zhy.autolayout.AutoLinearLayout>
 
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
+                <com.zhy.autolayout.AutoLinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingTop="65px">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="2、您家准备什么时候开始装修？"
-                        android:textSize="16sp"
-                        android:textStyle="" />
+                        android:textColor="@android:color/black"
+                        android:textSize="26px"/>
 
                     <RadioGroup
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginTop="46px"
+                        android:orientation="horizontal"
+                        android:paddingLeft="14px">
 
                         <RadioButton
                             style="@style/CustomCheckboxTheme"
@@ -197,7 +193,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="7天"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"/>
 
                         <RadioButton
                             style="@style/CustomCheckboxTheme"
@@ -205,7 +201,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="15天"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"/>
 
                         <RadioButton
                             style="@style/CustomCheckboxTheme"
@@ -213,29 +209,30 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="30天"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"/>
                     </RadioGroup>
-                </LinearLayout>
+
+                </com.zhy.autolayout.AutoLinearLayout>
 
 
-                <LinearLayout
+                <com.zhy.autolayout.AutoLinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingTop="65px">
 
                     <TextView
                         android:id="@+id/textView2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="3、您的装修类型是"
-                        android:textSize="16sp"
-                        android:textStyle="" />
+                        android:textColor="@android:color/black"
+                        android:textSize="26px"/>
 
                     <RadioGroup
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="46px"
                         android:orientation="horizontal">
 
                         <RadioButton
@@ -244,7 +241,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="家装"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"/>
 
                         <RadioButton
                             style="@style/CustomCheckboxTheme"
@@ -252,29 +249,29 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
                             android:text="工装"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"/>
 
                     </RadioGroup>
-                </LinearLayout>
+                </com.zhy.autolayout.AutoLinearLayout>
 
-                <LinearLayout
+                <com.zhy.autolayout.AutoLinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingTop="65px">
 
                     <TextView
                         android:id="@+id/textView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="4、您的建筑现状是"
-                        android:textSize="16sp"
-                        android:textStyle="" />
+                        android:textColor="@android:color/black"
+                        android:textSize="26px"/>
 
                     <RadioGroup
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="46px"
                         android:orientation="horizontal">
 
                         <RadioButton
@@ -283,7 +280,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="局部改造"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"/>
 
                         <RadioButton
                             style="@style/CustomCheckboxTheme"
@@ -291,7 +288,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="毛坯房"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"/>
 
                         <RadioButton
                             style="@style/CustomCheckboxTheme"
@@ -299,138 +296,155 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="旧房翻新"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"/>
 
                     </RadioGroup>
-                </LinearLayout>
+                </com.zhy.autolayout.AutoLinearLayout>
 
-                <LinearLayout
+                <com.zhy.autolayout.AutoLinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="65px"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="5、您的建筑面积是"
-                        android:textSize="16sp"
-                        android:textStyle="" />
+                        android:textColor="@android:color/black"
+                        android:textSize="26px"/>
 
-                    <LinearLayout
+                    <com.zhy.autolayout.AutoLinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="46px"
                         android:orientation="horizontal">
 
                         <EditText
                             android:layout_width="0dp"
-                            android:layout_height="50dp"
-                            android:layout_weight="2"
+                            android:layout_height="90px"
+                            android:layout_weight="1"
                             android:background="@drawable/edit_bg"
                             android:gravity="center_vertical"
                             android:hint="请输入房屋面积"
-                            android:paddingLeft="5dp"
-                            android:textColorHint="#B2B2B2" />
+                            android:paddingLeft="7px"
+                            android:textColor="@android:color/black"
+                            android:textColorHint="#b8b8b8"
+                            android:textSize="26px"/>
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginLeft="8px"
                             android:text="平方米"
-                            android:textSize="12sp" />
+                            android:layout_marginRight="40px"
+                            android:textColor="@android:color/black"
+                            android:textSize="26px"/>
 
-                    </LinearLayout>
-                </LinearLayout>
+                    </com.zhy.autolayout.AutoLinearLayout>
 
-                <LinearLayout
+                </com.zhy.autolayout.AutoLinearLayout>
+
+                <com.zhy.autolayout.AutoLinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="65px"
+                    android:paddingRight="40px"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="6、请设定您的需求标题"
-                        android:textSize="16sp"
-                        android:textStyle="" />
+                        android:textSize="26px"
+                        android:textColor="@android:color/black"/>
 
                     <EditText
+                        android:id="@+id/editText"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="90px"
+                        android:layout_marginTop="46px"
                         android:background="@drawable/edit_bg"
                         android:gravity="center_vertical"
                         android:hint="请输入需求标题"
-                        android:paddingLeft="5dp"
-                        android:textColorHint="#B2B2B2" />
+                        android:paddingLeft="7px"
+                        android:textColor="@android:color/black"
+                        android:textColorHint="#b8b8b8"
+                        android:textSize="26px"/>
 
-                </LinearLayout>
+                </com.zhy.autolayout.AutoLinearLayout>
 
-                <LinearLayout
+                <com.zhy.autolayout.AutoLinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="65px"
+                    android:paddingRight="40px"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="7、需求详情"
-                        android:textSize="16sp"
-                        android:textStyle="" />
+                        android:textSize="26px"
+                        android:textColor="@android:color/black"/>
 
                     <EditText
                         android:layout_width="match_parent"
-                        android:layout_height="150dp"
+                        android:layout_height="250px"
+                        android:layout_marginTop="46px"
                         android:background="@drawable/edit_bg"
                         android:gravity="top|left"
                         android:hint="请输入需求详情"
-                        android:padding="5dp"
-                        android:textColorHint="#B2B2B2" />
+                        android:textSize="26px"
+                        android:textColor="@android:color/black"
+                        android:padding="7px"
+                        android:textColorHint="#b8b8b8"/>
 
-                </LinearLayout>
+                </com.zhy.autolayout.AutoLinearLayout>
 
-                <LinearLayout
+                <com.zhy.autolayout.AutoLinearLayout
                     android:id="@+id/ll_remarks"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="65px"
+                    android:paddingRight="40px"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="8、备注说明"
-                        android:textSize="16sp"
-                        android:textStyle="" />
+                        android:textSize="26px"
+                        android:textColor="@android:color/black"/>
 
                     <EditText
                         android:layout_width="match_parent"
-                        android:layout_height="150dp"
+                        android:layout_height="250px"
+                        android:layout_marginTop="46px"
                         android:background="@drawable/edit_bg"
                         android:gravity="top|left"
                         android:hint="请输入输入其他备注信息"
-                        android:padding="5dp"
-                        android:textColorHint="#B2B2B2" />
+                        android:padding="7px"
+                        android:textColor="@android:color/black"
+                        android:textSize="26px"
+                        android:textColorHint="#b8b8b8"/>
 
-                </LinearLayout>
+                </com.zhy.autolayout.AutoLinearLayout>
 
                 <Button
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="520px"
+                    android:layout_height="80px"
                     android:layout_below="@id/ll_remarks"
                     android:layout_gravity="center"
-                    android:layout_marginTop="50dp"
-                    android:background="#50BC66"
+                    android:layout_marginTop="87px"
+                    android:background="@drawable/shape_all_my_moneybag"
                     android:text="立即发布"
                     android:textColor="#FFFFFF"
-                    android:textSize="16sp" />
-            </LinearLayout>
-        </RelativeLayout>
+                    android:textSize="26px"/>
+            </com.zhy.autolayout.AutoLinearLayout>
+
+        </com.zhy.autolayout.AutoRelativeLayout>
+
     </ScrollView>
 
 </com.zhy.autolayout.AutoLinearLayout>

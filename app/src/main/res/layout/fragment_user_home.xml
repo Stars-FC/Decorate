@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none">
@@ -78,7 +78,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="20px"
+                    android:layout_height="21px"
                     android:background="@color/color_f2f4ec"/>
 
                 <com.zhy.autolayout.AutoLinearLayout
@@ -124,15 +124,15 @@
 
                 </com.zhy.autolayout.AutoLinearLayout>
 
-                <com.ygc.estatedecoration.widget.BetterRecyclerView
+                <com.ygc.estatedecoration.widget.ScrollRecyclerView
                     android:id="@+id/find_design_recyclerview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="340px"
-                    android:paddingBottom="24px"
-                    android:paddingLeft="20px">
+                    android:minHeight="447px"
+                    android:paddingBottom="36px"
+                    android:paddingLeft="9px">
 
-                </com.ygc.estatedecoration.widget.BetterRecyclerView>
+                </com.ygc.estatedecoration.widget.ScrollRecyclerView>
 
                 <View
                     android:layout_width="match_parent"
@@ -182,14 +182,14 @@
 
                 </com.zhy.autolayout.AutoLinearLayout>
 
-                <com.ygc.estatedecoration.widget.BetterRecyclerView
+                <com.ygc.estatedecoration.widget.ScrollRecyclerView
                     android:id="@+id/find_implement_recyclerview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="340px"
-                    android:paddingBottom="24px"
-                    android:paddingLeft="20px">
-                </com.ygc.estatedecoration.widget.BetterRecyclerView>
+                    android:minHeight="447px"
+                    android:paddingBottom="36px"
+                    android:paddingLeft="9px">
+                </com.ygc.estatedecoration.widget.ScrollRecyclerView>
 
                 <View
                     android:layout_width="match_parent"
@@ -239,14 +239,14 @@
 
                 </com.zhy.autolayout.AutoLinearLayout>
 
-                <com.ygc.estatedecoration.widget.BetterRecyclerView
+                <com.ygc.estatedecoration.widget.ScrollRecyclerView
                     android:id="@+id/find_supervisor_recyclerview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="340px"
-                    android:paddingBottom="24px"
-                    android:paddingLeft="20px">
-                </com.ygc.estatedecoration.widget.BetterRecyclerView>
+                    android:minHeight="447px"
+                    android:paddingBottom="36px"
+                    android:paddingLeft="9px">
+                </com.ygc.estatedecoration.widget.ScrollRecyclerView>
 
                 <View
                     android:layout_width="match_parent"
@@ -296,13 +296,13 @@
 
                 </com.zhy.autolayout.AutoLinearLayout>
 
-                <com.ygc.estatedecoration.widget.BetterRecyclerView
+                <com.ygc.estatedecoration.widget.ScrollRecyclerView
                     android:id="@+id/find_materials_recyclerview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="340px"
                     android:paddingBottom="24px">
-                </com.ygc.estatedecoration.widget.BetterRecyclerView>
+                </com.ygc.estatedecoration.widget.ScrollRecyclerView>
 
                 <View
                     android:layout_width="match_parent"
@@ -419,17 +419,17 @@
 
                 </com.zhy.autolayout.AutoLinearLayout>
 
-                <com.ygc.estatedecoration.widget.BetterRecyclerView
+                <com.ygc.estatedecoration.widget.ScrollRecyclerView
                     android:id="@+id/recommend_activity_recyclerview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="316px"
                     android:paddingLeft="20px">
-                </com.ygc.estatedecoration.widget.BetterRecyclerView>
+                </com.ygc.estatedecoration.widget.ScrollRecyclerView>
 
             </com.zhy.autolayout.AutoLinearLayout>
 
-        </ScrollView>
+        </android.support.v4.widget.NestedScrollView>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

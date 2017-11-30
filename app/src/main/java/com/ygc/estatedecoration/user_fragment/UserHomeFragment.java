@@ -19,6 +19,7 @@ import com.ygc.estatedecoration.adapter.UserFindDesignAdapter;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.entity.base.Constant;
 import com.ygc.estatedecoration.user_activity.UserFindDesigerActivity;
+import com.ygc.estatedecoration.user_activity.UserFindSupervisorActivity;
 import com.ygc.estatedecoration.user_activity.UserSearchActivity;
 import com.ygc.estatedecoration.widget.TitleBar;
 
@@ -58,8 +59,7 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
     private UserFindDesignAdapter mUserFindDesignAdapter;
 
 
-    public UserHomeFragment() {
-    }
+    public UserHomeFragment() {}
 
     public static UserHomeFragment newInstance() {
         return new UserHomeFragment();
@@ -125,7 +125,7 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
     }
 
     private void initRecommendActivityRecyclerView() {
-        mUserFindDesignAdapter = new UserFindDesignAdapter(R.layout.item_user_home_fragment_find_design, findDesignDataList);
+        mUserFindDesignAdapter = new UserFindDesignAdapter(R.layout.item_user_home_fragment_recommend_activity, findDesignDataList);
         mRv_findDesign.setHasFixedSize(true);
         mRv_findDesign.setNestedScrollingEnabled(false);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false);
@@ -235,11 +235,13 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
                     Intent desigeIntent = new Intent(mActivity, UserFindDesigerActivity.class);
                     startActivity(desigeIntent);
                     break;
-                case R.id.find_implement_more_ll:
+                case R.id.find_implement_more_ll://找施工
                     break;
-                case R.id.find_supervisor_more_ll:
+                case R.id.find_supervisor_more_ll://找监理
+                    Intent intent1 = new Intent(mActivity, UserFindSupervisorActivity.class);
+                    startActivity(intent1);
                     break;
-                case R.id.find_materials_more_ll:
+                case R.id.find_materials_more_ll://找材料
                     break;
                 case R.id.tips_more_ll://小技巧
                     break;

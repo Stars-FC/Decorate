@@ -41,7 +41,8 @@ public class UserPublishFragment extends BaseFragment {
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
-        return false;
+        bar.setTitleText("发布需求");
+        return true;
     }
 
     @Override

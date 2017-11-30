@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<com.zhy.autolayout.AutoLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    android:layout_height="match_parent"
     android:background="@android:color/white"
+    android:orientation="vertical"
     tools:context="com.ygc.estatedecoration.activity.home.DemandAndProgressActivity">
 
     <RelativeLayout
@@ -28,8 +29,8 @@
         <com.androidkun.xtablayout.XTabLayout
             android:id="@+id/tablayout"
             android:layout_width="wrap_content"
-            android:layout_centerInParent="true"
             android:layout_height="match_parent"
+            android:layout_centerInParent="true"
             app:xTabIndicatorColor="#4EBE65"
             app:xTabIndicatorHeight="1.5dp"
             app:xTabIndicatorWidth="50dp"
@@ -52,9 +53,106 @@
             android:src="@mipmap/ic_launcher"/>
     </RelativeLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+    android:background="#eeeeee"/>
+
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"/>
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
-</LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_above="@+id/layout_bottom"
+        android:background="#e5e5e5"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/layout_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="89px"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/activity_schedule_call"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:id="@+id/telephone_rl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+                <ImageView
+                    android:id="@+id/telephone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/telephone"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/telephone"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5px"
+                    android:text="打电话"
+                    android:textColor="@color/black_010101"
+                    android:textSize="17px"/>
+            </com.zhy.autolayout.AutoRelativeLayout>
+
+        </com.zhy.autolayout.AutoRelativeLayout>
+
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/activity_schedule_message"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:id="@+id/message_rl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+                <ImageView
+                    android:id="@+id/message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/message"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/message"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5px"
+                    android:text="留言"
+                    android:textColor="@color/black_010101"
+                    android:textSize="17px"/>
+            </com.zhy.autolayout.AutoRelativeLayout>
+        </com.zhy.autolayout.AutoRelativeLayout>
+
+        <Button
+            android:id="@+id/start_contract_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:background="#4fbc64"
+            android:orientation="vertical"
+            android:text="发起合同"
+            android:textColor="@color/white"
+            android:textSize="26px"/>
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+</com.zhy.autolayout.AutoLinearLayout>

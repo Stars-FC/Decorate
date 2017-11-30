@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    tools:context="com.ygc.estatedecoration.activity.my.TopUpAndTiXianActivity">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20px"
+        android:background="#ececec"/>
+
+    <TextView
+        android:id="@+id/top_ti_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="21px"
+        android:layout_marginTop="34px"
+        android:text=""
+        android:textColor="@android:color/black"
+        android:textSize="26px"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="62px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="21px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="￥"
+            android:textColor="@android:color/black"
+            android:textSize="43px"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="43px"
+            android:layout_marginLeft="20px"
+            android:background="@null"
+            android:textCursorDrawable="@null"
+            android:inputType="numberDecimal"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textSize="30px"/>
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="21px"
+        android:layout_marginTop="29px"
+        android:background="#d3d3d3"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20px"
+        android:layout_marginTop="25px"
+        android:background="#ececec"/>
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="129px"
+        android:paddingLeft="32px"
+        android:paddingRight="28px">
+
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="中国建设银行"
+                android:textColor="@android:color/black"
+                android:textSize="28px"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22px"
+                android:text="尾号0000 储蓄卡"
+                android:textColor="#969696"
+                android:textSize="23px"/>
+
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <ImageView
+            android:layout_width="15px"
+            android:layout_height="28px"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ececec"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/top_ti_btn"
+            android:layout_width="500px"
+            android:layout_height="80px"
+            android:layout_marginTop="209px"
+            android:background="@drawable/shape_all_my_moneybag"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@android:color/white"
+            android:textSize="27px"/>
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+</com.zhy.autolayout.AutoLinearLayout>
