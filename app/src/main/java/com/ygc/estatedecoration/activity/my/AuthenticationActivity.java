@@ -77,12 +77,17 @@ public class AuthenticationActivity extends BaseActivity implements EasyPermissi
         return R.layout.my_authentication;
     }
 
-    @OnClick({R.id.add_ic_iv})
+    @OnClick({R.id.naviButtonLeft,R.id.button,R.id.add_ic_iv})
     public void onClickEvent(View view) {
         if (view != null) {
             switch (view.getId()) {
-                case R.id.add_ic_iv:
+                case R.id.naviButtonLeft:
+                    finish();
+                    break;case R.id.add_ic_iv://头像
                     addICEvent();
+                    break;
+                case R.id.button:
+                    showToast("认证");
                     break;
             }
         }

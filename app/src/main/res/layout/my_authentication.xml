@@ -125,5 +125,17 @@
         </LinearLayout>
 
     </LinearLayout>
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Button
+            android:id="@+id/button"
+            android:layout_width="520px"
+            android:layout_height="85px"
+            android:background="@drawable/shape_all_bt"
+            android:text="开始认证"
+            android:textColor="@color/white"/>
+    </LinearLayout>
 
 </LinearLayout>

@@ -24,12 +24,10 @@ import android.widget.TextView;
 
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.activity.my.AuthenticationActivity;
-import com.ygc.estatedecoration.activity.my.CollectionActivity;
 import com.ygc.estatedecoration.activity.my.GuaranteeMoneyActivity;
 import com.ygc.estatedecoration.activity.my.MoneyBagActivity;
 import com.ygc.estatedecoration.activity.my.SettingActivity;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
-import com.ygc.estatedecoration.fragment.MyFragment;
 import com.ygc.estatedecoration.user_activity.UserCollectionActivity;
 import com.ygc.estatedecoration.user_activity.UserGoodsDetailActivity;
 import com.ygc.estatedecoration.widget.BasePopupWindow;
@@ -43,7 +41,9 @@ import java.io.IOException;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -63,6 +63,7 @@ public class UserMyFragment extends BaseFragment implements EasyPermissions.Perm
 
     @BindView(R.id.tv_sex)
     TextView mTvSex;
+    Unbinder unbinder;
 
     private BasePopupWindow mSelectPicPopupWindow;
     private BasePopupWindow mModifyInfoPicPopupWindow;
@@ -133,7 +134,8 @@ public class UserMyFragment extends BaseFragment implements EasyPermissions.Perm
     }
 
     @OnClick({R.id.iv_company_icon, R.id.tv_chage, R.id.my_authentication,
-            R.id.mine_follow, R.id.my_moneybag, R.id.my_collection, R.id.my_need, R.id.imageView_right_titlebar})
+             R.id.my_moneybag, R.id.my_collection, R.id.my_need, R.id.imageView_right_titlebar,
+            R.id.ll_order, R.id.ll_trusteeship, R.id.ll_transaction, R.id.ll_payment, R.id.ll_evaluate, R.id.ll_customer_service})
     public void onViewClicked(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -145,10 +147,6 @@ public class UserMyFragment extends BaseFragment implements EasyPermissions.Perm
                 break;
             case R.id.my_authentication://实名认证
                 intent.setClass(mActivity, AuthenticationActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.mine_follow://质保金
-                intent.setClass(mActivity, GuaranteeMoneyActivity.class);
                 startActivity(intent);
                 break;
             case R.id.my_moneybag://我的钱包
@@ -166,6 +164,18 @@ public class UserMyFragment extends BaseFragment implements EasyPermissions.Perm
             case R.id.imageView_right_titlebar://设置
                 intent.setClass(mActivity, SettingActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.ll_order://全部订单
+                break;
+            case R.id.ll_trusteeship://待托管
+                break;
+            case R.id.ll_transaction://交易中
+                break;
+            case R.id.ll_payment://待付款
+                break;
+            case R.id.ll_evaluate://待评价
+                break;
+            case R.id.ll_customer_service://售后
                 break;
         }
     }
@@ -306,7 +316,7 @@ public class UserMyFragment extends BaseFragment implements EasyPermissions.Perm
 
     //选择本地图片
     private void takePhoto() {
-        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 "image/*");
         startActivityForResult(intent, TAKE_PHOTO_REQUEST_CODE);

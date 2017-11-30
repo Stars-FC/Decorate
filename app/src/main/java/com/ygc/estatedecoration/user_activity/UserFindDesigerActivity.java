@@ -32,14 +32,11 @@ public class UserFindDesigerActivity extends BaseActivity {
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerview;
 
-    @BindView(R.id.appbarlayout)
-    AppBarLayout mBarLayout;
-
     @BindView(R.id.swipeLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
     private UserFindDesignerAdapter mAdapter;
-    private LinearLayoutManager mLayoutManager;
+    private View mTopView;
 
 
     @Override
@@ -86,7 +83,8 @@ public class UserFindDesigerActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        mLayoutManager = new LinearLayoutManager(UserFindDesigerActivity.this);
+        mTopView = View.inflate(UserFindDesigerActivity.this, R.layout.user_find_designer, null);
+
     }
 
     @Override
@@ -95,36 +93,18 @@ public class UserFindDesigerActivity extends BaseActivity {
         for (int i = 0; i < 10; i++) {
             list.add("" + i);
         }
+        mRecyclerview.setNestedScrollingEnabled(false);
         mAdapter = new UserFindDesignerAdapter(list, UserFindDesigerActivity.this);
-        /**
-         * 自定义RecyclerView实现对AppBarLayout的滚动效果
-         */
-        mRecyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    int firstVisiblePosition = mLayoutManager.findFirstCompletelyVisibleItemPosition();
-                    if (firstVisiblePosition == 0) {
-                        mBarLayout.setExpanded(true, true);
-                    }
-                }
-            }
 
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-            }
-        });
+        mAdapter.addHeaderView(mTopView);
 
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        mRecyclerview.setNestedScrollingEnabled(false);
         mRecyclerview.setAdapter(mAdapter);
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.user_find_designer;
+        return R.layout.recyclerview;
     }
 
     @OnClick({R.id.naviButtonLeft})
