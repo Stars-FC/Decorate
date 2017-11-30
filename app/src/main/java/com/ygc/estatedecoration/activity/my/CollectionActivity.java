@@ -82,6 +82,11 @@ public class CollectionActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+
+    }
+
+    @Override
+    protected void initData(Bundle savedInstanceState) {
         List<String> list = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             list.add("" + i);
@@ -90,11 +95,6 @@ public class CollectionActivity extends BaseActivity {
 
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mRecyclerview.setAdapter(mAdapter);
-    }
-
-    @Override
-    protected void initData(Bundle savedInstanceState) {
-
     }
 
     @Override

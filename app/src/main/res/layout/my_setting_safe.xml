@@ -12,7 +12,7 @@
         android:background="@color/line"/>
 
     <TextView
-        android:id="@+id/tv_accountsafe"
+        android:id="@+id/tv_bank_card"
         android:layout_width="match_parent"
         android:layout_height="80px"
         android:background="@color/white"
@@ -20,7 +20,7 @@
         android:gravity="center_vertical"
         android:paddingLeft="20px"
         android:text="银行卡管理"
-        android:textSize="32px"/>
+        android:textSize="28px"/>
 
     <View
         android:layout_width="match_parent"
@@ -29,14 +29,14 @@
 
 
     <TextView
-        android:id="@+id/tv_aboutwe"
+        android:id="@+id/tv_login_password"
         android:layout_width="match_parent"
         android:layout_height="80px"
         android:background="@color/white"
         android:gravity="center_vertical"
         android:paddingLeft="20px"
         android:text="修改登陆密码"
-        android:textSize="32px"/>
+        android:textSize="28px"/>
 
     <View
         android:layout_width="match_parent"
@@ -44,12 +44,13 @@
         android:background="@color/line"/>
 
     <TextView
-        android:id="@+id/tv_opinionfeedback"
+        android:id="@+id/tv_payment_password"
         android:layout_width="match_parent"
         android:layout_height="80px"
         android:background="@color/white"
         android:gravity="center_vertical"
+        android:elevation="3dp"
         android:paddingLeft="20px"
         android:text="修改支付密码"
-        android:textSize="32px"/>
+        android:textSize="28px"/>
 </LinearLayout>

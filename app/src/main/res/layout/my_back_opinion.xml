@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/recyclerBc"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="150px">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="20px"
+                android:background="@null"
+                android:hint="请输入反馈内容"
+                android:paddingBottom="5dip"
+                android:paddingTop="5dip"
+                android:textSize="28px"/>
+        </ScrollView>
+
+        <ImageView
+            android:layout_width="186px"
+            android:layout_height="186px"
+            android:layout_marginBottom="20px"
+            android:layout_marginLeft="20px"
+            android:src="@color/line"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_logout"
+        android:gravity="center"
+        android:layout_width="520px"
+        android:layout_height="80px"
+        android:layout_centerInParent="true"
+        android:background="@drawable/shape_all_bt"
+        android:text="退出当前账号"
+        android:textColor="@color/white"
+        android:elevation="2dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="190px"
+        android:textSize="36px"/>
+</LinearLayout>

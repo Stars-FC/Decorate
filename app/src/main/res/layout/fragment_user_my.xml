@@ -69,6 +69,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="25px"
+                android:textSize="26px"
                 android:gravity="center_vertical"
                 android:text="我的订单"/>
 
@@ -84,6 +85,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
+                    android:textSize="26px"
                     android:text="全部订单"/>
 
                 <ImageView
@@ -124,7 +126,7 @@
                     android:layout_height="wrap_content"
                     android:text="待托管"
                     android:textColor="@color/teacherInformationText"
-                    android:textSize="32px"/>
+                    android:textSize="23px"/>
             </LinearLayout>
 
             <LinearLayout
@@ -146,7 +148,7 @@
                     android:layout_height="wrap_content"
                     android:text="交易中"
                     android:textColor="@color/teacherInformationText"
-                    android:textSize="32px"/>
+                    android:textSize="23px"/>
             </LinearLayout>
 
             <LinearLayout
@@ -168,7 +170,7 @@
                     android:layout_height="wrap_content"
                     android:text="待付款"
                     android:textColor="@color/teacherInformationText"
-                    android:textSize="32px"/>
+                    android:textSize="23px"/>
             </LinearLayout>
 
             <LinearLayout
@@ -190,7 +192,7 @@
                     android:layout_height="wrap_content"
                     android:text="待评价"
                     android:textColor="@color/teacherInformationText"
-                    android:textSize="32px"/>
+                    android:textSize="23px"/>
             </LinearLayout>
 
             <LinearLayout
@@ -212,7 +214,7 @@
                     android:layout_height="wrap_content"
                     android:text="售后"
                     android:textColor="@color/teacherInformationText"
-                    android:textSize="32px"/>
+                    android:textSize="23px"/>
             </LinearLayout>
 
         </LinearLayout>

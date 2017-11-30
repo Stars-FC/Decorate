@@ -119,7 +119,7 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
         return R.layout.fragment_my;
     }
 
-    @OnClick({R.id.iv_company_icon, R.id.tv_chage, R.id.my_authentication, R.id.my_trade, R.id.mine_follow, R.id.my_moneybag, R.id.my_collection, R.id.my_bright, R.id.imageView_right_titlebar})
+    @OnClick({R.id.iv_company_icon, R.id.tv_chage, R.id.my_authentication, R.id.my_trade, R.id.mine_follow, R.id.my_moneybag, R.id.my_collection, R.id.my_bright, R.id.naviFrameRight})
     public void onViewClicked(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -151,7 +151,7 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
             case R.id.my_bright://我的亮点
                 showToast("我的亮点");
                 break;
-            case R.id.imageView_right_titlebar://设置
+            case R.id.naviFrameRight://设置
                 intent.setClass(mActivity, SettingActivity.class);
                 startActivity(intent);
                 break;

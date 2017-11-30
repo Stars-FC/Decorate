@@ -19,7 +19,7 @@
 
     <EditText
         style="@style/EtStyle"
-        android:hint="请输入您新的密码"/>
+        android:hint="请输入您新的支付密码"/>
 
     <View
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
 
     <EditText
         style="@style/EtStyle"
-        android:hint="请确认你新的密码"/>
+        android:hint="请确认你新的支付密码"/>
 
     <View
         android:layout_width="match_parent"
@@ -90,7 +90,7 @@
             android:layout_width="520px"
             android:layout_height="80px"
             android:background="@drawable/shape_all_my_moneybag"
-            android:text="重置密码"
+            android:text="重置支付密码"
             android:textColor="@android:color/white"
             android:textSize="30px"/>
     </RelativeLayout>

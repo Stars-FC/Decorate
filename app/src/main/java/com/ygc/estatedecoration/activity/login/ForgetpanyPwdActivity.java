@@ -1,28 +1,24 @@
 package com.ygc.estatedecoration.activity.login;
 
-import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
 import com.ygc.estatedecoration.R;
-import com.ygc.estatedecoration.activity.my.SettingAddBankCardActivity;
-import com.ygc.estatedecoration.activity.my.SettingBankCardActivity;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import butterknife.OnClick;
 
 /**
- * 登陆-重置密码界面
+ * 登陆-重置支付密码界面
  */
-public class ForgetPwdActivity extends BaseActivity {
+public class ForgetpanyPwdActivity extends BaseActivity {
 
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
-        bar.setTitleText("重置密码");
+        bar.setTitleText("重置支付密码");
         bar.setTitleTextColor(Color.BLACK);
         bar.setBackgroundColor(Color.WHITE);
         bar.setLeftImageResource(R.mipmap.ic_launcher);
@@ -46,7 +42,7 @@ public class ForgetPwdActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.login_forgetpwd;
+        return R.layout.login_forget_pany_pwd;
     }
 
     @OnClick({R.id.naviFrameLeft})

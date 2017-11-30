@@ -62,13 +62,15 @@ public class SettingActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.tv_cleancache://清除缓存
-                showToast("清除缓存");
+                showToast("清除缓存成功");
                 break;
             case R.id.tv_aboutwe://关于我们
-                showToast("关于我们");
+                intent.setClass(SettingActivity.this,AboutOurActivity.class);
+                startActivity(intent);
                 break;
             case R.id.tv_opinionfeedback://意见反馈
-                showToast("意见反馈");
+                intent.setClass(SettingActivity.this,BackOpinionActivity.class);
+                startActivity(intent);
                 break;
             case R.id.bt_logout://退出当前账号
                 intent.setClass(SettingActivity.this,LoginActivity.class);

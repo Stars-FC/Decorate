@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.activity.my.AuthenticationActivity;
+import com.ygc.estatedecoration.activity.my.CollectionActivity;
 import com.ygc.estatedecoration.activity.my.GuaranteeMoneyActivity;
 import com.ygc.estatedecoration.activity.my.MoneyBagActivity;
 import com.ygc.estatedecoration.activity.my.SettingActivity;
@@ -134,7 +135,7 @@ public class UserMyFragment extends BaseFragment implements EasyPermissions.Perm
     }
 
     @OnClick({R.id.iv_company_icon, R.id.tv_chage, R.id.my_authentication,
-             R.id.my_moneybag, R.id.my_collection, R.id.my_need, R.id.imageView_right_titlebar,
+            R.id.my_moneybag, R.id.my_collection, R.id.my_need, R.id.imageView_right_titlebar,
             R.id.ll_order, R.id.ll_trusteeship, R.id.ll_transaction, R.id.ll_payment, R.id.ll_evaluate, R.id.ll_customer_service})
     public void onViewClicked(View view) {
         Intent intent = new Intent();
@@ -158,7 +159,7 @@ public class UserMyFragment extends BaseFragment implements EasyPermissions.Perm
                 startActivity(intent);
                 break;
             case R.id.my_need://我的需求
-                intent.setClass(mActivity, UserGoodsDetailActivity.class);
+                intent.setClass(mActivity, CollectionActivity.class);
                 startActivity(intent);
                 break;
             case R.id.imageView_right_titlebar://设置
@@ -166,16 +167,22 @@ public class UserMyFragment extends BaseFragment implements EasyPermissions.Perm
                 startActivity(intent);
                 break;
             case R.id.ll_order://全部订单
+                showToast("全部订单");
                 break;
             case R.id.ll_trusteeship://待托管
+                showToast("待托管");
                 break;
             case R.id.ll_transaction://交易中
+                showToast("交易中");
                 break;
             case R.id.ll_payment://待付款
+                showToast("待付款");
                 break;
             case R.id.ll_evaluate://待评价
+                showToast("待评价");
                 break;
             case R.id.ll_customer_service://售后
+                showToast("售后");
                 break;
         }
     }
