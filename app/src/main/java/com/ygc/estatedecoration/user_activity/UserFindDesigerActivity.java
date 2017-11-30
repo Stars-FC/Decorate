@@ -41,9 +41,9 @@ public class UserFindDesigerActivity extends BaseActivity {
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
-        bar.setLeftImageResource(R.mipmap.ic_launcher);
+        bar.setLeftImageResource(R.drawable.fanhui);
         bar.setTitleText("找设计");
-        bar.setRightImageResource(R.mipmap.ic_launcher);
+        bar.setRightImageResource(R.drawable.gengduo);
         return true;
     }
 

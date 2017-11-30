@@ -38,7 +38,7 @@ public class ServiceWeiXinLoginActivity extends BaseActivity {
         bar.setTitleText("服务商绑定手机");
         bar.setTitleTextColor(Color.BLACK);
         bar.setBackgroundColor(Color.WHITE);
-        bar.setLeftImageResource(R.mipmap.ic_launcher);
+        bar.setLeftImageResource(R.drawable.fanhui);
         return true;
     }
 

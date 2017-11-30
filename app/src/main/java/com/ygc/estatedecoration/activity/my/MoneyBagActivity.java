@@ -2,21 +2,13 @@ package com.ygc.estatedecoration.activity.my;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
-import com.ygc.estatedecoration.widget.BasePopupWindow;
 import com.ygc.estatedecoration.widget.TitleBar;
 
-import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -24,12 +16,11 @@ import butterknife.OnClick;
  * 我的-我的钱包页面
  */
 
-public class MoneyBagActivity extends BaseActivity{
-
+public class MoneyBagActivity extends BaseActivity {
     @Override
     protected boolean buildTitle(TitleBar bar) {
         bar.setTitleText("钱包");
-        bar.setLeftImageResource(R.mipmap.ic_launcher);
+        bar.setLeftImageResource(R.drawable.fanhui);
         bar.setRightText("明细");
         bar.setRightTextColor(Color.BLACK);
         return true;

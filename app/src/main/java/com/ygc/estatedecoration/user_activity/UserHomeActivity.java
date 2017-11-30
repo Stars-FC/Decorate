@@ -54,11 +54,11 @@ public class UserHomeActivity extends BaseActivity implements OnTabItemSelectedL
 
     private void initTab() {
         mNavigationController = tab.custom()
-                .addItem(newItem(R.mipmap.ic_launcher, R.mipmap.ic_launcher, "首页"))
-                .addItem(newItem(R.mipmap.ic_launcher, R.mipmap.ic_launcher, "方案"))
-                .addItem(newItem(R.mipmap.ic_launcher, R.mipmap.ic_launcher, "发布"))
-                .addItem(newItem(R.mipmap.ic_launcher, R.mipmap.ic_launcher, "消息"))
-                .addItem(newItem(R.mipmap.ic_launcher, R.mipmap.ic_launcher, "我的"))
+                .addItem(newItem(R.drawable.shouye, R.drawable.shouye_sel, "首页"))
+                .addItem(newItem(R.drawable.dianpu, R.drawable.dianpu_sel, "方案"))
+                .addItem(newItem(R.drawable.guanli, R.drawable.guanli_sel, "发布"))
+                .addItem(newItem(R.drawable.xiaoxi, R.drawable.xiaoxi_sel, "消息"))
+                .addItem(newItem(R.drawable.wode, R.drawable.wode_sel, "我的"))
                 .build();
     }
 
@@ -95,7 +95,7 @@ public class UserHomeActivity extends BaseActivity implements OnTabItemSelectedL
                     mUserPlanFragment = (CaseFragment) fragment;
                 } else if (fragment instanceof UserPublishFragment) {
                     mUserPublishFragment = (UserPublishFragment) fragment;
-                } else if (fragment instanceof UserMsgFragment){
+                } else if (fragment instanceof UserMsgFragment) {
                     mUserMsgFragment = (UserMsgFragment) fragment;
                 } else if (fragment instanceof UserMyFragment) {
                     mUserMyFragment = (UserMyFragment) fragment;

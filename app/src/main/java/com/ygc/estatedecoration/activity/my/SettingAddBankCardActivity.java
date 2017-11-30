@@ -20,7 +20,7 @@ public class SettingAddBankCardActivity extends BaseActivity {
         bar.setTitleText("添加银行卡");
         bar.setTitleTextColor(Color.BLACK);
         bar.setBackgroundColor(Color.WHITE);
-        bar.setLeftImageResource(R.mipmap.ic_launcher);
+        bar.setLeftImageResource(R.drawable.fanhui);
         bar.setRightText("绑定");
         bar.setRightTextColor(Color.parseColor("#4EBE65"));
 //        getResources().getColor(R.color.colorAccent);

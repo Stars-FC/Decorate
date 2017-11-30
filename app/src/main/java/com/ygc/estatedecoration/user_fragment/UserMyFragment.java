@@ -105,7 +105,7 @@ public class UserMyFragment extends BaseFragment implements EasyPermissions.Perm
         bar.setTitleText("我的");
         bar.setTitleTextColor(Color.BLACK);
         bar.setBackgroundColor(Color.WHITE);
-        bar.setRightImageResource(R.mipmap.ic_launcher);
+        bar.setRightImageResource(R.drawable.gengduo);
         return true;
     }
 

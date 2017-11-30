@@ -21,7 +21,7 @@ public class ForgetpanyPwdActivity extends BaseActivity {
         bar.setTitleText("重置支付密码");
         bar.setTitleTextColor(Color.BLACK);
         bar.setBackgroundColor(Color.WHITE);
-        bar.setLeftImageResource(R.mipmap.ic_launcher);
+        bar.setLeftImageResource(R.drawable.fanhui);
         return true;
     }
 

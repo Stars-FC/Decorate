@@ -18,7 +18,7 @@ public class TransactionManageOfferActivity extends BaseActivity{
         bar.setTitleText("报价");
         bar.setTitleTextColor(Color.BLACK);
         bar.setBackgroundColor(Color.WHITE);
-        bar.setLeftImageResource(R.mipmap.ic_launcher);
+        bar.setLeftImageResource(R.drawable.fanhui);
         return true;
     }
 

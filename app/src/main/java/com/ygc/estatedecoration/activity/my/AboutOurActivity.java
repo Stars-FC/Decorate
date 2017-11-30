@@ -17,7 +17,7 @@ public class AboutOurActivity extends BaseActivity {
         bar.setTitleText("关于我们");
         bar.setTitleTextColor(Color.BLACK);
         bar.setBackgroundColor(Color.WHITE);
-        bar.setLeftImageResource(R.mipmap.ic_launcher);
+        bar.setLeftImageResource(R.drawable.fanhui);
         return true;
     }
 

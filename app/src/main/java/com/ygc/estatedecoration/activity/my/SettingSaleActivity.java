@@ -26,7 +26,7 @@ public class SettingSaleActivity extends BaseActivity {
         bar.setTitleText("账户安全");
         bar.setTitleTextColor(Color.BLACK);
         bar.setBackgroundColor(Color.WHITE);
-        bar.setLeftImageResource(R.mipmap.ic_launcher);
+        bar.setLeftImageResource(R.drawable.fanhui);
         return true;
     }
 

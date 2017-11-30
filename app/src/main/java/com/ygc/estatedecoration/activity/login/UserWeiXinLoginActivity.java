@@ -18,7 +18,7 @@ public class UserWeiXinLoginActivity extends BaseActivity {
         bar.setTitleText("用户绑定手机");
         bar.setTitleTextColor(Color.BLACK);
         bar.setBackgroundColor(Color.WHITE);
-        bar.setLeftImageResource(R.mipmap.ic_launcher);
+        bar.setLeftImageResource(R.drawable.fanhui);
         return true;
     }
 

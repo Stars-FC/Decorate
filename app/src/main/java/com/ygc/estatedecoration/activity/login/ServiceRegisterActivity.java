@@ -38,7 +38,7 @@ public class ServiceRegisterActivity extends BaseActivity {
         bar.setTitleText("服务商注册");
         bar.setTitleTextColor(Color.BLACK);
         bar.setBackgroundColor(Color.WHITE);
-        bar.setLeftImageResource(R.mipmap.ic_launcher);
+        bar.setLeftImageResource(R.drawable.fanhui);
         return true;
     }
 

@@ -52,8 +52,8 @@ public class SettingBankCardActivity extends BaseActivity {
         bar.setTitleText("我的银行卡");
         bar.setTitleTextColor(Color.BLACK);
         bar.setBackgroundColor(Color.WHITE);
-        bar.setLeftImageResource(R.mipmap.ic_launcher);
-        bar.setRightImageResource(R.mipmap.ic_launcher);
+        bar.setLeftImageResource(R.drawable.fanhui);
+        bar.setRightImageResource(R.drawable.gengduo);
         return true;
     }
 

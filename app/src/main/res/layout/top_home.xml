@@ -30,7 +30,7 @@
                 android:layout_width="50px"
                 android:layout_height="50px"
                 android:layout_gravity="center_horizontal"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/wodedianpu"/>
 
             <TextView
                 android:id="@+id/login"
@@ -54,7 +54,7 @@
                 android:layout_width="50px"
                 android:layout_height="50px"
                 android:layout_gravity="center_horizontal"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/xuqiudating"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -77,7 +77,7 @@
                 android:layout_width="50px"
                 android:layout_height="50px"
                 android:layout_gravity="center_horizontal"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/jiaoyiguanli"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -100,7 +100,7 @@
                 android:layout_width="50px"
                 android:layout_height="50px"
                 android:layout_gravity="center_horizontal"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/fangke"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -124,7 +124,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:layout_marginLeft="30px"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@drawable/tuijian"/>
 
         <TextView
             android:layout_width="wrap_content"

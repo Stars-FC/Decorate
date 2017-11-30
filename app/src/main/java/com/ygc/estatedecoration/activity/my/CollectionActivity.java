@@ -40,7 +40,7 @@ public class CollectionActivity extends BaseActivity {
         bar.setTitleText("我的收藏");
         bar.setTitleTextColor(Color.BLACK);
         bar.setBackgroundColor(Color.WHITE);
-        bar.setLeftImageResource(R.mipmap.ic_launcher);
+        bar.setLeftImageResource(R.drawable.fanhui);
         bar.setRightText("编辑");
         bar.setRightTextColor(Color.BLACK);
         return true;

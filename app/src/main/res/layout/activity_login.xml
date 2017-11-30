@@ -234,6 +234,6 @@
         android:layout_height="95px"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="35px"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@drawable/dengluweixin"/>
 
 </LinearLayout>

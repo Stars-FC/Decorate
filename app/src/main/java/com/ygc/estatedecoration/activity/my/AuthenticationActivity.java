@@ -51,7 +51,7 @@ public class AuthenticationActivity extends BaseActivity implements EasyPermissi
     @Override
     protected boolean buildTitle(TitleBar bar) {
         bar.setTitleText("实名认证");
-        bar.setLeftImageResource(R.mipmap.ic_launcher);
+        bar.setLeftImageResource(R.drawable.fanhui);
         return true;
     }
 

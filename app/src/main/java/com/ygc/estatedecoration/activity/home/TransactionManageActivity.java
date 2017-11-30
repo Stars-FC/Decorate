@@ -44,7 +44,7 @@ public class TransactionManageActivity extends BaseActivity {
         bar.setTitleText("交易管理");
         bar.setTitleTextColor(Color.BLACK);
         bar.setBackgroundColor(Color.WHITE);
-        bar.setLeftImageResource(R.mipmap.ic_launcher);
+        bar.setLeftImageResource(R.drawable.fanhui);
         return true;
     }
 

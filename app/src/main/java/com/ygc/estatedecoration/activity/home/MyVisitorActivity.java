@@ -47,7 +47,7 @@ public class MyVisitorActivity extends BaseActivity {
         bar.setTitleText("我的访客");
         bar.setTitleTextColor(Color.BLACK);
         bar.setBackgroundColor(Color.WHITE);
-        bar.setLeftImageResource(R.mipmap.ic_launcher);
+        bar.setLeftImageResource(R.drawable.fanhui);
         return true;
     }
 

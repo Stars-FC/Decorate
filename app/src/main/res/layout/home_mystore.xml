@@ -20,7 +20,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="20px"
             android:layout_marginTop="25px"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@drawable/fanhui"/>
 
         <com.ygc.estatedecoration.widget.CircleImageView
             android:id="@+id/iv_company_icon"
