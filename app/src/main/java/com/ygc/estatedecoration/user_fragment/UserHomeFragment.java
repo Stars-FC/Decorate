@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.ygc.estatedecoration.R;
@@ -21,6 +22,7 @@ import com.ygc.estatedecoration.entity.base.Constant;
 import com.ygc.estatedecoration.user_activity.UserFindDesigerActivity;
 import com.ygc.estatedecoration.user_activity.UserFindSupervisorActivity;
 import com.ygc.estatedecoration.user_activity.UserSearchActivity;
+import com.ygc.estatedecoration.user_activity.UserShopActivity;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import java.util.ArrayList;
@@ -236,16 +238,24 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
                     startActivity(desigeIntent);
                     break;
                 case R.id.find_implement_more_ll://找施工
+                    Intent intent3 = new Intent(mActivity, UserFindSupervisorActivity.class);
+                    intent3.putExtra("mark", 1);
+                    startActivity(intent3);
                     break;
                 case R.id.find_supervisor_more_ll://找监理
                     Intent intent1 = new Intent(mActivity, UserFindSupervisorActivity.class);
+                    intent1.putExtra("mark", 2);
                     startActivity(intent1);
                     break;
                 case R.id.find_materials_more_ll://找材料
+                    Intent intent2 = new Intent(mActivity, UserShopActivity.class);
+                    startActivity(intent2);
                     break;
                 case R.id.tips_more_ll://小技巧
+                    showToast("暂无内容");
                     break;
                 case R.id.recommend_activity_ll://推荐活动
+                    showToast("暂无内容");
                     break;
             }
         }

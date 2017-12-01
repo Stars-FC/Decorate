@@ -4,12 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/msg"
     tools:context="com.ygc.estatedecoration.user_fragment.UserMsgFragment">
 
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@null"/>
 
 </com.zhy.autolayout.AutoLinearLayout>

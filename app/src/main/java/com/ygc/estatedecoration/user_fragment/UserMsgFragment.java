@@ -42,7 +42,8 @@ public class UserMsgFragment extends BaseFragment {
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
-        return false;
+        bar.setTitleText("消息");
+        return true;
     }
 
     @Override

@@ -59,6 +59,8 @@ public class NeedHallActivity extends BaseActivity {
     private GirdDropDownAdapter typesAdapter;
     private GirdDropDownAdapter nowsAdapter;
     private HomeNeedHallAdapter mAdapter;
+    List<String> list = new ArrayList<>();
+
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
@@ -110,6 +112,8 @@ public class NeedHallActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+
+
         //头布局
         mTopView = View.inflate(getApplicationContext(), R.layout.top_home_needhall, null);
         //recycleyview的布局
@@ -124,6 +128,11 @@ public class NeedHallActivity extends BaseActivity {
 
         //设置mDropDownMenu筛选
         initDropDownMenu();
+
+        mAdapter = new HomeNeedHallAdapter(list);
+
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(NeedHallActivity.this));
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     /**
@@ -187,15 +196,11 @@ public class NeedHallActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        List<String> list = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             list.add("" + i);
         }
 
-        mAdapter = new HomeNeedHallAdapter(list);
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(NeedHallActivity.this));
-        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override

@@ -16,12 +16,18 @@
             app:contentScrim="#fff"
             app:layout_scrollFlags="scroll">
 
-            <cn.bingoogolapple.bgabanner.BGABanner
-                android:id="@+id/banner"
-                style="@style/BannerDefaultStyle"
+            <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="310px"
-                app:banner_transitionEffect="accordion"/>
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <cn.bingoogolapple.bgabanner.BGABanner
+                    android:id="@+id/banner"
+                    style="@style/BannerDefaultStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="310px"
+                    app:banner_transitionEffect="accordion"/>
+            </com.zhy.autolayout.AutoLinearLayout>
 
         </android.support.design.widget.CollapsingToolbarLayout>
 

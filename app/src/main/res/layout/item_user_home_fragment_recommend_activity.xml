@@ -16,6 +16,7 @@
         <com.makeramen.roundedimageview.RoundedImageView
             android:layout_width="match_parent"
             android:layout_height="280px"
+            android:src="@drawable/shang_pin"
             app:riv_corner_radius_top_left="15dp"
             app:riv_corner_radius_top_right="15dp"/>
 

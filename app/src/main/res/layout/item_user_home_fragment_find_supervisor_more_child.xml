@@ -9,6 +9,6 @@
     <ImageView
         android:layout_width="570px"
         android:layout_height="match_parent"
-        android:background="#eeeeee"/>
+        android:src="@drawable/shangpin_heng"/>
 
 </com.zhy.autolayout.AutoLinearLayout>

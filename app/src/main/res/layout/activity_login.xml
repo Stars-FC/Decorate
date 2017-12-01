@@ -73,10 +73,10 @@
                 android:gravity="center_vertical">
 
                 <ImageView
-                    android:layout_width="52px"
-                    android:layout_height="52px"
+                    android:layout_width="50px"
+                    android:layout_height="50px"
                     android:layout_marginLeft="40px"
-                    android:src="@mipmap/ic_launcher"/>
+                    android:src="@drawable/zhanghu"/>
 
                 <EditText
                     android:id="@+id/et_number"
@@ -110,11 +110,10 @@
                 android:gravity="center_vertical">
 
                 <ImageView
-                    android:layout_width="52px"
-                    android:layout_height="52px"
+                    android:layout_width="50px"
+                    android:layout_height="50px"
                     android:layout_marginLeft="40px"
-                    android:src="@mipmap/ic_launcher"
-                    />
+                    android:src="@drawable/mima"/>
 
                 <EditText
                     android:id="@+id/et_pwd"

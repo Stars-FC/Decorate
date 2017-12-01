@@ -18,8 +18,9 @@ public class CaseDetailActivity extends BaseActivity {
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
-        bar.setLeftImageResource(R.mipmap.ic_launcher);
+        bar.setLeftImageResource(R.drawable.fanhui);
         bar.setTitleText("案例标题");
+        bar.setRightImageResource(R.drawable.shoucang);
         return true;
     }
 
@@ -39,7 +40,6 @@ public class CaseDetailActivity extends BaseActivity {
     }
 
     private void initTitleBar() {
-        mTitleBar.setRightImageResource(R.mipmap.ic_launcher);
     }
 
     @Override
@@ -47,12 +47,14 @@ public class CaseDetailActivity extends BaseActivity {
         return R.layout.activity_case_detail;
     }
 
-    @OnClick({R.id.naviFrameLeft})
+    @OnClick({R.id.naviFrameLeft, R.id.naviFrameRight})
     public void onClickEvent(View view) {
         if (view != null) {
             switch (view.getId()) {
                 case R.id.naviFrameLeft:
                     finish();
+                    break;
+                case R.id.naviFrameRight:
                     break;
             }
         }

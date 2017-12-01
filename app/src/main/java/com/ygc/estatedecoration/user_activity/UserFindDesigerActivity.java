@@ -1,5 +1,6 @@
 package com.ygc.estatedecoration.user_activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -38,7 +39,7 @@ public class UserFindDesigerActivity extends BaseActivity {
 
     private UserFindDesignerAdapter mAdapter;
     private View mTopView;
-
+    List<String> list = new ArrayList<>();
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
@@ -84,16 +85,11 @@ public class UserFindDesigerActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        mTopView = View.inflate(UserFindDesigerActivity.this, R.layout.user_find_designer, null);
-
+        initRecyclerView();
     }
 
-    @Override
-    protected void initData(Bundle savedInstanceState) {
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            list.add("" + i);
-        }
+    private void initRecyclerView() {
+        mTopView = View.inflate(UserFindDesigerActivity.this, R.layout.user_find_designer, null);
         mRecyclerview.setNestedScrollingEnabled(false);
         mAdapter = new UserFindDesignerAdapter(list, UserFindDesigerActivity.this);
 
@@ -104,15 +100,26 @@ public class UserFindDesigerActivity extends BaseActivity {
     }
 
     @Override
+    protected void initData(Bundle savedInstanceState) {
+        for (int i = 0; i < 10; i++) {
+            list.add("" + i);
+        }
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.recyclerview;
     }
 
-    @OnClick({R.id.naviButtonLeft})
+    @OnClick({R.id.naviButtonLeft, R.id.naviFrameRight})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.naviButtonLeft://后退按钮
                 finish();
+                break;
+            case R.id.naviFrameRight:
+                Intent intent = new Intent(this, UserSearchActivity.class);
+                startActivity(intent);
                 break;
         }
     }

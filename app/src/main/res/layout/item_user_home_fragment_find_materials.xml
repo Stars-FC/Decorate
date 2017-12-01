@@ -14,7 +14,8 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="314px"/>
+            android:layout_height="314px"
+            android:src="@drawable/shang_pin"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -28,9 +29,9 @@
         <com.zhy.autolayout.AutoRelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginLeft="20px"
-            android:layout_marginTop="16px">
+            android:layout_marginTop="16px"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"

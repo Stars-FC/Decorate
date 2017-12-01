@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:hedgehog="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_height="wrap_content" xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginRight="40px"
     android:orientation="vertical">
 
@@ -56,19 +56,16 @@
                         android:layout_height="26px"
                         android:layout_weight="1"/>
 
-                    <com.ygc.estatedecoration.widget.RatingBar
-                        android:id="@+id/ratingbar"
+                    <com.ygc.estatedecoration.widget.StarView
+                        android:id="@+id/starview"
                         android:layout_width="wrap_content"
                         android:layout_height="26px"
-                        android:layout_gravity="center"
-                        hedgehog:clickable1="true"
-                        hedgehog:halfstart1="true"
-                        hedgehog:starCount1="5"
-                        hedgehog:starEmpty1="@drawable/ic_star_empty"
-                        hedgehog:starFill1="@drawable/ic_star_fill"
-                        hedgehog:starImageHeight1="30px"
-                        hedgehog:starImagePadding1="5px"
-                        hedgehog:starImageWidth1="30px"/>
+                        app:starCount="5"
+                        app:starFill="@drawable/xingxing"
+                        app:starHalf="@drawable/xingxing"
+                        app:starImageSize="23px"
+                        app:starStep="5"
+                        app:stepSize="Half"/>
 
                 </com.zhy.autolayout.AutoLinearLayout>
 
@@ -161,7 +158,8 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#eeeeee"/>
+                android:background="#eeeeee"
+            android:src="@drawable/shangpin_heng"/>
 
             <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="wrap_content"

@@ -20,9 +20,9 @@
             android:layout_width="280px"
             android:layout_height="280px"
             android:scaleType="fitCenter"
-            app:riv_corner_radius="15dip"
+            app:riv_corner_radius="15px"
             app:riv_mutate_background="true"
-            app:riv_oval="true"
+            android:src="@drawable/shang_pin"
             app:riv_tile_mode="repeat"/>
 
         <com.zhy.autolayout.AutoLinearLayout

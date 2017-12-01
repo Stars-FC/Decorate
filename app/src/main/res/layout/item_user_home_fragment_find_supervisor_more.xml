@@ -38,6 +38,7 @@
                     android:paddingRight="43px">
 
                     <TextView
+                        android:id="@+id/name_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="监理名称"
@@ -68,7 +69,7 @@
                         app:starHalf="@drawable/xingxing"
                         app:starImageSize="25px"
                         app:starPadding="5px"
-                        app:starStep="1.5"
+                        app:starStep="5"
                         app:stepSize="Half"/>
 
                 </com.zhy.autolayout.AutoLinearLayout>
@@ -100,6 +101,7 @@
                             android:layout_weight="1"/>
 
                         <TextView
+                            android:id="@+id/experience_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="10年监理经验"

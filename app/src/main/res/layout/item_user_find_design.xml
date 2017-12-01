@@ -67,7 +67,7 @@
                         app:starHalf="@drawable/xingxing"
                         app:starImageSize="25px"
                         app:starPadding="5px"
-                        app:starStep="1.5"
+                        app:starStep="5"
                         app:stepSize="Half"/>
 
                 </LinearLayout>

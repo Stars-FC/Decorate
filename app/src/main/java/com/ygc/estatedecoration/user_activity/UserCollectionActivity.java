@@ -25,7 +25,6 @@ import butterknife.OnClick;
 
 public class UserCollectionActivity extends BaseActivity {
 
-
     @BindView(R.id.tablayout)
     XTabLayout mTablayout;
 

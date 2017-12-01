@@ -1,5 +1,6 @@
 package com.ygc.estatedecoration.user_activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -28,6 +29,7 @@ public class UserFindSupervisorActivity extends BaseActivity implements SwipeRef
     RecyclerView mRecyclerView;
     private UserFindSupervisorAdapter adapter;
     private List<String> dataList = new ArrayList<>();
+    private int mMark;
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
@@ -50,8 +52,7 @@ public class UserFindSupervisorActivity extends BaseActivity implements SwipeRef
     }
 
     private void initRecyclerView() {
-        adapter = new UserFindSupervisorAdapter(R.layout.item_user_home_fragment_find_supervisor_more, dataList);
-//        View headerView = getLayoutInflater().inflate(R.layout.header_find_supervisor, null);
+        adapter = new UserFindSupervisorAdapter(R.layout.item_user_home_fragment_find_supervisor_more, dataList, mMark);
         View headerView = View.inflate(this, R.layout.header_find_supervisor, null);
         adapter.addHeaderView(headerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -61,7 +62,12 @@ public class UserFindSupervisorActivity extends BaseActivity implements SwipeRef
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-
+        mMark = getIntent().getIntExtra("mark", 0);
+        if (mMark == 1) {
+            mTitleBar.setTitleText("找施工");
+        } else {
+            mTitleBar.setTitleText("找监理");
+        }
         for (int i = 0; i < 10; i++) {
             dataList.add("hah");
         }
@@ -80,7 +86,8 @@ public class UserFindSupervisorActivity extends BaseActivity implements SwipeRef
                     finish();
                     break;
                 case R.id.naviFrameRight:
-
+                    Intent intent = new Intent(this, UserSearchActivity.class);
+                    startActivity(intent);
                     break;
             }
         }

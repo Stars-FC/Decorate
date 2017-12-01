@@ -14,7 +14,7 @@
             android:layout_width="570px"
             android:layout_height="280px"
             android:layout_gravity="center_horizontal"
-            android:src="@color/line"/>
+            android:src="@drawable/shangpin_heng"/>
     </LinearLayout>
 
 

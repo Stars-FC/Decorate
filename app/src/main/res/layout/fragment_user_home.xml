@@ -38,6 +38,7 @@
                             android:id="@+id/imageView"
                             android:layout_width="24px"
                             android:layout_height="30px"
+                            android:scaleType="centerCrop"
                             android:src="@drawable/shouyeding"/>
 
                         <TextView
@@ -46,7 +47,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="16px"
                             android:text="辽宁省沈阳市浑南新区"
-                            android:textColor="@color/color_29b7b3"
+                            android:textColor="#4fbc65"
                             android:textSize="29px"/>
 
                     </com.zhy.autolayout.AutoLinearLayout>
@@ -370,7 +371,8 @@
                     android:layout_height="280px"
                     android:layout_marginLeft="20px"
                     android:layout_marginRight="20px"
-                    android:background="#fafafa"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/shangpin_heng"
                     app:riv_corner_radius="20dp"/>
 
                 <TextView
