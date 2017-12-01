@@ -25,6 +25,7 @@ import butterknife.OnClick;
 
 /**
  * Created by FC on 2017/11/29.
+ * 找设计页面
  */
 
 public class UserFindDesigerActivity extends BaseActivity {
@@ -43,7 +44,7 @@ public class UserFindDesigerActivity extends BaseActivity {
     protected boolean buildTitle(TitleBar bar) {
         bar.setLeftImageResource(R.drawable.fanhui);
         bar.setTitleText("找设计");
-        bar.setRightImageResource(R.drawable.gengduo);
+        bar.setRightImageResource(R.drawable.shouyesou);
         return true;
     }
 

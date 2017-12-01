@@ -93,7 +93,7 @@
                 android:layout_width="115px"
                 android:layout_height="115px"
                 android:layout_marginTop="30px"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/shimingphoto"/>
 
         </LinearLayout>
 
@@ -121,7 +121,7 @@
                 android:layout_width="115px"
                 android:layout_height="115px"
                 android:layout_marginTop="30px"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/shiming"/>
         </LinearLayout>
 
     </LinearLayout>

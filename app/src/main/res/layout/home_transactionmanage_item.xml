@@ -21,7 +21,7 @@
             android:paddingLeft="10px"
             android:paddingRight="20px"
             android:scaleType="centerInside"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@drawable/fanhui"/>
 
         <com.androidkun.xtablayout.XTabLayout
             android:id="@+id/tablayout"
@@ -47,7 +47,7 @@
             android:paddingLeft="10px"
             android:paddingRight="20px"
             android:scaleType="centerInside"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@drawable/shoucang"/>
     </RelativeLayout>
 
     <android.support.v4.view.ViewPager

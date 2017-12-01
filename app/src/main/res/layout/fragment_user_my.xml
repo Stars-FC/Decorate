@@ -13,7 +13,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="300px"
-            android:background="@color/titleTop">
+            android:background="@drawable/mebackground">
 
             <com.ygc.estatedecoration.widget.CircleImageView
                 android:id="@+id/iv_company_icon"
@@ -21,7 +21,7 @@
                 android:layout_height="100px"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="50px"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/metouxiang"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Name"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="36px"/>
 
                 <TextView
@@ -45,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20px"
                     android:text="Sex"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="36px"/>
 
                 <ImageView
@@ -54,7 +54,7 @@
                     android:layout_height="40px"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10px"
-                    android:src="@mipmap/ic_launcher"/>
+                    android:src="@drawable/bianji"/>
             </LinearLayout>
 
 
@@ -69,15 +69,15 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="25px"
-                android:textSize="26px"
                 android:gravity="center_vertical"
-                android:text="我的订单"/>
+                android:text="我的订单"
+                android:textSize="26px"/>
 
             <LinearLayout
+                android:id="@+id/ll_order"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
-                android:id="@+id/ll_order"
                 android:layout_marginRight="20px"
                 android:orientation="horizontal">
 
@@ -85,14 +85,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:textSize="26px"
-                    android:text="全部订单"/>
+                    android:text="全部订单"
+                    android:textSize="26px"/>
 
                 <ImageView
                     android:layout_width="22px"
                     android:layout_height="22px"
                     android:layout_gravity="center_vertical"
-                    android:src="@mipmap/ic_launcher"/>
+                    android:src="@drawable/gengduo"/>
             </LinearLayout>
         </RelativeLayout>
 
@@ -108,28 +108,6 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:id="@+id/ll_trusteeship"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="45px"
-                    android:layout_height="45px"
-                    android:layout_marginBottom="28px"
-                    android:src="@mipmap/ic_launcher"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="待托管"
-                    android:textColor="@color/teacherInformationText"
-                    android:textSize="23px"/>
-            </LinearLayout>
-
-            <LinearLayout
                 android:id="@+id/ll_transaction"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -141,12 +119,12 @@
                     android:layout_width="45px"
                     android:layout_height="45px"
                     android:layout_marginBottom="28px"
-                    android:src="@mipmap/ic_launcher"/>
+                    android:src="@drawable/gouwuche"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="交易中"
+                    android:text="购物车"
                     android:textColor="@color/teacherInformationText"
                     android:textSize="23px"/>
             </LinearLayout>
@@ -163,12 +141,35 @@
                     android:layout_width="45px"
                     android:layout_height="45px"
                     android:layout_marginBottom="28px"
-                    android:src="@mipmap/ic_launcher"/>
+                    android:src="@drawable/wodaifukuan"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="待付款"
+                    android:textColor="@color/teacherInformationText"
+                    android:textSize="23px"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll_trusteeship"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="45px"
+                    android:layout_height="45px"
+                    android:layout_marginBottom="28px"
+                    android:src="@drawable/wodaituoguan"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="待收货"
                     android:textColor="@color/teacherInformationText"
                     android:textSize="23px"/>
             </LinearLayout>
@@ -185,7 +186,7 @@
                     android:layout_width="45px"
                     android:layout_height="45px"
                     android:layout_marginBottom="28px"
-                    android:src="@mipmap/ic_launcher"/>
+                    android:src="@drawable/wopingjia"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -207,7 +208,7 @@
                     android:layout_width="45px"
                     android:layout_height="45px"
                     android:layout_marginBottom="28px"
-                    android:src="@mipmap/ic_launcher"/>
+                    android:src="@drawable/woshouhou"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -235,7 +236,7 @@
                 android:layout_height="33px"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="17px"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/shimingrenzheng"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -267,10 +268,10 @@
                     android:textSize="17px"/>
 
                 <ImageView
-                    android:layout_width="40px"
-                    android:layout_height="40px"
+                    android:layout_width="30px"
+                    android:layout_height="30px"
                     android:layout_gravity="center_vertical"
-                    android:src="@mipmap/ic_launcher"/>
+                    android:src="@drawable/gengduo"/>
             </LinearLayout>
 
         </RelativeLayout>
@@ -291,7 +292,7 @@
                 android:layout_height="33px"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="17px"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/wodeqianbao"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -304,12 +305,12 @@
                 android:textSize="31px"/>
 
             <ImageView
-                android:layout_width="40px"
-                android:layout_height="40px"
+                android:layout_width="30px"
+                android:layout_height="30px"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="17px"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/gengduo"/>/>
         </RelativeLayout>
 
         <View
@@ -328,7 +329,7 @@
                 android:layout_height="33px"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="17px"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/wodexuqiu"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -341,12 +342,12 @@
                 android:textSize="31px"/>
 
             <ImageView
-                android:layout_width="40px"
-                android:layout_height="40px"
+                android:layout_width="30px"
+                android:layout_height="30px"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="17px"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/gengduo"/>/>
         </RelativeLayout>
 
         <View
@@ -365,7 +366,7 @@
                 android:layout_height="33px"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="17px"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/wdeshoucang"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -378,12 +379,12 @@
                 android:textSize="31px"/>
 
             <ImageView
-                android:layout_width="40px"
-                android:layout_height="40px"
+                android:layout_width="30px"
+                android:layout_height="30px"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="17px"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/gengduo"/>/>
         </RelativeLayout>
 
         <View

@@ -62,10 +62,10 @@ public class ServiceWeiXinLoginActivity extends BaseActivity {
         return R.layout.login_service_weixin;
     }
 
-    @OnClick({R.id.naviButtonLeft, R.id.tv_service_provider})
+    @OnClick({R.id.naviFrameLeft, R.id.tv_service_provider})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.naviButtonLeft://后退
+            case R.id.naviFrameLeft://后退
                 finish();
                 break;
             case R.id.tv_service_provider://选择服务商类型
@@ -128,4 +128,5 @@ public class ServiceWeiXinLoginActivity extends BaseActivity {
         }
         mCheckPopupWindow.showAtLocation(mLoginForgetpwd, Gravity.CENTER, 0, 0);
     }
+
 }

@@ -46,9 +46,9 @@
             app:ddmaskColor="@color/mask_color"
             app:ddmenuBackgroundColor="@color/checkBc"
             app:ddmenuMenuHeightPercent="0.5"
-            app:ddmenuSelectedIcon="@mipmap/drop_down_selected_icon"
+            app:ddmenuSelectedIcon="@drawable/jiantou_sel"
             app:ddmenuTextSize="14sp"
-            app:ddmenuUnselectedIcon="@mipmap/drop_down_unselected_icon"
+            app:ddmenuUnselectedIcon="@drawable/jiantou"
             app:ddtextSelectedColor="@color/colorAccent"
             app:ddtextUnselectedColor="@color/black"
             app:ddunderlineColor="@color/line"/>

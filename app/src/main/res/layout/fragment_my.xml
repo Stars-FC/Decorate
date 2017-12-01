@@ -13,7 +13,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="300px"
-            android:background="@color/titleTop">
+            android:background="@drawable/mebackground">
 
             <com.ygc.estatedecoration.widget.CircleImageView
                 android:id="@+id/iv_company_icon"
@@ -21,7 +21,7 @@
                 android:layout_height="100px"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="50px"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/metouxiang"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Name"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="36px"/>
 
                 <TextView
@@ -45,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20px"
                     android:text="Sex"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="36px"/>
 
                 <ImageView
@@ -54,7 +54,7 @@
                     android:layout_height="40px"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10px"
-                    android:src="@mipmap/ic_launcher"/>
+                    android:src="@drawable/bianji"/>
             </LinearLayout>
 
 
@@ -163,7 +163,7 @@
                 android:layout_height="33px"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="17px"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/shimingrenzheng"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -175,13 +175,31 @@
                 android:textColor="@color/teacherInformationText"
                 android:textSize="31px"/>
 
-            <ImageView
-                android:layout_width="40px"
-                android:layout_height="40px"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
                 android:layout_marginRight="17px"
-                android:src="@mipmap/ic_launcher"/>
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="68px"
+                    android:layout_height="26px"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10px"
+                    android:layout_marginRight="10px"
+                    android:background="@drawable/bg_team_line"
+                    android:gravity="center"
+                    android:text="未实名"
+                    android:textColor="@color/bigline"
+                    android:textSize="17px"/>
+
+                <ImageView
+                    android:layout_width="30px"
+                    android:layout_height="30px"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/gengduo"/>
+            </LinearLayout>
         </RelativeLayout>
 
         <View
@@ -200,7 +218,7 @@
                 android:layout_height="33px"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="17px"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/wodejiaoyi"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -213,12 +231,12 @@
                 android:textSize="31px"/>
 
             <ImageView
-                android:layout_width="40px"
-                android:layout_height="40px"
+                android:layout_width="30px"
+                android:layout_height="30px"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="17px"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/gengduo"/>
         </RelativeLayout>
 
         <View
@@ -237,7 +255,7 @@
                 android:layout_height="33px"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="17px"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/wodeqianbao"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -250,12 +268,12 @@
                 android:textSize="31px"/>
 
             <ImageView
-                android:layout_width="40px"
-                android:layout_height="40px"
+                android:layout_width="30px"
+                android:layout_height="30px"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="17px"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/gengduo"/>
         </RelativeLayout>
 
         <View
@@ -274,7 +292,7 @@
                 android:layout_height="33px"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="17px"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/wdeshoucang"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -287,12 +305,12 @@
                 android:textSize="31px"/>
 
             <ImageView
-                android:layout_width="40px"
-                android:layout_height="40px"
+                android:layout_width="30px"
+                android:layout_height="30px"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="17px"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/gengduo"/>
         </RelativeLayout>
 
         <View
@@ -311,7 +329,7 @@
                 android:layout_height="33px"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="17px"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/wodeliangdian"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -324,12 +342,12 @@
                 android:textSize="31px"/>
 
             <ImageView
-                android:layout_width="40px"
-                android:layout_height="40px"
+                android:layout_width="30px"
+                android:layout_height="30px"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="17px"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/gengduo"/>
         </RelativeLayout>
 
         <View

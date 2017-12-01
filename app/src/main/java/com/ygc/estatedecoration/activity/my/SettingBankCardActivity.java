@@ -53,7 +53,7 @@ public class SettingBankCardActivity extends BaseActivity {
         bar.setTitleTextColor(Color.BLACK);
         bar.setBackgroundColor(Color.WHITE);
         bar.setLeftImageResource(R.drawable.fanhui);
-        bar.setRightImageResource(R.drawable.gengduo);
+        bar.setRightImageResource(R.drawable.tianjia);
         return true;
     }
 

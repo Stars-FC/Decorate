@@ -90,7 +90,7 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
     @Override
     protected boolean buildTitle(TitleBar bar) {
         bar.setTitleText("我的");
-        bar.setRightImageResource(R.mipmap.ic_launcher);
+        bar.setRightImageResource(R.drawable.shezhi);
         return true;
     }
 

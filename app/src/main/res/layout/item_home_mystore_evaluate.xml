@@ -16,7 +16,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="30px"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@drawable/zhuyetouxiang"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -49,8 +49,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:starCount="5"
-                app:starFill="@mipmap/drop_down_selected_icon"
-                app:starHalf="@mipmap/drop_down_checked"
+                app:starFill="@drawable/xingxing"
+                app:starHalf="@drawable/xingxing"
                 app:starImageSize="25px"
                 app:starPadding="5px"
                 app:starStep="1.5"

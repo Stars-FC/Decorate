@@ -32,7 +32,8 @@ public class UserFindSupervisorActivity extends BaseActivity implements SwipeRef
     @Override
     protected boolean buildTitle(TitleBar bar) {
         bar.setTitleText("找监理");
-//        mTitleBar.setRightImageResource();
+        mTitleBar.setRightImageResource(R.drawable.shouyesou);
+        mTitleBar.setLeftImageResource(R.drawable.fanhui);
         return true;
     }
 

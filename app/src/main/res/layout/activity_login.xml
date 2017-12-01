@@ -2,19 +2,19 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@drawable/login_bg"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="360px"
-        android:background="@color/line">
+        android:layout_height="360px">
 
         <ImageView
             android:layout_width="140px"
             android:layout_height="140px"
             android:layout_centerInParent="true"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@drawable/hetongtouxiang"/>
     </RelativeLayout>
 
 
@@ -23,7 +23,6 @@
         android:layout_height="550px"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10px"
-        android:background="@drawable/shape_login_bottom"
         android:orientation="vertical">
 
 
@@ -31,7 +30,6 @@
             android:id="@+id/rgbutton_nemu"
             android:layout_width="match_parent"
             android:layout_height="88px"
-            android:background="#ffffff"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 

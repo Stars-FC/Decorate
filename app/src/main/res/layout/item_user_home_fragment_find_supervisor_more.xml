@@ -4,6 +4,7 @@
     xmlns:hedgehog="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <com.zhy.autolayout.AutoLinearLayout
@@ -58,19 +59,17 @@
                         android:layout_height="26px"
                         android:layout_weight="1"/>
 
-                    <com.ygc.estatedecoration.widget.RatingBar
-                        android:id="@+id/ratingbar"
+                    <com.ygc.estatedecoration.widget.StarView
+                        android:id="@+id/starview"
                         android:layout_width="wrap_content"
-                        android:layout_height="26px"
-                        android:layout_gravity="center"
-                        hedgehog:clickable1="true"
-                        hedgehog:halfstart1="true"
-                        hedgehog:starCount1="5"
-                        hedgehog:starEmpty1="@drawable/ic_star_empty"
-                        hedgehog:starFill1="@drawable/ic_star_fill"
-                        hedgehog:starImageHeight1="30px"
-                        hedgehog:starImagePadding1="5px"
-                        hedgehog:starImageWidth1="30px"/>
+                        android:layout_height="wrap_content"
+                        app:starCount="5"
+                        app:starFill="@drawable/xingxing"
+                        app:starHalf="@drawable/xingxing"
+                        app:starImageSize="25px"
+                        app:starPadding="5px"
+                        app:starStep="1.5"
+                        app:stepSize="Half"/>
 
                 </com.zhy.autolayout.AutoLinearLayout>
 

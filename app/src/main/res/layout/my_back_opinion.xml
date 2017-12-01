@@ -33,7 +33,7 @@
             android:layout_height="186px"
             android:layout_marginBottom="20px"
             android:layout_marginLeft="20px"
-            android:src="@color/line"/>
+            android:src="@drawable/fankui"/>
 
     </LinearLayout>
 

@@ -105,7 +105,7 @@ public class UserMyFragment extends BaseFragment implements EasyPermissions.Perm
         bar.setTitleText("我的");
         bar.setTitleTextColor(Color.BLACK);
         bar.setBackgroundColor(Color.WHITE);
-        bar.setRightImageResource(R.drawable.gengduo);
+        bar.setRightImageResource(R.drawable.shezhi);
         return true;
     }
 
@@ -169,11 +169,11 @@ public class UserMyFragment extends BaseFragment implements EasyPermissions.Perm
             case R.id.ll_order://全部订单
                 showToast("全部订单");
                 break;
-            case R.id.ll_trusteeship://待托管
-                showToast("待托管");
+            case R.id.ll_trusteeship://待收货
+                showToast("待收货");
                 break;
-            case R.id.ll_transaction://交易中
-                showToast("交易中");
+            case R.id.ll_transaction://购物车
+                showToast("购物车");
                 break;
             case R.id.ll_payment://待付款
                 showToast("待付款");

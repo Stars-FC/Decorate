@@ -24,9 +24,9 @@
     <ImageView
         android:layout_width="30px"
         android:layout_height="30px"
-        android:layout_marginLeft="2px"
+        android:layout_marginLeft="5px"
         android:gravity="center"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/shaixuan"
         android:layout_marginRight="10px"/>
 
 </LinearLayout>

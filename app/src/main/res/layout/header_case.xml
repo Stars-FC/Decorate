@@ -54,6 +54,7 @@
             android:textSize="22px"/>
 
         <ImageView
+            android:src="@drawable/xiala"
             android:layout_width="15px"
             android:layout_height="11px"
             android:layout_marginLeft="6px"/>

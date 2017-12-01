@@ -102,10 +102,10 @@ public class CollectionActivity extends BaseActivity {
         return R.layout.fragment_home;
 
     }
-    @OnClick({R.id.naviButtonLeft})
+    @OnClick({R.id.naviFrameLeft})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.naviButtonLeft://后退按钮
+            case R.id.naviFrameLeft://后退按钮
                 finish();
                 break;
         }

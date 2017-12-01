@@ -174,7 +174,7 @@
         <ImageView
             android:layout_width="100px"
             android:layout_height="match_parent"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@drawable/kaiguan_sel"/>
     </LinearLayout>
 
     <LinearLayout

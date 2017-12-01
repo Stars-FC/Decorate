@@ -8,7 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="250px"
-        android:background="@color/titleTop">
+        android:background="@drawable/huiyuanbackground">
 
         <ImageButton
             android:id="@+id/iv_back"
@@ -19,7 +19,7 @@
             android:layout_marginLeft="20px"
             android:layout_marginTop="25px"
             android:padding="20px"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@drawable/fanhui"/>
 
         <com.ygc.estatedecoration.widget.CircleImageView
             android:id="@+id/iv_guarantee_icon"
@@ -27,7 +27,7 @@
             android:layout_height="100px"
             android:layout_centerVertical="true"
             android:layout_marginLeft="60px"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@drawable/huiyuantouxiang"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -62,7 +62,7 @@
         android:layout_marginTop="30px"
         android:text="开通会员"
         android:textColor="@color/black"
-        android:textSize="36px"/>
+        android:textSize="32px"/>
 
     <LinearLayout
         android:layout_marginTop="30px"
@@ -83,14 +83,14 @@
                 android:layout_height="wrap_content"
                 android:text="一个月"
                 android:textColor="@color/black"
-                android:textSize="36px"/>
+                android:textSize="32px"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="￥19.8"
                 android:textColor="@color/colorAccent"
-                android:textSize="46px"/>
+                android:textSize="44px"/>
         </LinearLayout>
 
         <LinearLayout
@@ -106,14 +106,14 @@
                 android:layout_height="wrap_content"
                 android:text="一个月"
                 android:textColor="@color/black"
-                android:textSize="36px"/>
+                android:textSize="32px"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="￥19.8"
                 android:textColor="@color/colorAccent"
-                android:textSize="46px"/>
+                android:textSize="44px"/>
         </LinearLayout>
 
         <LinearLayout
@@ -129,14 +129,14 @@
                 android:layout_height="wrap_content"
                 android:text="一个月"
                 android:textColor="@color/black"
-                android:textSize="36px"/>
+                android:textSize="32px"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="￥19.8"
                 android:textColor="@color/colorAccent"
-                android:textSize="46px"/>
+                android:textSize="44px"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -148,6 +148,6 @@
         android:layout_marginTop="30px"
         android:text="VIP规则"
         android:textColor="@color/black"
-        android:textSize="36px"/>
+        android:textSize="32px"/>
 
 </LinearLayout>

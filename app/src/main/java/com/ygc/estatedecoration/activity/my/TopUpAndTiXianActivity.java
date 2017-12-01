@@ -34,7 +34,7 @@ public class TopUpAndTiXianActivity extends BaseActivity {
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
-        bar.setLeftImageResource(R.mipmap.ic_launcher);
+        bar.setLeftImageResource(R.drawable.fanhui);
         return true;
     }
 

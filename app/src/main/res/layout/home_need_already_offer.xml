@@ -37,7 +37,7 @@
             <ImageView
                 android:layout_width="52px"
                 android:layout_height="52px"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/dianhua"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -61,7 +61,7 @@
             <ImageView
                 android:layout_width="52px"
                 android:layout_height="52px"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/liuyan"/>
 
             <TextView
                 android:layout_width="wrap_content"

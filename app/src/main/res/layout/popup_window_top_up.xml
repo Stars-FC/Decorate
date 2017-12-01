@@ -19,17 +19,20 @@
             android:layout_centerHorizontal="true">
 
             <ImageView
+                android:src="@drawable/weixin"
                 android:id="@+id/wechat_pay_iv"
-                android:layout_width="100px"
+                android:layout_width="50dp"
                 android:layout_height="100px"/>
 
             <ImageView
+                android:src="@drawable/zhifubao"
                 android:id="@+id/alipay_iv"
                 android:layout_width="100px"
                 android:layout_height="100px"
                 android:layout_marginLeft="88px"/>
 
             <ImageView
+                android:src="@drawable/yinhangka"
                 android:id="@+id/my_package_pay_iv"
                 android:layout_width="100px"
                 android:layout_height="100px"
