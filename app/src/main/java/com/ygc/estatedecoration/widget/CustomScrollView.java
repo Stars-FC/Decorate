@@ -51,6 +51,7 @@ public class CustomScrollView extends ScrollView {
 
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+
         boolean stop = false;
         if (Scroll_height - view_height == t) {
             stop = true;

@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
@@ -15,21 +18,36 @@ import com.ygc.estatedecoration.user_fragment.UserMyFragment;
 import com.ygc.estatedecoration.user_fragment.UserPublishFragment;
 import com.ygc.estatedecoration.widget.TitleBar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import me.majiajie.pagerbottomtabstrip.NavigationController;
-import me.majiajie.pagerbottomtabstrip.PageNavigationView;
-import me.majiajie.pagerbottomtabstrip.item.BaseTabItem;
-import me.majiajie.pagerbottomtabstrip.item.NormalItemView;
-import me.majiajie.pagerbottomtabstrip.listener.OnTabItemSelectedListener;
+import butterknife.OnClick;
 
-public class UserHomeActivity extends BaseActivity implements OnTabItemSelectedListener {
+public class UserHomeActivity extends BaseActivity{
 
-    @BindView(R.id.tab)
-    PageNavigationView tab;
-
-    private NavigationController mNavigationController;
+    @BindView(R.id.home_iv)
+    ImageView mIv_home;
+    @BindView(R.id.home_tv)
+    TextView mTv_home;
+    @BindView(R.id.fangan_iv)
+    ImageView mIv_fangAn;
+    @BindView(R.id.fangan_tv)
+    TextView mTv_fangAn;
+    @BindView(R.id.publish_iv)
+    ImageView mIv_publish;
+    @BindView(R.id.publish_tv)
+    TextView mTv_publish;
+    @BindView(R.id.msg_iv)
+    ImageView mIv_msg;
+    @BindView(R.id.msg_tv)
+    TextView mTv_msg;
+    @BindView(R.id.my_iv)
+    ImageView mIv_my;
+    @BindView(R.id.my_tv)
+    TextView mTv_my;
+    private List<ImageView> iv_iconList = new ArrayList<>();
+    private List<TextView> txt_titleList = new ArrayList<>();
     private UserHomeFragment mUserHomeFragment;
     private CaseFragment mUserPlanFragment;
     private UserPublishFragment mUserPublishFragment;
@@ -44,43 +62,26 @@ public class UserHomeActivity extends BaseActivity implements OnTabItemSelectedL
 
     @Override
     protected void addListener() {
-        mNavigationController.addTabItemSelectedListener(this);
+
     }
 
     @Override
     protected void initView() {
-        initTab();
-    }
 
-    private void initTab() {
-        mNavigationController = tab.custom()
-                .addItem(newItem(R.drawable.shouye, R.drawable.shouye_sel, "首页"))
-                .addItem(newItem(R.drawable.dianpu, R.drawable.dianpu_sel, "方案"))
-                .addItem(newItem(R.drawable.guanli, R.drawable.guanli_sel, "发布"))
-                .addItem(newItem(R.drawable.xiaoxi, R.drawable.xiaoxi_sel, "消息"))
-                .addItem(newItem(R.drawable.wode, R.drawable.wode_sel, "我的"))
-                .build();
     }
-
-    /**
-     * 创建一个Item，底部按钮
-     *
-     * @param drawable
-     * @param checkedDrawable
-     * @param text
-     * @return
-     */
-    private BaseTabItem newItem(int drawable, int checkedDrawable, String text) {
-        NormalItemView normalItemView = new NormalItemView(this);
-        normalItemView.initialize(drawable, checkedDrawable, text);
-        normalItemView.setTextDefaultColor(Color.GRAY);
-        normalItemView.setTextCheckedColor(0xFF009688);
-        return normalItemView;
-    }
-
 
     @Override
     protected void initData(Bundle savedInstanceState) {
+        iv_iconList.add(mIv_home);
+        iv_iconList.add(mIv_fangAn);
+        iv_iconList.add(mIv_publish);
+        iv_iconList.add(mIv_msg);
+        iv_iconList.add(mIv_my);
+        txt_titleList.add(mTv_home);
+        txt_titleList.add(mTv_fangAn);
+        txt_titleList.add(mTv_publish);
+        txt_titleList.add(mTv_msg);
+        txt_titleList.add(mTv_my);
         mSupportFragmentManager = getSupportFragmentManager();
         initFragment(savedInstanceState);
     }
@@ -112,32 +113,71 @@ public class UserHomeActivity extends BaseActivity implements OnTabItemSelectedL
         return R.layout.activity_user_home;
     }
 
-    @Override
-    public void onSelected(int index, int old) {
-        FragmentTransaction fragmentTransaction = mSupportFragmentManager.beginTransaction();
-        hideAllFragment(fragmentTransaction);
-        switch (index) {
-            case 0:
-                createUserHomeFragment(fragmentTransaction);
-                break;
-            case 1:
-                createUserPlanFragment(fragmentTransaction);
-                break;
-            case 2:
-                createUserPublishFragment(fragmentTransaction);
-                break;
-            case 3:
-                createUserMsgFragment(fragmentTransaction);
-                break;
-            case 4:
-                createUserMyFragment(fragmentTransaction);
-                break;
+    @OnClick({R.id.home_ll, R.id.fangan_ll, R.id.publish_rl, R.id.msg_ll, R.id.my_ll})
+    public void onClick(View view) {
+        if (view != null) {
+            FragmentTransaction fragmentTransaction = mSupportFragmentManager.beginTransaction();
+            hideAllFragment(fragmentTransaction);
+            switch (view.getId()) {
+                case R.id.home_ll:
+                    changeTabStyle(0);
+                    mIv_home.setImageResource(R.drawable.shouye_sel);
+                    mIv_fangAn.setImageResource(R.drawable.anli);
+                    mIv_publish.setImageResource(R.drawable.fabu);
+                    mIv_msg.setImageResource(R.drawable.xiaoxi);
+                    mIv_my.setImageResource(R.drawable.wode);
+                    createUserHomeFragment(fragmentTransaction);
+                    break;
+                case R.id.fangan_ll:
+                    changeTabStyle(1);
+                    mIv_home.setImageResource(R.drawable.shouye);
+                    mIv_fangAn.setImageResource(R.drawable.anli_sel);
+                    mIv_publish.setImageResource(R.drawable.fabu);
+                    mIv_msg.setImageResource(R.drawable.xiaoxi);
+                    mIv_my.setImageResource(R.drawable.wode);
+                    createUserPlanFragment(fragmentTransaction);
+                    break;
+                case R.id.publish_rl:
+                    changeTabStyle(2);
+                    mIv_home.setImageResource(R.drawable.shouye);
+                    mIv_fangAn.setImageResource(R.drawable.anli);
+                    mIv_publish.setImageResource(R.drawable.fabu_sel);
+                    mIv_msg.setImageResource(R.drawable.xiaoxi);
+                    mIv_my.setImageResource(R.drawable.wode);
+                    createUserPublishFragment(fragmentTransaction);
+                    break;
+                case R.id.msg_ll:
+                    changeTabStyle(3);
+                    mIv_home.setImageResource(R.drawable.shouye);
+                    mIv_fangAn.setImageResource(R.drawable.anli);
+                    mIv_publish.setImageResource(R.drawable.fabu);
+                    mIv_msg.setImageResource(R.drawable.xiaoxi_sel);
+                    mIv_my.setImageResource(R.drawable.wode);
+                    createUserMsgFragment(fragmentTransaction);
+                    break;
+                case R.id.my_ll:
+                    changeTabStyle(4);
+                    mIv_home.setImageResource(R.drawable.shouye);
+                    mIv_fangAn.setImageResource(R.drawable.anli);
+                    mIv_publish.setImageResource(R.drawable.fabu);
+                    mIv_msg.setImageResource(R.drawable.xiaoxi);
+                    mIv_my.setImageResource(R.drawable.wode_sel);
+                    createUserMyFragment(fragmentTransaction);
+                    break;
+            }
         }
     }
 
-    @Override
-    public void onRepeat(int index) {
-
+    private void changeTabStyle(int position) {
+        for (int i = 0; i < txt_titleList.size(); i++) {
+            //改变tab标题的颜色
+            TextView textView = txt_titleList.get(i);
+            if (i == position) {
+                textView.setTextColor(Color.parseColor("#4fbc65"));
+            } else {
+                textView.setTextColor(Color.parseColor("#707686"));
+            }
+        }
     }
 
     /**

@@ -3,7 +3,6 @@ package com.ygc.estatedecoration.activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.widget.RadioGroup;
 
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.adapter.MyViewPagerAdapter;
@@ -117,8 +116,8 @@ public class HomeActivity extends BaseActivity {
     private BaseTabItem newItem(int drawable, int checkedDrawable, String text) {
         NormalItemView normalItemView = new NormalItemView(this);
         normalItemView.initialize(drawable, checkedDrawable, text);
-        normalItemView.setTextDefaultColor(Color.GRAY);
-        normalItemView.setTextCheckedColor(0xFF009688);
+        normalItemView.setTextDefaultColor(Color.parseColor("#707686"));
+        normalItemView.setTextCheckedColor(Color.parseColor("#4fbc65"));
         return normalItemView;
     }
 

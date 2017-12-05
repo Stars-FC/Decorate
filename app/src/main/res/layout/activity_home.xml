@@ -19,8 +19,7 @@
     <me.majiajie.pagerbottomtabstrip.PageNavigationView
         android:id="@+id/tab"
         android:layout_width="match_parent"
-        android:layout_height="100px"
-        android:elevation="3dp"/>
+        android:layout_height="100px"/>
     <!--<RadioGroup-->
         <!--android:elevation="3dp"-->
         <!--android:id="@+id/rg_main"-->

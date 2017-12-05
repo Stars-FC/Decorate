@@ -100,7 +100,7 @@ public class UserSearchActivity extends BaseActivity implements SwipeRefreshLayo
         if (view != null) {
             switch (view.getId()) {
                 case R.id.finish_rl:
-                    closeKeyboard();
+//                    closeKeyboard();
                     finish();
                     break;
             }

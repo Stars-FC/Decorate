@@ -233,7 +233,7 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
                     Intent intent = new Intent(mActivity, UserSearchActivity.class);
                     startActivity(intent);
                     break;
-                case R.id.find_design_more_ll:
+                case R.id.find_design_more_ll://找设计
                     Intent desigeIntent = new Intent(mActivity, UserFindDesigerActivity.class);
                     startActivity(desigeIntent);
                     break;
