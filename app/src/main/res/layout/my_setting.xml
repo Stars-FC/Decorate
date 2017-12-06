@@ -15,7 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="80px"
         android:background="@color/white"
-        android:elevation="2dp"
         android:gravity="center_vertical"
         android:paddingLeft="20px"
         android:text="账户安全"
@@ -24,13 +23,12 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="20px"
-        android:background="@color/line"/>
+        android:background="@color/settingbc"/>
 
     <TextView
         android:id="@+id/tv_cleancache"
         android:layout_width="match_parent"
         android:layout_height="80px"
-        android:elevation="2dp"
         android:gravity="center_vertical"
         android:paddingLeft="20px"
         android:text="清除缓存"
@@ -39,7 +37,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="20px"
-        android:background="@color/line"/>
+        android:background="@color/settingbc"/>
 
     <TextView
         android:id="@+id/tv_aboutwe"
@@ -59,7 +57,6 @@
         android:id="@+id/tv_opinionfeedback"
         android:layout_width="match_parent"
         android:layout_height="80px"
-        android:elevation="2dp"
         android:gravity="center_vertical"
         android:paddingLeft="20px"
         android:text="意见反馈"
@@ -77,10 +74,10 @@
             android:layout_height="80px"
             android:layout_centerInParent="true"
             android:background="@drawable/shape_all_bt"
-            android:elevation="2dp"
+            android:elevation="3dp"
             android:gravity="center"
             android:text="退出当前账号"
             android:textColor="@color/white"
-            android:textSize="36px"/>
+            android:textSize="28px"/>
     </RelativeLayout>
 </LinearLayout>

@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:text="Name"
                     android:textColor="@color/black"
-                    android:textSize="36px"/>
+                    android:textSize="28px"/>
 
                 <TextView
                     android:id="@+id/tv_sex"
@@ -46,12 +46,12 @@
                     android:layout_marginLeft="20px"
                     android:text="Sex"
                     android:textColor="@color/black"
-                    android:textSize="36px"/>
+                    android:textSize="28px"/>
 
                 <ImageView
                     android:id="@+id/tv_chage"
-                    android:layout_width="40px"
-                    android:layout_height="40px"
+                    android:layout_width="30px"
+                    android:layout_height="30px"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10px"
                     android:src="@drawable/bianji"/>
@@ -116,8 +116,8 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="45px"
-                    android:layout_height="45px"
+                    android:layout_width="42px"
+                    android:layout_height="42px"
                     android:layout_marginBottom="28px"
                     android:src="@drawable/gouwuche"/>
 
@@ -138,8 +138,8 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="45px"
-                    android:layout_height="45px"
+                    android:layout_width="42px"
+                    android:layout_height="42px"
                     android:layout_marginBottom="28px"
                     android:src="@drawable/wodaifukuan"/>
 
@@ -161,8 +161,8 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="45px"
-                    android:layout_height="45px"
+                    android:layout_width="42px"
+                    android:layout_height="42px"
                     android:layout_marginBottom="28px"
                     android:src="@drawable/wodaituoguan"/>
 
@@ -183,8 +183,8 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="45px"
-                    android:layout_height="45px"
+                    android:layout_width="42px"
+                    android:layout_height="42px"
                     android:layout_marginBottom="28px"
                     android:src="@drawable/wopingjia"/>
 
@@ -205,8 +205,8 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="45px"
-                    android:layout_height="45px"
+                    android:layout_width="42px"
+                    android:layout_height="42px"
                     android:layout_marginBottom="28px"
                     android:src="@drawable/woshouhou"/>
 
@@ -246,7 +246,7 @@
                 android:layout_toRightOf="@id/iv_above"
                 android:text="实名认证"
                 android:textColor="@color/teacherInformationText"
-                android:textSize="31px"/>
+                android:textSize="28px"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -302,7 +302,7 @@
                 android:layout_toRightOf="@id/iv_level"
                 android:text="我的钱包"
                 android:textColor="@color/teacherInformationText"
-                android:textSize="31px"/>
+                android:textSize="28px"/>
 
             <ImageView
                 android:layout_width="30px"
@@ -339,7 +339,7 @@
                 android:layout_toRightOf="@id/iv_need"
                 android:text="我的需求"
                 android:textColor="@color/teacherInformationText"
-                android:textSize="31px"/>
+                android:textSize="28px"/>
 
             <ImageView
                 android:layout_width="30px"
@@ -376,7 +376,7 @@
                 android:layout_toRightOf="@id/iv_recharge"
                 android:text="我的收藏"
                 android:textColor="@color/teacherInformationText"
-                android:textSize="31px"/>
+                android:textSize="28px"/>
 
             <ImageView
                 android:layout_width="30px"

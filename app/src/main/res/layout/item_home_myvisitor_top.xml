@@ -16,7 +16,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="20px"
             android:text="11月11日"
-            android:textSize="32px"/>
+            android:textSize="26px"/>
 
         <View
             android:layout_width="match_parent"

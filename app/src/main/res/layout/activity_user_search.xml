@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -32,6 +33,7 @@
         </RelativeLayout>
 
         <EditText
+            android:id="@+id/et_search_data"
             android:layout_width="0dp"
             android:layout_height="64px"
             android:layout_marginLeft="28px"
@@ -46,6 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:id="@+id/tv_search"
             android:paddingLeft="20px"
             android:paddingRight="20px"
             android:text="搜索"
@@ -63,9 +66,11 @@
         android:id="@+id/swiperefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fillViewport="true"
             android:scrollbars="none">
 
             <LinearLayout
@@ -77,6 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -87,14 +93,15 @@
                         android:textColor="@android:color/black"
                         android:textSize="25px"/>
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/keyword_recyclerview"
+                    <com.ygc.estatedecoration.widget.FlowLayout
+                        android:id="@+id/flow_layout"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="33px"
-                        android:paddingRight="33px">
-
-                    </android.support.v7.widget.RecyclerView>
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20px"
+                        android:layout_marginRight="20px"
+                        android:padding="5dp"
+                        app:height_space="10dp"
+                        app:width_space="10dp"/>
 
                 </LinearLayout>
 
@@ -111,7 +118,7 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:paddingBottom="21px"
                             android:paddingLeft="47px"
                             android:paddingTop="21px"
@@ -125,6 +132,7 @@
                             android:layout_weight="1"/>
 
                         <TextView
+                            android:id="@+id/tv_empty"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center"
@@ -137,14 +145,15 @@
                     </LinearLayout>
 
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/search_history_recyclerview"
+                    <com.ygc.estatedecoration.widget.FlowLayout
+                        android:id="@+id/flow_layout_history"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="33px"
-                        android:paddingRight="33px">
-
-                    </android.support.v7.widget.RecyclerView>
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20px"
+                        android:layout_marginRight="20px"
+                        android:padding="5dp"
+                        app:height_space="10dp"
+                        app:width_space="10dp"/>
 
                 </LinearLayout>
 

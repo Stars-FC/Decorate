@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="40px"
     android:layout_marginRight="40px"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <EditText
@@ -92,7 +93,7 @@
             android:background="@drawable/shape_all_my_moneybag"
             android:text="重置支付密码"
             android:textColor="@android:color/white"
-            android:textSize="30px"/>
+            android:textSize="28px"/>
     </RelativeLayout>
 
 </LinearLayout>

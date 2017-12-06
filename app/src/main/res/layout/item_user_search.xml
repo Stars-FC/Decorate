@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zhy.autolayout.AutoLinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:gravity="center"
-    android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/title_tv"
-        android:layout_width="120px"
-        android:layout_height="60px"
-        android:background="@drawable/bg_user_search_item"
-        android:gravity="center"
-        android:text="关键词"
-        android:textColor="@android:color/black"
-        android:textSize="20px"/>
-
-</com.zhy.autolayout.AutoLinearLayout>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="10px"
+          android:background="@drawable/bt_flowlayout_selector_bg"
+          android:paddingBottom="10px"
+          android:paddingLeft="20px"
+          android:paddingRight="20px"
+          android:paddingTop="10px"
+          android:text="Helloworld"
+          android:textColor="#3f3e3e"
+          android:textSize="25px">
+</TextView>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--确认购买，每个店铺item-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <!--&#45;&#45;-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="22px"
+        android:background="@color/line"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="105px"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="25px"
+                android:layout_height="25px"
+                android:src="@drawable/shouye"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="13px"
+                android:text="朝花夕拾花坊"
+                android:textColor="@color/black"
+                android:textSize="21px"/>
+
+            <ImageView
+                android:layout_width="23px"
+                android:layout_height="23px"
+                android:layout_marginLeft="13px"
+                android:src="@drawable/gengduo"/>
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="95px"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:gravity="center_vertical"
+                android:text="购买数量"
+                android:textColor="@color/black"
+                android:textSize="24px"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="50px"
+                    android:layout_height="50px"
+                    android:src="@color/line"/>
+
+                <TextView
+                    android:layout_width="55px"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10px"
+                    android:layout_marginRight="10px"
+                    android:gravity="center"
+                    android:text="1"/>
+
+                <ImageView
+                    android:layout_width="50px"
+                    android:layout_height="50px"
+                    android:src="@color/line"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="97px"
+        android:layout_marginLeft="20px"
+        android:layout_marginRight="20px"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="运费"
+            android:textColor="@color/black"
+            android:textSize="24px"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="¥0.0"
+            android:textColor="@color/black"
+            android:textSize="24px"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="97px"
+        android:gravity="center_vertical"
+        android:paddingLeft="20px"
+        android:text="留言"
+        android:textColor="@color/black"
+        android:textSize="24px"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="140px"
+        android:layout_marginBottom="10px"
+        android:layout_marginLeft="20px"
+        android:layout_marginRight="20px"
+        android:background="@drawable/edit_bg"
+        android:gravity="start"
+        android:hint="请输入留言"
+        android:padding="10px"
+        android:textSize="22px"/>
+
+    <!--&#45;&#45;-->
+</LinearLayout>

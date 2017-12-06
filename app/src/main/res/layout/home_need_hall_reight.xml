@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="end"
     android:fillViewport="true"
+
     android:scrollbars="none">
 
     <LinearLayout
@@ -21,7 +22,7 @@
             android:gravity="center_vertical"
             android:paddingLeft="30px"
             android:text="筛选"
-            android:textSize="28px"/>
+            android:textSize="24px"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -30,7 +31,7 @@
             android:paddingLeft="30px"
             android:text="装修类型"
             android:textColor="@color/black"
-            android:textSize="28px"/>
+            android:textSize="24px"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,7 +44,8 @@
                 android:layout_marginLeft="20px"
                 android:background="@color/whitesmoke"
                 android:gravity="center"
-                android:text="家装"/>
+                android:text="家装"
+                android:textSize="22px"/>
 
             <TextView
                 android:layout_width="150px"
@@ -51,7 +53,8 @@
                 android:layout_marginLeft="20px"
                 android:background="@color/whitesmoke"
                 android:gravity="center"
-                android:text="工装"/>
+                android:text="工装"
+                android:textSize="22px"/>
 
             <TextView
                 android:layout_width="150px"
@@ -59,7 +62,8 @@
                 android:layout_marginLeft="20px"
                 android:background="@color/whitesmoke"
                 android:gravity="center"
-                android:text="家装"/>
+                android:text="家装"
+                android:textSize="22px"/>
 
         </LinearLayout>
 
@@ -76,7 +80,7 @@
             android:paddingLeft="30px"
             android:text="房屋现状"
             android:textColor="@color/black"
-            android:textSize="28px"/>
+            android:textSize="24px"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -89,7 +93,8 @@
                 android:layout_marginLeft="20px"
                 android:background="@color/whitesmoke"
                 android:gravity="center"
-                android:text="局部改造"/>
+                android:text="局部改造"
+                android:textSize="22px"/>
 
             <TextView
                 android:layout_width="150px"
@@ -97,7 +102,8 @@
                 android:layout_marginLeft="20px"
                 android:background="@color/whitesmoke"
                 android:gravity="center"
-                android:text="毛胚房"/>
+                android:text="毛胚房"
+                android:textSize="22px"/>
 
             <TextView
                 android:layout_width="150px"
@@ -105,7 +111,8 @@
                 android:layout_marginLeft="20px"
                 android:background="@color/whitesmoke"
                 android:gravity="center"
-                android:text="旧房翻新"/>
+                android:text="旧房翻新"
+                android:textSize="22px"/>
 
         </LinearLayout>
 
@@ -122,47 +129,40 @@
             android:paddingLeft="30px"
             android:text="装修时间"
             android:textColor="@color/black"
-            android:textSize="28px"/>
+            android:textSize="24px"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="150px"
-                android:layout_height="65px"
-                android:layout_marginLeft="20px"
-                android:background="@color/whitesmoke"
-                android:gravity="center"
-                android:text="半个月内"/>
-
-            <TextView
-                android:layout_width="150px"
-                android:layout_height="65px"
-                android:layout_marginLeft="20px"
-                android:background="@color/whitesmoke"
-                android:gravity="center"
-                android:text="一个月内"/>
-
-            <TextView
-                android:layout_width="150px"
-                android:layout_height="65px"
-                android:layout_marginLeft="20px"
-                android:background="@color/whitesmoke"
-                android:gravity="center"
-                android:text="两个月内"/>
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="150px"
             android:layout_height="65px"
-            android:layout_marginLeft="20px"
-            android:layout_marginTop="20px"
             android:background="@color/whitesmoke"
             android:gravity="center"
-            android:text="两个月以上"/>
+            android:orientation="horizontal">
+
+            <EditText
+                android:layout_width="195px"
+                android:layout_height="50px"
+                android:background="@color/white"
+                android:gravity="center"
+                android:hint="招标开始时间"
+                android:inputType="number"
+                android:textSize="22px"/>
+
+            <View
+                android:layout_width="20px"
+                android:layout_height="2px"
+                android:layout_marginLeft="10px"
+                android:background="@color/bigline"/>
+
+            <EditText
+                android:layout_width="195px"
+                android:layout_height="50px"
+                android:layout_marginLeft="10px"
+                android:background="@color/white"
+                android:gravity="center"
+                android:hint="招标结束时间"
+                android:inputType="number"
+                android:textSize="22px"/>
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
@@ -177,7 +177,7 @@
             android:paddingLeft="30px"
             android:text="房屋面积（平方米）"
             android:textColor="@color/black"
-            android:textSize="28px"/>
+            android:textSize="24px"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -187,29 +187,17 @@
             android:orientation="horizontal">
 
             <EditText
-                android:layout_width="195px"
+                android:layout_width="match_parent"
                 android:layout_height="50px"
+                android:layout_marginLeft="20px"
+                android:paddingLeft="10px"
+                android:layout_marginRight="20px"
                 android:background="@color/white"
-                android:gravity="center"
-                android:hint="最低面积"
+                android:gravity="center_vertical"
+                android:hint="请输入房屋面积"
                 android:inputType="number"
-                android:textSize="24px"/>
+                android:textSize="22px"/>
 
-            <View
-                android:layout_width="20px"
-                android:layout_height="2px"
-                android:layout_marginLeft="10px"
-                android:background="@color/bigline"/>
-
-            <EditText
-                android:layout_width="195px"
-                android:layout_height="50px"
-                android:layout_marginLeft="10px"
-                android:background="@color/white"
-                android:gravity="center"
-                android:hint="最低面积"
-                android:inputType="number"
-                android:textSize="24px"/>
         </LinearLayout>
 
         <View
@@ -223,9 +211,9 @@
             android:layout_height="65px"
             android:gravity="center_vertical"
             android:paddingLeft="30px"
-            android:text="区域"
+            android:text="当前位置"
             android:textColor="@color/black"
-            android:textSize="28px"/>
+            android:textSize="24px"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -251,7 +239,8 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="20px"
                     android:gravity="center"
-                    android:text="沈阳"/>
+                    android:text="沈阳"
+                    android:textSize="22px"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -265,6 +254,6 @@
             android:elevation="2dp"
             android:text="确定"
             android:textColor="@color/white"
-            android:textSize="36px"/>
+            android:textSize="28px"/>
     </LinearLayout>
 </ScrollView>

@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <com.ygc.estatedecoration.widget.NoTouchViewPager
@@ -16,50 +17,13 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/line"/>
+
     <me.majiajie.pagerbottomtabstrip.PageNavigationView
         android:id="@+id/tab"
+        app:NavigationPaddingBottom="-5px"
+        app:NavigationPaddingTop="-5px"
         android:layout_width="match_parent"
-        android:layout_height="100px"/>
-    <!--<RadioGroup-->
-        <!--android:elevation="3dp"-->
-        <!--android:id="@+id/rg_main"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="95px"-->
-        <!--android:orientation="horizontal">-->
-
-        <!--<RadioButton-->
-            <!--android:id="@+id/rb_home"-->
-            <!--style="@style/bottom_tag_style"-->
-            <!--android:drawableTop="@drawable/rb_home_drawable_selector"-->
-            <!--android:gravity="center"-->
-            <!--android:text="首页"/>-->
-
-        <!--<RadioButton-->
-            <!--android:id="@+id/rb_case"-->
-            <!--style="@style/bottom_tag_style"-->
-            <!--android:drawableTop="@drawable/rb_home_drawable_selector"-->
-            <!--android:gravity="center"-->
-            <!--android:text="案例"/>-->
-
-        <!--<RadioButton-->
-            <!--android:id="@+id/rb_manage"-->
-            <!--style="@style/bottom_tag_style"-->
-            <!--android:drawableTop="@drawable/rb_home_drawable_selector"-->
-            <!--android:gravity="center"-->
-            <!--android:text="管理"/>-->
-
-        <!--<RadioButton-->
-            <!--android:id="@+id/rb_news"-->
-            <!--style="@style/bottom_tag_style"-->
-            <!--android:drawableTop="@drawable/rb_home_drawable_selector"-->
-            <!--android:gravity="center"-->
-            <!--android:text="消息"/>-->
-        <!--<RadioButton-->
-            <!--android:id="@+id/rb_my"-->
-            <!--style="@style/bottom_tag_style"-->
-            <!--android:drawableTop="@drawable/rb_home_drawable_selector"-->
-            <!--android:gravity="center"-->
-            <!--android:text="我的"/>-->
-    <!--</RadioGroup>-->
+        android:layout_height="100px"
+        android:elevation="3dp"/>
 
 </com.zhy.autolayout.AutoLinearLayout>

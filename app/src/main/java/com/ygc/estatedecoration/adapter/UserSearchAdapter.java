@@ -19,7 +19,7 @@ public class UserSearchAdapter extends BaseQuickAdapter<String, BaseViewHolder> 
     @Override
     protected void convert(BaseViewHolder helper, String item) {
 
-        ((TextView) helper.getView(R.id.title_tv)).setText(item);
+//        ((TextView) helper.getView(R.id.title_tv)).setText(item);
 
     }
 }

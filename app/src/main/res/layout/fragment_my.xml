@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:text="Name"
                     android:textColor="@color/black"
-                    android:textSize="36px"/>
+                    android:textSize="28px"/>
 
                 <TextView
                     android:id="@+id/tv_sex"
@@ -46,12 +46,12 @@
                     android:layout_marginLeft="20px"
                     android:text="Sex"
                     android:textColor="@color/black"
-                    android:textSize="36px"/>
+                    android:textSize="28px"/>
 
                 <ImageView
                     android:id="@+id/tv_chage"
-                    android:layout_width="40px"
-                    android:layout_height="40px"
+                    android:layout_width="30px"
+                    android:layout_height="30px"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10px"
                     android:src="@drawable/bianji"/>
@@ -79,14 +79,15 @@
                     android:layout_height="wrap_content"
                     android:text="19天"
                     android:textColor="@color/orange"
-                    android:textSize="36px"/>
+                    android:textSize="24px"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="18px"
                     android:text="保证金"
                     android:textColor="@color/teacherInformationText"
-                    android:textSize="32px"/>
+                    android:textSize="22px"/>
             </LinearLayout>
 
             <View
@@ -107,14 +108,15 @@
                     android:layout_height="wrap_content"
                     android:text="19天"
                     android:textColor="@color/orange"
-                    android:textSize="36px"/>
+                    android:textSize="24px"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="18px"
                     android:text="保质金"
                     android:textColor="@color/teacherInformationText"
-                    android:textSize="32px"/>
+                    android:textSize="22px"/>
             </LinearLayout>
 
             <View
@@ -136,14 +138,15 @@
                     android:layout_height="wrap_content"
                     android:text="1000分"
                     android:textColor="@color/orange"
-                    android:textSize="36px"/>
+                    android:textSize="24px"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="18px"
                     android:text="金币"
                     android:textColor="@color/teacherInformationText"
-                    android:textSize="32px"/>
+                    android:textSize="22px"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -173,7 +176,7 @@
                 android:layout_toRightOf="@id/iv_above"
                 android:text="实名认证"
                 android:textColor="@color/teacherInformationText"
-                android:textSize="31px"/>
+                android:textSize="28px"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -228,7 +231,7 @@
                 android:layout_toRightOf="@id/iv_buy"
                 android:text="交易管理"
                 android:textColor="@color/teacherInformationText"
-                android:textSize="31px"/>
+                android:textSize="28px"/>
 
             <ImageView
                 android:layout_width="30px"
@@ -265,7 +268,7 @@
                 android:layout_toRightOf="@id/iv_level"
                 android:text="我的钱包"
                 android:textColor="@color/teacherInformationText"
-                android:textSize="31px"/>
+                android:textSize="28px"/>
 
             <ImageView
                 android:layout_width="30px"
@@ -302,7 +305,7 @@
                 android:layout_toRightOf="@id/iv_recharge"
                 android:text="我的收藏"
                 android:textColor="@color/teacherInformationText"
-                android:textSize="31px"/>
+                android:textSize="28px"/>
 
             <ImageView
                 android:layout_width="30px"
@@ -339,7 +342,7 @@
                 android:layout_toRightOf="@id/iv_discount"
                 android:text="我的亮点"
                 android:textColor="@color/teacherInformationText"
-                android:textSize="31px"/>
+                android:textSize="28px"/>
 
             <ImageView
                 android:layout_width="30px"

@@ -108,15 +108,10 @@ public class MyVisitorActivity extends BaseActivity {
         mList.add(new HomeMyVisitorSection(new HomeMyVisitor("", "张三", "12:31")));
         mList.add(new HomeMyVisitorSection(true, "11月14日"));
         mList.add(new HomeMyVisitorSection(new HomeMyVisitor("", "学习", "23:00")));
-        mList.add(new HomeMyVisitorSection(new HomeMyVisitor("", "使我", "5:00")));
-        mList.add(new HomeMyVisitorSection(new HomeMyVisitor("", "快乐", "")));
+        mList.add(new HomeMyVisitorSection(new HomeMyVisitor("", "使我", "05:00")));
         mList.add(new HomeMyVisitorSection(true, "11月16日"));
-        mList.add(new HomeMyVisitorSection(new HomeMyVisitor("", "还好", "")));
-        mList.add(new HomeMyVisitorSection(new HomeMyVisitor("", "没", "12：00")));
-        mList.add(new HomeMyVisitorSection(new HomeMyVisitor("", "放弃", "13：00")));
+        mList.add(new HomeMyVisitorSection(new HomeMyVisitor("", "放弃", "13:00")));
         mList.add(new HomeMyVisitorSection(new HomeMyVisitor("", "终于", "17:30")));
-        mList.add(new HomeMyVisitorSection(new HomeMyVisitor("", "等到", "")));
-        mList.add(new HomeMyVisitorSection(new HomeMyVisitor("", "你", "")));
 
         mMyVisitorAdapter = new MyVisitorAdapter(R.layout.item_home_myvisitor_below, R.layout.item_home_myvisitor_top, mList);
 

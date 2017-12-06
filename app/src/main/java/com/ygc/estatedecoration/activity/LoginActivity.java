@@ -78,9 +78,9 @@ public class LoginActivity extends AutoLayoutActivity {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 if (i == mordinaryuser.getId()) {
-                    mTvRegister.setText("装修用户登录");
+                    mTvRegister.setText("装修用户注册");
                 } else if (i == mServiceuser.getId()) {
-                    mTvRegister.setText("服务商登录");
+                    mTvRegister.setText("服务商注册");
                 }
             }
         });

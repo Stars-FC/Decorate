@@ -68,13 +68,14 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:layout_marginTop="35px"
                 android:layout_width="match_parent"
                 android:layout_height="80px"
                 android:gravity="center_vertical">
 
                 <ImageView
-                    android:layout_width="50px"
-                    android:layout_height="50px"
+                    android:layout_width="42px"
+                    android:layout_height="42px"
                     android:layout_marginLeft="40px"
                     android:src="@drawable/zhanghu"/>
 
@@ -110,8 +111,8 @@
                 android:gravity="center_vertical">
 
                 <ImageView
-                    android:layout_width="50px"
-                    android:layout_height="50px"
+                    android:layout_width="42px"
+                    android:layout_height="42px"
                     android:layout_marginLeft="40px"
                     android:src="@drawable/mima"/>
 
@@ -184,7 +185,7 @@
                         android:background="@drawable/shape_all_my_moneybag"
                         android:text="登录"
                         android:textColor="@android:color/white"
-                        android:textSize="30px"/>
+                        android:textSize="28px"/>
                 </LinearLayout>
 
             </RelativeLayout>
@@ -212,7 +213,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center_vertical"
-            android:text="微信登陆"
+            android:text="微信登录"
             android:textColor="@color/black"
             android:textSize="24px"/>
 

@@ -35,8 +35,8 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="52px"
-                android:layout_height="52px"
+                android:layout_width="44px"
+                android:layout_height="44px"
                 android:src="@drawable/dianhua"/>
 
             <TextView
@@ -59,8 +59,8 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="52px"
-                android:layout_height="52px"
+                android:layout_width="44px"
+                android:layout_height="44px"
                 android:src="@drawable/liuyan"/>
 
             <TextView

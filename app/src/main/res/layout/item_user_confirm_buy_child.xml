@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--确认购买，每个店铺商品子item-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="190px"
+        android:layout_marginLeft="19px"
+        android:layout_marginRight="20px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="170px"
+            android:layout_height="170px"
+            android:src="@color/line"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="170px"
+            android:layout_marginLeft="20px"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:lines="2"
+                android:maxLines="2"
+                android:text="朝花夕拾花房私人定制花朵，朝花夕拾花房私人定制花朵，朝花夕拾花房私人定制花朵"
+                android:textColor="@color/black"
+                android:textSize="22px"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20px"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:lines="2"
+                android:maxLines="2"
+                android:text="颜色分类：房私人定制花朵，朝花夕拾花房私人定制花朵，朝花夕拾花房私人定制花朵"
+                android:textColor="@color/black"
+                android:textSize="22px"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="bottom"
+                    android:text="￥99.00"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="21px"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:gravity="bottom"
+                    android:text="X2"
+                    android:textColor="@color/black"
+                    android:textSize="21px"/>
+
+            </RelativeLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

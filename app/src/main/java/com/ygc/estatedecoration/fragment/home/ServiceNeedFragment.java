@@ -79,7 +79,7 @@ public class ServiceNeedFragment extends BaseFragment {
 
     @Override
     protected int setLayoutResourceId() {
-        return R.layout.home_need_details;
+        return R.layout.home_need_details_nobelow;
     }
 
 }

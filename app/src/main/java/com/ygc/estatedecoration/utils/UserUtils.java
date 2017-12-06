@@ -1,5 +1,6 @@
 package com.ygc.estatedecoration.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
@@ -13,19 +14,21 @@ import com.ygc.estatedecoration.app.MyApplication;
 
 public class UserUtils {
 
-    public static final String USER = "user_info";
+    public static final String SEARCH = "search_info"; //搜索的缓存
+    public static final String USER = "user_info";     //个人信息的缓存
     public static final String userId = "userId";
     public static final String userPws = "userId";
 
     /**
      * 保存用户信息
      *
+     * @param name
      * @param key
      * @param object
      */
-    public static void setParam(String key, Object object) {
+    public static void setParam(String name, String key, Object object) {
         String type = object.getClass().getSimpleName(); // 降低耦合度，提升可扩展性
-        SharedPreferences sp = MyApplication.getmContext().getSharedPreferences(USER, Context.MODE_PRIVATE);
+         SharedPreferences sp = MyApplication.getmContext().getSharedPreferences(name, Context.MODE_APPEND);
 
         SharedPreferences.Editor editor = sp.edit();
 
@@ -48,13 +51,14 @@ public class UserUtils {
     /**
      * 获取保存的数据
      *
+     * @param name
      * @param key
      * @param object
      * @return
      */
-    public static Object getParam(String key, Object object) {
+    public static Object getParam(String name, String key, Object object) {
         String type = object.getClass().getSimpleName();
-        SharedPreferences sp = MyApplication.getmContext().getSharedPreferences(USER, Context.MODE_PRIVATE);
+       SharedPreferences sp = MyApplication.getmContext().getSharedPreferences(name, Context.MODE_PRIVATE);
 
         //根据传入的类型返回相应的值
         if ("String".equals(type)) {
@@ -99,9 +103,11 @@ public class UserUtils {
 
     /**
      * 清除缓存
+     *
+     * @param name
      */
-    public static void clear() {
-        SharedPreferences sp = MyApplication.getmContext().getSharedPreferences(USER, Context.MODE_PRIVATE);
+    public static void clear(String name) {
+        SharedPreferences sp = MyApplication.getmContext().getSharedPreferences(name, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.clear();
         editor.commit();
