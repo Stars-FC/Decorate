@@ -57,7 +57,8 @@ public class UserShopActivity extends BaseActivity implements SwipeRefreshLayout
         View headerView = getLayoutInflater().inflate(R.layout.header_find_materials, null);
         RecyclerView materialsHeaderRecyclerView = (RecyclerView) headerView.findViewById(R.id.recyclerview);
         UserFindMaterialHeaderAdapter userFindMaterialHeaderAdapter = new UserFindMaterialHeaderAdapter(R.layout.item_user_shop_find_materials_header, dataList);
-        materialsHeaderRecyclerView.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.HORIZONTAL, false));
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2, GridLayoutManager.HORIZONTAL, false);
+        materialsHeaderRecyclerView.setLayoutManager(gridLayoutManager);
         materialsHeaderRecyclerView.setAdapter(userFindMaterialHeaderAdapter);
         userFindMaterialHeaderAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -82,7 +83,7 @@ public class UserShopActivity extends BaseActivity implements SwipeRefreshLayout
     @Override
     protected void initData(Bundle savedInstanceState) {
 
-        for (int i = 0; i < 13; i++) {
+        for (int i = 0; i < 11; i++) {
             dataList.add("heh");
         }
     }

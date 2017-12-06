@@ -8,6 +8,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -16,6 +18,9 @@ import com.ygc.estatedecoration.adapter.MyCollectionAdapter;
 import com.ygc.estatedecoration.adapter.UserFindDesignerAdapter;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
 import com.ygc.estatedecoration.widget.BetterRecyclerView;
+import com.ygc.estatedecoration.widget.FlowScrollView;
+import com.ygc.estatedecoration.widget.FullyLinearLayoutManager;
+import com.ygc.estatedecoration.widget.MyScrollview;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import java.util.ArrayList;
@@ -23,6 +28,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.bingoogolapple.bgabanner.BGABanner;
 
 /**
  * Created by FC on 2017/11/29.
@@ -31,6 +37,12 @@ import butterknife.OnClick;
 
 public class UserFindDesigerActivity extends BaseActivity {
 
+    @BindView(R.id.scrollView)
+    MyScrollview mScrollView;
+    @BindView(R.id.banner)
+    BGABanner mBGABanner;
+    @BindView(R.id.flow_view)
+    LinearLayout flow_view;
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerview;
 
@@ -38,7 +50,6 @@ public class UserFindDesigerActivity extends BaseActivity {
     SwipeRefreshLayout mSwipeRefreshLayout;
 
     private UserFindDesignerAdapter mAdapter;
-    private View mTopView;
     List<String> list = new ArrayList<>();
 
     @Override
@@ -85,17 +96,16 @@ public class UserFindDesigerActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        mScrollView.setFlowView(flow_view);
+        mScrollView.setTopView(mBGABanner);
         initRecyclerView();
     }
 
     private void initRecyclerView() {
-        mTopView = View.inflate(UserFindDesigerActivity.this, R.layout.user_find_designer, null);
-        mRecyclerview.setNestedScrollingEnabled(false);
+//        View topView = View.inflate(UserFindDesigerActivity.this, R.layout.user_find_designer, null);
         mAdapter = new UserFindDesignerAdapter(list, UserFindDesigerActivity.this);
-
-        mAdapter.addHeaderView(mTopView);
-
-        mRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+//        mAdapter.addHeaderView(topView);
+        mRecyclerview.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerview.setAdapter(mAdapter);
     }
 
@@ -108,7 +118,7 @@ public class UserFindDesigerActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.recyclerview;
+        return R.layout.activity_user_find_design;
     }
 
     @OnClick({R.id.naviButtonLeft, R.id.naviFrameRight})

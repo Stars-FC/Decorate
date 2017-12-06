@@ -79,7 +79,6 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
 
     @Override
     protected void initData(Bundle arguments) {
-
         getNetworkData(Constant.NORMAL_REQUEST);
     }
 

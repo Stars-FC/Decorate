@@ -31,6 +31,7 @@ import com.ygc.estatedecoration.activity.my.SettingActivity;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.user_activity.UserCollectionActivity;
 import com.ygc.estatedecoration.user_activity.UserGoodsDetailActivity;
+import com.ygc.estatedecoration.user_activity.UserShopCarActivity;
 import com.ygc.estatedecoration.widget.BasePopupWindow;
 import com.ygc.estatedecoration.widget.CircleImageView;
 import com.ygc.estatedecoration.widget.TitleBar;
@@ -173,7 +174,8 @@ public class UserMyFragment extends BaseFragment implements EasyPermissions.Perm
                 showToast("待收货");
                 break;
             case R.id.ll_transaction://购物车
-                showToast("购物车");
+                Intent intent1 = new Intent(mActivity, UserShopCarActivity.class);
+                startActivity(intent1);
                 break;
             case R.id.ll_payment://待付款
                 showToast("待付款");

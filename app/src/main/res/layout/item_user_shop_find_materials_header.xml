@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <com.zhy.autolayout.AutoLinearLayout
-        android:layout_width="120px"
+        android:layout_width="115px"
         android:layout_height="148px"
         android:gravity="center"
         android:orientation="vertical">

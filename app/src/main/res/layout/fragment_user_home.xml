@@ -33,7 +33,8 @@
 
                     <com.zhy.autolayout.AutoLinearLayout
                         android:id="@+id/location_ll"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content">
 
                         <ImageView
@@ -45,19 +46,17 @@
 
                         <TextView
                             android:id="@+id/location_tv"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="16px"
+                            android:singleLine="true"
+                            android:ellipsize="end"
+                            android:textColor="@color/colorAccent"
+                            android:maxLines="1"
                             android:text="辽宁省沈阳市浑南新区"
-                            android:textColor="#4fbc65"
                             android:textSize="29px"/>
 
                     </com.zhy.autolayout.AutoLinearLayout>
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"/>
 
                     <com.zhy.autolayout.AutoRelativeLayout
                         android:id="@+id/search_ll"
