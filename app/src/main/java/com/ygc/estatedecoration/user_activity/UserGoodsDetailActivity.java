@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.TextView;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
 import com.ygc.estatedecoration.widget.BasePopupWindow;
@@ -70,17 +71,11 @@ public class UserGoodsDetailActivity extends BaseActivity {
     }
 
     @Override
-    protected void initView() {
-        //设置状态栏透明化
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
-            localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
-        }
-    }
+    protected void initView() {}
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-
+        ImmersionBar.with(this).fitsSystemWindows(false).transparentStatusBar().statusBarAlpha(0.5f).init();
         setTxtVFirstLineRetract();
     }
 

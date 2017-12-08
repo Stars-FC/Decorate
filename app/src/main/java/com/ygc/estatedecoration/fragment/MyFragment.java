@@ -115,7 +115,7 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
         return R.layout.fragment_my;
     }
 
-    @OnClick({R.id.my_anli_rl, R.id.iv_company_icon, R.id.tv_chage, R.id.my_authentication, R.id.my_trade, R.id.mine_follow, R.id.my_moneybag, R.id.my_collection, R.id.my_bright, R.id.naviFrameRight})
+    @OnClick({R.id.my_anli_rl, R.id.iv_company_icon, R.id.tv_chage, R.id.my_authentication, R.id.mine_follow, R.id.my_moneybag, R.id.my_activity, R.id.my_bright, R.id.naviFrameRight})
     public void onViewClicked(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -137,19 +137,17 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
                 intent.setClass(mActivity, GuaranteeMoneyActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.my_trade://交易管理
-                showToast("交易管理");
-                break;
             case R.id.my_moneybag://我的钱包
                 intent.setClass(mActivity, MoneyBagActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.my_collection://我的收藏
-                intent.setClass(mActivity, CollectionActivity.class);
-                startActivity(intent);
-                break;
             case R.id.my_bright://我的亮点
                 showToast("我的亮点");
+                break;
+            case R.id.my_activity://我的活动
+                /*intent.setClass(mActivity, CollectionActivity.class);
+                startActivity(intent);*/
+                showToast("我的活动");
                 break;
             case R.id.naviFrameRight://设置
                 intent.setClass(mActivity, SettingActivity.class);

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/parent_Layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent_Layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -225,6 +226,138 @@
             android:layout_height="1px"
             android:background="@color/line"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="145px"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="104px"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="25px"
+                    android:layout_height="25px"
+                    android:src="@drawable/fabu_sel"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7px"
+                    android:text="最新发布"
+                    android:textColor="@color/teacherInformationText"
+                    android:textSize="17px"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15px"
+                    android:text="12-5"
+                    android:textColor="@color/teacherInformationText"
+                    android:textSize="17px"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="117px"
+                android:background="@color/line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="28px"
+                    android:paddingRight="17px">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="需求标题需求标题..."
+                        android:textColor="@color/black"
+                        android:textSize="27px"/>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="订单号：1231212"
+                        android:textColor="@color/black"
+                        android:textSize="20px"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="28px"
+                    android:paddingRight="17px">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="￥5,000"
+                        android:textColor="#f77806"
+                        android:textSize="23px"/>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="毛坯房"
+                        android:textColor="#59b07c"
+                        android:textSize="23px"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="38px"
+                        android:text="210㎡"
+                        android:textColor="#59b07c"
+                        android:textSize="23px"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5px"
+            android:background="@color/line"/>
+
         <RelativeLayout
             android:id="@+id/my_authentication"
             android:layout_width="match_parent"
@@ -292,7 +425,7 @@
                 android:layout_height="33px"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="17px"
-                android:src="@drawable/wodeqianbao"/>
+                android:src="@drawable/qianbao"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -305,6 +438,43 @@
                 android:textSize="28px"/>
 
             <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="30px"
+                android:layout_height="30px"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="17px" android:src="@drawable/gengduo"/>/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line"/>
+
+        <RelativeLayout
+            android:id="@+id/project_progress_rl"
+            android:layout_width="match_parent"
+            android:layout_height="98px">
+
+            <ImageView
+                android:id="@+id/iv_project"
+                android:layout_width="33px"
+                android:layout_height="33px"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="17px"
+                android:src="@drawable/xiangmujindu"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12px"
+                android:layout_toRightOf="@id/iv_project"
+                android:text="项目进度"
+                android:textColor="@color/teacherInformationText"
+                android:textSize="28px"/>
+
+            <ImageView
                 android:layout_width="30px"
                 android:layout_height="30px"
                 android:layout_alignParentRight="true"
@@ -312,6 +482,7 @@
                 android:layout_marginRight="17px"
                 android:src="@drawable/gengduo"/>/>
         </RelativeLayout>
+
 
         <View
             android:layout_width="match_parent"
@@ -392,6 +563,85 @@
             android:layout_height="1px"
             android:background="@color/line"/>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line"/>
+
+        <RelativeLayout
+            android:id="@+id/my_address"
+            android:layout_width="match_parent"
+            android:layout_height="98px">
+
+            <ImageView
+                android:id="@+id/iv_address"
+                android:layout_width="33px"
+                android:layout_height="33px"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="17px"
+                android:src="@drawable/dizhiguanli"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12px"
+                android:layout_toRightOf="@id/iv_address"
+                android:text="我的地址"
+                android:textColor="@color/teacherInformationText"
+                android:textSize="28px"/>
+
+            <ImageView
+                android:layout_width="30px"
+                android:layout_height="30px"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="17px"
+                android:src="@drawable/gengduo"/>/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line"/>
+
+        <RelativeLayout
+            android:id="@+id/my_activity"
+            android:layout_width="match_parent"
+            android:layout_height="98px">
+
+            <ImageView
+                android:id="@+id/iv_activity"
+                android:layout_width="33px"
+                android:layout_height="33px"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="17px"
+                android:src="@drawable/huodong"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12px"
+                android:layout_toRightOf="@id/iv_activity"
+                android:text="我的活动"
+                android:textColor="@color/teacherInformationText"
+                android:textSize="28px"/>
+
+            <ImageView
+                android:layout_width="30px"
+                android:layout_height="30px"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="17px"
+                android:src="@drawable/gengduo"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20px"
+            android:background="#fafafa"/>
 
     </LinearLayout>
+
 </ScrollView>
