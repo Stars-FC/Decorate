@@ -187,18 +187,31 @@
             android:orientation="horizontal">
 
             <EditText
-                android:layout_width="match_parent"
+                android:layout_width="195px"
                 android:layout_height="50px"
-                android:layout_marginLeft="20px"
-                android:layout_marginRight="20px"
                 android:background="@color/white"
-                android:gravity="center_vertical"
-                android:hint="请输入房屋面积"
+                android:gravity="center"
+                android:hint="房屋面积"
                 android:inputType="number"
-                android:paddingLeft="10px"
                 android:textSize="22px"/>
 
+            <View
+                android:layout_width="20px"
+                android:layout_height="2px"
+                android:layout_marginLeft="10px"
+                android:background="@color/bigline"/>
+
+            <EditText
+                android:layout_width="195px"
+                android:layout_height="50px"
+                android:layout_marginLeft="10px"
+                android:background="@color/white"
+                android:gravity="center"
+                android:hint="房屋面积"
+                android:inputType="number"
+                android:textSize="22px"/>
         </LinearLayout>
+
 
         <View
             android:layout_width="match_parent"

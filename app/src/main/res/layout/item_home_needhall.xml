@@ -32,7 +32,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="家装"
-                android:textColor="@color/forestgreen"/>
+                android:textColor="@color/color_4fbc65"
+                android:textSize="14sp"/>
         </RelativeLayout>
 
 
@@ -41,8 +42,9 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:lines="2"
+            android:text="需求分析需求分析需求需求分析需需求分析需需求分析需分析需求分析需求分析需求分析需求分析需求分析需求分析需求分析需求分析需求分析"
             android:textColor="@color/grey"
-            android:text="需求分析需求分析需求需求分析需需求分析需需求分析需分析需求分析需求分析需求分析需求分析需求分析需求分析需求分析需求分析需求分析"/>
+            android:textSize="14sp"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -60,7 +62,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="¥"
-                    android:textColor="@color/orange"
+                    android:textColor="@color/color_37406"
                     android:textSize="15sp"/>
 
                 <TextView
@@ -69,26 +71,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10px"
                     android:text="5,000"
-                    android:textColor="@color/orange"
+                    android:textColor="@color/color_37406"
                     android:textSize="15sp"/>
-
-                <TextView
-                    android:layout_width="55dp"
-                    android:layout_height="25dp"
-                    android:layout_marginLeft="30px"
-                    android:background="@drawable/shape_empty_home"
-                    android:gravity="center"
-                    android:text="已托管"
-                    android:textSize="12sp"
-                    android:textColor="@color/forestgreen"/>
 
             </LinearLayout>
 
             <LinearLayout
-                android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
@@ -96,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20px"
                     android:text="毛呸房"
-                    android:textColor="@color/forestgreen"
+                    android:textColor="@color/color_4fbc65"
                     android:textSize="15sp"/>
 
                 <TextView
@@ -104,13 +96,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="210 m²"
-                    android:textColor="@color/forestgreen"
+                    android:textColor="@color/color_4fbc65"
                     android:textSize="15sp"/>
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1px"
+                android:layout_height="2px"
                 android:layout_alignParentBottom="true"
                 android:background="@color/line"/>
         </RelativeLayout>
@@ -118,16 +110,16 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:layout_marginBottom="15px"
-            android:layout_marginTop="15px">
+            android:layout_marginBottom="20px"
+            android:layout_marginTop="20px"
+            android:gravity="center_horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:text="沈阳"
-                android:textColor="@color/orange"
+                android:textColor="@color/color_37406"
                 android:textSize="13sp"/>
 
             <TextView
@@ -154,6 +146,6 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1px"
+        android:layout_height="2px"
         android:background="@color/line"/>
 </LinearLayout>

@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="家装"
-                android:textColor="@color/forestgreen"
+                android:textColor="@color/color_4fbc65"
                 android:textSize="24px"/>
         </RelativeLayout>
 
@@ -61,7 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="¥"
-                    android:textColor="@color/orange"
+                    android:textColor="@color/color_37406"
                     android:textSize="32px"/>
 
                 <TextView
@@ -70,17 +70,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10px"
                     android:text="5,000"
-                    android:textColor="@color/orange"
+                    android:textColor="@color/color_37406"
                     android:textSize="26px"/>
 
                 <TextView
-                    android:layout_width="91px"
+                    android:layout_width="90px"
                     android:layout_height="40px"
                     android:layout_marginLeft="20px"
                     android:background="@drawable/shape_empty_home"
                     android:gravity="center"
                     android:text="已托管"
-                    android:textColor="@color/forestgreen"
+                    android:textColor="@color/color_4fbc65"
                     android:textSize="22px"/>
 
             </LinearLayout>
@@ -97,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20px"
                     android:text="毛呸房"
-                    android:textColor="@color/forestgreen"
+                    android:textColor="@color/color_4fbc65"
                     android:textSize="24px"/>
 
                 <TextView
@@ -105,7 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="210 m²"
-                    android:textColor="@color/forestgreen"
+                    android:textColor="@color/color_4fbc65"
                     android:textSize="24px"/>
             </LinearLayout>
 
@@ -128,7 +128,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:text="待选标"
-                android:textColor="@color/orange"
+                android:textColor="@color/color_37406"
                 android:textSize="23px"/>
 
             <TextView
@@ -163,7 +163,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="可议价"
-                android:textColor="@color/orange"
+                android:textColor="@color/color_37406"
                 android:textSize="23px"/>
 
         </RelativeLayout>

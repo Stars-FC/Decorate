@@ -14,6 +14,11 @@
     <color name="settingbc">#f8f8f8</color><!--设置背景色-->
     <color name="bigline">#aaaaaa</color><!---->
     <color name="color_29b7b3">#29b7b3</color>
+    <color name="color_37406">#f37406</color>
+    <color name="color_4fbc65">#4fbc65</color>
+    <color name="color_f33904">#f33904</color>
+    <color name="greenyellow">#97d9a4</color>
+    <color name="color_f2fff2">#f2fff2</color>
 
     <color name="gray_e5e5e5">#e5e5e5</color>
     <color name="black_010101">#010101</color>
@@ -105,7 +110,7 @@
     <color name="sienna">#a0522d</color><!--赭色 -->
     <color name="olive">#808000</color><!--橄榄色 -->
     <color name="chartreuse">#7fff00</color><!--黄绿色 -->
-    <color name="greenyellow">#adff2f</color><!--黄绿色 -->
+
     <color name="green">#008000</color><!--绿色 -->
     <color name="darkgreen">#006400</color><!--暗绿色 -->
     <color name="darkolivegreen">#556b2f</color><!--暗橄榄绿 -->

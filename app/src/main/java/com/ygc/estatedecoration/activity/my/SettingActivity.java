@@ -75,7 +75,6 @@ public class SettingActivity extends BaseActivity {
             case R.id.bt_logout://退出当前账号
                 intent.setClass(SettingActivity.this, LoginActivity.class);
                 startActivity(intent);
-                finish();
                 break;
         }
     }
