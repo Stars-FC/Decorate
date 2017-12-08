@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--服务商端-绑定手机选择材料商身份的item-->
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="20px"
+    android:layout_marginTop="30px">
+
+    <TextView
+        android:id="@+id/tv_item_material_dealer_show"
+        android:layout_width="182px"
+        android:layout_height="58px"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="木工"
+        android:textColor="@color/black"
+        android:textSize="26px"/>
+
+</android.support.constraint.ConstraintLayout>

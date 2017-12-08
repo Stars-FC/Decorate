@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/login_forgetpwd"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
@@ -19,102 +18,103 @@
         android:layout_marginRight="40px"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="40px"
-            android:layout_marginTop="50px"
-            android:maxEms="7"
-            android:text="为了您的账户安全请绑定手机号"
-            android:textColor="@color/black"
-            android:textSize="45px"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20px"
+        android:layout_marginTop="50px"
+        android:maxEms="7"
+        android:text="为了您的账户安全请绑定手机号"
+        android:textColor="@color/black"
+        android:textSize="36px"/>
 
-        <TextView
-            android:id="@+id/tv_service_provider"
-            android:layout_width="match_parent"
-            android:layout_height="90px"
-            android:layout_marginTop="20px"
+    <TextView
+        android:id="@+id/tv_service_provider"
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:layout_marginTop="20px"
+        android:background="@null"
+        android:drawableRight="@drawable/xiala"
+        android:gravity="center_vertical"
+        android:paddingLeft="20px"
+        android:paddingRight="50px"
+        android:text="材料商"
+        android:textColor="@color/black"
+        android:textSize="26px"/>
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/colorAccent"/>
+
+    <EditText
+        style="@style/EtStyle"
+        android:hint="请输入您的手机号"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4px"
+        android:background="@drawable/hengxian_green"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:layout_marginTop="20px">
+
+        <EditText
+            android:id="@+id/et_verification"
+            android:layout_width="300px"
+            android:layout_height="86px"
+            android:layout_marginLeft="40px"
             android:background="@null"
-            android:drawableRight="@drawable/xiala"
             android:gravity="center_vertical"
-            android:paddingLeft="20px"
-            android:paddingRight="50px"
-            android:text="服务商身份"
-            android:textColor="@color/black"
+            android:hint="请输入验证码"
             android:textSize="24px"/>
 
         <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/colorAccent"/>
-
-        <EditText
-            style="@style/EtStyle"
-            android:hint="请输入您的手机号"/>
-
-        <View
-            android:layout_width="match_parent"
+            android:layout_width="300px"
             android:layout_height="4px"
+            android:layout_below="@+id/et_verification"
             android:background="@drawable/hengxian_green"/>
 
+        <View
+            android:layout_width="1px"
+            android:layout_height="70px"
+            android:layout_gravity="center"
+            android:layout_marginRight="30px"
+            android:layout_marginTop="5px"
+            android:layout_toRightOf="@+id/et_verification"
+            android:background="@color/line"/>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="90px"
-            android:layout_marginTop="20px">
-
-            <EditText
-                android:id="@+id/et_verification"
-                android:layout_width="300px"
-                android:layout_height="86px"
-                android:layout_marginLeft="40px"
-                android:background="@null"
-                android:gravity="center_vertical"
-                android:hint="请输入验证码"
-                android:textSize="24px"/>
-
-            <View
-                android:layout_width="300px"
-                android:layout_height="4px"
-                android:layout_below="@+id/et_verification"
-                android:background="@drawable/hengxian_green"/>
-
-            <View
-                android:layout_width="1px"
-                android:layout_height="70px"
-                android:layout_gravity="center"
-                android:layout_marginRight="30px"
-                android:layout_marginTop="5px"
-                android:layout_toRightOf="@+id/et_verification"
-                android:background="@color/line"/>
-
-            <TextView
-                android:id="@+id/tv_get_verification"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="50px"
-                android:gravity="center"
-                android:lines="1"
-                android:text="获取验证码"
-                android:textColor="@color/colorAccent"
-                android:textSize="24px"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tv_get_verification"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center">
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="50px"
+            android:gravity="center"
+            android:lines="1"
+            android:text="获取验证码"
+            android:textColor="@color/colorAccent"
+            android:textSize="24px"/>
+    </RelativeLayout>
 
-            <Button
-                android:id="@+id/login_btn"
-                android:layout_width="520px"
-                android:layout_height="80px"
-                android:background="@drawable/shape_all_my_moneybag"
-                android:text="绑定手机"
-                android:textColor="@android:color/white"
-                android:textSize="30px"/>
-        </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/login_btn"
+            android:layout_width="520px"
+            android:layout_height="80px"
+            android:background="@drawable/shape_all_my_moneybag"
+            android:text="绑定手机"
+            android:textColor="@android:color/white"
+            android:textSize="27px"/>
+    </RelativeLayout>
 
     </LinearLayout>
 
