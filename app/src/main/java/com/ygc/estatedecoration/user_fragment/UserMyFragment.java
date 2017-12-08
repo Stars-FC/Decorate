@@ -183,8 +183,8 @@ public class UserMyFragment extends BaseFragment implements EasyPermissions.Perm
             case R.id.ll_evaluate://待评价
                 showToast("待评价");
                 break;
-            case R.id.ll_customer_service://售后
-                showToast("售后");
+            case R.id.ll_customer_service://质保
+                showToast("质保");
                 break;
         }
     }

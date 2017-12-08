@@ -2,6 +2,7 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/content_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -56,8 +57,8 @@
                 <com.androidkun.xtablayout.XTabLayout
                     android:id="@+id/tablayout"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     app:xTabIndicatorColor="#4EBE65"
                     app:xTabIndicatorHeight="1.5dp"
                     app:xTabIndicatorWidth="50dp"
@@ -67,9 +68,28 @@
                     app:xTabTextColor="#000000"
                     app:xTabTextSize="17dp"/>
 
-                <View
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:id="@+id/upload_ll"
                     android:layout_width="97px"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="30px"
+                        android:layout_height="30px"
+                        android:src="@drawable/fabu_sel"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3px"
+                        android:text="上传"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="17px"/>
+
+                </com.zhy.autolayout.AutoLinearLayout>
+
             </com.zhy.autolayout.AutoLinearLayout>
 
             <View

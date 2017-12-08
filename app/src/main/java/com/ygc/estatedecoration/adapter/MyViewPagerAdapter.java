@@ -29,12 +29,10 @@ public class MyViewPagerAdapter extends FragmentPagerAdapter {
         if (position == 0) {
             return HomeFragment.newInstance(position + "");
         } else if (position == 1) {
-            return CaseFragment.newInstance(position + "");
-        } else if (position == 2) {
             return ManageFragment.newInstance(position + "");
-        } else if (position == 3) {
+        } else if (position == 2) {
             return NewsFragment.newInstance(position + "");
-        } else if (position == 4) {
+        } else if (position == 3) {
             return MyFragment.newInstance(position + "");
         } else {
             return HomeFragment.newInstance(position + "");

@@ -16,12 +16,9 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.ygc.estatedecoration.R;
@@ -29,6 +26,7 @@ import com.ygc.estatedecoration.activity.my.AuthenticationActivity;
 import com.ygc.estatedecoration.activity.my.CollectionActivity;
 import com.ygc.estatedecoration.activity.my.GuaranteeMoneyActivity;
 import com.ygc.estatedecoration.activity.my.MoneyBagActivity;
+import com.ygc.estatedecoration.activity.my.ServerMyAnLiActivity;
 import com.ygc.estatedecoration.activity.my.SettingActivity;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.utils.LogUtil;
@@ -43,9 +41,7 @@ import java.io.IOException;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -119,7 +115,7 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
         return R.layout.fragment_my;
     }
 
-    @OnClick({R.id.iv_company_icon, R.id.tv_chage, R.id.my_authentication, R.id.my_trade, R.id.mine_follow, R.id.my_moneybag, R.id.my_collection, R.id.my_bright, R.id.naviFrameRight})
+    @OnClick({R.id.my_anli_rl, R.id.iv_company_icon, R.id.tv_chage, R.id.my_authentication, R.id.my_trade, R.id.mine_follow, R.id.my_moneybag, R.id.my_collection, R.id.my_bright, R.id.naviFrameRight})
     public void onViewClicked(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -128,6 +124,10 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
                 break;
             case R.id.tv_chage://修改name，sex
                 showmModifyInfoPicPopupWindow();
+                break;
+            case R.id.my_anli_rl:
+                Intent anLiIntent = new Intent(mActivity, ServerMyAnLiActivity.class);
+                startActivity(anLiIntent);
                 break;
             case R.id.my_authentication://实名认证
                 intent.setClass(mActivity, AuthenticationActivity.class);

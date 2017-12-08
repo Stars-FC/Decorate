@@ -6,7 +6,7 @@
         android:centerX="0.5"
         android:centerY="0.5"
         android:endColor="#F8FCF8"
-        android:startColor="#BEE6C7"
+        android:startColor="@color/gray"
         android:type="linear" />
 
     <corners android:radius="5px" />

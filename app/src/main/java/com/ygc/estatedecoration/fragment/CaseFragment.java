@@ -13,7 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.androidkun.xtablayout.XTabLayout;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -21,7 +21,6 @@ import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.adapter.CaseStyleAdapter;
 import com.ygc.estatedecoration.adapter.HomeMyStoreAdapter;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
-import com.ygc.estatedecoration.entity.base.Constant;
 import com.ygc.estatedecoration.fragment.cas.EffectFragment;
 import com.ygc.estatedecoration.fragment.cas.PanoramaFragment;
 import com.ygc.estatedecoration.utils.LogUtil;
@@ -47,7 +46,9 @@ public class CaseFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @BindView(R.id.swiperefreshLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
-    @BindView(R.id.style_container_ll)
+    @BindView(R.id.anli_state_ll)
+    LinearLayout mLl_stateContainer;
+    @BindView(R.id.anli_style_ll)
     LinearLayout mLl_styleContainer;
     @BindView(R.id.tablayout)
     XTabLayout mTabLayout;
@@ -59,6 +60,9 @@ public class CaseFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     private BasePopupWindow mCasePopupWindow;
 
+    private int curTab = 0;
+    private int curCaseState = 0;//当前案例的状态
+
     public static CaseFragment newInstance(String content) {
         Bundle args = new Bundle();
         args.putString(ARG_C, content);
@@ -69,7 +73,8 @@ public class CaseFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
-        return false;
+        bar.setTitleText("案例");
+        return true;
     }
 
     @Override
@@ -85,7 +90,7 @@ public class CaseFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     private void initStylePopupWindow() {
         mCasePopupWindow = new BasePopupWindow(mActivity);
-        View popupView = LayoutInflater.from(mActivity).inflate(R.layout.popup_window_case_more, null);
+        View popupView = LayoutInflater.from(mActivity).inflate(R.layout.popup_window_case_style, null);
         RecyclerView styleRecyclerView = (RecyclerView) popupView.findViewById(R.id.style_recyclerview);
         CaseStyleAdapter caseStyleAdapter = new CaseStyleAdapter(R.layout.item_case_style, Arrays.asList(styleList));
         styleRecyclerView.setLayoutManager(new GridLayoutManager(mActivity, 3));
@@ -135,6 +140,22 @@ public class CaseFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     protected void addListener() {
         mSwipeRefreshLayout.setColorSchemeColors(Color.parseColor("#4EBE65"));
         mSwipeRefreshLayout.setOnRefreshListener(this);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                curTab = position;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override
@@ -147,15 +168,75 @@ public class CaseFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         return R.layout.fragment_case;
     }
 
-    @OnClick({R.id.more_ll})
+    @OnClick({R.id.anli_state_ll, R.id.anli_style_ll})
     public void onClickEvent(View view) {
         if (view != null) {
             switch (view.getId()) {
-                case R.id.more_ll:
+                case R.id.anli_state_ll:
+                    showStatePopupWindow();
+                    break;
+                case R.id.anli_style_ll:
                     showStylePopupWindow();
                     break;
             }
         }
+    }
+
+    private void showStatePopupWindow() {
+        if (mStatePopupWindow == null) {
+            initStatePopupWindow();
+        }
+        mStatePopupWindow.showAsDropDown(mLl_stateContainer);
+    }
+
+    private BasePopupWindow mStatePopupWindow;
+    private void initStatePopupWindow() {
+        mStatePopupWindow = new BasePopupWindow(mActivity);
+        View popupView = LayoutInflater.from(mActivity).inflate(R.layout.popup_window_case_state, null);
+        final TextView stateAllTv = (TextView) popupView.findViewById(R.id.state_all_tv);
+        final TextView stateFinishTv = (TextView) popupView.findViewById(R.id.state_finish_tv);
+        final TextView stateNoFinishTv = (TextView) popupView.findViewById(R.id.state_no_finish_tv);
+        stateAllTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mStatePopupWindow.dismiss();
+                stateAllTv.setBackgroundResource(R.drawable.bg_anli);
+                stateAllTv.setTextColor(Color.parseColor("#ffffff"));
+                stateFinishTv.setBackgroundResource(R.drawable.white_bg);
+                stateFinishTv.setTextColor(Color.parseColor("#000000"));
+                stateNoFinishTv.setBackgroundResource(R.drawable.white_bg);
+                stateNoFinishTv.setTextColor(Color.parseColor("#000000"));
+                curCaseState = 0;
+            }
+        });
+        stateFinishTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mStatePopupWindow.dismiss();
+                stateFinishTv.setBackgroundResource(R.drawable.bg_anli);
+                stateFinishTv.setTextColor(Color.parseColor("#ffffff"));
+                stateAllTv.setBackgroundResource(R.drawable.white_bg);
+                stateAllTv.setTextColor(Color.parseColor("#000000"));
+                stateNoFinishTv.setBackgroundResource(R.drawable.white_bg);
+                stateNoFinishTv.setTextColor(Color.parseColor("#000000"));
+                curCaseState = 1;
+            }
+        });
+        stateNoFinishTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mStatePopupWindow.dismiss();
+                stateNoFinishTv.setBackgroundResource(R.drawable.bg_anli);
+                stateNoFinishTv.setTextColor(Color.parseColor("#ffffff"));
+                stateFinishTv.setBackgroundResource(R.drawable.white_bg);
+                stateFinishTv.setTextColor(Color.parseColor("#000000"));
+                stateAllTv.setBackgroundResource(R.drawable.white_bg);
+                stateAllTv.setTextColor(Color.parseColor("#000000"));
+                curCaseState = 2;
+            }
+        });
+        mStatePopupWindow.setContentView(popupView);
+        mStatePopupWindow.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#70000000")));
     }
 
     private void showStylePopupWindow() {

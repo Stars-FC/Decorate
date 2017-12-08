@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="140px"
+        android:background="#f6f6f6"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/state_all_tv"
+            android:layout_width="180px"
+            android:layout_height="56px"
+            android:background="@drawable/bg_anli"
+            android:gravity="center"
+            android:text="全部"
+            android:textColor="@android:color/white"
+            android:textSize="24px"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/state_finish_tv"
+            android:layout_width="180px"
+            android:layout_height="56px"
+            android:background="@drawable/white_bg"
+            android:gravity="center"
+            android:text="已完成"
+            android:textColor="@android:color/black"
+            android:textSize="24px"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/state_no_finish_tv"
+            android:layout_width="180px"
+            android:layout_height="56px"
+            android:background="@drawable/white_bg"
+            android:gravity="center"
+            android:text="未完成"
+            android:textColor="@android:color/black"
+            android:textSize="24px"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+
+</com.zhy.autolayout.AutoLinearLayout>

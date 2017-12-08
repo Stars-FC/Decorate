@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/style_container_ll"
+    android:layout_width="match_parent"
+    android:layout_height="82px"
+    android:background="@android:color/white"
+    android:orientation="horizontal">
+
+    <View
+        android:layout_width="0dp"
+        android:layout_weight="124"
+        android:layout_height="match_parent"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/anli_state_ll"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="案例状态"
+            android:textColor="@android:color/black"
+            android:textSize="22px"/>
+
+        <ImageView
+            android:layout_width="15px"
+            android:layout_height="11px"
+            android:layout_marginLeft="6px"
+            android:src="@drawable/xiala"/>
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_weight="143"
+        android:layout_height="match_parent"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/anli_style_ll"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="案例风格"
+            android:textColor="@android:color/black"
+            android:textSize="22px"/>
+
+        <ImageView
+            android:layout_width="15px"
+            android:layout_height="11px"
+            android:layout_marginLeft="6px"
+            android:src="@drawable/xiala"/>
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_weight="124"
+        android:layout_height="match_parent"/>
+
+</com.zhy.autolayout.AutoLinearLayout>

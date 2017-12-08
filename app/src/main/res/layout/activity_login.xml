@@ -2,8 +2,8 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:background="@drawable/login_bg"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -25,7 +25,6 @@
         android:layout_marginTop="10px"
         android:orientation="vertical">
 
-
         <RadioGroup
             android:id="@+id/rgbutton_nemu"
             android:layout_width="match_parent"
@@ -44,7 +43,7 @@
                 android:gravity="center"
                 android:text="用户登录"
                 android:textColor="@drawable/bt_textcolor_selector"
-                android:textSize="28px"/>
+                android:textSize="15dp"/>
 
             <View
                 android:layout_width="10px"
@@ -60,7 +59,8 @@
                 android:gravity="center"
                 android:text="服务商登录"
                 android:textColor="@drawable/bt_textcolor_selector"
-                android:textSize="28px"/>
+                android:textSize="15dp"/>
+
         </RadioGroup>
 
         <LinearLayout

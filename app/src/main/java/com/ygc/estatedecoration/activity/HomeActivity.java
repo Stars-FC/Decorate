@@ -48,7 +48,6 @@ public class HomeActivity extends BaseActivity {
     protected void initView() {
         NavigationController navigationController = tab.custom()
                 .addItem(newItem(R.drawable.shouye, R.drawable.shouye_sel, "首页"))
-                .addItem(newItem(R.drawable.dianpu, R.drawable.dianpu_sel,"案例"))
                 .addItem(newItem(R.drawable.guanli, R.drawable.guanli_sel, "管理"))
                 .addItem(newItem(R.drawable.xiaoxi, R.drawable.xiaoxi_sel, "消息"))
                 .addItem(newItem(R.drawable.wode, R.drawable.wode_sel,"我的"))

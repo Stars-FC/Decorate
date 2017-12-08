@@ -8,12 +8,13 @@
             <solid
                 android:color="@color/line"/>
 
-            <corners android:radius="20px"/>
+            <corners android:topLeftRadius="20px"
+                     android:topRightRadius="20px"/>
 
             <padding
-                android:top="2px"
                 android:left="2px"
-                android:right="2px"/>
+                android:right="2px"
+                android:top="2px"/>
         </shape>
     </item>
 
@@ -24,8 +25,8 @@
             <solid android:color="@color/white"/>
 
             <corners
-                android:topLeftRadius="18px"
-                android:topRightRadius="18px"/>
+                android:topLeftRadius="20px"
+                android:topRightRadius="20px"/>
         </shape>
     </item>
 

@@ -8,7 +8,8 @@
             <solid
                 android:color="@color/line"/>
 
-            <corners android:radius="20px"/>
+            <corners android:bottomLeftRadius="20px"
+                     android:bottomRightRadius="20px"/>
 
             <padding
                 android:bottom="2px"
