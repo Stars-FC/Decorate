@@ -1,6 +1,5 @@
 package com.ygc.estatedecoration.app.activity;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -9,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.githang.statusbar.StatusBarCompat;
+import com.gyf.barlibrary.ImmersionBar;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.utils.NetWorkUtil;
 import com.ygc.estatedecoration.widget.TitleBar;
@@ -33,7 +32,7 @@ public abstract class BaseActivity extends AutoLayoutActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
-        StatusBarCompat.setStatusBarColor(this, Color.parseColor("#ffffff"));
+        ImmersionBar.with(this).statusBarDarkFont(true, 0.2f).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         basicInitialize();
         mUnBinder = ButterKnife.bind(this);
         initData(savedInstanceState);
@@ -100,5 +99,6 @@ public abstract class BaseActivity extends AutoLayoutActivity {
         if (mUnBinder != null) {
             mUnBinder.unbind();
         }
+        ImmersionBar.with(this).destroy();
     }
 }

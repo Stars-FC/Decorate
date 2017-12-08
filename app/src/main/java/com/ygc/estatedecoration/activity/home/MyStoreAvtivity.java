@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.adapter.HomeMyStoreAdapter;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
@@ -54,6 +55,7 @@ public class MyStoreAvtivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
+        ImmersionBar.with(this).fitsSystemWindows(false).transparentStatusBar().init();
 
         mFragments = new ArrayList<>();
         mFragments.add(new MyStoreInformationFragment());
