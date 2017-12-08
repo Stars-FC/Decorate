@@ -7,23 +7,21 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.adapter.UserFindDesignAdapter;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.entity.base.Constant;
+import com.ygc.estatedecoration.event.SkipUserShopMsg;
 import com.ygc.estatedecoration.user_activity.UserFindDesigerActivity;
 import com.ygc.estatedecoration.user_activity.UserFindSupervisorActivity;
-import com.ygc.estatedecoration.user_activity.UserSearchActivity;
-import com.ygc.estatedecoration.user_activity.UserShopActivity;
+import com.ygc.estatedecoration.user_activity.UserMsgActivity;
 import com.ygc.estatedecoration.widget.TitleBar;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -221,15 +219,15 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
         return R.layout.fragment_user_home;
     }
 
-    @OnClick({R.id.location_ll, R.id.search_ll, R.id.find_design_more_ll, R.id.find_implement_more_ll,
+    @OnClick({R.id.location_ll, R.id.msg_ll, R.id.find_design_more_ll, R.id.find_implement_more_ll,
             R.id.find_supervisor_more_ll, R.id.find_materials_more_ll, R.id.tips_more_ll, R.id.recommend_activity_ll})
     public void onClickEvent(View view) {
         if (view != null) {
             switch (view.getId()) {
                 case R.id.location_ll://定位
                     break;
-                case R.id.search_ll://搜索
-                    Intent intent = new Intent(mActivity, UserSearchActivity.class);
+                case R.id.msg_ll://消息
+                    Intent intent = new Intent(mActivity, UserMsgActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.find_design_more_ll://找设计
@@ -247,8 +245,7 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
                     startActivity(intent1);
                     break;
                 case R.id.find_materials_more_ll://找材料
-                    Intent intent2 = new Intent(mActivity, UserShopActivity.class);
-                    startActivity(intent2);
+                    EventBus.getDefault().post(new SkipUserShopMsg());
                     break;
                 case R.id.tips_more_ll://小技巧
                     showToast("暂无内容");

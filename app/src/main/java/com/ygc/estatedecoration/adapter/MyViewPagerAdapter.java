@@ -5,11 +5,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.ygc.estatedecoration.fragment.CaseFragment;
 import com.ygc.estatedecoration.fragment.HomeFragment;
 import com.ygc.estatedecoration.fragment.ManageFragment;
 import com.ygc.estatedecoration.fragment.MyFragment;
-import com.ygc.estatedecoration.fragment.NewsFragment;
 
 /**
  *主页面内ViewPager的适配器，
@@ -30,9 +28,7 @@ public class MyViewPagerAdapter extends FragmentPagerAdapter {
             return HomeFragment.newInstance(position + "");
         } else if (position == 1) {
             return ManageFragment.newInstance(position + "");
-        } else if (position == 2) {
-            return NewsFragment.newInstance(position + "");
-        } else if (position == 3) {
+        }else if (position == 2) {
             return MyFragment.newInstance(position + "");
         } else {
             return HomeFragment.newInstance(position + "");

@@ -15,6 +15,7 @@ import com.ygc.estatedecoration.activity.home.DemandAndProgressActivity;
 import com.ygc.estatedecoration.activity.home.MyStoreAvtivity;
 import com.ygc.estatedecoration.activity.home.MyVisitorActivity;
 import com.ygc.estatedecoration.activity.home.NeedHallActivity;
+import com.ygc.estatedecoration.activity.home.ServerMsgActivity;
 import com.ygc.estatedecoration.activity.home.TransactionManageActivity;
 import com.ygc.estatedecoration.activity.home.TransactionManageDetailActivity;
 import com.ygc.estatedecoration.adapter.HomeAdapter;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by FC on 2017/11/13.
@@ -58,8 +60,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     protected boolean buildTitle(TitleBar bar) {
         bar.setTitleText("地标装饰");
-        bar.setTitleTextColor(Color.BLACK);
-        bar.setBackgroundColor(Color.WHITE);
+        bar.setRightImageResource(R.drawable.xiaoxi_sel);
         return true;
     }
 
@@ -179,6 +180,18 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 intent.setClass(mActivity, MyVisitorActivity.class);
                 startActivity(intent);
                 break;
+        }
+    }
+
+    @OnClick({R.id.naviFrameRight})
+    public void onClickEvent(View view) {
+        if (view != null) {
+            switch (view.getId()) {
+                case R.id.naviFrameRight:
+                    Intent intent = new Intent(mActivity, ServerMsgActivity.class);
+                    startActivity(intent);
+                    break;
+            }
         }
     }
 }

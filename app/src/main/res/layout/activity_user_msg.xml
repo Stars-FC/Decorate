@@ -5,8 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/msg"
-    tools:context="com.ygc.estatedecoration.user_fragment.UserMsgFragment">
-
-
+    tools:context="com.ygc.estatedecoration.user_activity.UserMsgActivity">
 
 </com.zhy.autolayout.AutoLinearLayout>

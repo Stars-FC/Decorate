@@ -11,12 +11,17 @@ import android.widget.TextView;
 
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
+import com.ygc.estatedecoration.event.SkipUserShopMsg;
 import com.ygc.estatedecoration.fragment.CaseFragment;
 import com.ygc.estatedecoration.user_fragment.UserHomeFragment;
-import com.ygc.estatedecoration.user_fragment.UserMsgFragment;
 import com.ygc.estatedecoration.user_fragment.UserMyFragment;
 import com.ygc.estatedecoration.user_fragment.UserPublishFragment;
+import com.ygc.estatedecoration.user_fragment.UserShopFragment;
 import com.ygc.estatedecoration.widget.TitleBar;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,10 +43,10 @@ public class UserHomeActivity extends BaseActivity{
     ImageView mIv_publish;
     @BindView(R.id.publish_tv)
     TextView mTv_publish;
-    @BindView(R.id.msg_iv)
-    ImageView mIv_msg;
-    @BindView(R.id.msg_tv)
-    TextView mTv_msg;
+    @BindView(R.id.shop_iv)
+    ImageView mIv_shop;
+    @BindView(R.id.shop_tv)
+    TextView mTv_shop;
     @BindView(R.id.my_iv)
     ImageView mIv_my;
     @BindView(R.id.my_tv)
@@ -51,7 +56,7 @@ public class UserHomeActivity extends BaseActivity{
     private UserHomeFragment mUserHomeFragment;
     private CaseFragment mUserPlanFragment;
     private UserPublishFragment mUserPublishFragment;
-    private UserMsgFragment mUserMsgFragment;
+    private UserShopFragment mUserShopFragment;
     private UserMyFragment mUserMyFragment;
     private FragmentManager mSupportFragmentManager;
 
@@ -72,15 +77,16 @@ public class UserHomeActivity extends BaseActivity{
 
     @Override
     protected void initData(Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         iv_iconList.add(mIv_home);
         iv_iconList.add(mIv_fangAn);
         iv_iconList.add(mIv_publish);
-        iv_iconList.add(mIv_msg);
+        iv_iconList.add(mIv_shop);
         iv_iconList.add(mIv_my);
         txt_titleList.add(mTv_home);
         txt_titleList.add(mTv_fangAn);
         txt_titleList.add(mTv_publish);
-        txt_titleList.add(mTv_msg);
+        txt_titleList.add(mTv_shop);
         txt_titleList.add(mTv_my);
         mSupportFragmentManager = getSupportFragmentManager();
         initFragment(savedInstanceState);
@@ -96,9 +102,9 @@ public class UserHomeActivity extends BaseActivity{
                     mUserPlanFragment = (CaseFragment) fragment;
                 } else if (fragment instanceof UserPublishFragment) {
                     mUserPublishFragment = (UserPublishFragment) fragment;
-                } else if (fragment instanceof UserMsgFragment) {
-                    mUserMsgFragment = (UserMsgFragment) fragment;
-                } else if (fragment instanceof UserMyFragment) {
+                } else if (fragment instanceof UserShopFragment){
+                    mUserShopFragment = (UserShopFragment) fragment;
+                }else if (fragment instanceof UserMyFragment) {
                     mUserMyFragment = (UserMyFragment) fragment;
                 }
             }
@@ -113,7 +119,7 @@ public class UserHomeActivity extends BaseActivity{
         return R.layout.activity_user_home;
     }
 
-    @OnClick({R.id.home_ll, R.id.fangan_ll, R.id.publish_rl, R.id.msg_ll, R.id.my_ll})
+    @OnClick({R.id.home_ll, R.id.fangan_ll, R.id.publish_rl, R.id.shop_ll, R.id.my_ll})
     public void onClick(View view) {
         if (view != null) {
             FragmentTransaction fragmentTransaction = mSupportFragmentManager.beginTransaction();
@@ -124,7 +130,7 @@ public class UserHomeActivity extends BaseActivity{
                     mIv_home.setImageResource(R.drawable.shouye_sel);
                     mIv_fangAn.setImageResource(R.drawable.anli);
                     mIv_publish.setImageResource(R.drawable.fabu);
-                    mIv_msg.setImageResource(R.drawable.xiaoxi);
+                    mIv_shop.setImageResource(R.drawable.dianpu);
                     mIv_my.setImageResource(R.drawable.wode);
                     createUserHomeFragment(fragmentTransaction);
                     break;
@@ -133,7 +139,7 @@ public class UserHomeActivity extends BaseActivity{
                     mIv_home.setImageResource(R.drawable.shouye);
                     mIv_fangAn.setImageResource(R.drawable.anli_sel);
                     mIv_publish.setImageResource(R.drawable.fabu);
-                    mIv_msg.setImageResource(R.drawable.xiaoxi);
+                    mIv_shop.setImageResource(R.drawable.dianpu);
                     mIv_my.setImageResource(R.drawable.wode);
                     createUserPlanFragment(fragmentTransaction);
                     break;
@@ -142,30 +148,34 @@ public class UserHomeActivity extends BaseActivity{
                     mIv_home.setImageResource(R.drawable.shouye);
                     mIv_fangAn.setImageResource(R.drawable.anli);
                     mIv_publish.setImageResource(R.drawable.fabu_sel);
-                    mIv_msg.setImageResource(R.drawable.xiaoxi);
+                    mIv_shop.setImageResource(R.drawable.dianpu);
                     mIv_my.setImageResource(R.drawable.wode);
                     createUserPublishFragment(fragmentTransaction);
                     break;
-                case R.id.msg_ll:
-                    changeTabStyle(3);
-                    mIv_home.setImageResource(R.drawable.shouye);
-                    mIv_fangAn.setImageResource(R.drawable.anli);
-                    mIv_publish.setImageResource(R.drawable.fabu);
-                    mIv_msg.setImageResource(R.drawable.xiaoxi_sel);
-                    mIv_my.setImageResource(R.drawable.wode);
-                    createUserMsgFragment(fragmentTransaction);
+                case R.id.shop_ll:
+                    skipUserShop(fragmentTransaction);
                     break;
                 case R.id.my_ll:
                     changeTabStyle(4);
                     mIv_home.setImageResource(R.drawable.shouye);
                     mIv_fangAn.setImageResource(R.drawable.anli);
                     mIv_publish.setImageResource(R.drawable.fabu);
-                    mIv_msg.setImageResource(R.drawable.xiaoxi);
+                    mIv_shop.setImageResource(R.drawable.dianpu);
                     mIv_my.setImageResource(R.drawable.wode_sel);
                     createUserMyFragment(fragmentTransaction);
                     break;
             }
         }
+    }
+
+    private void skipUserShop(FragmentTransaction fragmentTransaction) {
+        changeTabStyle(3);
+        mIv_home.setImageResource(R.drawable.shouye);
+        mIv_fangAn.setImageResource(R.drawable.anli);
+        mIv_publish.setImageResource(R.drawable.fabu);
+        mIv_shop.setImageResource(R.drawable.dianpu_sel);
+        mIv_my.setImageResource(R.drawable.wode);
+        createUserShopFragment(fragmentTransaction);
     }
 
     private void changeTabStyle(int position) {
@@ -193,8 +203,8 @@ public class UserHomeActivity extends BaseActivity{
         if (mUserPublishFragment != null) {
             fragmentTransaction.hide(mUserPublishFragment);
         }
-        if (mUserMsgFragment != null) {
-            fragmentTransaction.hide(mUserMsgFragment);
+        if (mUserShopFragment != null) {
+            fragmentTransaction.hide(mUserShopFragment);
         }
         if (mUserMyFragment != null) {
             fragmentTransaction.hide(mUserMyFragment);
@@ -210,12 +220,12 @@ public class UserHomeActivity extends BaseActivity{
         }
     }
 
-    private void createUserMsgFragment(FragmentTransaction fragmentTransaction) {
-        if (mUserMsgFragment == null) {
-            mUserMsgFragment = UserMsgFragment.newInstance("", "");
-            fragmentTransaction.add(R.id.fragment_container, mUserMsgFragment).commit();
+    private void createUserShopFragment(FragmentTransaction fragmentTransaction) {
+        if (mUserShopFragment == null) {
+            mUserShopFragment = UserShopFragment.newInstance();
+            fragmentTransaction.add(R.id.fragment_container, mUserShopFragment).commit();
         } else {
-            fragmentTransaction.show(mUserMsgFragment).commit();
+            fragmentTransaction.show(mUserShopFragment).commit();
         }
     }
 
@@ -244,5 +254,18 @@ public class UserHomeActivity extends BaseActivity{
         } else {
             fragmentTransaction.show(mUserHomeFragment).commit();
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void skipUserShopEvent(SkipUserShopMsg skipUserShopMsg) {
+        FragmentTransaction fragmentTransaction = mSupportFragmentManager.beginTransaction();
+        hideAllFragment(fragmentTransaction);
+        skipUserShop(fragmentTransaction);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

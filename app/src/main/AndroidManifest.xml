@@ -92,8 +92,6 @@
         <activity
             android:name=".activity.home.InitiatingContractActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".user_activity.UserShopActivity">
-        </activity>
         <activity android:name=".user_activity.UserGoodListActivity">
         </activity>
         <activity android:name=".user_activity.UserShopCarActivity">
@@ -105,6 +103,12 @@
         <activity android:name=".activity.my.CaseEffectPicActivity">
         </activity>
         <activity android:name=".activity.home.ReadInitiatingContractActivity">
+        </activity>
+        <activity android:name=".user_activity.UserAllOrderActivity">
+        </activity>
+        <activity android:name=".user_activity.UserMsgActivity">
+        </activity>
+        <activity android:name=".activity.home.ServerMsgActivity">
         </activity>
     </application>
 

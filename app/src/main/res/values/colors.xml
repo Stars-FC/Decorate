@@ -22,7 +22,8 @@
     <color name="gray_eeeeee">#eeeeee</color>
     <color name="gray_f8f8f8">#f8f8f8</color>
     <color name="gray_8a8a8a">#8a8a8a</color>
-
+    <color name="touming">#00FFFFFF</color>
+    <color name="gray_text">#8d8d8d</color>
 
     <color name="black">#000000</color><!--黑色 -->
     <color name="white">#FFFFFF</color><!--白色-->

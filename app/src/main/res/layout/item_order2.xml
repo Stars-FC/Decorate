@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120px"
+        android:paddingLeft="10px"
+        android:paddingRight="10px">
+
+        <ImageView
+            android:id="@+id/flower_icon"
+            android:layout_width="120px"
+            android:layout_height="120px" />
+
+        <TextView
+            android:id="@+id/flower_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="130px"
+            android:text="花名"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/flower_describe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="130px"
+            android:text="描述"
+            android:textColor="@color/gray_text" />
+
+        <TextView
+            android:id="@+id/flower_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="￥99"
+            android:textColor="@color/gray_text" />
+
+        <TextView
+            android:id="@+id/flower_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="10px"
+            android:text="x2"
+            android:textColor="@color/gray_text" />
+
+    </RelativeLayout>
+
+</LinearLayout>

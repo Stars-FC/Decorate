@@ -83,7 +83,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8px"
-                        android:text="方案"
+                        android:text="案例"
                         android:textColor="#333333"
                         android:textSize="20px"/>
 
@@ -105,24 +105,24 @@
 
 
                 <LinearLayout
-                    android:id="@+id/msg_ll"
+                    android:id="@+id/shop_ll"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:id="@+id/msg_iv"
+                        android:id="@+id/shop_iv"
                         android:layout_width="44px"
                         android:layout_height="40px"
-                        android:src="@drawable/xiaoxi"/>
+                        android:src="@drawable/dianpu"/>
 
                     <TextView
-                        android:id="@+id/msg_tv"
+                        android:id="@+id/shop_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8px"
-                        android:text="消息"
+                        android:text="商城"
                         android:textColor="#333333"
                         android:textSize="20px"/>
 

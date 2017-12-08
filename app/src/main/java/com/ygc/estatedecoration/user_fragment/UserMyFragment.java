@@ -25,12 +25,11 @@ import android.widget.TextView;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.activity.my.AuthenticationActivity;
 import com.ygc.estatedecoration.activity.my.CollectionActivity;
-import com.ygc.estatedecoration.activity.my.GuaranteeMoneyActivity;
 import com.ygc.estatedecoration.activity.my.MoneyBagActivity;
 import com.ygc.estatedecoration.activity.my.SettingActivity;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
+import com.ygc.estatedecoration.user_activity.UserAllOrderActivity;
 import com.ygc.estatedecoration.user_activity.UserCollectionActivity;
-import com.ygc.estatedecoration.user_activity.UserGoodsDetailActivity;
 import com.ygc.estatedecoration.user_activity.UserShopCarActivity;
 import com.ygc.estatedecoration.widget.BasePopupWindow;
 import com.ygc.estatedecoration.widget.CircleImageView;
@@ -43,7 +42,6 @@ import java.io.IOException;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -167,26 +165,32 @@ public class UserMyFragment extends BaseFragment implements EasyPermissions.Perm
                 intent.setClass(mActivity, SettingActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.ll_order://全部订单
-                showToast("全部订单");
-                break;
-            case R.id.ll_trusteeship://待收货
-                showToast("待收货");
-                break;
             case R.id.ll_transaction://购物车
                 Intent intent1 = new Intent(mActivity, UserShopCarActivity.class);
                 startActivity(intent1);
                 break;
+            case R.id.ll_order://全部订单
+                skipUserOrderEvent(intent, 0);
+                break;
             case R.id.ll_payment://待付款
-                showToast("待付款");
+                skipUserOrderEvent(intent, 1);
+                break;
+            case R.id.ll_trusteeship://待收货
+                skipUserOrderEvent(intent, 2);
                 break;
             case R.id.ll_evaluate://待评价
-                showToast("待评价");
+                skipUserOrderEvent(intent, 3);
                 break;
             case R.id.ll_customer_service://质保
-                showToast("质保");
+                skipUserOrderEvent(intent, 4);
                 break;
         }
+    }
+
+    private void skipUserOrderEvent(Intent intent, int orderType) {
+        intent.setClass(mActivity, UserAllOrderActivity.class);
+        intent.putExtra("orderType", orderType);
+        startActivity(intent);
     }
 
     /**
