@@ -100,6 +100,8 @@
         </activity>
         <activity android:name=".user_activity.ConfirmBuyActivity">
         </activity>
+        <activity android:name=".activity.home.ReadInitiatingContractActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -48,7 +48,7 @@
             <com.ygc.estatedecoration.widget.StarView
                 android:id="@+id/starview"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="25px"
                 app:starCount="5"
                 app:starFill="@drawable/xingxing"
                 app:starHalf="@drawable/xingxing"

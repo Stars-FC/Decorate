@@ -77,11 +77,11 @@ public class LoginActivity extends AutoLayoutActivity {
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                if (i == mordinaryuser.getId()) {
+                /*if (i == mordinaryuser.getId()) {
                     mTvRegister.setText("装修用户注册");
                 } else if (i == mServiceuser.getId()) {
                     mTvRegister.setText("服务商注册");
-                }
+                }*/
             }
         });
     }
@@ -121,7 +121,7 @@ public class LoginActivity extends AutoLayoutActivity {
         }
     }
 
-    public void bandWeiXin(){
+    public void bandWeiXin() {
         Intent intent = new Intent();
         if (mordinaryuser.isChecked()) {
             intent.setClass(LoginActivity.this, UserWeiXinLoginActivity.class);
@@ -133,7 +133,7 @@ public class LoginActivity extends AutoLayoutActivity {
 
     }
 
-    public void loginEvent(){
+    public void loginEvent() {
         Intent intent = new Intent();
         if (mordinaryuser.isChecked()) {
             intent.setClass(LoginActivity.this, UserHomeActivity.class);

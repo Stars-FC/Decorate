@@ -112,6 +112,23 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 if (mSwipeRefreshLayout.isRefreshing()) {
                     mSwipeRefreshLayout.setRefreshing(false);
                 }
+                /*if (mCurrentCounter >= TOTAL_COUNTER) {
+                    //数据全部加载完毕
+                    mQuickAdapter.loadMoreEnd();
+                } else {
+                    if (isErr) {
+                        //成功获取更多数据
+                        mQuickAdapter.addData(DataServer.getSampleData(PAGE_SIZE));
+                        mCurrentCounter = mQuickAdapter.getData().size();
+                        mQuickAdapter.loadMoreComplete();
+                    } else {
+                        //获取更多数据失败
+                        isErr = true;
+                        Toast.makeText(PullToRefreshUseActivity.this, R.string.network_err, Toast.LENGTH_LONG).show();
+                        mQuickAdapter.loadMoreFail();
+
+                    }
+                }*/
             }
         });
 
@@ -122,6 +139,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 mHomeAdapter.loadMoreComplete();//完成
 //                mAdapter.loadMoreFail();//失败
 //                mAdapter.loadMoreEnd();//结束
+                 /* curPagerNum++;
+                if (curPagerNum <= allPagerNum) {
+                    requestDataEvent(Constant.NORMAL_REQUEST);
+                }*/
+                mHomeAdapter.loadMoreComplete();
             }
         }, mRecyclerView);
 

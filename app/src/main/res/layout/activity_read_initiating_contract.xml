@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--查看合同页面-->
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -72,15 +73,15 @@
                         android:textColor="@color/black"
                         android:textSize="24px"/>
 
-                    <EditText
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_alignParentRight="true"
                         android:layout_toRightOf="@+id/tv_project_start_time"
-                        android:background="@null"
                         android:gravity="right|center_vertical"
-                        android:hint="项目开始时间"
                         android:minWidth="200px"
+                        android:text="2017.11.11"
+                        android:textColor="@color/black"
                         android:textSize="24px"/>
                 </RelativeLayout>
 
@@ -105,15 +106,15 @@
                         android:textColor="@color/black"
                         android:textSize="24px"/>
 
-                    <EditText
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_alignParentRight="true"
                         android:layout_toRightOf="@+id/tv_project_end_time"
-                        android:background="@null"
                         android:gravity="right|center_vertical"
-                        android:hint="项目结束时间"
                         android:minWidth="200px"
+                        android:text="2017.12.12"
+                        android:textColor="@color/black"
                         android:textSize="24px"/>
                 </RelativeLayout>
 
@@ -138,15 +139,15 @@
                         android:textColor="@color/black"
                         android:textSize="24px"/>
 
-                    <EditText
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_alignParentRight="true"
                         android:layout_toRightOf="@+id/tv_project_all_time"
-                        android:background="@null"
                         android:gravity="right|center_vertical"
-                        android:hint="共计时间"
                         android:minWidth="200px"
+                        android:text="30天"
+                        android:textColor="@color/black"
                         android:textSize="24px"/>
                 </RelativeLayout>
             </LinearLayout>
@@ -203,15 +204,15 @@
                     android:textColor="@color/black"
                     android:textSize="24px"/>
 
-                <EditText
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
                     android:layout_toRightOf="@+id/tv_guarantee_gold"
-                    android:background="@null"
                     android:gravity="right|center_vertical"
-                    android:hint="请输入质保金额"
                     android:minWidth="200px"
+                    android:text="100k"
+                    android:textColor="@color/black"
                     android:textSize="24px"/>
             </RelativeLayout>
 
@@ -269,15 +270,15 @@
                     android:textColor="@color/black"
                     android:textSize="24px"/>
 
-                <EditText
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
                     android:layout_toRightOf="@+id/tv_project_money"
-                    android:background="@null"
                     android:gravity="right|center_vertical"
-                    android:hint="请输入项目金额"
                     android:minWidth="200px"
+                    android:text="100k"
+                    android:textColor="@color/black"
                     android:textSize="24px"/>
             </RelativeLayout>
 
@@ -306,15 +307,15 @@
                         android:textColor="@color/black"
                         android:textSize="24px"/>
 
-                    <EditText
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_alignParentRight="true"
                         android:layout_toRightOf="@+id/tv_project_stage"
-                        android:background="@null"
                         android:gravity="right|center_vertical"
-                        android:hint="项目阶段一"
                         android:minWidth="200px"
+                        android:text="开始"
+                        android:textColor="@color/black"
                         android:textSize="24px"/>
                 </RelativeLayout>
 
@@ -338,16 +339,15 @@
                         android:text="项目内容"
                         android:textColor="@color/black"
                         android:textSize="24px"/>
-
-                    <EditText
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_alignParentRight="true"
                         android:layout_toRightOf="@+id/tv_project_content"
-                        android:background="@null"
                         android:gravity="right|center_vertical"
-                        android:hint="请输入项目内容"
                         android:minWidth="200px"
+                        android:text="项目内容"
+                        android:textColor="@color/black"
                         android:textSize="24px"/>
                 </RelativeLayout>
 
@@ -365,22 +365,33 @@
                         android:id="@+id/tv_pay_money"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginRight="20px"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
                         android:gravity="center_vertical"
                         android:text="付款金额（元）"
                         android:textColor="@color/black"
                         android:textSize="24px"/>
 
-                    <EditText
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_alignParentRight="true"
                         android:layout_toRightOf="@+id/tv_pay_money"
-                        android:background="@null"
                         android:gravity="right|center_vertical"
-                        android:hint="请输入付款金额"
                         android:minWidth="200px"
+                        android:text="10k"
+                        android:textColor="@color/black"
+                        android:textSize="24px"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true"
+                        android:gravity="right|center_vertical"
+                        android:minWidth="200px"
+                        android:text=""
+                        android:textColor="@color/black"
                         android:textSize="24px"/>
                 </RelativeLayout>
 
@@ -405,15 +416,15 @@
                         android:textColor="@color/black"
                         android:textSize="24px"/>
 
-                    <EditText
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_alignParentRight="true"
                         android:layout_toRightOf="@+id/tv_need_day"
-                        android:background="@null"
                         android:gravity="right|center_vertical"
-                        android:hint="请输入所需天数"
                         android:minWidth="200px"
+                        android:text="10天"
+                        android:textColor="@color/black"
                         android:textSize="24px"/>
                 </RelativeLayout>
             </LinearLayout>
@@ -567,12 +578,12 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/activity_initiating_contract_submit"
+            android:id="@+id/add_contract"
             android:layout_width="match_parent"
             android:layout_height="90px"
             android:background="@color/green_4fbc64"
             android:gravity="center"
-            android:text="确认发起合同"
+            android:text="发起补充合同"
             android:textColor="@color/white"
             android:textSize="30px"/>
 

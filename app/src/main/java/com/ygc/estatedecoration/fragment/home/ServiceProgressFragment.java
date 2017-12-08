@@ -4,6 +4,7 @@ package com.ygc.estatedecoration.fragment.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.AndroidRuntimeException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,14 @@ import android.widget.ListView;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.activity.home.InitiatingAcceptanceActivity;
 import com.ygc.estatedecoration.activity.home.InitiatingContractActivity;
+import com.ygc.estatedecoration.activity.home.ReadInitiatingContractActivity;
 import com.ygc.estatedecoration.activity.home.SupplementaryContractActivity;
 import com.ygc.estatedecoration.adapter.ScheduleAdapter;
+import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.bean.ScheduleBean;
+import com.ygc.estatedecoration.entity.base.Base;
+import com.ygc.estatedecoration.entity.base.Constant;
 import com.ygc.estatedecoration.event.ChangeContractStateMsg;
 import com.ygc.estatedecoration.event.ContractStateMsg;
 import com.ygc.estatedecoration.widget.TitleBar;
@@ -32,6 +37,11 @@ import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class ServiceProgressFragment extends BaseFragment implements AdapterView.OnItemClickListener {
 
@@ -43,6 +53,8 @@ public class ServiceProgressFragment extends BaseFragment implements AdapterView
     private List<String> contentList = new ArrayList<>();
     private List<String> timeList = new ArrayList<>();
     private ScheduleBean scheduleBean;
+
+    private CompositeDisposable compositeDisposable;
 
     public static ServiceProgressFragment newInstance() {
         ServiceProgressFragment fragment = new ServiceProgressFragment();
@@ -62,13 +74,24 @@ public class ServiceProgressFragment extends BaseFragment implements AdapterView
     @Override
     protected void initData(Bundle arguments) {
         EventBus.getDefault().register(this);
-        SimpleDateFormat formatter = new SimpleDateFormat ("yyyy.MM.dd HH:mm:ss ");
+
+        compositeDisposable = new CompositeDisposable(); //RxJava的内存泄露处理
+        getDataFromNet(Constant.NORMAL_REQUEST);//获取网络数据
+
+        getData(); //原版获取数据
+    }
+
+    /**
+     * 原版获取数据及其为适配器赋值
+     */
+    private void getData() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss ");
         Date curDate = new Date(System.currentTimeMillis());//获取当前时间
         String time = formatter.format(curDate);
-        String title[]={"确认工作","签署合同","服务商工作中","评价"};
-        String content[]={"雇主XXX雇佣了您，赶紧发起合同吧","您已和雇主签署了合同","XXXXXXXXXXXXXXXXXXXXXX",""};
-        titleList= Arrays.asList(title);
-        contentList= Arrays.asList(content);
+        String title[] = {"确认工作", "签署合同", "服务商工作中", "评价"};
+        String content[] = {"雇主XXX雇佣了您，赶紧发起合同吧", "您已和雇主签署了合同", "XXXXXXXXXXXXXXXXXXXXXX", ""};
+        titleList = Arrays.asList(title);
+        contentList = Arrays.asList(content);
         timeList.add(time);
         for (int i = 0; i < 1; i++) {
             ScheduleBean bean = new ScheduleBean();
@@ -121,9 +144,10 @@ public class ServiceProgressFragment extends BaseFragment implements AdapterView
             intent.putExtra("bean", list.get(position));
             startActivityForResult(intent, 10);
         } else if (list.get(position).getType().equals("2")) {
-            Intent intent = new Intent(mActivity, InitiatingContractActivity.class);
+//            Intent intent = new Intent(mActivity, InitiatingContractActivity.class);
+            Intent intent = new Intent(mActivity, ReadInitiatingContractActivity.class);
             startActivity(intent);
-        }else if (list.get(position).getType().equals("1")) {
+        } else if (list.get(position).getType().equals("1")) {
             startActivityForResult(new Intent(mActivity, SupplementaryContractActivity.class), 12);
         }
     }
@@ -137,12 +161,12 @@ public class ServiceProgressFragment extends BaseFragment implements AdapterView
         if (data != null) {
             scheduleBean = new ScheduleBean();
             scheduleBean = (ScheduleBean) data.getSerializableExtra("bean");
-            String time="";
+            String time = "";
             switch (requestCode) {
                 case 10:
                     list.clear();
-                    time=data.getStringExtra("time");
-                    timeList.add(2,time);
+                    time = data.getStringExtra("time");
+                    timeList.add(2, time);
 
                     for (int i = 0; i < 4; i++) {
                         ScheduleBean bean = new ScheduleBean();
@@ -166,7 +190,7 @@ public class ServiceProgressFragment extends BaseFragment implements AdapterView
                     break;
                 case 11:
                     list.clear();
-                    time=data.getStringExtra("time");
+                    time = data.getStringExtra("time");
                     timeList.add(time);
                     for (int i = 0; i < 2; i++) {
                         ScheduleBean bean = new ScheduleBean();
@@ -180,7 +204,7 @@ public class ServiceProgressFragment extends BaseFragment implements AdapterView
                     break;
                 case 12:
                     list.clear();
-                    SimpleDateFormat formatter = new SimpleDateFormat ("yyyy.MM.dd HH:mm:ss ");
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss ");
                     Date curDate = new Date(System.currentTimeMillis());//获取当前时间
                     time = formatter.format(curDate);
                     timeList.add(time);
@@ -189,10 +213,10 @@ public class ServiceProgressFragment extends BaseFragment implements AdapterView
                         ScheduleBean bean = new ScheduleBean();
                         bean.setTitle(titleList.get(i));
                         bean.setTime(timeList.get(i));
-                        if (i>=1){
-                            bean.setType("" + (i+1));
+                        if (i >= 1) {
+                            bean.setType("" + (i + 1));
 
-                        }else {
+                        } else {
                             bean.setType("" + i);
 
                         }
@@ -212,5 +236,37 @@ public class ServiceProgressFragment extends BaseFragment implements AdapterView
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        compositeDisposable.clear();
+    }
+
+    /**
+     * 获取网络数据
+     */
+    public void getDataFromNet(String request) {
+       /* APPApi.getInstance().service
+                .queryCasePanoramaData()        //接口方法名
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Base>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        compositeDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(Base base) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });*/
     }
 }

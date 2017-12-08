@@ -11,45 +11,65 @@ import android.widget.TextView;
 
 
 import com.ygc.estatedecoration.R;
+import com.ygc.estatedecoration.app.activity.BaseActivity;
+import com.ygc.estatedecoration.entity.base.Base;
+import com.ygc.estatedecoration.widget.TitleBar;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import butterknife.OnClick;
 
 /**
  * 补充合同界面
  * Created by lsq on 2017/11/29.
  */
 
-public class SupplementaryContractActivity extends Activity implements View.OnClickListener {
-    private ImageView back;
-    private TextView title;
-    private Button submit;
+public class SupplementaryContractActivity extends BaseActivity {
+
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_supplementary_contract);
-        title= (TextView) findViewById(R.id.title);
-        title.setText("发起补充合同");
-        back= (ImageView) findViewById(R.id.back);
-        back.setOnClickListener(this);
-        submit= (Button) findViewById(R.id.supplementary_contract_submit);
-        submit.setOnClickListener(this);
+    protected boolean buildTitle(TitleBar bar) {
+        bar.setTitleText("发起补充合同");
+        bar.setLeftImageResource(R.drawable.fanhui);
+        return true;
+    }
+
+    @Override
+    protected void addListener() {
 
     }
 
     @Override
-    public void onClick(View v) {
-        if (v==back){
-            finish();
-        }else if(v==submit){
-            SimpleDateFormat formatter = new SimpleDateFormat ("yyyy.MM.dd HH:mm:ss ");
-            Date curDate = new Date(System.currentTimeMillis());//获取当前时间
-            String time = formatter.format(curDate);
-            Intent intent=new Intent();
-            intent.putExtra("time",time);
-            setResult(0,intent);
-            finish();
+    protected void initView() {
+
+    }
+
+    @Override
+    protected void initData(Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_supplementary_contract;
+    }
+
+    @OnClick({R.id.naviFrameLeft, R.id.supplementary_contract_submit})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.naviFrameLeft:
+                finish();
+                break;
+            case R.id.supplementary_contract_submit://发起补充合同
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss ");
+                Date curDate = new Date(System.currentTimeMillis());//获取当前时间
+                String time = formatter.format(curDate);
+                Intent intent = new Intent();
+                intent.putExtra("time", time);
+                setResult(0, intent);
+                finish();
+                break;
         }
     }
 }

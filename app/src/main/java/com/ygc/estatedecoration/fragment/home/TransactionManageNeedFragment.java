@@ -51,15 +51,4 @@ public class TransactionManageNeedFragment extends BaseFragment {
     protected int setLayoutResourceId() {
         return R.layout.home_need_details;
     }
-
-    @OnClick({ R.id.tv_offer})
-    public void onViewClicked(View view) {
-        Intent intent = new Intent();
-        switch (view.getId()) {
-            case R.id.tv_offer:
-                intent.setClass(mActivity, TransactionManageOfferActivity.class);
-                startActivity(intent);
-                break;
-        }
-    }
 }

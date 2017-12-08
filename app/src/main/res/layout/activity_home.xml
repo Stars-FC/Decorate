@@ -20,8 +20,8 @@
 
     <me.majiajie.pagerbottomtabstrip.PageNavigationView
         android:id="@+id/tab"
-        app:NavigationPaddingBottom="-5px"
-        app:NavigationPaddingTop="-5px"
+        app:NavigationPaddingBottom="-3px"
+        app:NavigationPaddingTop="-3px"
         android:layout_width="match_parent"
         android:layout_height="100px"
         android:elevation="3dp"/>

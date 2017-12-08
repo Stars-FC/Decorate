@@ -1,5 +1,6 @@
 package com.ygc.estatedecoration.activity.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
@@ -58,11 +59,11 @@ public class TransactionManageDetailActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        mList=new ArrayList<>();
+        mList = new ArrayList<>();
         mList.add("需求详情");
         mList.add("报  价");
 
-        mFragments=new ArrayList<>();
+        mFragments = new ArrayList<>();
         mFragments.add(new TransactionManageNeedFragment());
         mFragments.add(new TransactionManageOfferFragment());
 
@@ -80,13 +81,18 @@ public class TransactionManageDetailActivity extends BaseActivity {
         return R.layout.home_transactionmanage_item;
     }
 
-    @OnClick({R.id.back, R.id.iv_follow})
+    @OnClick({R.id.back, R.id.iv_follow,R.id.tv_offer})
     public void onViewClicked(View view) {
+        Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
             case R.id.iv_follow://右上角关注按钮
+                break;
+            case R.id.tv_offer:
+                intent.setClass(TransactionManageDetailActivity.this, TransactionManageOfferActivity.class);
+                startActivity(intent);
                 break;
         }
     }

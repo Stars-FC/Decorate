@@ -106,6 +106,7 @@ public class UserFindDesigerActivity extends BaseActivity {
         mAdapter = new UserFindDesignerAdapter(list, UserFindDesigerActivity.this);
 //        mAdapter.addHeaderView(topView);
         mRecyclerview.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        mRecyclerview.setNestedScrollingEnabled(false);
         mRecyclerview.setAdapter(mAdapter);
     }
 

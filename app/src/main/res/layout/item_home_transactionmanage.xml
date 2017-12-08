@@ -74,7 +74,7 @@
                     android:textSize="26px"/>
 
                 <TextView
-                    android:layout_width="100px"
+                    android:layout_width="91px"
                     android:layout_height="40px"
                     android:layout_marginLeft="20px"
                     android:background="@drawable/shape_empty_home"

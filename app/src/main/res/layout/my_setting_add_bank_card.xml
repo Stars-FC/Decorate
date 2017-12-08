@@ -13,9 +13,11 @@
         android:layout_marginRight="25px">
 
         <TextView
+            android:id="@+id/add_bank_tv_bank_num"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
+            android:layout_marginRight="20px"
             android:gravity="center_vertical"
             android:text="银行卡号"
             android:textColor="@color/black"
@@ -25,8 +27,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/add_bank_tv_bank_num"
             android:background="@null"
-            android:gravity="center_vertical"
+            android:gravity="right|center_vertical"
             android:hint="请输入银行卡号"
             android:inputType="number"
             android:maxLength="11"
@@ -50,9 +53,11 @@
         android:layout_marginRight="25px">
 
         <TextView
+            android:id="@+id/add_bank_tv_bank_that"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
+            android:layout_marginRight="20px"
             android:gravity="center_vertical"
             android:text="开户行"
             android:textColor="@color/black"
@@ -62,8 +67,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/add_bank_tv_bank_that"
             android:background="@null"
-            android:gravity="center_vertical"
+            android:gravity="right|center_vertical"
             android:hint="银行卡开户行"
             android:maxLines="1"
             android:paddingLeft="18px"
@@ -85,9 +91,11 @@
         android:layout_marginRight="25px">
 
         <TextView
+            android:id="@+id/add_bank_tv_name"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
+            android:layout_marginRight="20px"
             android:gravity="center_vertical"
             android:text="姓名"
             android:textColor="@color/black"
@@ -97,8 +105,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/add_bank_tv_name"
             android:background="@null"
-            android:gravity="center_vertical"
+            android:gravity="right|center_vertical"
             android:hint="请输入真实姓名"
             android:maxLines="1"
             android:paddingLeft="18px"
@@ -120,9 +129,11 @@
         android:layout_marginRight="25px">
 
         <TextView
+            android:id="@+id/add_bank_tv_photonum"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
+            android:layout_marginRight="20px"
             android:gravity="center_vertical"
             android:text="预留手机号"
             android:textColor="@color/black"
@@ -132,8 +143,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/add_bank_tv_photonum"
             android:background="@null"
-            android:gravity="center_vertical"
+            android:gravity="right|center_vertical"
             android:hint="请输入预留手机号"
             android:inputType="number"
             android:maxLength="16"

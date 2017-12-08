@@ -24,8 +24,8 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/colorAccent"/>
+        android:layout_height="4px"
+        android:background="@drawable/hengxian_green"/>
 
 
     <RelativeLayout
@@ -36,7 +36,7 @@
         <EditText
             android:id="@+id/et_verification"
             android:layout_width="300px"
-            android:layout_height="88px"
+            android:layout_height="86px"
             android:layout_marginLeft="40px"
             android:background="@null"
             android:gravity="center_vertical"
@@ -45,9 +45,9 @@
 
         <View
             android:layout_width="300px"
-            android:layout_height="1px"
+            android:layout_height="4px"
             android:layout_below="@+id/et_verification"
-            android:background="@color/colorAccent"/>
+            android:background="@drawable/hengxian_green"/>
 
         <View
             android:layout_width="1px"

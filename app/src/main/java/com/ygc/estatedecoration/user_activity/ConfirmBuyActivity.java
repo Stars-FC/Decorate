@@ -1,13 +1,11 @@
 package com.ygc.estatedecoration.user_activity;
 
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.ygc.estatedecoration.R;
-import com.ygc.estatedecoration.adapter.ManageAdapter;
 import com.ygc.estatedecoration.adapter.UserConfirmBuyAdapter;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
 import com.ygc.estatedecoration.widget.TitleBar;
@@ -16,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 确认购买页面
@@ -60,5 +60,14 @@ public class ConfirmBuyActivity extends BaseActivity {
     @Override
     protected int getLayoutId() {
         return R.layout.user_confirm_buy;
+    }
+
+    @OnClick({R.id.naviFrameLeft})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.naviFrameLeft:
+                finish();
+                break;
+        }
     }
 }
