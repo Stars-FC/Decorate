@@ -3,23 +3,17 @@ package com.ygc.estatedecoration.user_activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygc.estatedecoration.R;
-import com.ygc.estatedecoration.adapter.MyCollectionAdapter;
-import com.ygc.estatedecoration.adapter.UserFindDesignerAdapter;
+import com.ygc.estatedecoration.adapter.UserFindDesignerDetailAdapter;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
-import com.ygc.estatedecoration.widget.BetterRecyclerView;
-import com.ygc.estatedecoration.widget.FlowScrollView;
-import com.ygc.estatedecoration.widget.FullyLinearLayoutManager;
 import com.ygc.estatedecoration.widget.MyScrollview;
 import com.ygc.estatedecoration.widget.TitleBar;
 
@@ -49,7 +43,7 @@ public class UserFindDesigerActivity extends BaseActivity {
     @BindView(R.id.swipeLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
-    private UserFindDesignerAdapter mAdapter;
+    private UserFindDesignerDetailAdapter mAdapter;
     List<String> list = new ArrayList<>();
 
     @Override
@@ -103,7 +97,7 @@ public class UserFindDesigerActivity extends BaseActivity {
 
     private void initRecyclerView() {
 //        View topView = View.inflate(UserFindDesigerActivity.this, R.layout.user_find_designer, null);
-        mAdapter = new UserFindDesignerAdapter(list, UserFindDesigerActivity.this);
+        mAdapter = new UserFindDesignerDetailAdapter(list, UserFindDesigerActivity.this);
 //        mAdapter.addHeaderView(topView);
         mRecyclerview.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerview.setNestedScrollingEnabled(false);

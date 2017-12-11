@@ -12,7 +12,9 @@ import android.widget.TextView;
 
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.ygc.estatedecoration.R;
-import com.ygc.estatedecoration.adapter.UserFindDesignAdapter;
+import com.ygc.estatedecoration.adapter.UserFindDesignerAdapter;
+import com.ygc.estatedecoration.adapter.UserFindMaterialAdapter;
+import com.ygc.estatedecoration.adapter.UserRecommendActivityAdapter;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.entity.base.Constant;
 import com.ygc.estatedecoration.event.SkipUserShopMsg;
@@ -56,8 +58,6 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
     RecyclerView mRv_recommendActivity;
 
     private List<String> findDesignDataList = new ArrayList<>();
-    private UserFindDesignAdapter mUserFindDesignAdapter;
-
 
     public UserHomeFragment() {}
 
@@ -123,55 +123,57 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
         initRecommendActivityRecyclerView();
     }
 
+    /*推荐活动*/
     private void initRecommendActivityRecyclerView() {
-        mUserFindDesignAdapter = new UserFindDesignAdapter(R.layout.item_user_home_fragment_recommend_activity, findDesignDataList);
+        UserRecommendActivityAdapter userRecommendActivityAdapter = new UserRecommendActivityAdapter(R.layout.item_user_home_fragment_recommend_activity, findDesignDataList);
         mRv_findDesign.setHasFixedSize(true);
         mRv_findDesign.setNestedScrollingEnabled(false);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false);
         mRv_recommendActivity.setLayoutManager(linearLayoutManager);
-        mRv_recommendActivity.setAdapter(mUserFindDesignAdapter);
+        mRv_recommendActivity.setAdapter(userRecommendActivityAdapter);
     }
 
+    /*找材料*/
     private void initFindMaterialsRecyclerView() {
-        mUserFindDesignAdapter = new UserFindDesignAdapter(R.layout.item_user_home_fragment_find_materials, findDesignDataList);
+        UserFindMaterialAdapter userFindMaterialAdapter = new UserFindMaterialAdapter(R.layout.item_user_home_fragment_find_materials, findDesignDataList);
         mRv_findDesign.setHasFixedSize(true);
         mRv_findDesign.setNestedScrollingEnabled(false);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false);
         mRv_findMaterials.setLayoutManager(linearLayoutManager);
-        mRv_findMaterials.setAdapter(mUserFindDesignAdapter);
+        mRv_findMaterials.setAdapter(userFindMaterialAdapter);
     }
 
+    /*找监理*/
     private void initFindSupervisorRecyclerView() {
-        mUserFindDesignAdapter = new UserFindDesignAdapter(R.layout.item_user_home_fragment_find_design, findDesignDataList);
+        UserFindDesignerAdapter mUserFindDesignerAdapter = new UserFindDesignerAdapter(R.layout.item_user_home_fragment_find_design, findDesignDataList, mActivity);
         mRv_findDesign.setHasFixedSize(true);
         mRv_findDesign.setNestedScrollingEnabled(false);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false);
         mRv_findSupervisor.setLayoutManager(linearLayoutManager);
-        mRv_findSupervisor.setAdapter(mUserFindDesignAdapter);
+        mRv_findSupervisor.setAdapter(mUserFindDesignerAdapter);
     }
 
+    /*找施工*/
     private void initFindImplementRecyclerView() {
-        mUserFindDesignAdapter = new UserFindDesignAdapter(R.layout.item_user_home_fragment_find_design, findDesignDataList);
+        UserFindDesignerAdapter mUserFindDesignerAdapter = new UserFindDesignerAdapter(R.layout.item_user_home_fragment_find_design, findDesignDataList, mActivity);
         mRv_findDesign.setHasFixedSize(true);
         mRv_findDesign.setNestedScrollingEnabled(false);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false);
         mRv_findImpl.setLayoutManager(linearLayoutManager);
-        mRv_findImpl.setAdapter(mUserFindDesignAdapter);
+        mRv_findImpl.setAdapter(mUserFindDesignerAdapter);
     }
 
+    /*找设计*/
     private void initFindDesignRecyclerView() {
-        findDesignDataList.add("hah");
-        findDesignDataList.add("hah");
-        findDesignDataList.add("hah");
-        findDesignDataList.add("hah");
-        findDesignDataList.add("heh");
-        findDesignDataList.add("ded");
-        mUserFindDesignAdapter = new UserFindDesignAdapter(R.layout.item_user_home_fragment_find_design, findDesignDataList);
+        for (int i = 0; i < 5; i++) {
+            findDesignDataList.add("heh");
+        }
+        UserFindDesignerAdapter mUserFindDesignerAdapter = new UserFindDesignerAdapter(R.layout.item_user_home_fragment_find_design, findDesignDataList, mActivity);
         mRv_findDesign.setHasFixedSize(true);
         mRv_findDesign.setNestedScrollingEnabled(false);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false);
         mRv_findDesign.setLayoutManager(linearLayoutManager);
-        mRv_findDesign.setAdapter(mUserFindDesignAdapter);
+        mRv_findDesign.setAdapter(mUserFindDesignerAdapter);
     }
 
 

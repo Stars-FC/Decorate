@@ -11,9 +11,9 @@ import com.ygc.estatedecoration.R;
 
 import java.util.List;
 
-public class UserFindMaterialHeaderAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+public class UserShopMaterialHeaderAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
-    public UserFindMaterialHeaderAdapter(@LayoutRes int layoutResId, @Nullable List<String> data) {
+    public UserShopMaterialHeaderAdapter(@LayoutRes int layoutResId, @Nullable List<String> data) {
         super(layoutResId, data);
     }
 

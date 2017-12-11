@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64px"
+        android:layout_marginTop="22px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="29px"
+        android:paddingRight="20px">
+
+        <com.ygc.estatedecoration.widget.CircleImageView
+            android:layout_width="64px"
+            android:layout_height="match_parent"
+            android:src="@color/line"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="19px"
+            android:text="设计师名称"
+            android:textColor="@color/black"
+            android:textSize="27px"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2017.06.27"
+            android:textColor="#a4a4a4"
+            android:textSize="27px"/>
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="84px"
+        android:layout_marginTop="37px"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10,000(元)"
+            android:textColor="#4ebe67"
+            android:textSize="31px"/>
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="60px"
+            android:layout_marginLeft="80px"
+            android:background="@color/black"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80px"
+            android:text="90(天)"
+            android:textColor="#4ebe67"
+            android:textSize="31px"/>
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="34px"
+        android:paddingLeft="29px"
+        android:paddingRight="20px"
+        android:text="服务上留言服务上留言服务上留言服务上留言服务上留言服务上留言服务上留言"
+        android:textColor="@color/black"
+        android:textSize="27px"/>
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14px"
+        android:paddingRight="20px">
+
+        <TextView
+            android:layout_width="161px"
+            android:layout_height="62px"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/bg_progress"
+            android:gravity="center"
+            android:text="查看进度"
+            android:textColor="#4ebe67"
+            android:textSize="27px"/>
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="24px"
+        android:background="@color/line"/>
+</com.zhy.autolayout.AutoLinearLayout>

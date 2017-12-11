@@ -1,0 +1,25 @@
+<com.zhy.autolayout.AutoLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context="com.ygc.estatedecoration.fragment.home.MyStorePersonalCaseFragment">
+
+    <com.androidkun.xtablayout.XTabLayout
+        android:id="@+id/tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="75px"
+        android:background="@color/white"
+        app:xTabIndicatorColor="#4EBE65"
+        app:xTabIndicatorHeight="1.5dp"
+        app:xTabIndicatorWidth="50dp"
+        app:xTabMode="fixed"
+        app:xTabSelectedTextColor="#4EBE65"
+        app:xTabSelectedTextSize="13dp"
+        app:xTabTextColor="#000000"
+        app:xTabTextSize="13dp"/>
+
+</com.zhy.autolayout.AutoLinearLayout>

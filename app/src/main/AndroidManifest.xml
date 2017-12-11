@@ -22,9 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.HomeActivity"/>
+        <activity
+            android:name=".activity.HomeActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".activity.MainActivity"/>
-        <activity android:name=".activity.home.MyStoreAvtivity"/>
+        <activity android:name=".activity.home.MyStoreActivity"/>
         <activity android:name=".activity.home.MyVisitorActivity"/>
         <activity android:name=".activity.home.TransactionManageDetailActivity"/>
         <activity android:name=".activity.home.TransactionManageActivity"/>
@@ -51,39 +53,24 @@
             android:name="design_height"
             android:value="1136"/>
 
-        <activity android:name=".activity.my.GuaranteeMoneyActivity">
-        </activity>
-        <activity android:name=".activity.my.CollectionActivity">
-        </activity>
-        <activity android:name=".user_activity.UserHomeActivity">
-        </activity>
-        <activity android:name=".user_activity.UserSearchActivity">
-        </activity>
-        <activity android:name=".user_activity.CaseDetailActivity">
-        </activity>
-        <activity android:name=".user_activity.UserCollectionActivity">
-        </activity>
-        <activity android:name=".user_activity.UserGoodsDetailActivity">
-        </activity>
-        <activity android:name=".activity.home.DemandAndProgressActivity">
-        </activity>
+        <activity android:name=".activity.my.GuaranteeMoneyActivity"/>
+        <activity android:name=".activity.my.CollectionActivity"/>
+        <activity android:name=".user_activity.UserHomeActivity"/>
+        <activity android:name=".user_activity.UserSearchActivity"/>
+        <activity android:name=".user_activity.CaseDetailActivity"/>
+        <activity android:name=".user_activity.UserCollectionActivity"/>
+        <activity android:name=".user_activity.UserGoodsDetailActivity"/>
+        <activity android:name=".activity.home.DemandAndProgressActivity"/>
         <activity android:name=".user_activity.UserFindDesigerActivity"/>
-        <activity android:name=".activity.my.SettingBankCardActivity">
-        </activity>
-        <activity android:name=".activity.my.SettingAddBankCardActivity">
-        </activity>
-        <activity android:name=".activity.my.AboutOurActivity">
-        </activity>
+        <activity android:name=".activity.my.SettingBankCardActivity"/>
+        <activity android:name=".activity.my.SettingAddBankCardActivity"/>
+        <activity android:name=".activity.my.AboutOurActivity"/>
         <activity
             android:name=".activity.my.BackOpinionActivity"
-            android:windowSoftInputMode="stateHidden">
-        </activity>
-        <activity android:name=".user_activity.UserFindSupervisorActivity">
-        </activity>
-        <activity android:name=".activity.my.AccountDetailActivity">
-        </activity>
-        <activity android:name=".activity.my.TopUpAndTiXianActivity">
-        </activity>
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".user_activity.UserFindSupervisorActivity"/>
+        <activity android:name=".activity.my.AccountDetailActivity"/>
+        <activity android:name=".activity.my.TopUpAndTiXianActivity"/>
         <activity
             android:name=".activity.home.InitiatingAcceptanceActivity"
             android:screenOrientation="portrait"/>
@@ -93,23 +80,24 @@
         <activity
             android:name=".activity.home.InitiatingContractActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".user_activity.UserGoodListActivity">
+        <activity android:name=".user_activity.UserGoodListActivity"/>
+        <activity android:name=".user_activity.UserShopCarActivity"/>
+        <activity android:name=".user_activity.ConfirmBuyActivity"/>
+        <activity android:name=".activity.my.ServerMyAnLiActivity"/>
+        <activity android:name=".activity.my.CaseEffectPicActivity"/>
+        <activity android:name=".activity.home.ReadInitiatingContractActivity"/>
+        <activity android:name=".user_activity.UserAllOrderActivity"/>
+        <activity android:name=".user_activity.UserMsgActivity"/>
+        <activity android:name=".activity.home.ServerMsgActivity"/>
+        <activity
+            android:name="me.iwf.photopicker.PhotoPickerActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
+            android:name="me.iwf.photopicker.PhotoPagerActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".activity.my.SelectBankCardActivity">
         </activity>
-        <activity android:name=".user_activity.UserShopCarActivity">
-        </activity>
-        <activity android:name=".user_activity.ConfirmBuyActivity">
-        </activity>
-        <activity android:name=".activity.my.ServerMyAnLiActivity">
-        </activity>
-        <activity android:name=".activity.my.CaseEffectPicActivity">
-        </activity>
-        <activity android:name=".activity.home.ReadInitiatingContractActivity">
-        </activity>
-        <activity android:name=".user_activity.UserAllOrderActivity">
-        </activity>
-        <activity android:name=".user_activity.UserMsgActivity">
-        </activity>
-        <activity android:name=".activity.home.ServerMsgActivity">
+        <activity android:name=".user_activity.UserProjectProgressActivity">
         </activity>
         <activity android:name=".activity.my.ActivitiesActivity">
         </activity>

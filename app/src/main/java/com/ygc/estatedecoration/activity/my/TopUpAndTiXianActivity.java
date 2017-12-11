@@ -1,5 +1,6 @@
 package com.ygc.estatedecoration.activity.my;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -24,6 +25,8 @@ public class TopUpAndTiXianActivity extends BaseActivity {
     public static final String TOP_UP = "TOP_UP";
     public static final String TI_XIAN = "TI_XIAN";
 
+    @BindView(R.id.other_way_topup_ll)
+    LinearLayout mLl_otherWayTopUp;
     @BindView(R.id.content_layout)
     LinearLayout mLl_contentLayout;
     @BindView(R.id.top_ti_tv)
@@ -60,12 +63,14 @@ public class TopUpAndTiXianActivity extends BaseActivity {
             case TI_XIAN:
                 mTitleBar.setTitleText("提现");
                 mTv_topTv.setText("提现金额");
-                mBtn_topTi.setText("确认体现");
+                mBtn_topTi.setText("确认提现");
+                mLl_otherWayTopUp.setVisibility(View.GONE);
                 break;
             case TOP_UP:
                 mTitleBar.setTitleText("充值");
                 mBtn_topTi.setText("确认充值");
                 mTv_topTv.setText("充值金额");
+                mLl_otherWayTopUp.setVisibility(View.VISIBLE);
                 break;
         }
     }
@@ -75,7 +80,7 @@ public class TopUpAndTiXianActivity extends BaseActivity {
         return R.layout.activity_ti_xian_top_up;
     }
 
-    @OnClick({R.id.naviFrameLeft, R.id.top_ti_btn})
+    @OnClick({R.id.naviFrameLeft, R.id.top_ti_btn, R.id.select_bankcard_rl, R.id.other_way_topup_ll})
     public void onClickEvent(View view) {
         if (view != null) {
             switch (view.getId()) {
@@ -85,6 +90,13 @@ public class TopUpAndTiXianActivity extends BaseActivity {
                 case R.id.top_ti_btn:
                     topAndTiEvent();
                     break;
+                case R.id.select_bankcard_rl:
+                    Intent intent = new Intent(this, SelectBankCardActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.other_way_topup_ll:
+                    showTopUpWindow();
+                    break;
             }
         }
     }
@@ -92,9 +104,10 @@ public class TopUpAndTiXianActivity extends BaseActivity {
     private void topAndTiEvent() {
         switch (mMark) {
             case TI_XIAN:
+
                 break;
             case TOP_UP:
-                showTopUpWindow();
+
                 break;
         }
     }

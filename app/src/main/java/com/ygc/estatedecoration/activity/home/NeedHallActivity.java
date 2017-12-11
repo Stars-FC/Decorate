@@ -2,6 +2,7 @@ package com.ygc.estatedecoration.activity.home;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -17,7 +18,11 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.adapter.GirdDropDownAdapter;
 import com.ygc.estatedecoration.adapter.HomeNeedHallAdapter;
+import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
+import com.ygc.estatedecoration.bean.NeedBean;
+import com.ygc.estatedecoration.entity.base.Base;
+import com.ygc.estatedecoration.utils.LogUtil;
 import com.ygc.estatedecoration.widget.TitleBar;
 import com.yyydjk.library.DropDownMenu;
 
@@ -27,6 +32,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by FC on 2017/11/14.
@@ -58,7 +67,7 @@ public class NeedHallActivity extends BaseActivity {
     private GirdDropDownAdapter typesAdapter;
     private GirdDropDownAdapter nowsAdapter;
     private HomeNeedHallAdapter mAdapter;
-    List<String> list = new ArrayList<>();
+    private List<NeedBean.DataBean> list = new ArrayList<>();
 
 
     @Override
@@ -203,11 +212,41 @@ public class NeedHallActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        for (int i = 0; i < 10; i++) {
-            list.add("" + i);
-        }
 
+//        queryAllNeedDataEvent(1);
 
+    }
+
+    private void queryAllNeedDataEvent(int pageNum) {
+        APPApi.getInstance().service
+                .queryAllNeed(pageNum)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<NeedBean>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@NonNull NeedBean needBean) {
+                        if (needBean.ResponseStatus.equals("1")) {
+                            list.addAll(needBean.getData());
+                        } else {
+                            showToast(needBean.msg);
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     @Override

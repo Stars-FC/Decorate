@@ -12,10 +12,10 @@ import com.ygc.estatedecoration.R;
 
 import java.util.List;
 
-public class UserFindSupervisorAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+public class UserFindSupervisorDetailAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
     private int mark;
     private List<String> dataList;
-    public UserFindSupervisorAdapter(@LayoutRes int layoutResId, @Nullable List<String> data, int mark) {
+    public UserFindSupervisorDetailAdapter(@LayoutRes int layoutResId, @Nullable List<String> data, int mark) {
         super(layoutResId, data);
         this.dataList = data;
         this.mark = mark;
@@ -30,7 +30,7 @@ public class UserFindSupervisorAdapter extends BaseQuickAdapter<String, BaseView
             experienceTv.setText("10年施工经验");
         }
         RecyclerView recyclerView = helper.getView(R.id.recyclerview);
-        UserFindSupervisorChildAdapter adapter = new UserFindSupervisorChildAdapter(R.layout.item_user_home_fragment_find_supervisor_more_child, dataList);
+        UserFindSupervisorDetailChildAdapter adapter = new UserFindSupervisorDetailChildAdapter(R.layout.item_user_home_fragment_find_supervisor_more_child, dataList);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         recyclerView.setAdapter(adapter);
     }

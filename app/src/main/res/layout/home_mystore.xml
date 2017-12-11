@@ -21,14 +21,14 @@
             android:layout_marginLeft="20px"
             android:layout_marginTop="68px"
             android:padding="10px"
-            android:src="@drawable/fanhui"/>
+            android:src="@drawable/fanhuiwhite"/>
 
         <com.ygc.estatedecoration.widget.CircleImageView
             android:id="@+id/iv_company_icon"
             android:layout_width="100px"
             android:layout_height="100px"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="80px"
+            android:layout_marginTop="150px"
             android:src="@drawable/zhuyetouxiang"/>
 
         <TextView
@@ -42,16 +42,19 @@
             android:textSize="36px"/>
     </RelativeLayout>
 
-    <android.support.design.widget.TabLayout
+    <com.androidkun.xtablayout.XTabLayout
         android:id="@+id/tablayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80px"
         android:background="@color/white"
-        android:elevation="3dp"
-        app:tabGravity="fill"
-        app:tabMaxWidth="0dp"
-        app:tabMode="fixed"
-        app:tabSelectedTextColor="@color/colorAccent"/>
+        app:xTabIndicatorColor="#4EBE65"
+        app:xTabIndicatorHeight="1.5dp"
+        app:xTabIndicatorWidth="50dp"
+        app:xTabMode="fixed"
+        app:xTabSelectedTextColor="#4EBE65"
+        app:xTabSelectedTextSize="12dp"
+        app:xTabTextColor="#000000"
+        app:xTabTextSize="12dp"/>
 
     <View
         android:layout_width="match_parent"

@@ -11,8 +11,8 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ygc.estatedecoration.R;
-import com.ygc.estatedecoration.adapter.UserFindMaterialAdapter;
-import com.ygc.estatedecoration.adapter.UserFindMaterialHeaderAdapter;
+import com.ygc.estatedecoration.adapter.UserShopMaterialAdapter;
+import com.ygc.estatedecoration.adapter.UserShopMaterialHeaderAdapter;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.user_activity.UserGoodListActivity;
 import com.ygc.estatedecoration.user_activity.UserGoodsDetailActivity;
@@ -31,7 +31,7 @@ public class UserShopFragment extends BaseFragment implements SwipeRefreshLayout
     SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerView;
-    private UserFindMaterialAdapter adapter;
+    private UserShopMaterialAdapter adapter;
     private List<String> dataList = new ArrayList<>();
 
     public static UserShopFragment newInstance() {
@@ -63,14 +63,14 @@ public class UserShopFragment extends BaseFragment implements SwipeRefreshLayout
     }
 
     private void initRecyclerView() {
-        adapter = new UserFindMaterialAdapter(R.layout.item_user_shop_find_materials, dataList);
+        adapter = new UserShopMaterialAdapter(R.layout.item_user_shop_materials, dataList);
         View headerView = LayoutInflater.from(mActivity).inflate(R.layout.header_find_materials, null);
         RecyclerView materialsHeaderRecyclerView = (RecyclerView) headerView.findViewById(R.id.recyclerview);
-        UserFindMaterialHeaderAdapter userFindMaterialHeaderAdapter = new UserFindMaterialHeaderAdapter(R.layout.item_user_shop_find_materials_header, dataList);
+        UserShopMaterialHeaderAdapter userShopMaterialHeaderAdapter = new UserShopMaterialHeaderAdapter(R.layout.item_user_shop_find_materials_header, dataList);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mActivity, 2, GridLayoutManager.HORIZONTAL, false);
         materialsHeaderRecyclerView.setLayoutManager(gridLayoutManager);
-        materialsHeaderRecyclerView.setAdapter(userFindMaterialHeaderAdapter);
-        userFindMaterialHeaderAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        materialsHeaderRecyclerView.setAdapter(userShopMaterialHeaderAdapter);
+        userShopMaterialHeaderAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(mActivity, UserGoodListActivity.class);

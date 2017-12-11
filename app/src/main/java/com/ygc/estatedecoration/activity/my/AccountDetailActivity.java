@@ -30,7 +30,7 @@ public class AccountDetailActivity extends BaseActivity implements SwipeRefreshL
     @Override
     protected boolean buildTitle(TitleBar bar) {
         bar.setTitleText("账户明细");
-        bar.setLeftImageResource(R.mipmap.ic_launcher);
+        bar.setLeftImageResource(R.drawable.fanhui);
         return true;
     }
 

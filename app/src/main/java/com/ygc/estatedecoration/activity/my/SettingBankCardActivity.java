@@ -80,16 +80,6 @@ public class SettingBankCardActivity extends BaseActivity {
                 }
             }
         });
-
-        //上拉加载更多
-//        mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-//            @Override
-//            public void onLoadMoreRequested() {
-//                mAdapter.loadMoreComplete();//完成
-////                mAdapter.loadMoreFail();//失败
-////                mAdapter.loadMoreEnd();//结束
-//            }
-//        }, mRecyclerview);
     }
 
     @Override

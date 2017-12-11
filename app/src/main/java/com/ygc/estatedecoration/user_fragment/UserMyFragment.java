@@ -23,6 +23,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.ygc.estatedecoration.R;
+import com.ygc.estatedecoration.activity.my.ActivitiesActivity;
 import com.ygc.estatedecoration.activity.my.AuthenticationActivity;
 import com.ygc.estatedecoration.activity.my.CollectionActivity;
 import com.ygc.estatedecoration.activity.my.MoneyBagActivity;
@@ -30,6 +31,7 @@ import com.ygc.estatedecoration.activity.my.SettingActivity;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.user_activity.UserAllOrderActivity;
 import com.ygc.estatedecoration.user_activity.UserCollectionActivity;
+import com.ygc.estatedecoration.user_activity.UserProjectProgressActivity;
 import com.ygc.estatedecoration.user_activity.UserShopCarActivity;
 import com.ygc.estatedecoration.widget.BasePopupWindow;
 import com.ygc.estatedecoration.widget.CircleImageView;
@@ -133,9 +135,8 @@ public class UserMyFragment extends BaseFragment implements EasyPermissions.Perm
         return R.layout.fragment_user_my;
     }
 
-    @OnClick({R.id.iv_company_icon, R.id.tv_chage, R.id.my_authentication,
-            R.id.my_moneybag, R.id.my_collection, R.id.my_need, R.id.imageView_right_titlebar,
-            R.id.ll_order, R.id.ll_trusteeship, R.id.ll_transaction, R.id.ll_payment, R.id.ll_evaluate, R.id.ll_customer_service})
+    @OnClick({R.id.iv_company_icon, R.id.tv_chage, R.id.my_authentication, R.id.my_moneybag, R.id.my_collection, R.id.my_need, R.id.imageView_right_titlebar,
+            R.id.my_activity_rl, R.id.ll_order, R.id.ll_trusteeship, R.id.ll_transaction, R.id.ll_payment, R.id.ll_evaluate, R.id.ll_customer_service, R.id.my_address_rl, R.id.project_progress_rl})
     public void onViewClicked(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -183,6 +184,18 @@ public class UserMyFragment extends BaseFragment implements EasyPermissions.Perm
                 break;
             case R.id.ll_customer_service://质保
                 skipUserOrderEvent(intent, 4);
+                break;
+            case R.id.my_address_rl:
+//                Intent addressIntent = new Intent(mActivity, UserAddressActivity.class);
+//                startActivity(addressIntent);
+                break;
+            case R.id.project_progress_rl:
+                Intent projectProgressIntent = new Intent(mActivity, UserProjectProgressActivity.class);
+                startActivity(projectProgressIntent);
+                break;
+            case R.id.my_activity_rl:
+                Intent myActivity = new Intent(mActivity, ActivitiesActivity.class);
+                startActivity(myActivity);
                 break;
         }
     }

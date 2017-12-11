@@ -89,6 +89,7 @@ public class TransactionManageDetailActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.iv_follow://右上角关注按钮
+
                 break;
             case R.id.tv_offer:
                 intent.setClass(TransactionManageDetailActivity.this, TransactionManageOfferActivity.class);

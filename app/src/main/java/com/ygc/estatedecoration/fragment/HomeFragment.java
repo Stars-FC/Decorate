@@ -11,8 +11,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygc.estatedecoration.R;
-import com.ygc.estatedecoration.activity.home.DemandAndProgressActivity;
-import com.ygc.estatedecoration.activity.home.MyStoreAvtivity;
+import com.ygc.estatedecoration.activity.home.MyStoreActivity;
 import com.ygc.estatedecoration.activity.home.MyVisitorActivity;
 import com.ygc.estatedecoration.activity.home.NeedHallActivity;
 import com.ygc.estatedecoration.activity.home.ServerMsgActivity;
@@ -54,7 +53,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         HomeFragment fragment = new HomeFragment();
         fragment.setArguments(args);
         return fragment;
-//        String content = getArguments().getString(ARG_C); //获取
     }
 
     @Override
@@ -98,7 +96,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
 //                showToast("mRecyclerview第" + position + "数据");
-                Intent intent = new Intent(mActivity, DemandAndProgressActivity.class);
+                Intent intent = new Intent(mActivity, TransactionManageDetailActivity.class);
                 startActivity(intent);
             }
         });
@@ -165,7 +163,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.my_store: //我的商铺
-                intent.setClass(mActivity, MyStoreAvtivity.class);
+                intent.setClass(mActivity, MyStoreActivity.class);
                 startActivity(intent);
                 break;
             case R.id.need_Analysis://需求大厅

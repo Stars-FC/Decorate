@@ -1,5 +1,6 @@
 package com.ygc.estatedecoration.api;
 
+import com.ygc.estatedecoration.bean.NeedBean;
 import com.ygc.estatedecoration.bean.BaseBean;
 import com.ygc.estatedecoration.bean.RoleFindAllBean;
 import com.ygc.estatedecoration.entity.base.Base;
@@ -56,4 +57,11 @@ public interface APPService {
 
 
     //服务商端-------------------------
+
+    /*********************************************服务商段*******************************************/
+
+    @FormUrlEncoded
+    @POST("landMark/wzd/Demand/getDemandList.action")
+    Observable<NeedBean> queryAllNeed(@Field("page") int page);
+
 }

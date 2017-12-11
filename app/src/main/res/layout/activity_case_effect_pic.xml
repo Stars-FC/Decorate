@@ -53,14 +53,16 @@
 
         </com.zhy.autolayout.AutoLinearLayout>
 
-        <android.support.v7.widget.RecyclerView
+        <com.ygc.estatedecoration.widget.MaxRecyclerView
+            android:id="@+id/recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50px">
 
-        </android.support.v7.widget.RecyclerView>
+        </com.ygc.estatedecoration.widget.MaxRecyclerView>
 
         <ImageView
+            android:id="@+id/upload_iv"
             android:layout_width="match_parent"
             android:layout_height="300px"
             android:src="@drawable/liangdiantianjia"/>

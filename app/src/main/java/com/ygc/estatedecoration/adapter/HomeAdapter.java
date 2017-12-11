@@ -14,7 +14,7 @@ import java.util.List;
 public class HomeAdapter extends BaseQuickAdapter<String,BaseViewHolder> {
 
     public HomeAdapter(List<String> list) {
-        super(R.layout.item_home, list);
+        super(R.layout.item_home_transactionmanage, list);
     }
 
     @Override

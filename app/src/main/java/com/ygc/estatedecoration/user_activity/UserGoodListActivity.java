@@ -10,10 +10,8 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ygc.estatedecoration.R;
-import com.ygc.estatedecoration.adapter.UserFindMaterialAdapter;
-import com.ygc.estatedecoration.adapter.UserFindMaterialHeaderAdapter;
+import com.ygc.estatedecoration.adapter.UserShopMaterialAdapter;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
-import com.ygc.estatedecoration.entity.base.Base;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import java.util.ArrayList;
@@ -30,7 +28,7 @@ public class UserGoodListActivity extends BaseActivity implements SwipeRefreshLa
     SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerView;
-    private UserFindMaterialAdapter adapter;
+    private UserShopMaterialAdapter adapter;
     private List<String> dataList = new ArrayList<>();
 
     @Override
@@ -54,7 +52,7 @@ public class UserGoodListActivity extends BaseActivity implements SwipeRefreshLa
     }
 
     private void initRecyclerView() {
-        adapter = new UserFindMaterialAdapter(R.layout.item_user_shop_find_materials_good_list, dataList);
+        adapter = new UserShopMaterialAdapter(R.layout.item_user_shop_find_materials_good_list, dataList);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         mRecyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {

@@ -569,7 +569,7 @@
             android:background="@color/line"/>
 
         <RelativeLayout
-            android:id="@+id/my_address"
+            android:id="@+id/my_address_rl"
             android:layout_width="match_parent"
             android:layout_height="98px">
 
@@ -606,7 +606,7 @@
             android:background="@color/line"/>
 
         <RelativeLayout
-            android:id="@+id/my_activity"
+            android:id="@+id/my_activity_rl"
             android:layout_width="match_parent"
             android:layout_height="98px">
 

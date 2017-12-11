@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/white"
     android:orientation="vertical"
-    tools:context="com.ygc.estatedecoration.activity.my.AccountDetailActivity">
+    tools:context="com.ygc.estatedecoration.user_activity.UserProjectProgressActivity">
 
     <View
         android:layout_width="match_parent"
@@ -24,6 +24,7 @@
             android:layout_height="wrap_content">
 
         </android.support.v7.widget.RecyclerView>
+
     </android.support.v4.widget.SwipeRefreshLayout>
 
 </com.zhy.autolayout.AutoLinearLayout>
