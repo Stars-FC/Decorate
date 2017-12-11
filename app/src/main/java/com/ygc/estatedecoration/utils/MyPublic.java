@@ -6,11 +6,22 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.ygc.estatedecoration.activity.login.UserRegisterActivity;
+import com.ygc.estatedecoration.api.APPApi;
+import com.ygc.estatedecoration.bean.BaseBean;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by zhan on 2017-9-5.
@@ -108,6 +119,58 @@ public class MyPublic {
             e.printStackTrace();
             return "版本号获取失败";
         }
+    }
+
+
+    //登录注册本分工具类--------------------------------------------------------------------------------
+
+    /**
+     * 获取文字
+     */
+    public static String getText(TextView textView) {
+        return textView.getText().toString().trim();
+    }
+
+    /**
+     * 获取验证码
+     */
+    public static void getVerification(final Context context, String photoNum, final Button button) {
+
+
+        APPApi.getInstance().service
+                .doSendCode(photoNum, "0")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<BaseBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseBean baseBean) {
+                        LogUtil.e("请求网路成功");
+
+                        if (null == baseBean) return;
+
+                        new PhoneGetCodeUtil(button, context).onStart();
+
+                        String msg = baseBean.getMsg();
+                        String responseState = baseBean.getResponseState();
+//                        showToast("responseState");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtil.e("请求网路失败" + e.getMessage());
+//                        showToast("请稍后再试");
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
 }

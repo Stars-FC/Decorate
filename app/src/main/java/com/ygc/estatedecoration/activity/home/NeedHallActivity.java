@@ -9,7 +9,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -19,7 +18,6 @@ import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.adapter.GirdDropDownAdapter;
 import com.ygc.estatedecoration.adapter.HomeNeedHallAdapter;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
-import com.ygc.estatedecoration.utils.LogUtil;
 import com.ygc.estatedecoration.widget.TitleBar;
 import com.yyydjk.library.DropDownMenu;
 
@@ -43,15 +41,16 @@ public class NeedHallActivity extends BaseActivity {
     @BindView(R.id.dropDownMenu)
     DropDownMenu mDropDownMenu;
 
-    private View mTopView; //头布局
+    private View mTopRightView; //右头布局
+    private View mTopLeftView; //左侧头布局
     private View mRcView;//recycleyview的布局
 
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private List<View> popupViews = new ArrayList<>();
-    private String headers[] = {"全部", "装修类型", "房屋现状"};//筛选的标题集合
-    private String alls[] = {"不限", "沈阳", "北京", "上海", "成都", "广州", "深圳", "南京", "杭州"};
+    private String headers[] = { "装修类型", "房屋现状"};//筛选的标题集合
+//    private String alls[] = {"不限", "沈阳", "北京", "上海", "成都", "广州", "深圳", "南京", "杭州"};
     private String types[] = {"不限", "家装", "工装", "家装", "工装"};
     private String nows[] = {"不限", "局部改造", "毛胚房", "旧房翻新"};
     private int constellationPosition = 0;//默认选择
@@ -70,11 +69,19 @@ public class NeedHallActivity extends BaseActivity {
     @Override
     protected void addListener() {
         //筛选按钮的点击事件
-        mTopView.findViewById(R.id.tv_screen).setOnClickListener(new View.OnClickListener() {
+        mTopRightView.findViewById(R.id.tv_screen).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mDropDownMenu.closeMenu();//关闭选择列表
                 mDrawerLayout.openDrawer(GravityCompat.END); //显示左侧筛选界面
+            }
+        });
+
+        mTopLeftView.findViewById(R.id.tv_all).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDropDownMenu.closeMenu();//关闭选择列表
+                showToast("mTopLeftView");
             }
         });
 
@@ -115,9 +122,9 @@ public class NeedHallActivity extends BaseActivity {
 
 
         //头布局
-        mTopView = View.inflate(getApplicationContext(), R.layout.top_home_needhall, null);
-        //recycleyview的布局
-//        mRcView = View.inflate(getApplicationContext(), R.layout.recyclerview, null);
+        mTopRightView = View.inflate(getApplicationContext(), R.layout.top_home_needhall_right, null);
+
+        mTopLeftView= View.inflate(getApplicationContext(), R.layout.top_home_needhall_left, null);
 
         mRcView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.recyclerview, null);
 
@@ -141,10 +148,10 @@ public class NeedHallActivity extends BaseActivity {
     private void initDropDownMenu() {
 
         //init alls menu
-        final ListView cityView = new ListView(this);
-        allsAdapter = new GirdDropDownAdapter(this, Arrays.asList(alls));
-        cityView.setDividerHeight(0);
-        cityView.setAdapter(allsAdapter);
+//        final ListView cityView = new ListView(this);
+//        allsAdapter = new GirdDropDownAdapter(this, Arrays.asList(alls));
+//        cityView.setDividerHeight(0);
+//        cityView.setAdapter(allsAdapter);
 
         //init types menu
         final ListView ageView = new ListView(this);
@@ -159,25 +166,25 @@ public class NeedHallActivity extends BaseActivity {
         sexView.setAdapter(nowsAdapter);
 
         //init popupViews
-        popupViews.add(cityView);
+//        popupViews.add(cityView);
         popupViews.add(ageView);
         popupViews.add(sexView);
 
         //add item click event
-        cityView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+       /* cityView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 allsAdapter.setCheckItem(position);
                 mDropDownMenu.setTabText(position == 0 ? headers[0] : alls[position]);
                 mDropDownMenu.closeMenu();
             }
-        });
+        });*/
 
         ageView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 typesAdapter.setCheckItem(position);
-                mDropDownMenu.setTabText(position == 0 ? headers[1] : types[position]);
+                mDropDownMenu.setTabText(position == 0 ? headers[0] : types[position]);
                 mDropDownMenu.closeMenu();
             }
         });
@@ -186,12 +193,12 @@ public class NeedHallActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 nowsAdapter.setCheckItem(position);
-                mDropDownMenu.setTabText(position == 0 ? headers[2] : nows[position]);
+                mDropDownMenu.setTabText(position == 0 ? headers[1] : nows[position]);
                 mDropDownMenu.closeMenu();
             }
         });
 
-        mDropDownMenu.setDropDownMenu(Arrays.asList(headers), popupViews, mRcView, mTopView);
+        mDropDownMenu.setDropDownMenu(Arrays.asList(headers), popupViews, mRcView,mTopLeftView, mTopRightView);
     }
 
     @Override

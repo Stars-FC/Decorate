@@ -20,6 +20,8 @@
         android:orientation="vertical">
 
         <EditText
+            android:inputType="number"
+            android:id="@+id/et_user_photo"
             style="@style/EtStyle"
             android:hint="请输入您的手机号"/>
 
@@ -29,12 +31,13 @@
             android:background="@drawable/hengxian_green"/>
 
         <EditText
-            android:paddingLeft="20px"
+            android:id="@+id/et_user_random_num"
             android:layout_width="match_parent"
             android:layout_height="90px"
             android:layout_marginTop="20px"
             android:background="@null"
             android:gravity="center_vertical"
+            android:paddingLeft="20px"
             android:text="随机数"
             android:textSize="24px"/>
 
@@ -44,6 +47,7 @@
             android:background="@drawable/hengxian_green"/>
 
         <EditText
+            android:id="@+id/et_new_psw"
             style="@style/EtStyle"
             android:hint="请输入您的新密码"/>
 
@@ -53,6 +57,7 @@
             android:background="@drawable/hengxian_green"/>
 
         <EditText
+            android:id="@+id/et_again_new_psw"
             style="@style/EtStyle"
             android:hint="请确认你的新密码"/>
 
@@ -67,6 +72,7 @@
             android:layout_marginTop="20px">
 
             <EditText
+                android:inputType="number"
                 android:id="@+id/et_verification"
                 android:layout_width="300px"
                 android:layout_height="86px"
@@ -91,12 +97,13 @@
                 android:layout_toRightOf="@+id/et_verification"
                 android:background="@color/line"/>
 
-            <TextView
+            <Button
                 android:id="@+id/tv_get_verification"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="50px"
+                android:background="@null"
                 android:gravity="center"
                 android:lines="1"
                 android:text="获取验证码"

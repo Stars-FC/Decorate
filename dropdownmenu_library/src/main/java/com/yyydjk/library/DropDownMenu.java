@@ -26,6 +26,7 @@ public class DropDownMenu extends LinearLayout {
 
 
     private int width;//顶部菜单的宽度
+    private int width2;//顶部菜单的宽度
 
     //全部顶部菜单布局
     private LinearLayout estMenuView;
@@ -90,7 +91,9 @@ public class DropDownMenu extends LinearLayout {
 
         // TODO: 2017/11/15获取屏幕的尺寸
         WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-        width = (wm.getDefaultDisplay().getWidth() * 4) / 5;
+//        width = (wm.getDefaultDisplay().getWidth() * 4) / 5;
+        width = (wm.getDefaultDisplay().getWidth() * 1) / 5;
+        width2 = (wm.getDefaultDisplay().getWidth() * 3) / 5;
 
         //初始化tabMenuView并添加到tabMenuView
         tabMenuView = new LinearLayout(context);
@@ -106,10 +109,12 @@ public class DropDownMenu extends LinearLayout {
         tabMenuView.setBackgroundColor(menuBackgroundColor);
         estMenuView.setLayoutParams(paramstest);
 
+
         //将下拉选择列表的布局添加导总布局
-        estMenuView.addView(tabMenuView, 0);
+//        estMenuView.addView(tabMenuView, 0);
 
         addView(estMenuView, 0);
+//        addView(estMenuView, 1);
 
         //为tabMenuView添加下划线
         View underLine = new View(getContext());
@@ -131,7 +136,7 @@ public class DropDownMenu extends LinearLayout {
      * @param popupViews
      * @param contentView
      */
-    public void setDropDownMenu(@NonNull List<String> tabTexts, @NonNull List<View> popupViews, @NonNull View contentView, @NonNull View toptView) {
+    public void setDropDownMenu(@NonNull List<String> tabTexts, @NonNull List<View> popupViews, @NonNull View contentView, View topLeftView, @NonNull View topRightView) {
         if (tabTexts.size() != popupViews.size()) {
             throw new IllegalArgumentException("params not match, tabTexts.size() should be equal popupViews.size()");
         }
@@ -141,14 +146,16 @@ public class DropDownMenu extends LinearLayout {
         }
         containerView.addView(contentView, 0);
 
-        if (toptView != null) {
-            tabMenuView.setLayoutParams(new LayoutParams(width, ViewGroup.LayoutParams.WRAP_CONTENT));
-            // TODO: 2017/11/15 获取到传入的头布局或部分界面并显示在头布局末端
-            toptView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
-            estMenuView.addView(toptView, 1);
-        } else {
-            tabMenuView.setLayoutParams(new LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        }
+        // TODO: 2017/11/15 获取到传入的头布局或部分界面并显示在头布局末端
+        topLeftView.setLayoutParams(new FrameLayout.LayoutParams(width, FrameLayout.LayoutParams.MATCH_PARENT));
+        estMenuView.addView(topLeftView, 0);
+        //将下拉选择列表的布局添加导总布局
+        tabMenuView.setLayoutParams(new LayoutParams(width2, ViewGroup.LayoutParams.WRAP_CONTENT));
+        estMenuView.addView(tabMenuView, 1);
+
+        topRightView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+        estMenuView.addView(topRightView, 2);
+//        tabMenuView.setLayoutParams(new LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
 
         maskView = new View(getContext());
