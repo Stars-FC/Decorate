@@ -111,6 +111,10 @@
         </activity>
         <activity android:name=".activity.home.ServerMsgActivity">
         </activity>
+        <activity android:name=".activity.my.ActivitiesActivity">
+        </activity>
+        <activity android:name=".activity.my.ActivitiesDetailsActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="300px"
+        android:src="@drawable/shangpin_heng"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.ygc.estatedecoration.widget.CircleImageView
+            android:layout_width="63px"
+            android:layout_height="63px"
+            android:layout_marginLeft="25px"
+            android:src="@drawable/touxiangxuqiubaojia"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="18px"
+            android:gravity="center_vertical"
+            android:text="邓颖"
+            android:textColor="@color/black"
+            android:textSize="28px"/>
+    </LinearLayout>
+
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:paddingLeft="22px">
+
+        <TextView
+            android:id="@+id/activites_tv_starttime"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_vertical"
+            android:text="活动开始时间"
+            android:textColor="@color/black"
+            android:textSize="27px"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/activites_tv_starttime"
+            android:background="@null"
+            android:gravity="right|center_vertical"
+            android:hint="活动开始时间"
+            android:minWidth="300px"
+            android:textSize="27px"/>
+    </RelativeLayout>
+
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:paddingLeft="22px">
+
+        <TextView
+            android:id="@+id/activites_tv_endtime"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_vertical"
+            android:text="活动结束时间"
+            android:textColor="@color/black"
+            android:textSize="27px"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/activites_tv_endtime"
+            android:background="@null"
+            android:gravity="right|center_vertical"
+            android:hint="活动结束时间"
+            android:minWidth="300px"
+            android:textSize="27px"/>
+    </RelativeLayout>
+
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:paddingLeft="22px">
+
+        <TextView
+            android:id="@+id/activites_tv_place"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_vertical"
+            android:text="活动地点"
+            android:textColor="@color/black"
+            android:textSize="27px"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/activites_tv_place"
+            android:background="@null"
+            android:gravity="right|center_vertical"
+            android:hint="活动地点"
+            android:minWidth="300px"
+            android:textSize="27px"/>
+    </RelativeLayout>
+
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="22px"
+        android:text="活动介绍，活动介绍，活动介绍，活动介绍，活动介绍，活动介绍，活动介绍，活动介绍，活动介绍，活动介绍，活动介绍，活动介绍，活动介绍，"
+        android:textColor="@color/black"
+        android:textSize="27px"/>
+</LinearLayout>

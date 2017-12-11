@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/login_forgetpwd"
+    android:id="@+id/login_register"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
@@ -20,6 +20,7 @@
         android:orientation="vertical">
 
         <EditText
+            android:id="@+id/service_et_photo"
             style="@style/EtStyle"
             android:hint="请输入您的手机号"/>
 
@@ -49,6 +50,7 @@
             android:background="@drawable/hengxian_green"/>
 
         <EditText
+            android:id="@+id/service_et_nickname"
             android:layout_width="match_parent"
             android:layout_height="90px"
             android:layout_marginTop="20px"
@@ -64,8 +66,10 @@
             android:background="@drawable/hengxian_green"/>
 
         <EditText
+            android:id="@+id/service_et_psw"
+            android:inputType="numberPassword"
             style="@style/EtStyle"
-            android:hint="请输入您的新密码"/>
+            android:hint="请输入您的密码"/>
 
         <View
             android:layout_width="match_parent"
@@ -73,8 +77,10 @@
             android:background="@drawable/hengxian_green"/>
 
         <EditText
+            android:id="@+id/service_et_againpsw"
+            android:inputType="numberPassword"
             style="@style/EtStyle"
-            android:hint="请确认你的新密码"/>
+            android:hint="请确认你的密码"/>
 
         <View
             android:layout_width="match_parent"
@@ -87,7 +93,7 @@
             android:layout_marginTop="20px">
 
             <EditText
-                android:id="@+id/et_verification"
+                android:id="@+id/service_et_verification"
                 android:layout_width="300px"
                 android:layout_height="86px"
                 android:layout_marginLeft="40px"
@@ -111,8 +117,9 @@
                 android:layout_toRightOf="@+id/et_verification"
                 android:background="@color/line"/>
 
-            <TextView
-                android:id="@+id/tv_get_verification"
+            <Button
+                android:background="@null"
+                android:id="@+id/service_tv_get_verification"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"

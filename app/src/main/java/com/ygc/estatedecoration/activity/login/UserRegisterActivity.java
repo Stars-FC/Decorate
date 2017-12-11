@@ -1,5 +1,6 @@
 package com.ygc.estatedecoration.activity.login;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -7,8 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ygc.estatedecoration.R;
+import com.ygc.estatedecoration.activity.LoginActivity;
 import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
 import com.ygc.estatedecoration.bean.BaseBean;
@@ -34,17 +37,17 @@ import io.reactivex.schedulers.Schedulers;
 public class UserRegisterActivity extends BaseActivity {
 
     @BindView(R.id.et_user_photo)
-    EditText mEtUserPhoto;
+    EditText mEtUserPhoto;//手机号
     @BindView(R.id.et_user_random_num)
-    EditText mEtUserRandomNum;
+    EditText mEtUserRandomNum;//昵称
     @BindView(R.id.et_new_psw)
-    EditText mEtNewPsw;
+    EditText mEtNewPsw;//密码
     @BindView(R.id.et_again_new_psw)
-    EditText mEtAgainNewPsw;
+    EditText mEtAgainNewPsw;//确认密码
     @BindView(R.id.et_verification)
-    EditText mEtVerification;
+    EditText mEtVerification;//验证码
     @BindView(R.id.tv_get_verification)
-    Button mTvGetVerification;
+    Button mTvGetVerification;//获取验证码
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
@@ -82,10 +85,10 @@ public class UserRegisterActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.tv_get_verification://获取验证码
-                getVerification();
+                getNetVerification();
                 break;
             case R.id.bt_register_login://注册完成
-                getregister();
+                getNetRegister();
                 break;
         }
     }
@@ -94,7 +97,7 @@ public class UserRegisterActivity extends BaseActivity {
     /**
      * 用户注册
      */
-    public void getregister() {
+    public void getNetRegister() {
         if (!NetWorkUtil.isNetWorkConnect(this)) {
             showToast("请检查网络设置");
             return;
@@ -111,12 +114,69 @@ public class UserRegisterActivity extends BaseActivity {
             showToast("请填昵称");
             return;
         }
-        // TODO: 2017/12/11  
 
+        String psw = MyPublic.getText(mEtNewPsw);
+        if (TextUtils.isEmpty(psw)) {
+            showToast("请输入密码");
+            return;
+        }
+        String againPsw = MyPublic.getText(mEtAgainNewPsw);
+        if (TextUtils.isEmpty(againPsw) && againPsw.equals(psw)) {
+            showToast("请确认两次密码相同");
+            return;
+        }
+
+        String doSendCode = MyPublic.getText(mEtVerification);
+        if (TextUtils.isEmpty(doSendCode)) {
+            showToast("请输入验证码");
+            return;
+        }
+
+        APPApi.getInstance().service
+                .register(UserPhoto, 0, 0, userNum, psw, doSendCode)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<BaseBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseBean baseBean) {
+                        LogUtil.e("请求网路成功");
+
+                        if (null == baseBean) return;
+
+                        String msg = baseBean.getMsg();
+                        String responseState = baseBean.getResponseState();
+                        if ("添加成功".equals(msg)) {
+                            Intent intent = new Intent(UserRegisterActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            showToast(msg);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtil.e("Fc_请求网路失败" + e.getMessage());
+                        Toast.makeText(UserRegisterActivity.this, "网络繁忙，请稍后再试", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
 
-    public void getVerification() {
+    /**
+     * 获取验证码
+     */
+    public void getNetVerification() {
 
         if (!NetWorkUtil.isNetWorkConnect(this)) {
             showToast("请检查网络设置");

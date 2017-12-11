@@ -22,6 +22,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.ygc.estatedecoration.R;
+import com.ygc.estatedecoration.activity.my.ActivitiesActivity;
 import com.ygc.estatedecoration.activity.my.AuthenticationActivity;
 import com.ygc.estatedecoration.activity.my.CollectionActivity;
 import com.ygc.estatedecoration.activity.my.GuaranteeMoneyActivity;
@@ -145,9 +146,9 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
                 showToast("我的亮点");
                 break;
             case R.id.my_activity://我的活动
-                /*intent.setClass(mActivity, CollectionActivity.class);
-                startActivity(intent);*/
-                showToast("我的活动");
+                intent.setClass(mActivity, ActivitiesActivity.class);
+                startActivity(intent);
+//                showToast("我的活动");
                 break;
             case R.id.naviFrameRight://设置
                 intent.setClass(mActivity, SettingActivity.class);

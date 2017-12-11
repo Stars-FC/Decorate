@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ygc.estatedecoration.activity.login.UserRegisterActivity;
 import com.ygc.estatedecoration.api.APPApi;
@@ -162,7 +163,8 @@ public class MyPublic {
 
                     @Override
                     public void onError(Throwable e) {
-                        LogUtil.e("请求网路失败" + e.getMessage());
+                        LogUtil.e("Fc_请求网路失败" + e.getMessage());
+                        Toast.makeText(context, "网络繁忙，请稍后再试", Toast.LENGTH_SHORT).show();
 //                        showToast("请稍后再试");
                     }
 

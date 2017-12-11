@@ -4,22 +4,21 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.ygc.estatedecoration.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 微信登陆材料商item
+ * Created by FC on 2017/11/13.
+ * 我的-我的亮点
  */
 
-public class ServiceWeiXinLoginAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+public class MyActivitiesAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
-
-    public ServiceWeiXinLoginAdapter(List<String> list) {
-        super(R.layout.item_case_style, list);
+    public MyActivitiesAdapter(List<String> list) {
+        super(R.layout.item_my_activity_activities, list);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, String item) {
-        helper.setText(R.id.style_title_tv, item);
+
     }
 }

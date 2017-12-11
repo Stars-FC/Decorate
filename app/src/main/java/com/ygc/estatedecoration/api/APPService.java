@@ -16,14 +16,6 @@ import retrofit2.http.Part;
 import retrofit2.http.PartMap;
 
 public interface APPService {
-    @Multipart
-    @POST("register/registered.action")
-    Observable<Base> register(
-            @Part("auMobile") RequestBody mobile,
-            @Part("auPasswordOne") RequestBody passwordOne,
-            @Part("auPasswordTwo") RequestBody passwordTwo,
-            @Part("auBuyerNick") RequestBody nick,
-            @PartMap Map<String, RequestBody> params);
 
     @FormUrlEncoded
     @POST("logon/logonJudge.action")
@@ -55,9 +47,12 @@ public interface APPService {
 
     @FormUrlEncoded
     @POST("user/register.action")
-    Observable<BaseBean> register(@Field("username") String username, @Field("type") int  type,
-                                         @Field("r_id") int  r_id, @Field("nickname") String nickname,
-                                         @Field("password") String password, @Field("code") String code);  //注册
+    Observable<BaseBean> register(@Field("username") String username,
+                                  @Field("type") int type,
+                                  @Field("r_id") int r_id,
+                                  @Field("nickname") String nickname,
+                                  @Field("password") String password,
+                                  @Field("code") String code);  //注册
 
 
     //服务商端-------------------------
