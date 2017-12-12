@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -12,6 +13,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.adapter.MyActivitiesAdapter;
+import com.ygc.estatedecoration.adapter.MyBrightAdapter;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
 import com.ygc.estatedecoration.widget.TitleBar;
 
@@ -19,10 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ActivitiesActivity extends BaseActivity {
+public class MyBrightActivity extends BaseActivity {
 
 
     @BindView(R.id.recyclerview)
@@ -31,14 +32,14 @@ public class ActivitiesActivity extends BaseActivity {
     @BindView(R.id.swipeLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
-    private MyActivitiesAdapter mAdapter;
+    private MyBrightAdapter mAdapter;
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
-        bar.setTitleText("我的活动");
+        bar.setTitleText("我的亮点");
         bar.setLeftImageResource(R.drawable.fanhui);
         bar.setRightTextColor(Color.parseColor("#4EBE65"));
-        bar.setRightText("发起活动");
+        bar.setRightText("添加");
         return true;
     }
 
@@ -48,9 +49,9 @@ public class ActivitiesActivity extends BaseActivity {
         mRecyclerview.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                showToast("mRecyclerview第" + position + "数据");
-                Intent intent = new Intent(ActivitiesActivity.this, ActivitiesDetailsActivity.class);
-                startActivity(intent);
+                showToast("mRecyclerview第" + position + "数据");
+//                Intent intent = new Intent(MyBrightActivity.this);
+//                startActivity(intent);
             }
         });
 
@@ -68,14 +69,14 @@ public class ActivitiesActivity extends BaseActivity {
         });
 
         //上拉加载更多
-        mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+       /* mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
                 mAdapter.loadMoreComplete();//完成
 //                mAdapter.loadMoreFail();//失败
 //                mAdapter.loadMoreEnd();//结束
             }
-        }, mRecyclerview);
+        }, mRecyclerview);*/
     }
 
     @Override
@@ -86,18 +87,18 @@ public class ActivitiesActivity extends BaseActivity {
     @Override
     protected void initData(Bundle savedInstanceState) {
         List<String> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 3; i++) {
             list.add("" + i);
         }
-        mAdapter = new MyActivitiesAdapter(list);
+        mAdapter = new MyBrightAdapter(list);
 
-        mRecyclerview.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+        mRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mRecyclerview.setAdapter(mAdapter);
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.recyclerview_paddinglr;
+        return R.layout.recyclerview;
     }
 
     @OnClick({R.id.naviFrameLeft, R.id.naviFrameRight})
@@ -106,10 +107,10 @@ public class ActivitiesActivity extends BaseActivity {
             case R.id.naviFrameLeft:
                 finish();
                 break;
-            case R.id.naviFrameRight://发起活动
-                Intent intent = new Intent(ActivitiesActivity.this, LaunchActivitesActivity.class);
+            case R.id.naviFrameRight://添加
+//                showToast("添加");
+                Intent intent = new Intent(MyBrightActivity.this, AddMyBrightActivity.class);
                 startActivity(intent);
-//                showToast("发起活动");
                 break;
         }
     }

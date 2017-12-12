@@ -9,7 +9,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="300px"
-        android:src="@drawable/shangpin_heng"/>
+        android:src="@color/line"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,8 +18,8 @@
         android:orientation="horizontal">
 
         <com.ygc.estatedecoration.widget.CircleImageView
-            android:layout_width="63px"
-            android:layout_height="63px"
+            android:layout_width="65px"
+            android:layout_height="65px"
             android:layout_marginLeft="25px"
             android:src="@drawable/touxiangxuqiubaojia"/>
 
@@ -33,7 +33,7 @@
             android:textSize="28px"/>
     </LinearLayout>
 
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/line"/>
@@ -41,7 +41,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="90px"
-        android:paddingLeft="22px">
+        android:paddingLeft="22px"
+        android:paddingRight="28px">
 
         <TextView
             android:id="@+id/activites_tv_starttime"
@@ -53,19 +54,19 @@
             android:textColor="@color/black"
             android:textSize="27px"/>
 
-        <EditText
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_toRightOf="@+id/activites_tv_starttime"
-            android:background="@null"
             android:gravity="right|center_vertical"
-            android:hint="活动开始时间"
             android:minWidth="300px"
+            android:text="活动开始时间"
+            android:textColor="@color/color_a1a1a1"
             android:textSize="27px"/>
     </RelativeLayout>
 
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/line"/>
@@ -73,7 +74,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="90px"
-        android:paddingLeft="22px">
+        android:paddingLeft="22px"
+        android:paddingRight="28px">
 
         <TextView
             android:id="@+id/activites_tv_endtime"
@@ -85,19 +87,19 @@
             android:textColor="@color/black"
             android:textSize="27px"/>
 
-        <EditText
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_toRightOf="@+id/activites_tv_endtime"
-            android:background="@null"
             android:gravity="right|center_vertical"
-            android:hint="活动结束时间"
             android:minWidth="300px"
+            android:text="活动结束时间"
+            android:textColor="@color/color_a1a1a1"
             android:textSize="27px"/>
     </RelativeLayout>
 
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/line"/>
@@ -105,7 +107,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="90px"
-        android:paddingLeft="22px">
+        android:paddingLeft="22px"
+        android:paddingRight="28px">
 
         <TextView
             android:id="@+id/activites_tv_place"
@@ -117,19 +120,19 @@
             android:textColor="@color/black"
             android:textSize="27px"/>
 
-        <EditText
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_toRightOf="@+id/activites_tv_place"
-            android:background="@null"
             android:gravity="right|center_vertical"
-            android:hint="活动地点"
             android:minWidth="300px"
+            android:text="活动地点"
+            android:textColor="@color/color_a1a1a1"
             android:textSize="27px"/>
     </RelativeLayout>
 
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/line"/>
@@ -137,8 +140,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="25px"
         android:paddingLeft="22px"
-        android:text="活动介绍，活动介绍，活动介绍，活动介绍，活动介绍，活动介绍，活动介绍，活动介绍，活动介绍，活动介绍，活动介绍，活动介绍，活动介绍，"
+        android:paddingRight="28px"
+        android:text="活动介绍，活动介绍，活动介绍，活动介绍，活动介绍活动介绍，活动介绍活动介绍，活动介绍，活动介绍，活动介绍，活动介绍，活动介绍……"
         android:textColor="@color/black"
         android:textSize="27px"/>
+
 </LinearLayout>

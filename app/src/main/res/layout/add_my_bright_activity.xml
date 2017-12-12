@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--添加亮点-->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1px"
+            android:background="@color/line"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="300px"
+            android:layout_marginTop="15px"
+            android:src="@color/line"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="180px"
+            android:layout_marginTop="30px"
+            android:background="@null"
+            android:gravity="start"
+            android:hint="亮点介绍，亮点介绍，亮点介绍，亮点介绍，亮点介绍，亮点介绍……"
+            android:maxLength="20"
+            android:paddingLeft="16px"
+            android:paddingRight="28px"
+            android:textColor="@color/black"
+            android:textSize="27px"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60px"
+        android:layout_below="@+id/ll_top"
+        android:gravity="center_vertical|right"
+        android:paddingRight="30px"
+        android:text="20字以内"
+        android:textColor="@color/color_a1a1a1"
+        android:textSize="22px"/>
+
+    <TextView
+        android:id="@+id/my_add_bright_ok"
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_50bd65"
+        android:gravity="center"
+        android:text="确认添加"
+        android:textColor="@color/white"
+        android:textSize="32px"/>
+</RelativeLayout>

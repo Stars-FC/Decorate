@@ -103,6 +103,14 @@
         </activity>
         <activity android:name=".activity.my.ActivitiesDetailsActivity">
         </activity>
+        <activity android:name=".activity.my.LaunchActivitesActivity">
+        </activity>
+        <activity android:name=".activity.my.MyBrightActivity">
+        </activity>
+        <activity android:name=".activity.my.AddMyBrightActivity">
+        </activity>
+        <activity android:name=".activity.my.WarrantyMoneyActivity">
+        </activity>
     </application>
 
 </manifest>

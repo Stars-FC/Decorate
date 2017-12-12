@@ -27,6 +27,7 @@ import com.ygc.estatedecoration.activity.my.AuthenticationActivity;
 import com.ygc.estatedecoration.activity.my.CollectionActivity;
 import com.ygc.estatedecoration.activity.my.GuaranteeMoneyActivity;
 import com.ygc.estatedecoration.activity.my.MoneyBagActivity;
+import com.ygc.estatedecoration.activity.my.MyBrightActivity;
 import com.ygc.estatedecoration.activity.my.ServerMyAnLiActivity;
 import com.ygc.estatedecoration.activity.my.SettingActivity;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
@@ -116,7 +117,8 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
         return R.layout.fragment_my;
     }
 
-    @OnClick({R.id.my_anli_rl, R.id.iv_company_icon, R.id.tv_chage, R.id.my_authentication, R.id.mine_follow, R.id.my_moneybag, R.id.my_activity, R.id.my_bright, R.id.naviFrameRight})
+    @OnClick({R.id.my_anli_rl, R.id.iv_company_icon, R.id.tv_chage, R.id.my_authentication,
+            R.id.ll_guarantee_money, R.id.ll_warranty_money, R.id.my_moneybag, R.id.my_activity, R.id.my_bright, R.id.naviFrameRight})
     public void onViewClicked(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -134,8 +136,11 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
                 intent.setClass(mActivity, AuthenticationActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.mine_follow://质保金
+            case R.id.ll_guarantee_money://保证金
                 intent.setClass(mActivity, GuaranteeMoneyActivity.class);
+                startActivity(intent);
+            case R.id.ll_warranty_money://质保金
+                intent.setClass(mActivity, WarrantyMoneyActivity.class);
                 startActivity(intent);
                 break;
             case R.id.my_moneybag://我的钱包
@@ -143,7 +148,9 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
                 startActivity(intent);
                 break;
             case R.id.my_bright://我的亮点
-                showToast("我的亮点");
+//                showToast("我的亮点");
+                intent.setClass(mActivity, MyBrightActivity.class);
+                startActivity(intent);
                 break;
             case R.id.my_activity://我的活动
                 intent.setClass(mActivity, ActivitiesActivity.class);

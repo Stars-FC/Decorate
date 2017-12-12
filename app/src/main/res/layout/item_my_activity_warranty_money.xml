@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="27px"
+        android:paddingRight="25px">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30px"
+            android:layout_marginTop="30px"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="需求标题"
+                android:textColor="@color/black"
+                android:textSize="28px"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/tv_money"
+                android:text="质保金"
+                android:textColor="@color/black"
+                android:textSize="26px"/>
+
+            <TextView
+                android:id="@+id/tv_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="20元"
+                android:textColor="@color/red"
+                android:textSize="26px"/>
+        </RelativeLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="2"
+            android:text="需求分析需求分析需求需求分析需需求分析需需求分析需分析需求分析需求分析需求分析需求分析需求分析需求分析需求分析需求分析需求分析"
+            android:textSize="24px"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="108px">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20px"
+                        android:layout_toRightOf="@+id/tv_state"
+                        android:text="订单号："
+                        android:textColor="@color/black"
+                        android:textSize="23px"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5px"
+                        android:text="12345678"
+                        android:textColor="@color/black"
+                        android:textSize="23px"/>
+
+                </LinearLayout>
+
+                <!--<TextView
+                    android:layout_width="90px"
+                    android:layout_height="40px"
+                    android:layout_marginLeft="20px"
+                    android:background="@drawable/shape_empty_home"
+                    android:gravity="center"
+                    android:text="已托管"
+                    android:textColor="@color/color_4fbc65"
+                    android:textSize="22px"/>-->
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="25px"
+                    android:text="家装"
+                    android:textColor="@color/color_4fbc65"
+                    android:textSize="24px"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="25px"
+                    android:text="毛呸房"
+                    android:textColor="@color/color_4fbc65"
+                    android:textSize="24px"/>
+
+                <TextView
+                    android:id="@+id/tv_acreage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="210 m²"
+                    android:textColor="@color/color_4fbc65"
+                    android:textSize="24px"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_alignParentBottom="true"
+                android:background="@color/line"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15px"
+            android:layout_marginTop="15px">
+
+            <TextView
+                android:id="@+id/tv_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="沈阳"
+                android:textColor="@color/color_37406"
+                android:textSize="23px"/>
+
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line"/>
+</LinearLayout>
