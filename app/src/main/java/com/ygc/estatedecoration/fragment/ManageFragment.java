@@ -1,5 +1,6 @@
 package com.ygc.estatedecoration.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -10,6 +11,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygc.estatedecoration.R;
+import com.ygc.estatedecoration.activity.home.DemandAndProgressActivity;
 import com.ygc.estatedecoration.adapter.ManageAdapter;
 import com.ygc.estatedecoration.adapter.MyCollectionAdapter;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
@@ -26,7 +28,7 @@ import butterknife.BindView;
  * 管理界面
  */
 
-public class ManageFragment extends BaseFragment {
+public class ManageFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private static final String ARG_C = "content";
 
@@ -65,6 +67,13 @@ public class ManageFragment extends BaseFragment {
 
         mRecyclerview.setLayoutManager(new LinearLayoutManager(mActivity));
         mRecyclerview.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(mActivity, DemandAndProgressActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -73,26 +82,10 @@ public class ManageFragment extends BaseFragment {
 
     @Override
     protected void addListener() {
-        //每个条目的点击事件
-        mRecyclerview.addOnItemTouchListener(new OnItemClickListener() {
-            @Override
-            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                showToast("mRecyclerview第" + position + "数据");
-            }
-        });
-
         mSwipeRefreshLayout.setColorSchemeColors(Color.parseColor("#4EBE65")); //设置下拉刷新箭头颜色
 
         //下拉加载
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mAdapter.setEnableLoadMore(false);//这里的作用是防止下拉刷新的时候还可以上拉加载
-                if (mSwipeRefreshLayout.isRefreshing()) {
-                    mSwipeRefreshLayout.setRefreshing(false);
-                }
-            }
-        });
+        mSwipeRefreshLayout.setOnRefreshListener(this);
 
         //上拉加载更多
         mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
@@ -113,5 +106,13 @@ public class ManageFragment extends BaseFragment {
     @Override
     protected int setLayoutResourceId() {
         return R.layout.fragment_manage;
+    }
+
+    @Override
+    public void onRefresh() {
+        mAdapter.setEnableLoadMore(false);//这里的作用是防止下拉刷新的时候还可以上拉加载
+        if (mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
     }
 }

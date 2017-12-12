@@ -2,10 +2,13 @@ package com.ygc.estatedecoration.activity.home;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
 import com.ygc.estatedecoration.widget.TitleBar;
+
+import butterknife.OnClick;
 
 /**
  * Created by FC on 2017/11/20.
@@ -13,6 +16,7 @@ import com.ygc.estatedecoration.widget.TitleBar;
  */
 
 public class TransactionManageOfferActivity extends BaseActivity{
+
     @Override
     protected boolean buildTitle(TitleBar bar) {
         bar.setTitleText("报价");
@@ -40,5 +44,16 @@ public class TransactionManageOfferActivity extends BaseActivity{
     @Override
     protected int getLayoutId() {
         return R.layout.offer_price_layout;
+    }
+
+    @OnClick({R.id.naviFrameLeft})
+    public void onClickEvent(View view) {
+        if (view != null) {
+            switch (view.getId()) {
+                case R.id.naviFrameLeft:
+                    finish();
+                    break;
+            }
+        }
     }
 }

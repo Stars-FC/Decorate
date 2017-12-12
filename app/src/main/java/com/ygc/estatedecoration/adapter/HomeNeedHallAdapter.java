@@ -12,14 +12,14 @@ import java.util.List;
  * 主页-需求大厅的适配器
  */
 
-public class HomeNeedHallAdapter extends BaseQuickAdapter<NeedBean.DataBean, BaseViewHolder> {
+public class HomeNeedHallAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
-    public HomeNeedHallAdapter(List<NeedBean.DataBean> data) {
+    public HomeNeedHallAdapter(List<String> data) {//NeedBean.DataBean
         super(R.layout.item_home_needhall, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, NeedBean.DataBean item) {
+    protected void convert(BaseViewHolder helper, String item) {
 
     }
 

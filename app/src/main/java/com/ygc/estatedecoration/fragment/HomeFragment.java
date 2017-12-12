@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.activity.home.MyStoreActivity;
 import com.ygc.estatedecoration.activity.home.MyVisitorActivity;
@@ -34,7 +33,7 @@ import butterknife.OnClick;
  * 首页
  */
 
-public class HomeFragment extends BaseFragment implements View.OnClickListener {
+public class HomeFragment extends BaseFragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerView;
@@ -82,6 +81,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         mRecyclerView.setAdapter(mHomeAdapter);
+        mHomeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(mActivity, TransactionManageDetailActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -91,45 +97,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         mView.findViewById(R.id.trade_manage).setOnClickListener(this);
         mView.findViewById(R.id.my_visitor).setOnClickListener(this);
 
-        //每个条目的点击事件
-        mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
-            @Override
-            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                showToast("mRecyclerview第" + position + "数据");
-                Intent intent = new Intent(mActivity, TransactionManageDetailActivity.class);
-                startActivity(intent);
-            }
-        });
-
         mSwipeRefreshLayout.setColorSchemeColors(Color.parseColor("#4EBE65")); //设置下拉刷新箭头颜色
-
-        //下拉加载
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mHomeAdapter.setEnableLoadMore(false);//这里的作用是防止下拉刷新的时候还可以上拉加载
-                if (mSwipeRefreshLayout.isRefreshing()) {
-                    mSwipeRefreshLayout.setRefreshing(false);
-                }
-                /*if (mCurrentCounter >= TOTAL_COUNTER) {
-                    //数据全部加载完毕
-                    mQuickAdapter.loadMoreEnd();
-                } else {
-                    if (isErr) {
-                        //成功获取更多数据
-                        mQuickAdapter.addData(DataServer.getSampleData(PAGE_SIZE));
-                        mCurrentCounter = mQuickAdapter.getData().size();
-                        mQuickAdapter.loadMoreComplete();
-                    } else {
-                        //获取更多数据失败
-                        isErr = true;
-                        Toast.makeText(PullToRefreshUseActivity.this, R.string.network_err, Toast.LENGTH_LONG).show();
-                        mQuickAdapter.loadMoreFail();
-
-                    }
-                }*/
-            }
-        });
+        mSwipeRefreshLayout.setOnRefreshListener(this);
 
         //上拉加载更多
         mHomeAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
@@ -191,5 +160,30 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                     break;
             }
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        mHomeAdapter.setEnableLoadMore(false);//这里的作用是防止下拉刷新的时候还可以上拉加载
+        if (mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
+                /*if (mCurrentCounter >= TOTAL_COUNTER) {
+                    //数据全部加载完毕
+                    mQuickAdapter.loadMoreEnd();
+                } else {
+                    if (isErr) {
+                        //成功获取更多数据
+                        mQuickAdapter.addData(DataServer.getSampleData(PAGE_SIZE));
+                        mCurrentCounter = mQuickAdapter.getData().size();
+                        mQuickAdapter.loadMoreComplete();
+                    } else {
+                        //获取更多数据失败
+                        isErr = true;
+                        Toast.makeText(PullToRefreshUseActivity.this, R.string.network_err, Toast.LENGTH_LONG).show();
+                        mQuickAdapter.loadMoreFail();
+
+                    }
+                }*/
     }
 }

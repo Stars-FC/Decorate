@@ -1,5 +1,6 @@
 package com.ygc.estatedecoration.activity.home;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -42,7 +43,7 @@ import io.reactivex.schedulers.Schedulers;
  * 首页-需求大厅界面
  */
 
-public class NeedHallActivity extends BaseActivity {
+public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.drawerlayout)
     DrawerLayout mDrawerLayout;
@@ -58,16 +59,14 @@ public class NeedHallActivity extends BaseActivity {
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private List<View> popupViews = new ArrayList<>();
-    private String headers[] = { "装修类型", "房屋现状"};//筛选的标题集合
-//    private String alls[] = {"不限", "沈阳", "北京", "上海", "成都", "广州", "深圳", "南京", "杭州"};
-    private String types[] = {"不限", "家装", "工装", "家装", "工装"};
+    private String headers[] = { "装修类型", "房屋现状"};
+    private String types[] = {"不限", "家装", "工装"};
     private String nows[] = {"不限", "局部改造", "毛胚房", "旧房翻新"};
-    private int constellationPosition = 0;//默认选择
-    private GirdDropDownAdapter allsAdapter;
     private GirdDropDownAdapter typesAdapter;
     private GirdDropDownAdapter nowsAdapter;
     private HomeNeedHallAdapter mAdapter;
-    private List<NeedBean.DataBean> list = new ArrayList<>();
+    private List<NeedBean.DataBean> dataList = new ArrayList<>();
+    private List<String> list = new ArrayList<>();
 
 
     @Override
@@ -94,26 +93,10 @@ public class NeedHallActivity extends BaseActivity {
             }
         });
 
-        //每个条目的点击事件
-        mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
-            @Override
-            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                showToast("mRecyclerview第" + position + "数据");
-            }
-        });
-
         mSwipeRefreshLayout.setColorSchemeColors(Color.parseColor("#4EBE65")); //设置下拉刷新箭头颜色
 
         //下拉加载
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mAdapter.setEnableLoadMore(false);//这里的作用是防止下拉刷新的时候还可以上拉加载
-                if (mSwipeRefreshLayout.isRefreshing()) {
-                    mSwipeRefreshLayout.setRefreshing(false);
-                }
-            }
-        });
+        mSwipeRefreshLayout.setOnRefreshListener(this);
 
         //上拉加载更多
         mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
@@ -145,10 +128,19 @@ public class NeedHallActivity extends BaseActivity {
         //设置mDropDownMenu筛选
         initDropDownMenu();
 
+        for (int i = 0; i < 10; i++) {
+            list.add("heh");
+        }
         mAdapter = new HomeNeedHallAdapter(list);
-
         mRecyclerView.setLayoutManager(new LinearLayoutManager(NeedHallActivity.this));
         mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(NeedHallActivity.this, TransactionManageDetailActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -156,38 +148,18 @@ public class NeedHallActivity extends BaseActivity {
      */
     private void initDropDownMenu() {
 
-        //init alls menu
-//        final ListView cityView = new ListView(this);
-//        allsAdapter = new GirdDropDownAdapter(this, Arrays.asList(alls));
-//        cityView.setDividerHeight(0);
-//        cityView.setAdapter(allsAdapter);
-
-        //init types menu
         final ListView ageView = new ListView(this);
         ageView.setDividerHeight(0);
         typesAdapter = new GirdDropDownAdapter(this, Arrays.asList(types));
         ageView.setAdapter(typesAdapter);
 
-        //init nows menu
         final ListView sexView = new ListView(this);
         sexView.setDividerHeight(0);
         nowsAdapter = new GirdDropDownAdapter(this, Arrays.asList(nows));
         sexView.setAdapter(nowsAdapter);
 
-        //init popupViews
-//        popupViews.add(cityView);
         popupViews.add(ageView);
         popupViews.add(sexView);
-
-        //add item click event
-       /* cityView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                allsAdapter.setCheckItem(position);
-                mDropDownMenu.setTabText(position == 0 ? headers[0] : alls[position]);
-                mDropDownMenu.closeMenu();
-            }
-        });*/
 
         ageView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -231,7 +203,7 @@ public class NeedHallActivity extends BaseActivity {
                     @Override
                     public void onNext(@NonNull NeedBean needBean) {
                         if (needBean.ResponseStatus.equals("1")) {
-                            list.addAll(needBean.getData());
+                            dataList.addAll(needBean.getData());
                         } else {
                             showToast(needBean.msg);
                         }
@@ -261,6 +233,14 @@ public class NeedHallActivity extends BaseActivity {
                 finish();
                 break;
 
+        }
+    }
+
+    @Override
+    public void onRefresh() {
+        mAdapter.setEnableLoadMore(false);//这里的作用是防止下拉刷新的时候还可以上拉加载
+        if (mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.setRefreshing(false);
         }
     }
 }

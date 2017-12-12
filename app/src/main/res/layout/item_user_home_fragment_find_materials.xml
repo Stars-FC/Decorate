@@ -12,10 +12,26 @@
         android:background="#f9f8f8"
         android:orientation="vertical">
 
-        <ImageView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="314px"
-            android:src="@drawable/shang_pin"/>
+            android:layout_height="316px">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="314px"
+                android:scaleType="fitXY"
+                android:src="@drawable/shang_pin"/>
+
+            <ImageView
+                android:id="@+id/duibi_iv"
+                android:layout_width="60px"
+                android:layout_height="60px"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="12px"
+                android:layout_marginRight="12px"
+                android:src="@drawable/duibi"/>
+        </RelativeLayout>
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -24,13 +40,13 @@
             android:layout_marginTop="20px"
             android:text="材料名称"
             android:textColor="@android:color/black"
-            android:textSize="23px"/>
+            android:textSize="24px"/>
 
         <com.zhy.autolayout.AutoRelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20px"
-            android:layout_marginTop="16px"
+            android:layout_marginTop="10px"
             android:orientation="horizontal">
 
             <TextView
@@ -38,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:text="￥ 2380"
                 android:textColor="#eb2223"
-                android:textSize="19px"/>
+                android:textSize="24px"/>
 
             <TextView
                 android:layout_width="wrap_content"

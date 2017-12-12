@@ -563,11 +563,6 @@
             android:layout_height="1px"
             android:background="@color/line"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/line"/>
-
         <RelativeLayout
             android:id="@+id/my_address_rl"
             android:layout_width="match_parent"

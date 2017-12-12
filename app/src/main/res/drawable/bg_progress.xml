@@ -7,4 +7,5 @@
             android:width="1px"/>
 
     <solid android:color="@color/white"/>
+
 </shape>

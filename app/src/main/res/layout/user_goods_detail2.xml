@@ -2,15 +2,14 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
     android:id="@+id/rl_goods_detail"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:scrollbars="none">
 
@@ -53,7 +52,35 @@
                     android:textColor="@color/red"
                     android:textSize="24px"/>
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="19px"
+                android:background="#f7f7f7"/>
+            <LinearLayout
+                android:id="@+id/production_params_ll"
+                android:layout_width="match_parent"
+                android:layout_height="88px"
+                android:gravity="center_vertical"
+                android:paddingLeft="22px"
+                android:paddingRight="20px">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="产品参数"
+                    android:textColor="@color/black"
+                    android:textSize="24px"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:layout_width="11px"
+                    android:layout_height="20px"
+                    android:src="@drawable/gengduo"/>
+            </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="19px"
@@ -267,9 +294,9 @@
                 android:id="@+id/commodity_detail_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingBottom="20px"
                 android:paddingLeft="22px"
                 android:paddingRight="20px"
-                android:paddingBottom="20px"
                 android:text="介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍"
                 android:textColor="@color/black"
                 android:textSize="21px"/>
@@ -300,8 +327,8 @@
         android:id="@+id/iv_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="14px"
-        android:layout_marginTop="50px"
+        android:layout_marginLeft="20px"
+        android:layout_marginTop="60px"
         android:src="@drawable/shangfanhui"/>
 
     <ImageView
@@ -309,8 +336,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="14px"
-        android:layout_marginTop="50px"
+        android:layout_marginRight="20px"
+        android:layout_marginTop="60px"
         android:src="@drawable/shanggouwuche"/>
 
     <LinearLayout
@@ -385,8 +412,8 @@
                 android:background="@color/line"/>
 
             <LinearLayout
-                android:layout_width="0dp"
                 android:id="@+id/ll_add_shoppingcart"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="129"
                 android:gravity="center"

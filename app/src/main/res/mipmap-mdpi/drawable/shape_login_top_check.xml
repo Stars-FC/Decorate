@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--设置无顶部边框的方形背景框-->
+    <item>
+
+        <shape>
+            <solid
+                android:color="@color/line"/>
+
+            <corners android:topLeftRadius="20px"
+                     android:topRightRadius="20px"/>
+
+            <padding
+                android:left="2px"
+                android:right="2px"
+                android:top="2px"/>
+        </shape>
+    </item>
+
+    <item>
+
+        <shape>
+
+            <solid android:color="#f2f2f2"/>
+
+            <corners
+                android:topLeftRadius="20px"
+                android:topRightRadius="20px"/>
+        </shape>
+    </item>
+
+</layer-list>

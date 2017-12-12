@@ -37,14 +37,14 @@
                     android:background="@color/white">
 
                     <LinearLayout
-                        android:paddingTop="30px"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="20px"
                         android:layout_toRightOf="@+id/ll_image"
                         android:orientation="vertical"
-                        android:paddingLeft="250px">
+                        android:paddingLeft="250px"
+                        android:paddingTop="30px">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -85,8 +85,27 @@
                     <ImageView
                         android:layout_width="200px"
                         android:layout_height="200px"
-                        android:src="@color/aqua"/>
+                        android:scaleType="fitXY"
+                        android:src="@drawable/product_head"/>
+
                 </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/close_rl"
+                    android:layout_width="80px"
+                    android:layout_height="80px"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="27px">
+
+                    <ImageView
+                        android:layout_width="40px"
+                        android:layout_height="40px"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/guanbi"/>
+
+                </RelativeLayout>
+
+
             </RelativeLayout>
 
             <ScrollView
@@ -182,7 +201,7 @@
                             <ImageView
                                 android:layout_width="50px"
                                 android:layout_height="50px"
-                                android:src="@color/line"/>
+                                android:src="@drawable/jianhao"/>
 
                             <TextView
                                 android:layout_width="55px"
@@ -195,7 +214,7 @@
                             <ImageView
                                 android:layout_width="50px"
                                 android:layout_height="50px"
-                                android:src="@color/line"/>
+                                android:src="@drawable/jiahao"/>
 
                         </LinearLayout>
                     </RelativeLayout>

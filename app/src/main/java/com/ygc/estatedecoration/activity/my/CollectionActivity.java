@@ -37,7 +37,7 @@ public class CollectionActivity extends BaseActivity {
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
-        bar.setTitleText("我的收藏");
+        bar.setTitleText("我的需求");
         bar.setLeftImageResource(R.drawable.fanhui);
         bar.setRightText("编辑");
         return true;

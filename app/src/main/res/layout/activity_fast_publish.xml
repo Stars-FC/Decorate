@@ -1,0 +1,468 @@
+<com.zhy.autolayout.AutoLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    tools:context="com.ygc.estatedecoration.user_fragment.UserPublishFragment">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#eeeeee"/>
+
+    <com.ygc.estatedecoration.widget.VerticalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="75px">
+
+            <cn.bingoogolapple.bgabanner.BGABanner
+                android:id="@+id/banner"
+                style="@style/BannerDefaultStyle"
+                android:layout_width="match_parent"
+                android:layout_height="310px"
+                app:banner_transitionEffect="accordion"/>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/ll_nos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/banner"
+                android:layout_marginTop="32px"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="115px"
+                    android:layout_height="3px"
+                    android:background="@drawable/startshape"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15px"
+                    android:text="没有装修想法？"
+                    android:textColor="#50BC66"
+                    android:textSize="34px"
+                    android:textStyle="bold"/>
+
+                <View
+                    android:layout_width="115px"
+                    android:layout_height="3px"
+                    android:layout_marginLeft="15px"
+                    android:background="@drawable/endshape"/>
+
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <TextView
+                android:id="@+id/tv_release"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ll_nos"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8px"
+                android:text="发布详细需求"
+                android:textColor="#50BC66"
+                android:textSize="34px"/>
+
+            <TextView
+                android:id="@+id/tv_landmark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_release"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8px"
+                android:text="地标装饰帮您解决装修难题"
+                android:textColor="#50BC66"
+                android:textSize="34px"/>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/tv_landmark"
+                android:orientation="vertical">
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="28px"
+                    android:paddingTop="65px">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="1、您的建筑面积是"
+                        android:textColor="@android:color/black"
+                        android:textSize="26px"/>
+
+                    <com.zhy.autolayout.AutoLinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="46px"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:layout_width="0dp"
+                            android:layout_height="90px"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_bg"
+                            android:gravity="center_vertical"
+                            android:hint="请输入房屋面积"
+                            android:paddingLeft="7px"
+                            android:textColor="@android:color/black"
+                            android:textColorHint="#b8b8b8"
+                            android:textSize="26px"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8px"
+                            android:layout_marginRight="40px"
+                            android:text="平方米"
+                            android:textColor="@android:color/black"
+                            android:textSize="26px"/>
+
+                    </com.zhy.autolayout.AutoLinearLayout>
+
+                </com.zhy.autolayout.AutoLinearLayout>
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="28px"
+                    android:paddingRight="40px"
+                    android:paddingTop="65px">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="2、请设定您的需求标题"
+                        android:textColor="@android:color/black"
+                        android:textSize="26px"/>
+
+                    <EditText
+                        android:id="@+id/editText"
+                        android:layout_width="match_parent"
+                        android:layout_height="90px"
+                        android:layout_marginTop="46px"
+                        android:background="@drawable/edit_bg"
+                        android:gravity="center_vertical"
+                        android:hint="请输入需求标题"
+                        android:paddingLeft="7px"
+                        android:textColor="@android:color/black"
+                        android:textColorHint="#b8b8b8"
+                        android:textSize="26px"/>
+
+                </com.zhy.autolayout.AutoLinearLayout>
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="28px"
+                    android:paddingTop="65px">
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="3、需求类型(多选)"
+                        android:textColor="@android:color/black"
+                        android:textSize="26px"/>
+
+                    <com.zhy.autolayout.AutoRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.zhy.autolayout.AutoLinearLayout
+                            android:id="@+id/top"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="46px"
+                            android:orientation="horizontal"
+                            android:paddingLeft="14px">
+
+                            <CheckBox
+                                style="@style/CustomCheckboxTheme"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="全部服务"
+                                android:textColor="@android:color/black"
+                                android:textSize="26px"/>
+
+                            <CheckBox
+                                style="@style/CustomCheckboxTheme"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="设计服务"
+                                android:textColor="@android:color/black"
+                                android:textSize="26px"/>
+
+                            <CheckBox
+                                style="@style/CustomCheckboxTheme"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="施工服务"
+                                android:textColor="@android:color/black"
+                                android:textSize="26px"/>
+
+                        </com.zhy.autolayout.AutoLinearLayout>
+
+                        <com.zhy.autolayout.AutoLinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/top"
+                            android:layout_marginTop="38px"
+                            android:orientation="horizontal"
+                            android:paddingLeft="14px">
+
+                            <CheckBox
+                                style="@style/CustomCheckboxTheme"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="监理服务"
+                                android:textSize="26px"/>
+
+                            <CheckBox
+                                style="@style/CustomCheckboxTheme"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:text="装修材料服务"
+                                android:textSize="26px"/>
+
+                        </com.zhy.autolayout.AutoLinearLayout>
+
+                    </com.zhy.autolayout.AutoRelativeLayout>
+
+                </com.zhy.autolayout.AutoLinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/materials_type_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="37px"
+                    android:background="#f6f6f6"
+                    android:padding="20px">
+
+                </android.support.v7.widget.RecyclerView>
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="28px"
+                    android:paddingTop="65px">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="4、装修工期"
+                        android:textColor="@android:color/black"
+                        android:textSize="26px"/>
+
+                    <com.zhy.autolayout.AutoLinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="46px"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:layout_width="0dp"
+                            android:layout_height="90px"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_bg"
+                            android:gravity="center_vertical"
+                            android:hint="请输入装修工期"
+                            android:paddingLeft="7px"
+                            android:textColor="@android:color/black"
+                            android:textColorHint="#b8b8b8"
+                            android:textSize="26px"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8px"
+                            android:layout_marginRight="40px"
+                            android:text="天"
+                            android:textColor="@android:color/black"
+                            android:textSize="26px"/>
+
+                    </com.zhy.autolayout.AutoLinearLayout>
+
+                </com.zhy.autolayout.AutoLinearLayout>
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="28px"
+                    android:paddingRight="40px"
+                    android:paddingTop="65px">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="5、需求详情"
+                        android:textColor="@android:color/black"
+                        android:textSize="26px"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="250px"
+                        android:layout_marginTop="46px"
+                        android:background="@drawable/edit_bg"
+                        android:gravity="top|left"
+                        android:hint="请输入需求详情"
+                        android:padding="7px"
+                        android:textColor="@android:color/black"
+                        android:textColorHint="#b8b8b8"
+                        android:textSize="26px"/>
+
+                </com.zhy.autolayout.AutoLinearLayout>
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="28px"
+                    android:paddingTop="65px">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="6、预算"
+                        android:textColor="@android:color/black"
+                        android:textSize="26px"/>
+
+                    <com.zhy.autolayout.AutoLinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="46px"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:layout_width="0dp"
+                            android:layout_height="90px"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_bg"
+                            android:gravity="center_vertical"
+                            android:hint="请输入预算价格"
+                            android:paddingLeft="7px"
+                            android:textColor="@android:color/black"
+                            android:textColorHint="#b8b8b8"
+                            android:textSize="26px"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8px"
+                            android:layout_marginRight="40px"
+                            android:text="元"
+                            android:textColor="@android:color/black"
+                            android:textSize="26px"/>
+
+                    </com.zhy.autolayout.AutoLinearLayout>
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="57px"
+                        android:button="@drawable/bg_checkbox_set_default_address"
+                        android:paddingLeft="15px"
+                        android:text="可议价"
+                        android:textColor="@android:color/black"
+                        android:textSize="26px"/>
+
+                </com.zhy.autolayout.AutoLinearLayout>
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="28px"
+                    android:paddingTop="56px">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="7、所在区域"
+                        android:textColor="@android:color/black"
+                        android:textSize="26px"/>
+
+                    <com.zhy.autolayout.AutoLinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="60px"
+                        android:layout_marginTop="46px"
+                        android:background="@drawable/shape_dingwei"
+                        android:gravity="center"
+                        android:paddingLeft="22px"
+                        android:paddingRight="22px">
+
+                        <ImageView
+                            android:layout_width="18px"
+                            android:layout_height="22px"
+                            android:src="@drawable/shaixuandingwei"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8px"
+                            android:text="沈阳"
+                            android:textColor="@android:color/black"
+                            android:textSize="20px"/>
+
+                    </com.zhy.autolayout.AutoLinearLayout>
+
+                </com.zhy.autolayout.AutoLinearLayout>
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="28px"
+                    android:paddingTop="56px">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="8、上传图片"
+                        android:textColor="@android:color/black"
+                        android:textSize="26px"/>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="46px"/>
+
+                </com.zhy.autolayout.AutoLinearLayout>
+
+                <Button
+                    android:layout_width="520px"
+                    android:layout_height="80px"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="87px"
+                    android:background="@drawable/shape_all_my_moneybag"
+                    android:text="立即发布"
+                    android:textColor="#FFFFFF"
+                    android:textSize="26px"/>
+            </com.zhy.autolayout.AutoLinearLayout>
+
+        </com.zhy.autolayout.AutoRelativeLayout>
+
+    </com.ygc.estatedecoration.widget.VerticalScrollView>
+
+</com.zhy.autolayout.AutoLinearLayout>

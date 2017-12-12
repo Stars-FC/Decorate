@@ -14,7 +14,7 @@ import java.util.List;
 public class MyCollectionAdapter extends BaseQuickAdapter<String,BaseViewHolder> {
 
     public MyCollectionAdapter(List<String> list) {
-        super(R.layout.item_my_collection, list);
+        super(R.layout.item_home_needhall, list);
     }
 
     @Override

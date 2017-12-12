@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line"/>
+
     <com.androidkun.xtablayout.XTabLayout
         android:id="@+id/tablayout"
         android:layout_width="match_parent"
@@ -19,6 +24,11 @@
         app:xTabSelectedTextSize="14dp"
         app:xTabTextColor="#000000"
         app:xTabTextSize="14dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"

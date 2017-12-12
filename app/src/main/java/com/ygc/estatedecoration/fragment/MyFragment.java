@@ -142,8 +142,8 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
                 startActivity(intent);
                 break;
             case R.id.ll_warranty_money://质保金
-                intent.setClass(mActivity, WarrantyMoneyActivity.class);
-                startActivity(intent);
+//                intent.setClass(mActivity, WarrantyMoneyActivity.class);
+//                startActivity(intent);
                 break;
             case R.id.my_moneybag://我的钱包
                 intent.setClass(mActivity, MoneyBagActivity.class);

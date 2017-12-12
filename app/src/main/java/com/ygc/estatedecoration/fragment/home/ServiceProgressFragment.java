@@ -144,7 +144,6 @@ public class ServiceProgressFragment extends BaseFragment implements AdapterView
             intent.putExtra("bean", list.get(position));
             startActivityForResult(intent, 10);
         } else if (list.get(position).getType().equals("2")) {
-//            Intent intent = new Intent(mActivity, InitiatingContractActivity.class);
             Intent intent = new Intent(mActivity, ReadInitiatingContractActivity.class);
             startActivity(intent);
         } else if (list.get(position).getType().equals("1")) {

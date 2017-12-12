@@ -1,6 +1,7 @@
 package com.ygc.estatedecoration.user_fragment;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,12 +13,14 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.adapter.CaseStyleAdapter;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
+import com.ygc.estatedecoration.user_activity.FastPublishActivity;
 import com.ygc.estatedecoration.utils.RecyclerSpace;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import java.util.Arrays;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class UserPublishFragment extends BaseFragment {
 
@@ -56,6 +59,8 @@ public class UserPublishFragment extends BaseFragment {
     @Override
     protected boolean buildTitle(TitleBar bar) {
         bar.setTitleText("发布需求");
+        bar.setRightText("快速发布");
+        bar.setRightTextColor(Color.parseColor("#4EBE65"));
         return true;
     }
 
@@ -99,6 +104,18 @@ public class UserPublishFragment extends BaseFragment {
     @Override
     protected int setLayoutResourceId() {
         return R.layout.fragment_user_publish;
+    }
+
+    @OnClick({R.id.naviFrameRight})
+    public void onClickEvent(View view) {
+        if (view != null) {
+            switch (view.getId()) {
+                case R.id.naviFrameRight:
+                    Intent intent = new Intent(mActivity, FastPublishActivity.class);
+                    startActivity(intent);
+                    break;
+            }
+        }
     }
 
 }

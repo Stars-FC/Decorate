@@ -55,19 +55,16 @@ public class TransactionDetailPager extends BasePager {
 
         mAdapter = new HomeTransactionManageDetailAdapter(list);
 
-//        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                Toast.makeText(mContext,"mAdapter第" + position + "数据",Toast.LENGTH_SHORT).show();
-//                //跳转到详细界面
-//                Intent intent = new Intent(mContext, TransactionManageDetailActivity.class);
-//                mContext.startActivity(intent);
-//            }
-//        });
-
-        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(mContext, DemandAndProgressActivity.class);
+                mContext.startActivity(intent);
+            }
+        });
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        mRecyclerView.setAdapter(mAdapter);
 
         initListener();
     }
@@ -76,16 +73,6 @@ public class TransactionDetailPager extends BasePager {
      * 监听事件
      */
     private void initListener() {
-        //每个条目的点击事件
-        mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
-            @Override
-            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Toast.makeText(mContext,"mRecyclerview第" + position + "数据",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(mContext, TransactionManageDetailActivity.class);
-                mContext.startActivity(intent);
-            }
-        });
-
         mSwipeRefreshLayout.setColorSchemeColors(Color.parseColor("#4EBE65")); //设置下拉刷新箭头颜色
 
         //下拉加载

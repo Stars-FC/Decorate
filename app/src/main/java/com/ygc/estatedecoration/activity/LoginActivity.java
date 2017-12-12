@@ -152,7 +152,7 @@ public class LoginActivity extends AutoLayoutActivity {
      * 登陆
      */
     public void loginEvent() {
-  /*      Intent intent = new Intent();
+        Intent intent = new Intent();
         if (mordinaryuser.isChecked()) {
             intent.setClass(LoginActivity.this, UserHomeActivity.class);
             startActivity(intent);
@@ -161,9 +161,9 @@ public class LoginActivity extends AutoLayoutActivity {
             intent.setClass(LoginActivity.this, HomeActivity.class);
             startActivity(intent);
             finish();
-        }*/
+        }
 
-        if (mordinaryuser.isChecked()) {
+       /* if (mordinaryuser.isChecked()) {
             identity = 0;
         } else if (mServiceuser.isChecked()) {
             identity = 1;
@@ -226,6 +226,6 @@ public class LoginActivity extends AutoLayoutActivity {
                     public void onComplete() {
 
                     }
-                });
+                });*/
     }
 }

@@ -82,12 +82,14 @@
         android:textSize="27px"/>
 
     <com.zhy.autolayout.AutoRelativeLayout
+        android:id="@+id/look_progress_rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="14px"
         android:paddingRight="20px">
 
         <TextView
+            android:id="@+id/look_progress_tv"
             android:layout_width="161px"
             android:layout_height="62px"
             android:layout_alignParentRight="true"

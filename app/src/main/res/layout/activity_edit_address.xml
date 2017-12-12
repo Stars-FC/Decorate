@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.ygc.estatedecoration.user_activity.EditAddressActivity">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="86px"
+        android:paddingLeft="19px"
+        android:paddingRight="19px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="收货人"
+            android:textColor="@color/black"
+            android:textSize="25px"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="123px"
+            android:background="@null"
+            android:gravity="left|center_vertical"
+            android:hint="请输入收货人姓名"
+            android:maxLines="1"
+            android:text=""
+            android:textColor="@color/black"
+            android:textColorHint="#999999"
+            android:textSize="25px"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="86px"
+        android:paddingLeft="19px"
+        android:paddingRight="19px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="联系电话"
+            android:textColor="@color/black"
+            android:textSize="25px"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="123px"
+            android:background="@null"
+            android:gravity="left|center_vertical"
+            android:hint="请输入收货人电话"
+            android:maxLines="1"
+            android:text=""
+            android:textColor="@color/black"
+            android:textColorHint="#999999"
+            android:textSize="25px"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="86px"
+        android:paddingLeft="19px"
+        android:paddingRight="19px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="所在地区"
+            android:textColor="@color/black"
+            android:textSize="25px"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="123px"
+            android:background="@null"
+            android:gravity="left|center_vertical"
+            android:hint="请输入省市"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text=""
+            android:textColor="@color/black"
+            android:textColorHint="#999999"
+            android:textSize="25px"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="86px"
+        android:paddingLeft="19px"
+        android:paddingRight="19px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="详细地址"
+            android:textColor="@color/black"
+            android:textSize="25px"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="123px"
+            android:background="@null"
+            android:gravity="left|center_vertical"
+            android:hint="请输入详细地址"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text=""
+            android:textColor="@color/black"
+            android:textColorHint="#999999"
+            android:textSize="25px"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line"/>
+
+</LinearLayout>

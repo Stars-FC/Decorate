@@ -81,15 +81,12 @@ public class TransactionManageDetailActivity extends BaseActivity {
         return R.layout.home_transactionmanage_item;
     }
 
-    @OnClick({R.id.back, R.id.iv_follow,R.id.tv_offer})
+    @OnClick({R.id.back,R.id.tv_offer})
     public void onViewClicked(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.back:
                 finish();
-                break;
-            case R.id.iv_follow://右上角关注按钮
-
                 break;
             case R.id.tv_offer:
                 intent.setClass(TransactionManageDetailActivity.this, TransactionManageOfferActivity.class);

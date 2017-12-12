@@ -65,7 +65,7 @@ public class DemandAndProgressActivity extends BaseActivity {
         titleList.add("需求详情");
         titleList.add("进  度");
 
-        fragmentList.add(ServiceNeedFragment.newInstance("", ""));
+        fragmentList.add(ServiceNeedFragment.newInstance());
         fragmentList.add(ServiceProgressFragment.newInstance());
 
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -81,17 +81,15 @@ public class DemandAndProgressActivity extends BaseActivity {
         return R.layout.activity_demand_and_progress;
     }
 
-    @OnClick({R.id.back, R.id.iv_follow, R.id.telephone_rl, R.id.message_rl, R.id.start_contract_btn})
+    @OnClick({R.id.back, R.id.telephone_ll, R.id.message_ll, R.id.start_contract_btn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
-            case R.id.iv_follow://右上角关注按钮
+            case R.id.telephone_ll:
                 break;
-            case R.id.telephone_rl:
-                break;
-            case R.id.message_rl:
+            case R.id.message_ll:
                 break;
             case R.id.start_contract_btn:
                 startContractEvent();

@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.autolayout.AutoRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-   >
+    android:background="@color/white">
 
     <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <include layout="@layout/title" />
+
+        <!--<include layout="@layout/title" />-->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="87px"
+            android:gravity="center_vertical"
+            android:paddingLeft="20px"
+            android:text="验收节点名称"
+            android:textColor="@color/black_010101"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
@@ -17,10 +30,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="87px"
-            android:textColor="@color/black_010101"
             android:gravity="center_vertical"
             android:paddingLeft="20px"
-            android:text="验收节点名称"/>
+            android:text="合同时间-合同时间"
+            android:textColor="@color/black_010101"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
@@ -28,10 +41,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="87px"
-            android:textColor="@color/black_010101"
             android:gravity="center_vertical"
             android:paddingLeft="20px"
-            android:text="合同时间-合同时间"/>
+            android:text="上传资料"
+            android:textColor="@color/black_010101"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
@@ -39,10 +52,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="87px"
-            android:textColor="@color/black_010101"
             android:gravity="center_vertical"
             android:paddingLeft="20px"
-            android:text="上传资料"/>
+            android:text="质检验收表格（请在电脑端上传）"
+            android:textColor="@color/black_010101"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
@@ -50,10 +63,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="87px"
-            android:textColor="@color/black_010101"
             android:gravity="center_vertical"
             android:paddingLeft="20px"
-            android:text="质检验收表格（请在电脑端上传）"/>
+            android:text="现场签证"
+            android:textColor="@color/black_010101"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
@@ -61,20 +74,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="87px"
-            android:textColor="@color/black_010101"
             android:gravity="center_vertical"
             android:paddingLeft="20px"
-            android:text="现场签证"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/gray_eeeeee"/><TextView
-        android:layout_width="match_parent"
-        android:layout_height="87px"
-        android:textColor="@color/black_010101"
-        android:gravity="center_vertical"
-        android:paddingLeft="20px"
-        android:text="现场手书"/>
+            android:text="现场手书"
+            android:textColor="@color/black_010101"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
@@ -82,22 +85,22 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="87px"
-            android:textColor="@color/black_010101"
             android:gravity="center_vertical"
             android:paddingLeft="20px"
-            android:text="其他图文"/>
+            android:text="其他图文"
+            android:textColor="@color/black_010101"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/gray_eeeeee"/>
     </com.zhy.autolayout.AutoLinearLayout>
-   <Button
-       android:id="@+id/activity_initiating_acceptance_btn"
-       android:text="确定发起验收"
-       android:textSize="29px"
-       android:textColor="@color/white"
-       android:background="@color/green_4fbc64"
-       android:layout_alignParentBottom="true"
-       android:layout_width="match_parent"
-       android:layout_height="89px" />
+    <Button
+        android:id="@+id/activity_initiating_acceptance_btn"
+        android:layout_width="match_parent"
+        android:layout_height="89px"
+        android:layout_alignParentBottom="true"
+        android:background="@color/green_4fbc64"
+        android:text="确定发起验收"
+        android:textColor="@color/white"
+        android:textSize="29px"/>
 </com.zhy.autolayout.AutoRelativeLayout>

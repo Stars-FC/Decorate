@@ -96,6 +96,14 @@
         <activity
             android:name="me.iwf.photopicker.PhotoPagerActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".activity.my.SelectBankCardActivity"/>
+        <activity android:name=".user_activity.UserProjectProgressActivity"/>
+        <activity android:name=".activity.my.ActivitiesActivity"/>
+        <activity android:name=".activity.my.ActivitiesDetailsActivity"/>
+        <activity android:name=".user_activity.UserAddressActivity"/>
+        <activity
+            android:name=".user_activity.EditAddressActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
         <activity android:name=".activity.my.SelectBankCardActivity">
         </activity>
         <activity android:name=".user_activity.UserProjectProgressActivity">
@@ -111,6 +119,8 @@
         <activity android:name=".activity.my.AddMyBrightActivity">
         </activity>
         <activity android:name=".activity.my.WarrantyMoneyActivity">
+        </activity>
+        <activity android:name=".user_activity.FastPublishActivity">
         </activity>
     </application>
 
