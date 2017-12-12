@@ -137,7 +137,6 @@ public class MyPublic {
      */
     public static void getVerification(final Context context, String photoNum, final Button button) {
 
-
         APPApi.getInstance().service
                 .doSendCode(photoNum, "0")
                 .subscribeOn(Schedulers.io())

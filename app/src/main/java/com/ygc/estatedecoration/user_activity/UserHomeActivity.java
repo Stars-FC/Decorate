@@ -1,5 +1,6 @@
 package com.ygc.estatedecoration.user_activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ygc.estatedecoration.R;
+import com.ygc.estatedecoration.activity.LoginActivity;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
 import com.ygc.estatedecoration.event.SkipUserShopMsg;
 import com.ygc.estatedecoration.fragment.CaseFragment;
@@ -17,6 +19,7 @@ import com.ygc.estatedecoration.user_fragment.UserHomeFragment;
 import com.ygc.estatedecoration.user_fragment.UserMyFragment;
 import com.ygc.estatedecoration.user_fragment.UserPublishFragment;
 import com.ygc.estatedecoration.user_fragment.UserShopFragment;
+import com.ygc.estatedecoration.utils.UserUtils;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import org.greenrobot.eventbus.EventBus;
@@ -29,7 +32,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class UserHomeActivity extends BaseActivity{
+public class UserHomeActivity extends BaseActivity {
 
     @BindView(R.id.home_iv)
     ImageView mIv_home;
@@ -102,9 +105,9 @@ public class UserHomeActivity extends BaseActivity{
                     mUserPlanFragment = (CaseFragment) fragment;
                 } else if (fragment instanceof UserPublishFragment) {
                     mUserPublishFragment = (UserPublishFragment) fragment;
-                } else if (fragment instanceof UserShopFragment){
+                } else if (fragment instanceof UserShopFragment) {
                     mUserShopFragment = (UserShopFragment) fragment;
-                }else if (fragment instanceof UserMyFragment) {
+                } else if (fragment instanceof UserMyFragment) {
                     mUserMyFragment = (UserMyFragment) fragment;
                 }
             }
@@ -156,13 +159,18 @@ public class UserHomeActivity extends BaseActivity{
                     skipUserShop(fragmentTransaction);
                     break;
                 case R.id.my_ll:
-                    changeTabStyle(4);
-                    mIv_home.setImageResource(R.drawable.shouye);
-                    mIv_fangAn.setImageResource(R.drawable.anli);
-                    mIv_publish.setImageResource(R.drawable.fabu);
-                    mIv_shop.setImageResource(R.drawable.dianpu);
-                    mIv_my.setImageResource(R.drawable.wode_sel);
-                    createUserMyFragment(fragmentTransaction);
+                    /*if (UserUtils.isLogin()) {  //判断用户是否登录，如果登录直接显示，否则跳转到登录界面
+                        changeTabStyle(4);*/
+                        mIv_home.setImageResource(R.drawable.shouye);
+                        mIv_fangAn.setImageResource(R.drawable.anli);
+                        mIv_publish.setImageResource(R.drawable.fabu);
+                        mIv_shop.setImageResource(R.drawable.dianpu);
+                        mIv_my.setImageResource(R.drawable.wode_sel);
+                        createUserMyFragment(fragmentTransaction);
+                 /*   } else {
+                        Intent intent = new Intent(UserHomeActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                    }*/
                     break;
             }
         }

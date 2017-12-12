@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -75,6 +76,8 @@ public class UserRegisterActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
+        //设置弹出软键盘时上移布局，防止EditText被挡住
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         return R.layout.login_user_register;
     }
 
@@ -121,7 +124,7 @@ public class UserRegisterActivity extends BaseActivity {
             return;
         }
         String againPsw = MyPublic.getText(mEtAgainNewPsw);
-        if (TextUtils.isEmpty(againPsw) && againPsw.equals(psw)) {
+        if (TextUtils.isEmpty(againPsw) || !(againPsw.equals(psw))) {
             showToast("请确认两次密码相同");
             return;
         }
@@ -151,6 +154,7 @@ public class UserRegisterActivity extends BaseActivity {
                         String msg = baseBean.getMsg();
                         String responseState = baseBean.getResponseState();
                         if ("添加成功".equals(msg)) {
+                            showToast("注册成功");
                             Intent intent = new Intent(UserRegisterActivity.this, LoginActivity.class);
                             startActivity(intent);
                             finish();

@@ -17,7 +17,7 @@ public class UserUtils {
     public static final String SEARCH = "search_info"; //搜索的缓存
     public static final String USER = "user_info";     //个人信息的缓存
     public static final String userId = "userId";
-    public static final String userPws = "userId";
+    public static final String userPws = "userPws";
 
     /**
      * 保存用户信息
@@ -28,7 +28,7 @@ public class UserUtils {
      */
     public static void setParam(String name, String key, Object object) {
         String type = object.getClass().getSimpleName(); // 降低耦合度，提升可扩展性
-         SharedPreferences sp = MyApplication.getmContext().getSharedPreferences(name, Context.MODE_APPEND);
+        SharedPreferences sp = MyApplication.getmContext().getSharedPreferences(name, Context.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = sp.edit();
 
@@ -58,7 +58,7 @@ public class UserUtils {
      */
     public static Object getParam(String name, String key, Object object) {
         String type = object.getClass().getSimpleName();
-       SharedPreferences sp = MyApplication.getmContext().getSharedPreferences(name, Context.MODE_PRIVATE);
+        SharedPreferences sp = MyApplication.getmContext().getSharedPreferences(name, Context.MODE_PRIVATE);
 
         //根据传入的类型返回相应的值
         if ("String".equals(type)) {

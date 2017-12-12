@@ -1,5 +1,6 @@
 package com.ygc.estatedecoration.api;
 
+import com.ygc.estatedecoration.bean.LoginBean;
 import com.ygc.estatedecoration.bean.NeedBean;
 import com.ygc.estatedecoration.bean.BaseBean;
 import com.ygc.estatedecoration.bean.RoleFindAllBean;
@@ -17,11 +18,6 @@ import retrofit2.http.Part;
 import retrofit2.http.PartMap;
 
 public interface APPService {
-
-    @FormUrlEncoded
-    @POST("logon/logonJudge.action")
-    Observable<Base> login(@Field("auMobile") String mobile, @Field("auPassword") String password);
-
 
     @FormUrlEncoded
     @POST("")
@@ -43,8 +39,8 @@ public interface APPService {
     Observable<BaseBean> doSendCode(@Field("phone") String phone, @Field("type") String type);  //获取验证码
 
     @FormUrlEncoded
-    @POST("user/doSendCode.action")
-    Observable<RoleFindAllBean> roleFindAll();  //注册~获取服务商与细致身份
+    @POST("Role/findAll.action")
+    Observable<RoleFindAllBean> roleFindAll(@Field("") String s);  //注册~获取服务商与细致身份
 
     @FormUrlEncoded
     @POST("user/register.action")
@@ -55,8 +51,16 @@ public interface APPService {
                                   @Field("password") String password,
                                   @Field("code") String code);  //注册
 
+    @FormUrlEncoded
+    @POST("user/login.action")
+    Observable<LoginBean> login(@Field("username") String username, @Field("password") String password,
+                                @Field("type") int type);  //登录
 
-    //服务商端-------------------------
+    @FormUrlEncoded
+    @POST("user/updatePwd.action")
+    Observable<LoginBean> updatePwd(@Field("username") String username, @Field("password")
+            String password, @Field("code") String code);  //重置密码
+
 
     /*********************************************服务商段*******************************************/
 

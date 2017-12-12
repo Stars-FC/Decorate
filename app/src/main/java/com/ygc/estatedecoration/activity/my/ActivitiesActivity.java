@@ -13,6 +13,7 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.adapter.MyActivitiesAdapter;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
+import com.ygc.estatedecoration.utils.RecyclerSpace;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import java.util.ArrayList;
@@ -90,7 +91,7 @@ public class ActivitiesActivity extends BaseActivity {
             list.add("" + i);
         }
         mAdapter = new MyActivitiesAdapter(list);
-
+//        mRecyclerview.addItemDecoration(new RecyclerSpace(20, Color.parseColor("#f6f6f6")));
         mRecyclerview.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
         mRecyclerview.setAdapter(mAdapter);
     }

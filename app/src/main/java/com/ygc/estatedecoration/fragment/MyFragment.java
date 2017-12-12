@@ -30,6 +30,7 @@ import com.ygc.estatedecoration.activity.my.MoneyBagActivity;
 import com.ygc.estatedecoration.activity.my.MyBrightActivity;
 import com.ygc.estatedecoration.activity.my.ServerMyAnLiActivity;
 import com.ygc.estatedecoration.activity.my.SettingActivity;
+import com.ygc.estatedecoration.activity.my.WarrantyMoneyActivity;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.utils.LogUtil;
 import com.ygc.estatedecoration.widget.BasePopupWindow;
@@ -139,6 +140,7 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
             case R.id.ll_guarantee_money://保证金
                 intent.setClass(mActivity, GuaranteeMoneyActivity.class);
                 startActivity(intent);
+                break;
             case R.id.ll_warranty_money://质保金
                 intent.setClass(mActivity, WarrantyMoneyActivity.class);
                 startActivity(intent);

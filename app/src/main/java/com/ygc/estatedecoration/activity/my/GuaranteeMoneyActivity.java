@@ -10,6 +10,10 @@ import com.ygc.estatedecoration.widget.TitleBar;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 我的—保证金页面
+ */
+
 public class GuaranteeMoneyActivity extends BaseActivity {
 
 

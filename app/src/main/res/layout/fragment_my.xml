@@ -98,7 +98,6 @@
                 android:background="@color/line"/>
 
             <LinearLayout
-
                 android:id="@+id/ll_warranty_money"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"

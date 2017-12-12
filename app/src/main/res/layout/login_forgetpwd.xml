@@ -21,8 +21,10 @@
         android:orientation="vertical">
 
         <EditText
+            android:id="@+id/forgetpwd_et_photo"
             style="@style/EtStyle"
-            android:hint="请输入您的手机号"/>
+            android:hint="请输入您的手机号"
+            android:inputType="number"/>
 
         <View
             android:layout_width="match_parent"
@@ -30,6 +32,7 @@
             android:background="@drawable/hengxian_green"/>
 
         <EditText
+            android:id="@+id/forgetpwd_et_newpwd"
             style="@style/EtStyle"
             android:hint="请输入您新的密码"/>
 
@@ -40,6 +43,7 @@
 
 
         <EditText
+            android:id="@+id/forgetpwd_et_again_newpwd"
             style="@style/EtStyle"
             android:hint="请确认你新的密码"/>
 
@@ -78,12 +82,13 @@
                 android:layout_toRightOf="@+id/et_verification"
                 android:background="@color/line"/>
 
-            <TextView
+            <Button
                 android:id="@+id/tv_get_verification"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="50px"
+                android:background="@null"
                 android:gravity="center"
                 android:lines="1"
                 android:text="获取验证码"
@@ -98,7 +103,7 @@
 
 
             <Button
-                android:id="@+id/login_btn"
+                android:id="@+id/Reset_pwd_btn"
                 android:layout_width="520px"
                 android:layout_height="80px"
                 android:background="@drawable/shape_all_my_moneybag"

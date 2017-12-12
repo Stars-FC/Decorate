@@ -16,11 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity
             android:name=".activity.HomeActivity"
@@ -55,7 +50,13 @@
 
         <activity android:name=".activity.my.GuaranteeMoneyActivity"/>
         <activity android:name=".activity.my.CollectionActivity"/>
-        <activity android:name=".user_activity.UserHomeActivity"/>
+        <activity android:name=".user_activity.UserHomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".user_activity.UserSearchActivity"/>
         <activity android:name=".user_activity.CaseDetailActivity"/>
         <activity android:name=".user_activity.UserCollectionActivity"/>

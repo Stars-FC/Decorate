@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/tv_money"
-                android:text="质保金"
+                android:text="质保金:"
                 android:textColor="@color/black"
                 android:textSize="26px"/>
 
@@ -63,43 +63,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
-                <LinearLayout
+
+                <TextView
+                    android:id="@+id/tv_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:orientation="horizontal">
+                    android:layout_toRightOf="@+id/tv_state"
+                    android:text="订单号："
+                    android:textColor="@color/black"
+                    android:textSize="23px"/>
 
-                    <TextView
-                        android:id="@+id/tv_num"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20px"
-                        android:layout_toRightOf="@+id/tv_state"
-                        android:text="订单号："
-                        android:textColor="@color/black"
-                        android:textSize="23px"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5px"
-                        android:text="12345678"
-                        android:textColor="@color/black"
-                        android:textSize="23px"/>
-
-                </LinearLayout>
-
-                <!--<TextView
-                    android:layout_width="90px"
-                    android:layout_height="40px"
-                    android:layout_marginLeft="20px"
-                    android:background="@drawable/shape_empty_home"
-                    android:gravity="center"
-                    android:text="已托管"
-                    android:textColor="@color/color_4fbc65"
-                    android:textSize="22px"/>-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5px"
+                    android:text="12345678"
+                    android:textColor="@color/black"
+                    android:textSize="23px"/>
 
             </LinearLayout>
 
@@ -117,6 +100,7 @@
                     android:text="家装"
                     android:textColor="@color/color_4fbc65"
                     android:textSize="24px"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -133,34 +117,7 @@
                     android:textColor="@color/color_4fbc65"
                     android:textSize="24px"/>
             </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_alignParentBottom="true"
-                android:background="@color/line"/>
         </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15px"
-            android:layout_marginTop="15px">
-
-            <TextView
-                android:id="@+id/tv_state"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:text="沈阳"
-                android:textColor="@color/color_37406"
-                android:textSize="23px"/>
-
-
-
-        </RelativeLayout>
-
-
     </LinearLayout>
 
     <View
