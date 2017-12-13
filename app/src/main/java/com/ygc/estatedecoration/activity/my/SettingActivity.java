@@ -3,11 +3,14 @@ package com.ygc.estatedecoration.activity.my;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.activity.LoginActivity;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
+import com.ygc.estatedecoration.utils.LogUtil;
+import com.ygc.estatedecoration.utils.UserUtils;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import butterknife.ButterKnife;
@@ -73,8 +76,10 @@ public class SettingActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.bt_logout://退出当前账号
+                UserUtils.putOnLineBoolean(SettingActivity.this, "", false);//标记用户退出登录
                 intent.setClass(SettingActivity.this, LoginActivity.class);
                 startActivity(intent);
+                removeALLActivity();//销毁所有activity
                 break;
         }
     }

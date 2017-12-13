@@ -39,6 +39,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -335,6 +336,11 @@ public class ServiceRegisterActivity extends BaseActivity {
             showToast("请输入验证码");
             return;
         }
+        final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
+                .setTitleText("Loading");
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        pDialog.setCancelable(false);
+        pDialog.show();
 
         APPApi.getInstance().service
                 .register(servicePhoto, inRole, insmallRole, serviceNum, servicepsw, doSendCode)
@@ -353,11 +359,13 @@ public class ServiceRegisterActivity extends BaseActivity {
                         String msg = baseBean.getMsg();
                         String responseState = baseBean.getResponseState();
                         if ("添加成功".equals(msg)) {
+                            pDialog.cancel();
                             showToast("注册成功");
                             Intent intent = new Intent(ServiceRegisterActivity.this, LoginActivity.class);
                             startActivity(intent);
                             finish();
                         } else {
+                            pDialog.cancel();
                             showToast(msg);
                         }
                     }

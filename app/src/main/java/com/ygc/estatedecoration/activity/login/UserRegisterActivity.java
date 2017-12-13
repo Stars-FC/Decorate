@@ -26,6 +26,7 @@ import com.ygc.estatedecoration.widget.TitleBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -135,6 +136,12 @@ public class UserRegisterActivity extends BaseActivity {
             return;
         }
 
+        final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
+                .setTitleText("Loading");
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        pDialog.setCancelable(false);
+        pDialog.show();
+
         APPApi.getInstance().service
                 .register(UserPhoto, 0, 0, userNum, psw, doSendCode)
                 .subscribeOn(Schedulers.io())
@@ -154,11 +161,13 @@ public class UserRegisterActivity extends BaseActivity {
                         String msg = baseBean.getMsg();
                         String responseState = baseBean.getResponseState();
                         if ("添加成功".equals(msg)) {
+                            pDialog.cancel();
                             showToast("注册成功");
                             Intent intent = new Intent(UserRegisterActivity.this, LoginActivity.class);
                             startActivity(intent);
                             finish();
                         } else {
+                            pDialog.cancel();
                             showToast(msg);
                         }
                     }

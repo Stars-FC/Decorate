@@ -24,6 +24,8 @@ import java.util.List;
  */
 public class DropDownMenu extends LinearLayout {
 
+    private TextView mTab1;
+    private TextView mTab2;
 
     private int width;//顶部菜单的宽度
     private int width2;//顶部菜单的宽度
@@ -141,8 +143,17 @@ public class DropDownMenu extends LinearLayout {
             throw new IllegalArgumentException("params not match, tabTexts.size() should be equal popupViews.size()");
         }
 
+        // TODO: 2017/12/13 为了实现每个标题在不点击手动情况下时赋值
         for (int i = 0; i < tabTexts.size(); i++) {
-            addTab(tabTexts, i);
+            TextView tab = null;
+            if (i == 0) {
+                mTab1 = new TextView(getContext());
+                settingTitle(tabTexts, i, mTab1);
+            } else if (i == 1) {
+                mTab2 = new TextView(getContext());
+                settingTitle(tabTexts, i, mTab2);
+            }
+//            addTab(tabTexts, i);
         }
         containerView.addView(contentView, 0);
 
@@ -186,7 +197,37 @@ public class DropDownMenu extends LinearLayout {
     }
 
     private void addTab(@NonNull List<String> tabTexts, int i) {
+
         final TextView tab = new TextView(getContext());
+        settingTitle(tabTexts, i, tab);
+        tab.setSingleLine();
+        tab.setEllipsize(TextUtils.TruncateAt.END);
+        tab.setGravity(Gravity.CENTER);
+        tab.setTextSize(TypedValue.COMPLEX_UNIT_PX, menuTextSize);
+        tab.setLayoutParams(new LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
+        tab.setTextColor(textUnselectedColor);
+        tab.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(menuUnselectedIcon), null);
+        tab.setText(tabTexts.get(i));
+        tab.setPadding(dpTpPx(5), dpTpPx(12), dpTpPx(5), dpTpPx(12));
+        //添加点击事件
+        tab.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchMenu(tab);
+            }
+        });
+        tabMenuView.addView(tab);
+        //添加分割线
+        if (i < tabTexts.size() - 1) {
+            View view = new View(getContext());
+            view.setLayoutParams(new LayoutParams(dpTpPx(0.5f), ViewGroup.LayoutParams.MATCH_PARENT));
+            view.setBackgroundColor(dividerColor);
+            tabMenuView.addView(view);
+        }
+    }
+
+    // TODO: 2017/12/13 为了实现每个标题在不点击手动情况下时赋值
+    private void settingTitle(@NonNull List<String> tabTexts, int i, final TextView tab) {
         tab.setSingleLine();
         tab.setEllipsize(TextUtils.TruncateAt.END);
         tab.setGravity(Gravity.CENTER);
@@ -224,6 +265,27 @@ public class DropDownMenu extends LinearLayout {
         }
     }
 
+
+    // TODO: 2017/12/13 为了实现每个标题在不点击手动情况下时赋值
+
+    /**
+     * 为第一的标题赋值
+     *
+     * @param s
+     */
+    public void setListener1(String s) {
+        mTab1.setText(s);
+    }
+
+    /**
+     * 为第二个标题赋值
+     *
+     * @param s
+     */
+    public void setListener2(String s) {
+        mTab2.setText(s);
+    }
+
     public void setTabClickable(boolean clickable) {
         for (int i = 0; i < tabMenuView.getChildCount(); i = i + 2) {
             tabMenuView.getChildAt(i).setClickable(clickable);
@@ -256,13 +318,15 @@ public class DropDownMenu extends LinearLayout {
         return current_tab_position != -1;
     }
 
+
     /**
      * 切换菜单
      *
      * @param target
      */
     private void switchMenu(View target) {
-        System.out.println(current_tab_position);
+        // TODO: 2017/12/13 判断没看懂，以后记得看下 （试图改这个浪费了一下午时间）
+//        System.out.println(current_tab_position);
         for (int i = 0; i < tabMenuView.getChildCount(); i = i + 2) {
             if (target == tabMenuView.getChildAt(i)) {
                 if (current_tab_position == i) {

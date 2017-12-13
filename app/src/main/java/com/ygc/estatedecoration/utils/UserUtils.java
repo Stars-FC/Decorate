@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
+import com.ygc.estatedecoration.activity.LoginActivity;
 import com.ygc.estatedecoration.app.MyApplication;
 
 /**
@@ -18,6 +19,7 @@ public class UserUtils {
     public static final String USER = "user_info";     //个人信息的缓存
     public static final String userId = "userId";
     public static final String userPws = "userPws";
+    public static final String onLine = "onLine";  //判断用户是否在线
 
     /**
      * 保存用户信息
@@ -74,6 +76,30 @@ public class UserUtils {
         }
 
         return null;
+    }
+
+    /**
+     * 获取到用户是否在线用户在线状态
+     *
+     * @param context 上下文
+     * @param key
+     * @return
+     */
+    public static boolean getOnLineBoolean(Context context, String key) {
+        SharedPreferences sp = context.getSharedPreferences(onLine, Context.MODE_PRIVATE);
+        return sp.getBoolean(key, false);
+    }
+
+    /**
+     * 存入用户在线状态
+     *
+     * @param context
+     * @param key
+     * @param value
+     */
+    public static void putOnLineBoolean(Context context, String key, boolean value) {
+        SharedPreferences sp = context.getSharedPreferences(onLine, Context.MODE_PRIVATE);
+        sp.edit().putBoolean(key, value).commit();
     }
 
     /**

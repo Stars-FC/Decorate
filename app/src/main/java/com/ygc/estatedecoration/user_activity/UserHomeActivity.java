@@ -159,18 +159,18 @@ public class UserHomeActivity extends BaseActivity {
                     skipUserShop(fragmentTransaction);
                     break;
                 case R.id.my_ll:
-                    /*if (UserUtils.isLogin()) {  //判断用户是否登录，如果登录直接显示，否则跳转到登录界面
-                        changeTabStyle(4);*/
+                    if (UserUtils.getOnLineBoolean(getApplicationContext(), "")) {  //判断用户是否登录，如果登录直接显示，否则跳转到登录界面
+                        changeTabStyle(4);
                         mIv_home.setImageResource(R.drawable.shouye);
                         mIv_fangAn.setImageResource(R.drawable.anli);
                         mIv_publish.setImageResource(R.drawable.fabu);
                         mIv_shop.setImageResource(R.drawable.dianpu);
                         mIv_my.setImageResource(R.drawable.wode_sel);
                         createUserMyFragment(fragmentTransaction);
-                 /*   } else {
+                    } else {
                         Intent intent = new Intent(UserHomeActivity.this, LoginActivity.class);
                         startActivity(intent);
-                    }*/
+                    }
                     break;
             }
         }

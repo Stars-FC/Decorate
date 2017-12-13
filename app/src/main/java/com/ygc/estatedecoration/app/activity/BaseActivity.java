@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.ygc.estatedecoration.R;
+import com.ygc.estatedecoration.app.MyApplication;
 import com.ygc.estatedecoration.utils.NetWorkUtil;
 import com.ygc.estatedecoration.widget.TitleBar;
 import com.zhy.autolayout.AutoLayoutActivity;
@@ -28,6 +29,9 @@ public abstract class BaseActivity extends AutoLayoutActivity {
     // main-navigation bar
     protected TitleBar mTitleBar;
 
+    private MyApplication application;
+    private BaseActivity mContext;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +42,13 @@ public abstract class BaseActivity extends AutoLayoutActivity {
         initData(savedInstanceState);
         initView();
         addListener();
+
+        if (application == null) {
+            // 得到Application对象
+            application = (MyApplication) getApplication();
+        }
+        mContext = this;// 把当前的上下文对象赋值给BaseActivity
+        addActivity();// 调用添加方法
     }
 
     private void basicInitialize() {
@@ -100,5 +111,20 @@ public abstract class BaseActivity extends AutoLayoutActivity {
             mUnBinder.unbind();
         }
         ImmersionBar.with(this).destroy();
+    }
+
+    // 添加Activity方法
+    public void addActivity() {
+        application.addActivity(mContext);// 调用myApplication的添加Activity方法
+    }
+
+    //销毁当个Activity方法
+    public void removeActivity() {
+        application.removeActivity(mContext);// 调用myApplication的销毁单个Activity方法
+    }
+
+    //销毁所有Activity方法
+    public void removeALLActivity() {
+        application.removeALLActivity();// 调用myApplication的销毁所有Activity方法
     }
 }

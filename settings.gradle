@@ -1,1 +1,1 @@
-include ':app', ':dropdownmenu_library'
+include ':app', ':dropdownmenu_library', ':sweet_alert_dialog_library'

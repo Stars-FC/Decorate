@@ -3,12 +3,14 @@ package com.ygc.estatedecoration.activity.home;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -59,7 +61,7 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private List<View> popupViews = new ArrayList<>();
-    private String headers[] = { "装修类型", "房屋现状"};
+    private String headers[] = {"装修类型", "房屋现状"};
     private String types[] = {"不限", "家装", "工装"};
     private String nows[] = {"不限", "局部改造", "毛胚房", "旧房翻新"};
     private GirdDropDownAdapter typesAdapter;
@@ -67,6 +69,9 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
     private HomeNeedHallAdapter mAdapter;
     private List<NeedBean.DataBean> dataList = new ArrayList<>();
     private List<String> list = new ArrayList<>();
+    private ListView mAgeView;
+    private ListView typesList;
+    private ListView nowsList;
 
 
     @Override
@@ -89,7 +94,20 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
             @Override
             public void onClick(View view) {
                 mDropDownMenu.closeMenu();//关闭选择列表
-                showToast("mTopLeftView");
+
+                // TODO: 2017/12/13
+                typesList.performItemClick(
+                        typesList.getChildAt(0),
+                        0,
+                        typesList.getAdapter().getItemId(0));
+                mDropDownMenu.setListener1(headers[0]);
+
+                nowsList.performItemClick(
+                        typesList.getChildAt(0),
+                        0,
+                        typesList.getAdapter().getItemId(0));
+                mDropDownMenu.setListener2(headers[1]);
+
             }
         });
 
@@ -99,7 +117,9 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
         //上拉加载更多
-        mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+        mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener()
+
+        {
             @Override
             public void onLoadMoreRequested() {
                 mAdapter.loadMoreComplete();//完成
@@ -116,7 +136,7 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
         //头布局
         mTopRightView = View.inflate(getApplicationContext(), R.layout.top_home_needhall_right, null);
 
-        mTopLeftView= View.inflate(getApplicationContext(), R.layout.top_home_needhall_left, null);
+        mTopLeftView = View.inflate(getApplicationContext(), R.layout.top_home_needhall_left, null);
 
         mRcView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.recyclerview, null);
 
@@ -148,29 +168,30 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
      */
     private void initDropDownMenu() {
 
-        final ListView ageView = new ListView(this);
-        ageView.setDividerHeight(0);
+        typesList = new ListView(this);
+        typesList.setDividerHeight(0);
         typesAdapter = new GirdDropDownAdapter(this, Arrays.asList(types));
-        ageView.setAdapter(typesAdapter);
+        typesList.setAdapter(typesAdapter);
 
-        final ListView sexView = new ListView(this);
-        sexView.setDividerHeight(0);
+        nowsList = new ListView(this);
+        nowsList.setDividerHeight(0);
         nowsAdapter = new GirdDropDownAdapter(this, Arrays.asList(nows));
-        sexView.setAdapter(nowsAdapter);
+        nowsList.setAdapter(nowsAdapter);
 
-        popupViews.add(ageView);
-        popupViews.add(sexView);
+        popupViews.add(typesList);
+        popupViews.add(nowsList);
 
-        ageView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        typesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 typesAdapter.setCheckItem(position);
                 mDropDownMenu.setTabText(position == 0 ? headers[0] : types[position]);
+                LogUtil.e("pos" + position);
                 mDropDownMenu.closeMenu();
             }
         });
 
-        sexView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        nowsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 nowsAdapter.setCheckItem(position);
@@ -179,7 +200,7 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
             }
         });
 
-        mDropDownMenu.setDropDownMenu(Arrays.asList(headers), popupViews, mRcView,mTopLeftView, mTopRightView);
+        mDropDownMenu.setDropDownMenu(Arrays.asList(headers), popupViews, mRcView, mTopLeftView, mTopRightView);
     }
 
     @Override

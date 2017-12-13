@@ -1,6 +1,7 @@
 package com.ygc.estatedecoration.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -15,12 +16,11 @@ import android.widget.Toast;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.activity.login.ForgetPwdActivity;
 import com.ygc.estatedecoration.activity.login.ServiceRegisterActivity;
-import com.ygc.estatedecoration.activity.login.UserRegisterActivity;
 import com.ygc.estatedecoration.activity.login.ServiceWeiXinLoginActivity;
+import com.ygc.estatedecoration.activity.login.UserRegisterActivity;
 import com.ygc.estatedecoration.activity.login.UserWeiXinLoginActivity;
 import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.bean.LoginBean;
-import com.ygc.estatedecoration.bean.RoleFindAllBean;
 import com.ygc.estatedecoration.user_activity.UserHomeActivity;
 import com.ygc.estatedecoration.utils.LogUtil;
 import com.ygc.estatedecoration.utils.MyPublic;
@@ -31,8 +31,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -77,7 +77,6 @@ public class LoginActivity extends AutoLayoutActivity {
         mUnBinder = ButterKnife.bind(this);
 
         initListener();
-
     }
 
     @Override
@@ -100,8 +99,7 @@ public class LoginActivity extends AutoLayoutActivity {
             }
         });
     }
-
-
+    
     @OnClick({R.id.tv_pwd_forget, R.id.tv_register, R.id.login_btn, R.id.login_weixin})
     public void onViewClicked(View view) {
         Intent intent = new Intent();
@@ -136,6 +134,9 @@ public class LoginActivity extends AutoLayoutActivity {
         }
     }
 
+    /**
+     * 微信登录绑定
+     */
     public void bandWeiXin() {
         Intent intent = new Intent();
         if (mordinaryuser.isChecked()) {
@@ -163,7 +164,8 @@ public class LoginActivity extends AutoLayoutActivity {
             finish();
         }
 
-       /* if (mordinaryuser.isChecked()) {
+
+        /*if (mordinaryuser.isChecked()) {
             identity = 0;
         } else if (mServiceuser.isChecked()) {
             identity = 1;
@@ -175,6 +177,18 @@ public class LoginActivity extends AutoLayoutActivity {
             Toast.makeText(LoginActivity.this, "请填写用户名和密码", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
+                .setTitleText("Loading");
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        pDialog.setCancelable(false);
+        pDialog.show();
+       *//*pDialog.getProgressHelper().setBarWidth(10);//转圈圆环宽度
+        pDialog.getProgressHelper().setRimWidth(2);//--中间半圆环空隙
+        pDialog.getProgressHelper().setInstantProgress(10f);
+        pDialog.getProgressHelper().setSpinSpeed(10);//转的速度
+        pDialog.getProgressHelper().setProgress(2);//转了一圈
+        pDialog.getProgressHelper().setCircleRadius(10);*//*
 
         APPApi.getInstance().service
                 .login(num, pwd, identity)
@@ -195,9 +209,11 @@ public class LoginActivity extends AutoLayoutActivity {
                         String username = roleFindAllBean.getData().getUsername();
                         String password = roleFindAllBean.getData().getPassword();
                         if ("登录成功".equals(msg)) {
+                            pDialog.cancel();
                             //保存用户名、密码
-                            UserUtils.setParam(UserUtils.userId, username, "");
-                            UserUtils.setParam(UserUtils.userPws, password, "");
+                            UserUtils.setParam(UserUtils.USER, UserUtils.userId, username);
+                            UserUtils.setParam(UserUtils.USER, UserUtils.userPws, password);
+                            UserUtils.putOnLineBoolean(LoginActivity.this, "", true);//标记用户退出登录
 
                             Intent intent = new Intent();
                             if (type == 0) {
@@ -212,6 +228,7 @@ public class LoginActivity extends AutoLayoutActivity {
                                 finish();
                             }
                         } else {
+                            pDialog.cancel();
                             Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();
                         }
                     }
