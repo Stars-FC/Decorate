@@ -1,16 +1,14 @@
 package com.ygc.estatedecoration.entity.base;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
 
 public class Base implements Serializable {
-    public String ResponseStatus;
+    public String responseState;
     public String msg;
-    public Pay data;
-    public String code;
+//    public Pay data;
+//    public String code;
 
-    public class Pay {
+    /*public class Pay {
         public String alSign;
         public String sign;
         public String timestamp;
@@ -20,5 +18,5 @@ public class Base implements Serializable {
         @SerializedName("package")
         public String packageValue;
         public String appid;
-    }
+    }*/
 }

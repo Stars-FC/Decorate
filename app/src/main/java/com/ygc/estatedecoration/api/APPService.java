@@ -62,10 +62,14 @@ public interface APPService {
             String password, @Field("code") String code);  //重置密码
 
 
-    /*********************************************服务商段*******************************************/
+    /*********************************************服务商端*******************************************/
 
     @FormUrlEncoded
     @POST("landMark/wzd/Demand/getDemandList.action")
-    Observable<NeedBean> queryAllNeed(@Field("page") int page);
+    Observable<NeedBean> queryAllNeed(@Field("page") int page, @Field("missionType") String missionType, @Field("constructionStatusQuo") String constructionStatusQuo, @Field("missionStartTime") String missionStartTime, @Field("missionEndTime") String missionEndTime, @Field("mixBuildingArea") String mixBuildingArea, @Field("maxBuildingArea") String maxBuildingArea, @Field("address") String address);
+
+    @FormUrlEncoded
+    @POST("landMark/wzd/Demand/getDemandListByauId.action")
+    Observable<NeedBean> queryRecommendNeed(@Field("auId") String auId, @Field("searchType") String searchType, @Field("orderState") String orderState, @Field("auId") int page);
 
 }

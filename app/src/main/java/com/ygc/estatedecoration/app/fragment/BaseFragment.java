@@ -18,8 +18,10 @@ import com.ygc.estatedecoration.widget.TitleBar;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.reactivex.disposables.CompositeDisposable;
 
 public abstract class BaseFragment extends Fragment {
+    public CompositeDisposable compositeDisposable;
 
     //root
     protected ViewGroup mViewGroup;
@@ -61,7 +63,7 @@ public abstract class BaseFragment extends Fragment {
     @Nullable
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_base, container, false);
-
+        compositeDisposable = new CompositeDisposable();
         basicInitialize();
 
         mUnBinder = ButterKnife.bind(this, mRootView);
@@ -179,5 +181,6 @@ public abstract class BaseFragment extends Fragment {
         if (mUnBinder!=null) {
             mUnBinder.unbind();
         }
+        compositeDisposable.dispose();
     }
 }

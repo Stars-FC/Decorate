@@ -3,18 +3,20 @@ package com.ygc.estatedecoration.activity.home;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -25,16 +27,28 @@ import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
 import com.ygc.estatedecoration.bean.NeedBean;
 import com.ygc.estatedecoration.entity.base.Base;
+import com.ygc.estatedecoration.entity.base.Constant;
+import com.ygc.estatedecoration.utils.AddressPickTask;
+import com.ygc.estatedecoration.utils.DateUtil;
 import com.ygc.estatedecoration.utils.LogUtil;
 import com.ygc.estatedecoration.widget.TitleBar;
 import com.yyydjk.library.DropDownMenu;
+import com.zhy.view.flowlayout.TagAdapter;
+import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.qqtheme.framework.entity.City;
+import cn.qqtheme.framework.entity.County;
+import cn.qqtheme.framework.entity.Province;
+import cn.qqtheme.framework.picker.DatePicker;
+import cn.qqtheme.framework.util.ConvertUtils;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -49,6 +63,20 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
 
     @BindView(R.id.drawerlayout)
     DrawerLayout mDrawerLayout;
+    @BindView(R.id.missionType_tagFlowLayout)
+    TagFlowLayout missionTypeTagFlowLayout;
+    @BindView(R.id.constructionStatusQuo_tagFlowLayout)
+    TagFlowLayout constructionStatusQuoTagFlowLayout;
+    @BindView(R.id.start_time_et)
+    EditText mEt_startTime;
+    @BindView(R.id.end_time_et)
+    EditText mEt_endTime;
+    @BindView(R.id.minBuildingArea_et)
+    EditText mEt_minBuildingArea;
+    @BindView(R.id.maxBuildingArea_et)
+    EditText mEt_maxBuildingArea;
+    @BindView(R.id.address_tv)
+    TextView mTv_address;
 
     @BindView(R.id.dropDownMenu)
     DropDownMenu mDropDownMenu;
@@ -66,13 +94,21 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
     private String nows[] = {"不限", "局部改造", "毛胚房", "旧房翻新"};
     private GirdDropDownAdapter typesAdapter;
     private GirdDropDownAdapter nowsAdapter;
+
+    private List<NeedBean.DataBean> mDataBeanList = new ArrayList<>();
     private HomeNeedHallAdapter mAdapter;
-    private List<NeedBean.DataBean> dataList = new ArrayList<>();
-    private List<String> list = new ArrayList<>();
-    private ListView mAgeView;
+    private String mStartTimeStr = "";
+    private String mEndTimeStr;
+    private String mMinAreaStr;
+    private String mMaxAreaStr;
+    private String mAddressStr;
     private ListView typesList;
     private ListView nowsList;
 
+    private String[] missionTypeArray = {"家装", "工装"};
+    private String[] constructionStatusQuoArray = {"局部改造", "毛胚房", "旧房翻新"};
+    private String curSelectedMissionTypePosition = "";
+    private String curSelectedConstructionStatusQuoPosition = "";
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
@@ -94,6 +130,21 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
             @Override
             public void onClick(View view) {
                 mDropDownMenu.closeMenu();//关闭选择列表
+                mStartTimeStr = "";
+                mEndTimeStr = "";
+                mMinAreaStr = "";
+                mMaxAreaStr = "";
+                mAddressStr = "";
+                if (!TextUtils.isEmpty(missionType) || !TextUtils.isEmpty(constructionStatusQuo)) {
+                    typesAdapter.setCheckItem(0);
+                    nowsAdapter.setCheckItem(0);
+                    missionType = "";
+                    constructionStatusQuo = "";
+                    curPageNumAllData = 0;
+                    mDataBeanList.clear();
+                    mAdapter.notifyDataSetChanged();
+                    queryNeedDataEvent(0, Constant.NORMAL_REQUEST, missionType, constructionStatusQuo, "", "", "", "", "");
+                }
 
                 // TODO: 2017/12/13
                 typesList.performItemClick(
@@ -122,9 +173,8 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
         {
             @Override
             public void onLoadMoreRequested() {
-                mAdapter.loadMoreComplete();//完成
-//                mAdapter.loadMoreFail();//失败
-//                mAdapter.loadMoreEnd();//结束
+                curPageNumAllData += 1;
+                queryNeedDataEvent(curPageNumAllData, Constant.NORMAL_REQUEST, missionType, constructionStatusQuo, mStartTimeStr, mEndTimeStr, mMinAreaStr, mMaxAreaStr, mAddressStr);
             }
         }, mRecyclerView);
     }
@@ -148,10 +198,7 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
         //设置mDropDownMenu筛选
         initDropDownMenu();
 
-        for (int i = 0; i < 10; i++) {
-            list.add("heh");
-        }
-        mAdapter = new HomeNeedHallAdapter(list);
+        mAdapter = new HomeNeedHallAdapter(mDataBeanList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(NeedHallActivity.this));
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -159,6 +206,54 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(NeedHallActivity.this, TransactionManageDetailActivity.class);
                 startActivity(intent);
+            }
+        });
+
+
+        missionTypeTagFlowLayout.setMaxSelectCount(1);
+        missionTypeTagFlowLayout.setAdapter(new TagAdapter<String>(missionTypeArray) {
+            @Override
+            public View getView(com.zhy.view.flowlayout.FlowLayout parent, int position, String s) {
+                TextView tv = (TextView) LayoutInflater.from(NeedHallActivity.this).inflate(R.layout.item_user_search,
+                        missionTypeTagFlowLayout, false);
+                tv.setText(s);
+                return tv;
+            }
+        });
+        missionTypeTagFlowLayout.setOnSelectListener(new TagFlowLayout.OnSelectListener() {
+            @Override
+            public void onSelected(Set<Integer> selectPosSet) {
+                if (selectPosSet.size() > 0) {
+                    Iterator<Integer> iterator = selectPosSet.iterator();
+                    if (iterator.hasNext()) {
+                        curSelectedMissionTypePosition = String.valueOf(iterator.next());
+                    }
+                } else {
+                    curSelectedMissionTypePosition = "";
+                }
+            }
+        });
+        constructionStatusQuoTagFlowLayout.setMaxSelectCount(1);
+        constructionStatusQuoTagFlowLayout.setAdapter(new TagAdapter<String>(constructionStatusQuoArray) {
+            @Override
+            public View getView(com.zhy.view.flowlayout.FlowLayout parent, int position, String s) {
+                TextView tv = (TextView) LayoutInflater.from(NeedHallActivity.this).inflate(R.layout.item_user_search,
+                        constructionStatusQuoTagFlowLayout, false);
+                tv.setText(s);
+                return tv;
+            }
+        });
+        constructionStatusQuoTagFlowLayout.setOnSelectListener(new TagFlowLayout.OnSelectListener() {
+            @Override
+            public void onSelected(Set<Integer> selectPosSet) {
+                if (selectPosSet.size() > 0) {
+                    Iterator<Integer> iterator = selectPosSet.iterator();
+                    if (iterator.hasNext()) {
+                        curSelectedConstructionStatusQuoPosition = String.valueOf(iterator.next());
+                    }
+                } else {
+                    curSelectedConstructionStatusQuoPosition = "";
+                }
             }
         });
     }
@@ -188,6 +283,20 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
                 mDropDownMenu.setTabText(position == 0 ? headers[0] : types[position]);
                 LogUtil.e("pos" + position);
                 mDropDownMenu.closeMenu();
+                mStartTimeStr = "";
+                mEndTimeStr = "";
+                mMinAreaStr = "";
+                mMaxAreaStr = "";
+                mAddressStr = "";
+                if (position - 1 >= 0) {
+                    missionType = String.valueOf(position - 1);
+                } else {
+                    missionType = "";
+                }
+                mDataBeanList.clear();
+                mAdapter.notifyDataSetChanged();
+                curPageNumAllData = 0;
+                queryNeedDataEvent(0, Constant.NORMAL_REQUEST, missionType, constructionStatusQuo, "", "", "", "", "");
             }
         });
 
@@ -197,6 +306,20 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
                 nowsAdapter.setCheckItem(position);
                 mDropDownMenu.setTabText(position == 0 ? headers[1] : nows[position]);
                 mDropDownMenu.closeMenu();
+                mStartTimeStr = "";
+                mEndTimeStr = "";
+                mMinAreaStr = "";
+                mMaxAreaStr = "";
+                mAddressStr = "";
+                if (position - 1 >= 0) {
+                    constructionStatusQuo = String.valueOf(position - 1);
+                } else {
+                    constructionStatusQuo = "";
+                }
+                mDataBeanList.clear();
+                mAdapter.notifyDataSetChanged();
+                curPageNumAllData = 0;
+                queryNeedDataEvent(0, Constant.NORMAL_REQUEST, missionType, constructionStatusQuo, "", "", "", "", "");
             }
         });
 
@@ -205,34 +328,70 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-
-//        queryAllNeedDataEvent(1);
-
+        //查询全部的需求
+        queryNeedDataEvent(0, Constant.NORMAL_REQUEST, missionType, constructionStatusQuo, "", "", "", "", "");
     }
 
-    private void queryAllNeedDataEvent(int pageNum) {
+    private int curPageNumAllData = 0;
+    private String missionType = "";//装修类型
+    private String constructionStatusQuo = "";//建筑现状
+
+    private void queryNeedDataEvent(int pageNum, final String requestMark, String tempMissionType, String tempConstructionStatusQuo,
+                                    String startTimeStr, String endTimeStr, String minAreaStr, String maxAreaStr, String addressStr) {
         APPApi.getInstance().service
-                .queryAllNeed(pageNum)
+                .queryAllNeed(pageNum, tempMissionType, tempConstructionStatusQuo, startTimeStr, endTimeStr, minAreaStr, maxAreaStr, addressStr)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<NeedBean>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
-
+                        compositeDisposable.add(d);
                     }
 
                     @Override
                     public void onNext(@NonNull NeedBean needBean) {
-                        if (needBean.ResponseStatus.equals("1")) {
-                            dataList.addAll(needBean.getData());
+                        if (needBean.responseState.equals("1")) {
+                            int size = needBean.getData() == null ? 0 : needBean.getData().size();
+                            if (requestMark.equals(Constant.REFRESH_REQUEST)) {
+                                mDataBeanList.clear();
+                                if (size > 0) {
+                                    mDataBeanList.addAll(needBean.getData());
+                                }
+                                mAdapter.notifyDataSetChanged();
+                                refreshFinishEvent(true);
+                            } else {
+                                if (size > 0) {
+                                    mDataBeanList.addAll(needBean.getData());
+                                    mAdapter.notifyDataSetChanged();
+                                }
+                                if (curPageNumAllData == 0) {
+                                    // TODO: 2017/12/13 关闭请求对话框
+                                } else {
+                                    if (size > 0) {
+                                        mAdapter.loadMoreComplete();
+                                    } else {
+                                        mAdapter.loadMoreEnd();
+                                    }
+                                }
+                            }
                         } else {
+                            if (requestMark.equals(Constant.NORMAL_REQUEST)) {
+                                loadMoreFinishEvent();
+                            } else {
+                                refreshFinishEvent(false);
+                            }
                             showToast(needBean.msg);
+                        }
+                        if (requestMark.equals(Constant.REFRESH_REQUEST)) {
+                            mAdapter.setEnableLoadMore(true);
                         }
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-
+                        loadMoreFinishEvent();
+                        refreshFinishEvent(false);
+                        showToast(getResources().getString(R.string.network_error));
                     }
 
                     @Override
@@ -242,26 +401,160 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
                 });
     }
 
+    private void loadMoreFinishEvent() {
+        mAdapter.loadMoreFail();
+        curPageNumAllData -= 1;
+        if (curPageNumAllData < 0) {
+            curPageNumAllData = 0;
+        }
+    }
+
+    private void refreshFinishEvent(boolean isSuccess) {
+        if (mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.setRefreshing(false);
+            if (isSuccess) {
+                curPageNumAllData = 0;
+            }
+        }
+    }
+
     @Override
     protected int getLayoutId() {
         return R.layout.home_need_hall;
     }
 
-    @OnClick({R.id.back})
+    @OnClick({R.id.back, R.id.start_time_et, R.id.end_time_et, R.id.sure_btn, R.id.address_ll})
     public void onClickEvent(View view) {
         switch (view.getId()) {
-            case R.id.back: //后退按钮
+            case R.id.back:
                 finish();
                 break;
-
+            case R.id.start_time_et:
+                onYearMonthDayPicker(0);
+                break;
+            case R.id.end_time_et:
+                onYearMonthDayPicker(1);
+                break;
+            case R.id.address_ll:
+                selectAddressEvent();
+                break;
+            case R.id.sure_btn:
+                sureSelectCondition();
+                mDrawerLayout.closeDrawer(Gravity.END);
+                break;
         }
+    }
+
+    private void selectAddressEvent() {
+        AddressPickTask task = new AddressPickTask(this);
+        task.setHideCounty(true);
+        task.setCallback(new AddressPickTask.Callback() {
+            @Override
+            public void onAddressInitFailed() {
+                showToast("数据初始化失败");
+            }
+
+            @Override
+            public void onAddressPicked(Province province, City city, County county) {
+                mTv_address.setText(province.getAreaName() + " " + city.getAreaName());
+            }
+        });
+        task.execute("辽宁", "沈阳");
+    }
+
+    //确认筛选条件
+    private void sureSelectCondition() {
+        missionType = "";
+        constructionStatusQuo = "";
+        mDataBeanList.clear();
+        mAdapter.notifyDataSetChanged();
+
+        if (TextUtils.isEmpty(curSelectedMissionTypePosition)) {
+            typesAdapter.setCheckItem(0);
+        } else {
+            typesAdapter.setCheckItem(Integer.valueOf(curSelectedMissionTypePosition));
+        }
+        if (TextUtils.isEmpty(curSelectedConstructionStatusQuoPosition)) {
+            nowsAdapter.setCheckItem(0);
+        } else {
+            nowsAdapter.setCheckItem(Integer.valueOf(curSelectedConstructionStatusQuoPosition));
+        }
+
+        mStartTimeStr = mEt_startTime.getText().toString().trim();
+        if (TextUtils.isEmpty(mStartTimeStr)) {
+            mStartTimeStr = "";
+        } else {
+            mStartTimeStr = String.valueOf(DateUtil.string2Millis(mStartTimeStr + " 00:00:00") / 1000);
+        }
+        mEndTimeStr = mEt_endTime.getText().toString().trim();
+        if (TextUtils.isEmpty(mEndTimeStr)) {
+            mEndTimeStr = String.valueOf(DateUtil.string2Millis(mEndTimeStr + " 00:00:00") / 1000);
+        }
+        mMinAreaStr = mEt_minBuildingArea.getText().toString().trim();
+        if (TextUtils.isEmpty(mMinAreaStr)) {
+            mMinAreaStr = "";
+        }
+        mMaxAreaStr = mEt_maxBuildingArea.getText().toString().trim();
+        if (TextUtils.isEmpty(mMaxAreaStr)) {
+            mMaxAreaStr = "";
+        }
+        mAddressStr = mTv_address.getText().toString().trim();
+        if (TextUtils.isEmpty(mAddressStr)) {
+            mAddressStr = "";
+        }
+        queryNeedDataEvent(0, Constant.NORMAL_REQUEST, curSelectedMissionTypePosition, curSelectedConstructionStatusQuoPosition, mStartTimeStr, mEndTimeStr, mMinAreaStr, mMaxAreaStr, mAddressStr);
+    }
+
+    public void onYearMonthDayPicker(final int mark) {
+        final DatePicker picker = new DatePicker(this);
+        picker.setCanceledOnTouchOutside(true);
+        picker.setUseWeight(true);
+        picker.setTopPadding(ConvertUtils.toPx(this, 10));
+        picker.setTopLineColor(0x994EBE65);
+        picker.setTextColor(0xFF4EBE65);
+        picker.setCancelTextColor(0xFF4EBE65);
+        picker.setSubmitTextColor(0xFF4EBE65);
+        picker.setTitleTextColor(0xFF4EBE65);
+        picker.setDividerColor(0xFF4EBE65);
+        picker.setRangeEnd(2111, 1, 11);
+        picker.setRangeStart(2016, 8, 29);
+        String curYearMonthDayStr = DateUtil.getNowString();
+        String substring = curYearMonthDayStr.substring(0, 10);
+        String[] split = substring.split("-");
+        picker.setSelectedItem(Integer.valueOf(split[0]), Integer.valueOf(split[1]), Integer.valueOf(split[2]));
+        picker.setResetWhileWheel(false);
+        picker.setOnDatePickListener(new DatePicker.OnYearMonthDayPickListener() {
+            @Override
+            public void onDatePicked(String year, String month, String day) {
+                if (mark == 0) {
+                    mEt_startTime.setText(year + "-" + month + "-" + day);
+                } else if (mark == 1) {
+                    mEt_endTime.setText(year + "-" + month + "-" + day);
+                }
+            }
+        });
+        picker.setOnWheelListener(new DatePicker.OnWheelListener() {
+            @Override
+            public void onYearWheeled(int index, String year) {
+                picker.setTitleText(year + "-" + picker.getSelectedMonth() + "-" + picker.getSelectedDay());
+            }
+
+            @Override
+            public void onMonthWheeled(int index, String month) {
+                picker.setTitleText(picker.getSelectedYear() + "-" + month + "-" + picker.getSelectedDay());
+            }
+
+            @Override
+            public void onDayWheeled(int index, String day) {
+                picker.setTitleText(picker.getSelectedYear() + "-" + picker.getSelectedMonth() + "-" + day);
+            }
+        });
+        picker.show();
     }
 
     @Override
     public void onRefresh() {
         mAdapter.setEnableLoadMore(false);//这里的作用是防止下拉刷新的时候还可以上拉加载
-        if (mSwipeRefreshLayout.isRefreshing()) {
-            mSwipeRefreshLayout.setRefreshing(false);
-        }
+        queryNeedDataEvent(0, Constant.REFRESH_REQUEST, missionType, constructionStatusQuo, mStartTimeStr, mEndTimeStr, mMinAreaStr, mMaxAreaStr, mAddressStr);
     }
 }

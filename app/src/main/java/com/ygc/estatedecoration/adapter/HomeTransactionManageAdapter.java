@@ -9,10 +9,6 @@ import com.ygc.estatedecoration.activity.home.TransactionDetailPager;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by FC on 2017/11/20.
- */
-
 public class HomeTransactionManageAdapter extends PagerAdapter {
 
     private ArrayList<TransactionDetailPager> mBasePagers;

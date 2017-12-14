@@ -3,6 +3,7 @@ package com.ygc.estatedecoration.activity.home;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,13 +11,18 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.adapter.HomeTransactionManageDetailAdapter;
+import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.base.BasePager;
+import com.ygc.estatedecoration.bean.NeedBean;
+import com.ygc.estatedecoration.entity.base.Constant;
 
-import java.util.ArrayList;
-import java.util.List;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by FC on 2017/11/20.
@@ -24,13 +30,17 @@ import java.util.List;
  */
 
 public class TransactionDetailPager extends BasePager {
-
+    private CompositeDisposable mCompositeDisposable;
+    private int orderState = -1;
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private HomeTransactionManageDetailAdapter mAdapter;
+    private int curPageNum = 0;
 
-    public TransactionDetailPager(Context context) {
+    public TransactionDetailPager(Context context, int orderState, CompositeDisposable compositeDisposable) {
         super(context);
+        this.orderState = orderState;
+        this.mCompositeDisposable = compositeDisposable;
     }
 
     @Override
@@ -48,12 +58,9 @@ public class TransactionDetailPager extends BasePager {
     public void initData() {
         super.initData();
 
-        List<String> list = new ArrayList<>(); //（请求网络获取到的数据集合）
-        for (int i = 0; i < 10; i++) {
-            list.add("" + i);
-        }
+        getTransactionDemandData(0, Constant.NORMAL_REQUEST);
 
-        mAdapter = new HomeTransactionManageDetailAdapter(list);
+        mAdapter = new HomeTransactionManageDetailAdapter();
 
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -69,30 +76,105 @@ public class TransactionDetailPager extends BasePager {
         initListener();
     }
 
+    private void getTransactionDemandData(int pageNum, final String requestMark) {
+        APPApi.getInstance().service
+                .queryRecommendNeed("auId", "1", String.valueOf(orderState), pageNum)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<NeedBean>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        mCompositeDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(@NonNull NeedBean needBean) {
+                        if (needBean.responseState.equals("1")) {
+                            int size = needBean.getData() == null ? 0 : needBean.getData().size();
+                            if (requestMark.equals(Constant.REFRESH_REQUEST)) {
+                                mAdapter.setNewData(needBean.getData());
+                                if (size > 0) {
+                                    mAdapter.loadMoreComplete();
+                                } else {
+                                    mAdapter.loadMoreEnd();
+                                }
+                            } else {
+                                if (size > 0) {
+                                    mAdapter.addData(needBean.getData());
+                                }
+                                if (curPageNum == 0) {
+                                    // TODO: 2017/12/13 第一次加载数据
+                                } else {
+                                    if (size > 0) {
+                                        mAdapter.loadMoreComplete();
+                                    } else {
+                                        mAdapter.loadMoreEnd();
+                                    }
+                                }
+                            }
+                        } else {
+                            if (requestMark.equals(Constant.NORMAL_REQUEST)) {
+                                loadMoreFinishEvent();
+                            } else {
+                                refreshFinishEvent(false);
+                            }
+                            Toast.makeText(mContext, needBean.msg, Toast.LENGTH_SHORT).show();
+                        }
+                        if (requestMark.equals(Constant.REFRESH_REQUEST)) {
+                            mAdapter.setEnableLoadMore(true);
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        loadMoreFinishEvent();
+                        refreshFinishEvent(false);
+                        Toast.makeText(mContext, mContext.getResources().getString(R.string.network_error), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    private void loadMoreFinishEvent() {
+        mAdapter.loadMoreFail();
+        curPageNum -= 1;
+        if (curPageNum < 0) {
+            curPageNum = 0;
+        }
+    }
+
+    private void refreshFinishEvent(boolean isSuccess) {
+        if (mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.setRefreshing(false);
+            if (isSuccess) {
+                curPageNum = 0;
+            }
+        }
+    }
+
     /**
      * 监听事件
      */
     private void initListener() {
-        mSwipeRefreshLayout.setColorSchemeColors(Color.parseColor("#4EBE65")); //设置下拉刷新箭头颜色
+        mSwipeRefreshLayout.setColorSchemeColors(Color.parseColor("#4EBE65"));
 
-        //下拉加载
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mAdapter.setEnableLoadMore(false);//这里的作用是防止下拉刷新的时候还可以上拉加载
-                if (mSwipeRefreshLayout.isRefreshing()) {
-                    mSwipeRefreshLayout.setRefreshing(false);
-                }
+                mAdapter.setEnableLoadMore(false);
+                getTransactionDemandData(0, Constant.REFRESH_REQUEST);
             }
         });
 
-        //上拉加载更多
         mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                mAdapter.loadMoreComplete();//完成
-//                mAdapter.loadMoreFail();//失败
-//                mAdapter.loadMoreEnd();//结束
+                curPageNum += 1;
+                getTransactionDemandData(curPageNum, Constant.NORMAL_REQUEST);
             }
         }, mRecyclerView);
     }

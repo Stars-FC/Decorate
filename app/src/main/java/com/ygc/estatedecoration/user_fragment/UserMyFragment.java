@@ -66,7 +66,6 @@ public class UserMyFragment extends BaseFragment implements EasyPermissions.Perm
 
     @BindView(R.id.tv_sex)
     TextView mTvSex;
-    Unbinder unbinder;
 
     private BasePopupWindow mSelectPicPopupWindow;
     private BasePopupWindow mModifyInfoPicPopupWindow;

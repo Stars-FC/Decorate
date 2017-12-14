@@ -17,8 +17,11 @@ import com.zhy.autolayout.AutoLayoutActivity;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.reactivex.disposables.CompositeDisposable;
 
 public abstract class BaseActivity extends AutoLayoutActivity {
+
+    public CompositeDisposable compositeDisposable;
 
     private Unbinder mUnBinder;
 
@@ -36,6 +39,7 @@ public abstract class BaseActivity extends AutoLayoutActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+        compositeDisposable = new CompositeDisposable();
         ImmersionBar.with(this).statusBarDarkFont(true, 0.2f).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         basicInitialize();
         mUnBinder = ButterKnife.bind(this);
@@ -111,6 +115,7 @@ public abstract class BaseActivity extends AutoLayoutActivity {
             mUnBinder.unbind();
         }
         ImmersionBar.with(this).destroy();
+        compositeDisposable.dispose();
     }
 
     // 添加Activity方法

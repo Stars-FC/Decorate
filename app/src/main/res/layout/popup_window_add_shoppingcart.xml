@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:zhy="http://schemas.android.com/tools"
     android:gravity="bottom"
     android:orientation="vertical">
 
@@ -129,7 +130,7 @@
                         android:textColor="@color/black"
                         android:textSize="30px"/>
 
-                    <com.ygc.estatedecoration.widget.FlowLayout
+                    <!--<com.ygc.estatedecoration.widget.FlowLayout
                         android:id="@+id/flow_layout_one"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -138,7 +139,17 @@
                         android:layout_marginTop="25px"
                         android:padding="5dp"
                         app:height_space="10dp"
-                        app:width_space="10dp"/>
+                        app:width_space="10dp"/>-->
+
+                    <com.zhy.view.flowlayout.TagFlowLayout
+                        android:id="@+id/flow_layout_one"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30px"
+                        android:layout_marginRight="30px"
+                        android:layout_marginTop="25px"
+                        android:padding="5dp"
+                        zhy:max_select="1"/>
 
                     <View
                         android:layout_width="match_parent"
@@ -157,7 +168,7 @@
                         android:textColor="@color/black"
                         android:textSize="30px"/>
 
-                    <com.ygc.estatedecoration.widget.FlowLayout
+                    <com.zhy.view.flowlayout.TagFlowLayout
                         android:id="@+id/flow_layout_two"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -165,8 +176,7 @@
                         android:layout_marginRight="30px"
                         android:layout_marginTop="25px"
                         android:padding="5dp"
-                        app:height_space="10dp"
-                        app:width_space="10dp"/>
+                        zhy:max_select="1"/>
 
                     <View
                         android:layout_width="match_parent"

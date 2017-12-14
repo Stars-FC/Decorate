@@ -3,9 +3,11 @@ package com.ygc.estatedecoration.fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -17,15 +19,18 @@ import com.ygc.estatedecoration.activity.home.ServerMsgActivity;
 import com.ygc.estatedecoration.activity.home.TransactionManageActivity;
 import com.ygc.estatedecoration.activity.home.TransactionManageDetailActivity;
 import com.ygc.estatedecoration.adapter.HomeAdapter;
+import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
-import com.ygc.estatedecoration.utils.LogUtil;
+import com.ygc.estatedecoration.bean.NeedBean;
+import com.ygc.estatedecoration.entity.base.Constant;
 import com.ygc.estatedecoration.widget.TitleBar;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by FC on 2017/11/13.
@@ -63,17 +68,94 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
     @Override
     protected void initData(Bundle arguments) {
+        getRecommendNeedData(0, Constant.NORMAL_REQUEST);
+    }
 
+    private void getRecommendNeedData(int pageNum, final String requestMark) {
+        APPApi.getInstance().service
+                .queryRecommendNeed("auId", "0", "2", pageNum)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<NeedBean>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        compositeDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(@NonNull NeedBean needBean) {
+                        if (needBean.responseState.equals("1")) {
+                            int size = needBean.getData() == null ? 0 : needBean.getData().size();
+                            if (requestMark.equals(Constant.REFRESH_REQUEST)) {
+                                mHomeAdapter.setNewData(needBean.getData());
+                                if (size > 0) {
+                                    mHomeAdapter.loadMoreComplete();
+                                } else {
+                                    mHomeAdapter.loadMoreEnd();
+                                }
+                            } else {
+                                if (size > 0) {
+                                    mHomeAdapter.addData(needBean.getData());
+                                }
+                                if (curPageNum == 0) {
+                                    // TODO: 2017/12/13 第一次加载数据
+                                } else {
+                                    if (size > 0) {
+                                        mHomeAdapter.loadMoreComplete();
+                                    } else {
+                                        mHomeAdapter.loadMoreEnd();
+                                    }
+                                }
+                            }
+                        } else {
+                            if (requestMark.equals(Constant.NORMAL_REQUEST)) {
+                                loadMoreFinishEvent();
+                            } else {
+                                refreshFinishEvent(false);
+                            }
+                            showToast(needBean.msg);
+                        }
+                        if (requestMark.equals(Constant.REFRESH_REQUEST)) {
+                            mHomeAdapter.setEnableLoadMore(true);
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Log.i("521", "onError: HomeFragment request network data defeat!");
+                        loadMoreFinishEvent();
+                        refreshFinishEvent(false);
+                        showToast(getResources().getString(R.string.network_error));
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    private int curPageNum = 0;
+    private void loadMoreFinishEvent() {
+        mHomeAdapter.loadMoreFail();
+        curPageNum -= 1;
+        if (curPageNum < 0) {
+            curPageNum = 0;
+        }
+    }
+
+    private void refreshFinishEvent(boolean isSuccess) {
+        if (mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.setRefreshing(false);
+            if (isSuccess) {
+                curPageNum = 0;
+            }
+        }
     }
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        LogUtil.e("主页初始化");
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            list.add("" + i);
-        }
-        mHomeAdapter = new HomeAdapter(list);
+        mHomeAdapter = new HomeAdapter();
 
         mView = View.inflate(mActivity, R.layout.top_home, null);
 
@@ -104,14 +186,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         mHomeAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                mHomeAdapter.loadMoreComplete();//完成
-//                mAdapter.loadMoreFail();//失败
-//                mAdapter.loadMoreEnd();//结束
-                 /* curPagerNum++;
-                if (curPagerNum <= allPagerNum) {
-                    requestDataEvent(Constant.NORMAL_REQUEST);
-                }*/
-                mHomeAdapter.loadMoreComplete();
+                curPageNum += 1;
+                getRecommendNeedData(curPageNum, Constant.NORMAL_REQUEST);
             }
         }, mRecyclerView);
 
@@ -164,26 +240,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void onRefresh() {
-        mHomeAdapter.setEnableLoadMore(false);//这里的作用是防止下拉刷新的时候还可以上拉加载
-        if (mSwipeRefreshLayout.isRefreshing()) {
-            mSwipeRefreshLayout.setRefreshing(false);
-        }
-                /*if (mCurrentCounter >= TOTAL_COUNTER) {
-                    //数据全部加载完毕
-                    mQuickAdapter.loadMoreEnd();
-                } else {
-                    if (isErr) {
-                        //成功获取更多数据
-                        mQuickAdapter.addData(DataServer.getSampleData(PAGE_SIZE));
-                        mCurrentCounter = mQuickAdapter.getData().size();
-                        mQuickAdapter.loadMoreComplete();
-                    } else {
-                        //获取更多数据失败
-                        isErr = true;
-                        Toast.makeText(PullToRefreshUseActivity.this, R.string.network_err, Toast.LENGTH_LONG).show();
-                        mQuickAdapter.loadMoreFail();
-
-                    }
-                }*/
+        mHomeAdapter.setEnableLoadMore(false);
+        getRecommendNeedData(0, Constant.REFRESH_REQUEST);
     }
 }
