@@ -1,29 +1,22 @@
 package com.ygc.estatedecoration.api;
 
+import com.ygc.estatedecoration.bean.BaseBean;
+import com.ygc.estatedecoration.bean.DemandOfferBean;
 import com.ygc.estatedecoration.bean.LoginBean;
 import com.ygc.estatedecoration.bean.MyBrightBean;
 import com.ygc.estatedecoration.bean.NeedBean;
-import com.ygc.estatedecoration.bean.BaseBean;
 import com.ygc.estatedecoration.bean.RoleFindAllBean;
 import com.ygc.estatedecoration.bean.UserInformationBean;
 import com.ygc.estatedecoration.entity.base.Base;
 
 import java.io.File;
-import java.util.List;
-import java.util.Map;
 
 import io.reactivex.Observable;
-import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.Part;
-import retrofit2.http.PartMap;
 
 public interface APPService {
 
@@ -73,12 +66,20 @@ public interface APPService {
     /*********************************************服务商端*******************************************/
 
     @FormUrlEncoded
-    @POST("landMark/wzd/Demand/getDemandList.action")
+    @POST("wzd/Demand/getDemandList.action")//所有需求
     Observable<NeedBean> queryAllNeed(@Field("page") int page, @Field("missionType") String missionType, @Field("constructionStatusQuo") String constructionStatusQuo, @Field("missionStartTime") String missionStartTime, @Field("missionEndTime") String missionEndTime, @Field("mixBuildingArea") String mixBuildingArea, @Field("maxBuildingArea") String maxBuildingArea, @Field("address") String address);
 
     @FormUrlEncoded
-    @POST("landMark/wzd/Demand/getDemandListByauId.action")
+    @POST("wzd/Demand/getDemandListByauId.action")//推荐需求 交易管理
     Observable<NeedBean> queryRecommendNeed(@Field("auId") String auId, @Field("searchType") String searchType, @Field("orderState") String orderState, @Field("page") int page);
+
+    @FormUrlEncoded
+    @POST("wzd/Demand/addDemandOffer.action")//报价
+    Observable<Base> demandOffer(@Field("cId") String cId, @Field("dId") String dId, @Field("price") String price, @Field("needTime") String needTime, @Field("message") String message, @Field("toOpen") String toOpen);
+
+    @FormUrlEncoded
+    @POST("wzd/Demand/getDemandOfferList.action")//报价列表
+    Observable<DemandOfferBean> getDemandOfferList(@Field("doId") String doId, @Field("dId") String dId, @Field("page") String page);
 
 
     /*********************************************个人中心*******************************************/

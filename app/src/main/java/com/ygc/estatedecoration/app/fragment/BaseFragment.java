@@ -60,10 +60,15 @@ public abstract class BaseFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        compositeDisposable = new CompositeDisposable();
+    }
+
+    @Override
     @Nullable
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_base, container, false);
-        compositeDisposable = new CompositeDisposable();
         basicInitialize();
 
         mUnBinder = ButterKnife.bind(this, mRootView);

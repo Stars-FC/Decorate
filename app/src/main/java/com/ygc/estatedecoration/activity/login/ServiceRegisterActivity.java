@@ -1,6 +1,5 @@
 package com.ygc.estatedecoration.activity.login;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -21,7 +20,6 @@ import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ygc.estatedecoration.R;
-import com.ygc.estatedecoration.activity.LoginActivity;
 import com.ygc.estatedecoration.adapter.ServiceWeiXinLoginAdapter;
 import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
@@ -105,6 +103,7 @@ public class ServiceRegisterActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
+        mServiceEtNickname.setText("匿名");
         getNetRole();//获取材料商信息
     }
 
@@ -361,8 +360,8 @@ public class ServiceRegisterActivity extends BaseActivity {
                         if ("添加成功".equals(msg)) {
                             pDialog.cancel();
                             showToast("注册成功");
-                            Intent intent = new Intent(ServiceRegisterActivity.this, LoginActivity.class);
-                            startActivity(intent);
+                            /*Intent intent = new Intent(ServiceRegisterActivity.this, LoginActivity.class);
+                            startActivity(intent);*/
                             finish();
                         } else {
                             pDialog.cancel();

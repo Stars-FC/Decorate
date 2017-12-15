@@ -3,23 +3,24 @@ package com.ygc.estatedecoration.activity.home;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.ygc.estatedecoration.R;
-import com.ygc.estatedecoration.adapter.HomeTransactionManageAdapter;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
+import com.ygc.estatedecoration.fragment.home.TransactionManageFragment;
+import com.ygc.estatedecoration.utils.lazyviewpager.LazyFragmentPagerAdapter;
+import com.ygc.estatedecoration.utils.lazyviewpager.LazyViewPager;
 import com.ygc.estatedecoration.widget.TitleBar;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
  * Created by FC on 2017/11/20.
- *首页-交易管理页面
+ * 首页-交易管理页面
  */
 
 public class TransactionManageActivity extends BaseActivity {
@@ -28,11 +29,9 @@ public class TransactionManageActivity extends BaseActivity {
     TabLayout mTabLayout;
 
     @BindView(R.id.viewpager)
-    ViewPager mViewpager;
+    LazyViewPager mViewpager;
 
-    private ArrayList<TransactionDetailPager> mBasePagers;
-
-    private HomeTransactionManageAdapter mAdapter;
+    private static String[] titleArray = {"全部", "进行中", "已完成", "招标中", "已淘汰"};
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
@@ -55,23 +54,14 @@ public class TransactionManageActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        List<String> list = new ArrayList<>();
-        list.add("全部");
-        list.add("进行中");
-        list.add("已完成");
-        list.add("招标中");
-        list.add("已淘汰");
 
-        mBasePagers = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
-            mBasePagers.add(new TransactionDetailPager(TransactionManageActivity.this, i, compositeDisposable));//有网络数据时传入获取打的数据集合、修改构造方法
-        }
+//        for (int i = 0; i < list.size(); i++) {
+//        }
+//            mBasePagers.add(new TransactionDetailPager(TransactionManageActivity.this, i == 0 ? "-1" : String.valueOf(i - 1), compositeDisposable, mPDialog));//有网络数据时传入获取打的数据集合、修改构造方法
 
         mTabLayout.setupWithViewPager(mViewpager);
 
-        mAdapter = new HomeTransactionManageAdapter(mBasePagers, list);
-
-        mViewpager.setAdapter(mAdapter);
+        mViewpager.setAdapter(new CustomLazyFragmentPagerAdapter(getSupportFragmentManager()));
 
         mTabLayout.addOnTabSelectedListener(new TabListener());
     }
@@ -105,6 +95,28 @@ public class TransactionManageActivity extends BaseActivity {
         @Override
         public void onTabReselected(TabLayout.Tab tab) {
 
+        }
+    }
+
+    private static class CustomLazyFragmentPagerAdapter extends LazyFragmentPagerAdapter {
+
+        private CustomLazyFragmentPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(ViewGroup container, int position) {
+            return TransactionManageFragment.newInstance(position == 0 ? "-1" : String.valueOf(position - 1));
+        }
+
+        @Override
+        public int getCount() {
+            return 5;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return titleArray[position];
         }
     }
 }

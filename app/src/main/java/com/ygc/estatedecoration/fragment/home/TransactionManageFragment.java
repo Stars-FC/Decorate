@@ -1,87 +1,131 @@
-package com.ygc.estatedecoration.activity.home;
+package com.ygc.estatedecoration.fragment.home;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ygc.estatedecoration.R;
+import com.ygc.estatedecoration.activity.home.DemandAndProgressActivity;
 import com.ygc.estatedecoration.adapter.HomeTransactionManageDetailAdapter;
 import com.ygc.estatedecoration.api.APPApi;
-import com.ygc.estatedecoration.base.BasePager;
+import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.bean.NeedBean;
 import com.ygc.estatedecoration.entity.base.Constant;
+import com.ygc.estatedecoration.utils.lazyviewpager.LazyFragmentPagerAdapter;
+import com.ygc.estatedecoration.widget.TitleBar;
 
+import butterknife.BindView;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-/**
- * Created by FC on 2017/11/20.
- * 交易管理的子页面
- */
+public class TransactionManageFragment extends BaseFragment implements LazyFragmentPagerAdapter.Laziable{
 
-public class TransactionDetailPager extends BasePager {
-    private CompositeDisposable mCompositeDisposable;
-    private String orderState = "-1";
-    private RecyclerView mRecyclerView;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
-    private HomeTransactionManageDetailAdapter mAdapter;
-    private int curPageNum = 0;
     private SweetAlertDialog mSweetAlertDialog;
+    private String orderState;
+    private int curPageNum = 0;
 
-    public TransactionDetailPager(Context context, String orderState, CompositeDisposable compositeDisposable, SweetAlertDialog dialog) {
-        super(context);
-        this.orderState = orderState;
-        this.mCompositeDisposable = compositeDisposable;
-        this.mSweetAlertDialog = dialog;
+    @BindView(R.id.swipeLayout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
+    @BindView(R.id.recyclerview)
+    RecyclerView mRecyclerView;
+    private HomeTransactionManageDetailAdapter mAdapter;
+
+    public static TransactionManageFragment newInstance(String missionType) {
+        TransactionManageFragment fragment = new TransactionManageFragment();
+        Bundle args = new Bundle();
+        args.putString("missionType", missionType);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
-    public View initView() {
-
-        View view = View.inflate(mContext, R.layout.recyclerview, null);
-
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeLayout);
-
-        return view;
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            orderState = getArguments().getString("missionType");
+        }
     }
 
     @Override
-    public void initData() {
-        super.initData();
-        mSweetAlertDialog.show();
+    protected boolean buildTitle(TitleBar bar) {
+        return false;
+    }
+
+    @Override
+    protected void initData(Bundle arguments) {
+        Log.i("521", "initData: orderState:" + orderState);
+        initDialog();
         getTransactionDemandData(0, Constant.NORMAL_REQUEST);
+    }
 
+    private void initDialog() {
+        mSweetAlertDialog = new SweetAlertDialog(mActivity, SweetAlertDialog.PROGRESS_TYPE)
+                .setTitleText("正在加载...");
+        mSweetAlertDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        mSweetAlertDialog.setCancelable(false);
+        mSweetAlertDialog.show();
+    }
+
+    @Override
+    protected void initView(Bundle savedInstanceState) {
+        initRecyclerView();
+    }
+
+    private void initRecyclerView() {
         mAdapter = new HomeTransactionManageDetailAdapter();
-
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent(mContext, DemandAndProgressActivity.class);
-                mContext.startActivity(intent);
+                Intent intent = new Intent(mActivity, DemandAndProgressActivity.class);
+                mActivity.startActivity(intent);
+            }
+        });
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    protected void addListener() {
+        mSwipeRefreshLayout.setColorSchemeColors(Color.parseColor("#4EBE65"));
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mAdapter.setEnableLoadMore(false);
+                getTransactionDemandData(0, Constant.REFRESH_REQUEST);
             }
         });
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                curPageNum += 1;
+                getTransactionDemandData(curPageNum, Constant.NORMAL_REQUEST);
+            }
+        }, mRecyclerView);
+    }
 
-        initListener();
+    @Override
+    protected void onLazyLoad() {
+
+    }
+
+    @Override
+    protected int setLayoutResourceId() {
+        return R.layout.fragment_transaction_manage;
     }
 
     private void getTransactionDemandData(int pageNum, final String requestMark) {
-        Log.i("521", "getTransactionDemandData: orderState:" + orderState);
+        Log.i("521", "getTransactionDemandData: orderState:" + orderState + "===pageNum:" + pageNum);
         APPApi.getInstance().service
                 .queryRecommendNeed("9", "1", orderState, pageNum)
                 .subscribeOn(Schedulers.io())
@@ -89,7 +133,7 @@ public class TransactionDetailPager extends BasePager {
                 .subscribe(new Observer<NeedBean>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
-                        mCompositeDisposable.add(d);
+                        compositeDisposable.add(d);
                     }
 
                     @Override
@@ -114,7 +158,7 @@ public class TransactionDetailPager extends BasePager {
                             } else {
                                 refreshFinishEvent(false);
                             }
-                            Toast.makeText(mContext, needBean.msg, Toast.LENGTH_SHORT).show();
+                            showToast(needBean.msg);
                         }
                         if (requestMark.equals(Constant.REFRESH_REQUEST)) {
                             mAdapter.setEnableLoadMore(true);
@@ -126,7 +170,7 @@ public class TransactionDetailPager extends BasePager {
                         cancelDialog();
                         loadMoreFinishEvent();
                         refreshFinishEvent(false);
-                        Toast.makeText(mContext, mContext.getResources().getString(R.string.network_error), Toast.LENGTH_SHORT).show();
+                        showToast(getResources().getString(R.string.network_error));
                     }
 
                     @Override
@@ -157,28 +201,5 @@ public class TransactionDetailPager extends BasePager {
                 curPageNum = 0;
             }
         }
-    }
-
-    /**
-     * 监听事件
-     */
-    private void initListener() {
-        mSwipeRefreshLayout.setColorSchemeColors(Color.parseColor("#4EBE65"));
-
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mAdapter.setEnableLoadMore(false);
-                getTransactionDemandData(0, Constant.REFRESH_REQUEST);
-            }
-        });
-
-        mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-            @Override
-            public void onLoadMoreRequested() {
-                curPageNum += 1;
-                getTransactionDemandData(curPageNum, Constant.NORMAL_REQUEST);
-            }
-        }, mRecyclerView);
     }
 }

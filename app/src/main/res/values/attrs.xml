@@ -53,4 +53,8 @@
         <attr name="height_space" format="dimension"/>
     </declare-styleable>
 
+    <declare-styleable name="LazyViewPager">
+        <attr name="init_lazy_item_offset" format="float" />
+    </declare-styleable>
+
 </resources>

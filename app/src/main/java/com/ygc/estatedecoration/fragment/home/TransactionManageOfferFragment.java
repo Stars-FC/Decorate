@@ -2,22 +2,27 @@ package com.ygc.estatedecoration.fragment.home;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.adapter.HomeTransactionManageOfferAdapter;
+import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
+import com.ygc.estatedecoration.bean.DemandOfferBean;
+import com.ygc.estatedecoration.entity.base.Constant;
 import com.ygc.estatedecoration.widget.TitleBar;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by FC on 2017/11/20.
@@ -33,6 +38,26 @@ public class TransactionManageOfferFragment extends BaseFragment implements Swip
     SwipeRefreshLayout mSwipeRefreshLayout;
 
     private HomeTransactionManageOfferAdapter mAdapter;
+    private String mDId;
+    private int curPageNum = 0;
+
+
+    public static TransactionManageOfferFragment getInstance(String dId) {
+        TransactionManageOfferFragment transactionManageOfferFragment = new TransactionManageOfferFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("dId", dId);
+        transactionManageOfferFragment.setArguments(bundle);
+        return transactionManageOfferFragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            mDId = arguments.getString("dId");
+        }
+    }
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
@@ -42,11 +67,7 @@ public class TransactionManageOfferFragment extends BaseFragment implements Swip
     @Override
     protected void initData(Bundle arguments) {
 
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            list.add("" + i);
-        }
-        mAdapter = new HomeTransactionManageOfferAdapter(list);
+        mAdapter = new HomeTransactionManageOfferAdapter();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -55,6 +76,55 @@ public class TransactionManageOfferFragment extends BaseFragment implements Swip
 
             }
         });
+
+        getDemandOfferList(0, Constant.NORMAL_REQUEST);
+    }
+
+    private void getDemandOfferList(int page, final String requestMark) {
+        APPApi.getInstance().service
+                .getDemandOfferList("9", mDId, String.valueOf(page))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<DemandOfferBean>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        compositeDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(@NonNull DemandOfferBean base) {
+                        if (base.responseState.equals("1")) {
+                            if (requestMark.equals(Constant.REFRESH_REQUEST)) {
+                                mAdapter.setNewData(base.getData());
+                                refreshFinishEvent(true);
+                            } else {
+                                mAdapter.addData(base.getData());
+                                if (base.getData().size() > 0) {
+                                    mAdapter.loadMoreComplete();
+                                } else {
+                                    mAdapter.loadMoreEnd();
+                                }
+                            }
+                        } else {
+                            if (requestMark.equals(Constant.REFRESH_REQUEST)) {
+                                refreshFinishEvent(false);
+                            } else {
+                                loadMoreDefeatEvent();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        loadMoreDefeatEvent();
+                        refreshFinishEvent(false);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     @Override
@@ -64,16 +134,14 @@ public class TransactionManageOfferFragment extends BaseFragment implements Swip
 
     @Override
     protected void addListener() {
-        mSwipeRefreshLayout.setColorSchemeColors(Color.parseColor("#4EBE65")); //设置下拉刷新箭头颜色
+        mSwipeRefreshLayout.setColorSchemeColors(Color.parseColor("#4EBE65"));
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
-        //上拉加载更多
         mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                mAdapter.loadMoreComplete();//完成
-//                mAdapter.loadMoreFail();//失败
-//                mAdapter.loadMoreEnd();//结束
+                curPageNum += 1;
+                getDemandOfferList(curPageNum, Constant.NORMAL_REQUEST);
             }
         }, mRecyclerView);
     }
@@ -90,9 +158,25 @@ public class TransactionManageOfferFragment extends BaseFragment implements Swip
 
     @Override
     public void onRefresh() {
-        mAdapter.setEnableLoadMore(false);//这里的作用是防止下拉刷新的时候还可以上拉加载
+        mAdapter.setEnableLoadMore(false);
+        getDemandOfferList(0, Constant.REFRESH_REQUEST);
+    }
+
+    private void loadMoreDefeatEvent() {
+        mAdapter.loadMoreFail();
+        curPageNum -= 1;
+        if (curPageNum < 0) {
+            curPageNum = 0;
+        }
+    }
+
+    private void refreshFinishEvent(boolean isSuccess) {
+        mAdapter.setEnableLoadMore(true);
         if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
+            if (isSuccess) {
+                curPageNum = 0;
+            }
         }
     }
 }

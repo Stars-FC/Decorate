@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<com.zhy.autolayout.AutoLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="vertical">
 
-    <LinearLayout
+    <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingLeft="30px"
         android:paddingRight="30px">
 
-        <RelativeLayout
+        <com.zhy.autolayout.AutoRelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30px"
@@ -30,16 +30,18 @@
                 android:textSize="28px"/>
 
             <TextView
+                android:id="@+id/missionType_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="家装"
                 android:textColor="@color/color_4fbc65"
                 android:textSize="24px"/>
-        </RelativeLayout>
+        </com.zhy.autolayout.AutoRelativeLayout>
 
 
         <TextView
+            android:id="@+id/demandDetails_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -47,11 +49,11 @@
             android:text="需求分析需求分析需求需求分析需需求分析需需求分析需分析需求分析需求分析需求分析需求分析需求分析需求分析需求分析需求分析需求分析"
             android:textSize="24px"/>
 
-        <RelativeLayout
+        <com.zhy.autolayout.AutoRelativeLayout
             android:layout_width="match_parent"
             android:layout_height="108px">
 
-            <LinearLayout
+            <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
@@ -67,7 +69,7 @@
                     android:textSize="32px"/>
 
                 <TextView
-                    android:id="@+id/tv_money"
+                    android:id="@+id/offer_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10px"
@@ -85,9 +87,9 @@
                     android:textColor="@color/color_4fbc65"
                     android:textSize="22px"/>-->
 
-            </LinearLayout>
+            </com.zhy.autolayout.AutoLinearLayout>
 
-            <LinearLayout
+            <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
@@ -95,6 +97,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/constructionStatusQuo_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="25px"
@@ -103,29 +106,29 @@
                     android:textSize="24px"/>
 
                 <TextView
-                    android:id="@+id/tv_acreage"
+                    android:id="@+id/buildingArea_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="210 m²"
                     android:textColor="@color/color_4fbc65"
                     android:textSize="24px"/>
-            </LinearLayout>
+            </com.zhy.autolayout.AutoLinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:layout_alignParentBottom="true"
                 android:background="@color/line"/>
-        </RelativeLayout>
+        </com.zhy.autolayout.AutoRelativeLayout>
 
-        <RelativeLayout
+        <com.zhy.autolayout.AutoLinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15px"
             android:layout_marginTop="15px">
 
             <TextView
-                android:id="@+id/tv_state"
+                android:id="@+id/address_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -133,14 +136,18 @@
                 android:textColor="@color/color_37406"
                 android:textSize="23px"/>
 
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
             <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_alignParentRight="true">
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/did_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20px"
@@ -150,6 +157,7 @@
                     android:textSize="23px"/>
 
                 <TextView
+                    android:id="@+id/did_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5px"
@@ -159,13 +167,13 @@
 
             </com.zhy.autolayout.AutoLinearLayout>
 
-        </RelativeLayout>
+        </com.zhy.autolayout.AutoLinearLayout>
 
 
-    </LinearLayout>
+    </com.zhy.autolayout.AutoLinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/line"/>
-</LinearLayout>
+</com.zhy.autolayout.AutoLinearLayout>

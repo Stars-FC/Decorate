@@ -2,7 +2,6 @@ package com.ygc.estatedecoration.activity.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -12,10 +11,15 @@ import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.adapter.HomeMyStoreAdapter;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
+import com.ygc.estatedecoration.bean.NeedBean;
+import com.ygc.estatedecoration.event.OfferFinishMsg;
 import com.ygc.estatedecoration.fragment.home.TransactionManageNeedFragment;
 import com.ygc.estatedecoration.fragment.home.TransactionManageOfferFragment;
-import com.ygc.estatedecoration.utils.tablayoutUnderLine;
 import com.ygc.estatedecoration.widget.TitleBar;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +35,7 @@ import butterknife.OnClick;
 public class TransactionManageDetailActivity extends BaseActivity {
 
     @BindView(R.id.tablayout)
-    XTabLayout mTablayout;
+    XTabLayout mXTabLayout;
 
     @BindView(R.id.viewpager)
     ViewPager mViewpager;
@@ -41,6 +45,9 @@ public class TransactionManageDetailActivity extends BaseActivity {
     private List<String> mList;
 
     private HomeMyStoreAdapter mAdapter;
+    private String mDIdStr;
+    private NeedBean.DataBean mDataBean;
+    private int mPosition;
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
@@ -59,20 +66,30 @@ public class TransactionManageDetailActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
+        getIntentData();
         mList = new ArrayList<>();
         mList.add("需求详情");
         mList.add("报  价");
 
         mFragments = new ArrayList<>();
-        mFragments.add(new TransactionManageNeedFragment());
-        mFragments.add(new TransactionManageOfferFragment());
+        mFragments.add(TransactionManageNeedFragment.getInstance(mDIdStr, mDataBean));
+        mFragments.add(TransactionManageOfferFragment.getInstance(mDIdStr));
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         mAdapter = new HomeMyStoreAdapter(fragmentManager, mFragments, mList);
 
         mViewpager.setAdapter(mAdapter);
+        mViewpager.setOffscreenPageLimit(1);
+        mXTabLayout.setupWithViewPager(mViewpager);
 
-        mTablayout.setupWithViewPager(mViewpager);
+    }
+
+    private void getIntentData() {
+        Bundle bundle = getIntent().getBundleExtra("bundle");
+        mDataBean = (NeedBean.DataBean) bundle.getSerializable("demand");
+        mDIdStr = String.valueOf(mDataBean.getDId());
+        mPosition = bundle.getInt("position");
 
     }
 
@@ -90,8 +107,21 @@ public class TransactionManageDetailActivity extends BaseActivity {
                 break;
             case R.id.tv_offer:
                 intent.setClass(TransactionManageDetailActivity.this, TransactionManageOfferActivity.class);
+                intent.putExtra("dId", mDIdStr);
+                intent.putExtra("position", mPosition);
                 startActivity(intent);
                 break;
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void offerFinishEvent(OfferFinishMsg offerFinishMsg) {
+        finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

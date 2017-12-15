@@ -102,7 +102,7 @@
 
             <View
                 android:layout_width="475px"
-                android:layout_height="2px"
+                android:layout_height="3px"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/hengxian"/>
 
@@ -138,7 +138,7 @@
 
             <View
                 android:layout_width="475px"
-                android:layout_height="2px"
+                android:layout_height="3px"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/hengxian"/>
 

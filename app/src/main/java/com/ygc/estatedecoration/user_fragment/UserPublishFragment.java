@@ -4,10 +4,14 @@ package com.ygc.estatedecoration.user_fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ygc.estatedecoration.R;
@@ -21,39 +25,73 @@ import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.bingoogolapple.bgabanner.BGABanner;
 
 public class UserPublishFragment extends BaseFragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
-
-
-    public UserPublishFragment() {
-        // Required empty public constructor
-    }
+    @BindView(R.id.banner)
+    BGABanner mBanner;
+    @BindView(R.id.seven_day_rb)
+    RadioButton mSevenDayRb;
+    @BindView(R.id.fifteen_day_rb)
+    RadioButton mFifteenDayRb;
+    @BindView(R.id.thirty_day_rb)
+    RadioButton mThirtyDayRb;
+    @BindView(R.id.start_decorate_time_rg)
+    RadioGroup mStartDecorateTimeRg;
+    @BindView(R.id.jia_rb)
+    RadioButton mJiaRb;
+    @BindView(R.id.gong_rb)
+    RadioButton mGongRb;
+    @BindView(R.id.decorate_type_rg)
+    RadioGroup mDecorateTypeRg;
+    @BindView(R.id.jubu_rb)
+    RadioButton mJubuRb;
+    @BindView(R.id.maopi_rb)
+    RadioButton mMaopiRb;
+    @BindView(R.id.jiufang_rb)
+    RadioButton mJiufangRb;
+    @BindView(R.id.building_status_rg)
+    RadioGroup mBuildingStatusRg;
+    @BindView(R.id.buildingArea_et)
+    EditText mBuildingAreaEt;
+    @BindView(R.id.demand_title_tv)
+    EditText mDemandTitleTv;
+    @BindView(R.id.all_service_cb)
+    CheckBox mAllServiceCb;
+    @BindView(R.id.design_service_cb)
+    CheckBox mDesignServiceCb;
+    @BindView(R.id.shigong_service_cb)
+    CheckBox mShigongServiceCb;
+    @BindView(R.id.jianli_service_cb)
+    CheckBox mJianliServiceCb;
+    @BindView(R.id.materials_servcie_cb)
+    CheckBox mMaterialsServcieCb;
+    @BindView(R.id.gongqi_et)
+    EditText mGongqiEt;
+    @BindView(R.id.demand_details_et)
+    EditText mDemandDetailsEt;
+    @BindView(R.id.explain_et)
+    EditText mExplainEt;
+    @BindView(R.id.consume_money_et)
+    EditText mConsumeMoneyEt;
+    @BindView(R.id.bargain_cb)
+    CheckBox mBargainCb;
+    @BindView(R.id.upload_pic_recyclerview)
+    RecyclerView mUploadPicRecyclerview;
 
     @BindView(R.id.materials_type_recyclerview)
     RecyclerView mRv_materialsType;
 
-    public static UserPublishFragment newInstance(String param1, String param2) {
-        UserPublishFragment fragment = new UserPublishFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private String missionStartTime = null;//开始装修时间
+    private int missionType = -1;//装修类型
+    private int constructionStatusQuo = -1;//建筑现状
+    private String buildingArea = null;//建筑面积
+    private String title = null;//需求标题
+//    private
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    public static UserPublishFragment newInstance() {
+        return new UserPublishFragment();
     }
 
     @Override
@@ -83,6 +121,7 @@ public class UserPublishFragment extends BaseFragment {
         mRv_materialsType.addItemDecoration(new RecyclerSpace(30, Color.parseColor("#f6f6f6")));
         mRv_materialsType.setNestedScrollingEnabled(false);
         mRv_materialsType.setAdapter(caseStyleAdapter);
+
         caseStyleAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -93,7 +132,19 @@ public class UserPublishFragment extends BaseFragment {
 
     @Override
     protected void addListener() {
-
+        mStartDecorateTimeRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                switch (checkedId) {
+                    case R.id.seven_day_rb:
+                        break;
+                    case R.id.fifteen_day_rb:
+                        break;
+                    case R.id.thirty_day_rb:
+                        break;
+                }
+            }
+        });
     }
 
     @Override
@@ -117,5 +168,4 @@ public class UserPublishFragment extends BaseFragment {
             }
         }
     }
-
 }

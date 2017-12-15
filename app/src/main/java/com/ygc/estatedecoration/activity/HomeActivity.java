@@ -53,7 +53,7 @@ public class HomeActivity extends BaseActivity {
                 .build();
 
         mViewPager.setAdapter(new MyViewPagerAdapter(getSupportFragmentManager(), navigationController.getItemCount()));
-
+        mViewPager.setOffscreenPageLimit(2);
         navigationController.setupWithViewPager(mViewPager);
         //设置单选按钮的点击事件
 //        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

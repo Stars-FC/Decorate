@@ -16,11 +16,13 @@
         android:paddingRight="20px">
 
         <com.ygc.estatedecoration.widget.CircleImageView
+            android:id="@+id/head_iv"
             android:layout_width="64px"
             android:layout_height="match_parent"
             android:src="@color/line"/>
 
         <TextView
+            android:id="@+id/nickname_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="19px"
@@ -34,6 +36,7 @@
             android:layout_weight="1"/>
 
         <TextView
+            android:id="@+id/date_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2017.06.27"
@@ -43,12 +46,14 @@
     </com.zhy.autolayout.AutoLinearLayout>
 
     <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/info_ll"
         android:layout_width="match_parent"
         android:layout_height="84px"
         android:layout_marginTop="37px"
         android:gravity="center">
 
         <TextView
+            android:id="@+id/offer_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="10,000(元)"
@@ -62,6 +67,7 @@
             android:background="@color/black"/>
 
         <TextView
+            android:id="@+id/consume_time_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="80px"
@@ -72,6 +78,7 @@
     </com.zhy.autolayout.AutoLinearLayout>
 
     <TextView
+        android:id="@+id/liuyan_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="34px"

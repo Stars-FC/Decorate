@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ygc.estatedecoration.R;
@@ -19,12 +18,10 @@ import com.ygc.estatedecoration.bean.BaseBean;
 import com.ygc.estatedecoration.utils.LogUtil;
 import com.ygc.estatedecoration.utils.MyPublic;
 import com.ygc.estatedecoration.utils.NetWorkUtil;
-import com.ygc.estatedecoration.utils.PhoneGetCodeUtil;
 import com.ygc.estatedecoration.utils.ValidationUtil;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.reactivex.Observer;
@@ -72,7 +69,7 @@ public class UserRegisterActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-
+        mEtUserRandomNum.setText("匿名");
     }
 
     @Override

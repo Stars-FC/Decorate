@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,10 +24,16 @@ import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.bean.NeedBean;
 import com.ygc.estatedecoration.entity.base.Constant;
+import com.ygc.estatedecoration.event.DeleteRecommendDemandMsg;
 import com.ygc.estatedecoration.widget.TitleBar;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -50,6 +57,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
     private static final String ARG_C = "content";
     private View mView;
+    private SweetAlertDialog mPDialog;
 
     public static HomeFragment newInstance(String content) {
         Bundle args = new Bundle();
@@ -57,6 +65,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         HomeFragment fragment = new HomeFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -68,12 +82,18 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
     @Override
     protected void initData(Bundle arguments) {
+        EventBus.getDefault().register(this);
+        mPDialog = new SweetAlertDialog(mActivity, SweetAlertDialog.PROGRESS_TYPE)
+                .setTitleText("正在加载...");
+        mPDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        mPDialog.setCancelable(false);
+        mPDialog.show();
         getRecommendNeedData(0, Constant.NORMAL_REQUEST);
     }
 
     private void getRecommendNeedData(int pageNum, final String requestMark) {
         APPApi.getInstance().service
-                .queryRecommendNeed("auId", "0", "2", pageNum)
+                .queryRecommendNeed("9", "0", "-1", pageNum)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<NeedBean>() {
@@ -88,42 +108,30 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                             int size = needBean.getData() == null ? 0 : needBean.getData().size();
                             if (requestMark.equals(Constant.REFRESH_REQUEST)) {
                                 mHomeAdapter.setNewData(needBean.getData());
+                                refreshFinishEvent(true);
+                            } else {
+                                mHomeAdapter.addData(needBean.getData());
                                 if (size > 0) {
                                     mHomeAdapter.loadMoreComplete();
                                 } else {
                                     mHomeAdapter.loadMoreEnd();
                                 }
-                            } else {
-                                if (size > 0) {
-                                    mHomeAdapter.addData(needBean.getData());
-                                }
-                                if (curPageNum == 0) {
-                                    // TODO: 2017/12/13 第一次加载数据
-                                } else {
-                                    if (size > 0) {
-                                        mHomeAdapter.loadMoreComplete();
-                                    } else {
-                                        mHomeAdapter.loadMoreEnd();
-                                    }
-                                }
                             }
                         } else {
                             if (requestMark.equals(Constant.NORMAL_REQUEST)) {
-                                loadMoreFinishEvent();
+                                loadMoreErrorEvent();
                             } else {
                                 refreshFinishEvent(false);
                             }
                             showToast(needBean.msg);
                         }
-                        if (requestMark.equals(Constant.REFRESH_REQUEST)) {
-                            mHomeAdapter.setEnableLoadMore(true);
-                        }
+                        cancelDialog();
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        Log.i("521", "onError: HomeFragment request network data defeat!");
-                        loadMoreFinishEvent();
+                        cancelDialog();
+                        loadMoreErrorEvent();
                         refreshFinishEvent(false);
                         showToast(getResources().getString(R.string.network_error));
                     }
@@ -135,8 +143,15 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                 });
     }
 
+    private void cancelDialog() {
+        if (mPDialog != null && mPDialog.isShowing()) {
+            mPDialog.dismiss();
+        }
+    }
+
     private int curPageNum = 0;
-    private void loadMoreFinishEvent() {
+
+    private void loadMoreErrorEvent() {
         mHomeAdapter.loadMoreFail();
         curPageNum -= 1;
         if (curPageNum < 0) {
@@ -145,6 +160,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     }
 
     private void refreshFinishEvent(boolean isSuccess) {
+        mHomeAdapter.setEnableLoadMore(true);
         if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
             if (isSuccess) {
@@ -167,7 +183,16 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(mActivity, TransactionManageDetailActivity.class);
-                startActivity(intent);
+                NeedBean.DataBean dataBean = (NeedBean.DataBean) adapter.getItem(position);
+                if (dataBean != null) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("demand", dataBean);
+                    intent.putExtra("position", position);
+                    intent.putExtra("bundle", bundle);
+                    startActivity(intent);
+                } else {
+                    showToast("数据异常！");
+                }
             }
         });
     }
@@ -242,5 +267,17 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     public void onRefresh() {
         mHomeAdapter.setEnableLoadMore(false);
         getRecommendNeedData(0, Constant.REFRESH_REQUEST);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void deleteListData(DeleteRecommendDemandMsg deleteRecommendDemandMsg) {
+        int position = deleteRecommendDemandMsg.getPosition();
+        mHomeAdapter.remove(position);
     }
 }

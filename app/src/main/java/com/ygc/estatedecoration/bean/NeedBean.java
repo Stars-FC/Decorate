@@ -2,6 +2,7 @@ package com.ygc.estatedecoration.bean;
 
 import com.ygc.estatedecoration.entity.base.Base;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class NeedBean extends Base {
@@ -22,7 +23,7 @@ public class NeedBean extends Base {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * dId : 2
          * dType : 0
@@ -52,6 +53,8 @@ public class NeedBean extends Base {
         private String createTime;
         private int dState;
         private CreatorBean creator;
+        private String title;
+        private String photos;
 
         public int getDId() {
             return dId;
@@ -157,7 +160,23 @@ public class NeedBean extends Base {
             this.creator = creator;
         }
 
-        public static class CreatorBean {
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getPhotos() {
+            return photos;
+        }
+
+        public void setPhotos(String photos) {
+            this.photos = photos;
+        }
+
+        public static class CreatorBean implements Serializable{
             /**
              * picture_url :
              * create_time : 1512445530000

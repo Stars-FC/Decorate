@@ -10,6 +10,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +45,7 @@ import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import cn.qqtheme.framework.entity.City;
 import cn.qqtheme.framework.entity.County;
 import cn.qqtheme.framework.entity.Province;
@@ -97,18 +99,19 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
 
     private List<NeedBean.DataBean> mDataBeanList = new ArrayList<>();
     private HomeNeedHallAdapter mAdapter;
-    private String mStartTimeStr = "";
-    private String mEndTimeStr;
-    private String mMinAreaStr;
-    private String mMaxAreaStr;
-    private String mAddressStr;
+    private String mStartTimeStr = null;
+    private String mEndTimeStr = null;
+    private String mMinAreaStr = null;
+    private String mMaxAreaStr = null;
+    private String mAddressStr = null;
     private ListView typesList;
     private ListView nowsList;
 
     private String[] missionTypeArray = {"家装", "工装"};
     private String[] constructionStatusQuoArray = {"局部改造", "毛胚房", "旧房翻新"};
-    private String curSelectedMissionTypePosition = "";
-    private String curSelectedConstructionStatusQuoPosition = "";
+    private String curSelectedMissionTypePosition = null;
+    private String curSelectedConstructionStatusQuoPosition = null;
+    private SweetAlertDialog mPDialog;
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
@@ -130,33 +133,28 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
             @Override
             public void onClick(View view) {
                 mDropDownMenu.closeMenu();//关闭选择列表
-                mStartTimeStr = "";
-                mEndTimeStr = "";
-                mMinAreaStr = "";
-                mMaxAreaStr = "";
-                mAddressStr = "";
-                if (!TextUtils.isEmpty(missionType) || !TextUtils.isEmpty(constructionStatusQuo)) {
-                    typesAdapter.setCheckItem(0);
-                    nowsAdapter.setCheckItem(0);
-                    missionType = "";
-                    constructionStatusQuo = "";
-                    curPageNumAllData = 0;
-                    mDataBeanList.clear();
-                    mAdapter.notifyDataSetChanged();
-                    queryNeedDataEvent(0, Constant.NORMAL_REQUEST, missionType, constructionStatusQuo, "", "", "", "", "");
-                }
+                typesAdapter.setCheckItem(0);
+                nowsAdapter.setCheckItem(0);
+                mStartTimeStr = null;
+                mEndTimeStr = null;
+                mMinAreaStr = null;
+                mMaxAreaStr = null;
+                mAddressStr = null;
+                missionType = null;
+                constructionStatusQuo = null;
+                curSelectedConstructionStatusQuoPosition = null;
+                curSelectedMissionTypePosition = null;
+                curPageNumAllData = 0;
+                mDataBeanList.clear();
+                mAdapter.notifyDataSetChanged();
+                mPDialog.show();
+                queryNeedDataEvent(0, Constant.NORMAL_REQUEST, missionType, constructionStatusQuo, mStartTimeStr, mEndTimeStr, mMinAreaStr, mMaxAreaStr, null);
 
-                // TODO: 2017/12/13
-                typesList.performItemClick(
-                        typesList.getChildAt(0),
-                        0,
-                        typesList.getAdapter().getItemId(0));
+
+                nowsAdapter.setCheckItem(0);
                 mDropDownMenu.setListener1(headers[0]);
 
-                nowsList.performItemClick(
-                        typesList.getChildAt(0),
-                        0,
-                        typesList.getAdapter().getItemId(0));
+               typesAdapter.setCheckItem(0);
                 mDropDownMenu.setListener2(headers[1]);
 
             }
@@ -182,7 +180,6 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
     @Override
     protected void initView() {
 
-
         //头布局
         mTopRightView = View.inflate(getApplicationContext(), R.layout.top_home_needhall_right, null);
 
@@ -205,7 +202,16 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(NeedHallActivity.this, TransactionManageDetailActivity.class);
-                startActivity(intent);
+                NeedBean.DataBean dataBean = (NeedBean.DataBean) adapter.getItem(position);
+                if (dataBean != null) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("demand", dataBean);
+                    intent.putExtra("position", position);
+                    intent.putExtra("bundle", bundle);
+                    startActivity(intent);
+                } else {
+                    showToast("数据异常，请稍后再试！");
+                }
             }
         });
 
@@ -229,7 +235,7 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
                         curSelectedMissionTypePosition = String.valueOf(iterator.next());
                     }
                 } else {
-                    curSelectedMissionTypePosition = "";
+                    curSelectedMissionTypePosition = null;
                 }
             }
         });
@@ -252,7 +258,7 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
                         curSelectedConstructionStatusQuoPosition = String.valueOf(iterator.next());
                     }
                 } else {
-                    curSelectedConstructionStatusQuoPosition = "";
+                    curSelectedConstructionStatusQuoPosition = null;
                 }
             }
         });
@@ -283,20 +289,20 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
                 mDropDownMenu.setTabText(position == 0 ? headers[0] : types[position]);
                 LogUtil.e("pos" + position);
                 mDropDownMenu.closeMenu();
-                mStartTimeStr = "";
-                mEndTimeStr = "";
-                mMinAreaStr = "";
-                mMaxAreaStr = "";
-                mAddressStr = "";
+                mStartTimeStr = null;
+                mEndTimeStr = null;
+                mMinAreaStr = null;
+                mMaxAreaStr = null;
+                mAddressStr = null;
                 if (position - 1 >= 0) {
                     missionType = String.valueOf(position - 1);
                 } else {
-                    missionType = "";
+                    missionType = null;
                 }
                 mDataBeanList.clear();
                 mAdapter.notifyDataSetChanged();
                 curPageNumAllData = 0;
-                queryNeedDataEvent(0, Constant.NORMAL_REQUEST, missionType, constructionStatusQuo, "", "", "", "", "");
+                queryNeedDataEvent(0, Constant.NORMAL_REQUEST, missionType, constructionStatusQuo, mStartTimeStr, mEndTimeStr, mMinAreaStr, mMaxAreaStr, mAddressStr);
             }
         });
 
@@ -306,20 +312,20 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
                 nowsAdapter.setCheckItem(position);
                 mDropDownMenu.setTabText(position == 0 ? headers[1] : nows[position]);
                 mDropDownMenu.closeMenu();
-                mStartTimeStr = "";
-                mEndTimeStr = "";
-                mMinAreaStr = "";
-                mMaxAreaStr = "";
-                mAddressStr = "";
+                mStartTimeStr = null;
+                mEndTimeStr = null;
+                mMinAreaStr = null;
+                mMaxAreaStr = null;
+                mAddressStr = null;
                 if (position - 1 >= 0) {
                     constructionStatusQuo = String.valueOf(position - 1);
                 } else {
-                    constructionStatusQuo = "";
+                    constructionStatusQuo = null;
                 }
                 mDataBeanList.clear();
                 mAdapter.notifyDataSetChanged();
                 curPageNumAllData = 0;
-                queryNeedDataEvent(0, Constant.NORMAL_REQUEST, missionType, constructionStatusQuo, "", "", "", "", "");
+                queryNeedDataEvent(0, Constant.NORMAL_REQUEST, missionType, constructionStatusQuo, mStartTimeStr, mEndTimeStr, mMinAreaStr, mMaxAreaStr, mAddressStr);
             }
         });
 
@@ -329,15 +335,22 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
     @Override
     protected void initData(Bundle savedInstanceState) {
         //查询全部的需求
-        queryNeedDataEvent(0, Constant.NORMAL_REQUEST, missionType, constructionStatusQuo, "", "", "", "", "");
+        mPDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
+                .setTitleText("正在加载...");
+        mPDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        mPDialog.setCancelable(false);
+        mPDialog.show();
+        queryNeedDataEvent(0, Constant.NORMAL_REQUEST, missionType, constructionStatusQuo, mStartTimeStr, mEndTimeStr, mMinAreaStr, mMaxAreaStr, mAddressStr);
     }
 
     private int curPageNumAllData = 0;
-    private String missionType = "";//装修类型
-    private String constructionStatusQuo = "";//建筑现状
+    private String missionType = null;//装修类型
+    private String constructionStatusQuo = null;//建筑现状
 
     private void queryNeedDataEvent(int pageNum, final String requestMark, String tempMissionType, String tempConstructionStatusQuo,
                                     String startTimeStr, String endTimeStr, String minAreaStr, String maxAreaStr, String addressStr) {
+        Log.i("521", "queryNeedDataEvent: " + pageNum + "===" + requestMark + "===" + tempMissionType + "===" + tempConstructionStatusQuo + "===" + startTimeStr + "===" + endTimeStr + "===" + minAreaStr + "===" + maxAreaStr + "===" + addressStr);
+
         APPApi.getInstance().service
                 .queryAllNeed(pageNum, tempMissionType, tempConstructionStatusQuo, startTimeStr, endTimeStr, minAreaStr, maxAreaStr, addressStr)
                 .subscribeOn(Schedulers.io())
@@ -363,15 +376,9 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
                                 if (size > 0) {
                                     mDataBeanList.addAll(needBean.getData());
                                     mAdapter.notifyDataSetChanged();
-                                }
-                                if (curPageNumAllData == 0) {
-                                    // TODO: 2017/12/13 关闭请求对话框
+                                    mAdapter.loadMoreComplete();
                                 } else {
-                                    if (size > 0) {
-                                        mAdapter.loadMoreComplete();
-                                    } else {
-                                        mAdapter.loadMoreEnd();
-                                    }
+                                    mAdapter.loadMoreEnd();
                                 }
                             }
                         } else {
@@ -385,6 +392,7 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
                         if (requestMark.equals(Constant.REFRESH_REQUEST)) {
                             mAdapter.setEnableLoadMore(true);
                         }
+                        cancelDialog();
                     }
 
                     @Override
@@ -399,6 +407,12 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
 
                     }
                 });
+    }
+
+    private void cancelDialog() {
+        if (mPDialog != null && mPDialog.isShowing()) {
+            mPDialog.dismiss();
+        }
     }
 
     private void loadMoreFinishEvent() {
@@ -440,7 +454,6 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
                 break;
             case R.id.sure_btn:
                 sureSelectCondition();
-                mDrawerLayout.closeDrawer(Gravity.END);
                 break;
         }
     }
@@ -464,8 +477,8 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
 
     //确认筛选条件
     private void sureSelectCondition() {
-        missionType = "";
-        constructionStatusQuo = "";
+        missionType = null;
+        constructionStatusQuo = null;
         mDataBeanList.clear();
         mAdapter.notifyDataSetChanged();
 
@@ -480,28 +493,44 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
             nowsAdapter.setCheckItem(Integer.valueOf(curSelectedConstructionStatusQuoPosition));
         }
 
+        nowsAdapter.setCheckItem(0);
+        mDropDownMenu.setListener1(headers[0]);
+        typesAdapter.setCheckItem(0);
+        mDropDownMenu.setListener2(headers[1]);
+        mDrawerLayout.closeDrawer(Gravity.END);
+
         mStartTimeStr = mEt_startTime.getText().toString().trim();
         if (TextUtils.isEmpty(mStartTimeStr)) {
-            mStartTimeStr = "";
+            mStartTimeStr = null;
         } else {
             mStartTimeStr = String.valueOf(DateUtil.string2Millis(mStartTimeStr + " 00:00:00") / 1000);
         }
         mEndTimeStr = mEt_endTime.getText().toString().trim();
-        if (TextUtils.isEmpty(mEndTimeStr)) {
+        if (!TextUtils.isEmpty(mEndTimeStr)) {
             mEndTimeStr = String.valueOf(DateUtil.string2Millis(mEndTimeStr + " 00:00:00") / 1000);
+        } else {
+            mEndTimeStr = null;
         }
         mMinAreaStr = mEt_minBuildingArea.getText().toString().trim();
         if (TextUtils.isEmpty(mMinAreaStr)) {
-            mMinAreaStr = "";
+            mMinAreaStr = null;
         }
         mMaxAreaStr = mEt_maxBuildingArea.getText().toString().trim();
         if (TextUtils.isEmpty(mMaxAreaStr)) {
-            mMaxAreaStr = "";
+            mMaxAreaStr = null;
         }
         mAddressStr = mTv_address.getText().toString().trim();
         if (TextUtils.isEmpty(mAddressStr)) {
-            mAddressStr = "";
+            mAddressStr = null;
+        } else {
+            if (mAddressStr.equals("请选择")) {
+                mAddressStr = null;
+            }
         }
+        mPDialog.show();
+        Log.i("521", "sureSelectCondition: curSelectedMissionTypePosition:" + curSelectedMissionTypePosition);
+        Log.i("521", "sureSelectCondition: curSelectedConstructionStatusQuoPosition:" + curSelectedConstructionStatusQuoPosition);
+
         queryNeedDataEvent(0, Constant.NORMAL_REQUEST, curSelectedMissionTypePosition, curSelectedConstructionStatusQuoPosition, mStartTimeStr, mEndTimeStr, mMinAreaStr, mMaxAreaStr, mAddressStr);
     }
 

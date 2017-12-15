@@ -228,7 +228,7 @@ public class LoginActivity extends AutoLayoutActivity {
                             pDialog.cancel();
                             //保存用户名、密码
                             UserUtils.setParam(UserUtils.USER, UserUtils.userId, userId);
-                            LogUtil.e("userId==--------"+userId);
+                            LogUtil.e("userId==--------" + userId);
                             UserUtils.setParam(UserUtils.USER, UserUtils.userPws, password);
                             UserUtils.putOnLineBoolean(LoginActivity.this, "", true);//标记用户退出登录
 
@@ -264,7 +264,7 @@ public class LoginActivity extends AutoLayoutActivity {
                 });
     }
 
-    @Override
+   /* @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             exit();
@@ -273,9 +273,9 @@ public class LoginActivity extends AutoLayoutActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    /**
+    *//**
      * 对退出时间的监听
-     */
+     *//*
     private void exit() {
         if (!isExit) {
             isExit = true;
@@ -287,5 +287,5 @@ public class LoginActivity extends AutoLayoutActivity {
             finish();
             System.exit(0);
         }
-    }
+    }*/
 }

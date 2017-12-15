@@ -17,7 +17,7 @@ import java.util.List;
 public class HomeNeedHallAdapter extends BaseQuickAdapter<NeedBean.DataBean, BaseViewHolder> {
 
     public HomeNeedHallAdapter(List<NeedBean.DataBean> data) {
-        super(R.layout.item_home_needhall, data);
+        super(R.layout.item_home_transactionmanage, data);
     }
 
     @Override
