@@ -24,15 +24,18 @@ import android.widget.TextView;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.activity.my.ActivitiesActivity;
 import com.ygc.estatedecoration.activity.my.AuthenticationActivity;
-import com.ygc.estatedecoration.activity.my.CollectionActivity;
 import com.ygc.estatedecoration.activity.my.GuaranteeMoneyActivity;
 import com.ygc.estatedecoration.activity.my.MoneyBagActivity;
 import com.ygc.estatedecoration.activity.my.MyBrightActivity;
 import com.ygc.estatedecoration.activity.my.ServerMyAnLiActivity;
 import com.ygc.estatedecoration.activity.my.SettingActivity;
 import com.ygc.estatedecoration.activity.my.WarrantyMoneyActivity;
+import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
+import com.ygc.estatedecoration.bean.LoginBean;
+import com.ygc.estatedecoration.bean.UserInformationBean;
 import com.ygc.estatedecoration.utils.LogUtil;
+import com.ygc.estatedecoration.utils.UserUtils;
 import com.ygc.estatedecoration.widget.BasePopupWindow;
 import com.ygc.estatedecoration.widget.CircleImageView;
 import com.ygc.estatedecoration.widget.TitleBar;
@@ -44,7 +47,13 @@ import java.io.IOException;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -64,12 +73,15 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
     @BindView(R.id.iv_company_icon)
     CircleImageView mImageView;
 
-    @BindView(R.id.tv_name)
-    TextView mTvName;
-
-    @BindView(R.id.tv_sex)
-    TextView mTvSex;
-
+    @BindView(R.id.nickname)
+    TextView mTvName; //用户昵称
+    @BindView(R.id.sex)
+    TextView mTvSex;//性别
+    @BindView(R.id.warranty_gold)
+    TextView mWarrantyGold;//质保金
+    @BindView(R.id.gold_coin)
+    TextView mGoldCoin;//金币
+    Unbinder unbinder;
 
     private static final String ARG_C = "content";
 
@@ -95,7 +107,7 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
 
     @Override
     protected void initData(Bundle arguments) {
-
+        getDataFromNet();
     }
 
     @Override
@@ -302,7 +314,7 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
 
     //选择本地图片
     private void takePhoto() {
-        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 "image/*");
         startActivityForResult(intent, TAKE_PHOTO_REQUEST_CODE);
@@ -459,5 +471,49 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
         if (filepath != null && filepath.exists()) {
             filepath.delete();
         }
+    }
+
+    /**
+     * 获取网络数据
+     */
+    public void getDataFromNet() {
+        LogUtil.e("userId2==--------" + UserUtils.getUserId());
+        APPApi.getInstance().service
+                .userInformation(UserUtils.getUserId().toString())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<UserInformationBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(UserInformationBean userInformationBean) {
+                        int sexint = userInformationBean.getSex();
+                        String sex = "男";
+                        if (sexint == 0) {
+                            sex = "男";
+                        } else if (sexint == 1) {
+                            sex = "女";
+                        }
+                        mTvSex.setText(sex);
+                        mTvName.setText(userInformationBean.getNickname());
+                        mWarrantyGold.setText(userInformationBean.getWarranty_gold());
+                        mGoldCoin.setText(String.valueOf(userInformationBean.getGold_coin()));
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtil.e("Fc_请求网路失败" + e.getMessage());
+                        showToast("网络繁忙，请稍后再试");
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
     }
 }

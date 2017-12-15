@@ -9,7 +9,7 @@ import com.ygc.estatedecoration.bean.NeedBean;
 
 import java.util.List;
 
-public class HomeAdapter extends BaseQuickAdapter<NeedBean.DataBean,BaseViewHolder> {
+public class HomeAdapter extends BaseQuickAdapter<NeedBean.DataBean, BaseViewHolder> {
 
     public HomeAdapter() {
         super(R.layout.item_home_transactionmanage);
@@ -17,7 +17,7 @@ public class HomeAdapter extends BaseQuickAdapter<NeedBean.DataBean,BaseViewHold
 
     @Override
     protected void convert(BaseViewHolder helper, NeedBean.DataBean item) {
-//需求标题
+        //需求标题
         TextView demandTitleTv = helper.getView(R.id.demandTitle_tv);
 
         //装修类型

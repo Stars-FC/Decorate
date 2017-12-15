@@ -14,7 +14,12 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.adapter.MyActivitiesAdapter;
 import com.ygc.estatedecoration.adapter.MyBrightAdapter;
+import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
+import com.ygc.estatedecoration.bean.MyBrightBean;
+import com.ygc.estatedecoration.bean.UserInformationBean;
+import com.ygc.estatedecoration.utils.LogUtil;
+import com.ygc.estatedecoration.utils.UserUtils;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import java.util.ArrayList;
@@ -22,9 +27,12 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class MyBrightActivity extends BaseActivity {
-
 
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerview;
@@ -33,6 +41,7 @@ public class MyBrightActivity extends BaseActivity {
     SwipeRefreshLayout mSwipeRefreshLayout;
 
     private MyBrightAdapter mAdapter;
+    private List<MyBrightBean.DataBean> mData;
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
@@ -50,8 +59,6 @@ public class MyBrightActivity extends BaseActivity {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                 showToast("mRecyclerview第" + position + "数据");
-//                Intent intent = new Intent(MyBrightActivity.this);
-//                startActivity(intent);
             }
         });
 
@@ -65,6 +72,7 @@ public class MyBrightActivity extends BaseActivity {
                 if (mSwipeRefreshLayout.isRefreshing()) {
                     mSwipeRefreshLayout.setRefreshing(false);
                 }
+                getDataFromNet();
             }
         });
 
@@ -81,24 +89,19 @@ public class MyBrightActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
-    }
-
-    @Override
-    protected void initData(Bundle savedInstanceState) {
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            list.add("" + i);
-        }
-        mAdapter = new MyBrightAdapter(list);
-
+        mAdapter = new MyBrightAdapter();
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mRecyclerview.setAdapter(mAdapter);
     }
 
     @Override
+    protected void initData(Bundle savedInstanceState) {
+        getDataFromNet();//获取并显示数据
+    }
+
+    @Override
     protected int getLayoutId() {
-        return R.layout.recyclerview;
+        return R.layout.recyclerview_line;
     }
 
     @OnClick({R.id.naviFrameLeft, R.id.naviFrameRight})
@@ -114,4 +117,42 @@ public class MyBrightActivity extends BaseActivity {
                 break;
         }
     }
+
+    /**
+     * 获取网路数据
+     */
+    public void getDataFromNet() {
+        APPApi.getInstance().service
+                .myBright(UserUtils.getUserId().toString())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<MyBrightBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(MyBrightBean brightBean) {
+                        mData = brightBean.getData();
+                        if (!(mData.size() == 0)) {
+                            mAdapter.setNewData(brightBean.getData());
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtil.e("Fc_请求网路失败" + e.getMessage());
+                        showToast("网络繁忙，请稍后再试");
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+
 }

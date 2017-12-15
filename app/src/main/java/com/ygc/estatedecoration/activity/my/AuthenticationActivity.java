@@ -6,23 +6,31 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.v4.content.FileProvider;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
-import com.ygc.estatedecoration.BuildConfig;
 import com.ygc.estatedecoration.R;
+import com.ygc.estatedecoration.activity.LoginActivity;
+import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
+import com.ygc.estatedecoration.bean.BaseBean;
+import com.ygc.estatedecoration.utils.LogUtil;
+import com.ygc.estatedecoration.utils.MyPublic;
+import com.ygc.estatedecoration.utils.NetWorkUtil;
+import com.ygc.estatedecoration.utils.UserUtils;
+import com.ygc.estatedecoration.utils.ValidationUtil;
 import com.ygc.estatedecoration.widget.BasePopupWindow;
 import com.ygc.estatedecoration.widget.TitleBar;
 
@@ -33,7 +41,13 @@ import java.io.IOException;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.pedant.SweetAlert.SweetAlertDialog;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -47,6 +61,12 @@ public class AuthenticationActivity extends BaseActivity implements EasyPermissi
 
     @BindView(R.id.parent_layout)
     LinearLayout mLl_parentLayout;
+    @BindView(R.id.et_real_name)
+    EditText mEtRealName;//真实姓名
+    @BindView(R.id.et_real_id_number)
+    EditText mEtRealIdNumber;//身份证号
+    @BindView(R.id.et_real_photo)
+    EditText mEtRealPhoto;//联系电话
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
@@ -75,7 +95,7 @@ public class AuthenticationActivity extends BaseActivity implements EasyPermissi
         return R.layout.my_authentication;
     }
 
-    @OnClick({R.id.naviFrameLeft,R.id.button,R.id.add_ic_iv})
+    @OnClick({R.id.naviFrameLeft, R.id.button, R.id.add_ic_iv})
     public void onClickEvent(View view) {
         if (view != null) {
             switch (view.getId()) {
@@ -87,6 +107,7 @@ public class AuthenticationActivity extends BaseActivity implements EasyPermissi
                     break;
                 case R.id.button:
                     showToast("认证");
+                    getAuthentication();
                     break;
             }
         }
@@ -157,9 +178,10 @@ public class AuthenticationActivity extends BaseActivity implements EasyPermissi
     private static final int TAKE_PHOTO_REQUEST_CODE = 1;
     private static final int TAKE_CAMERA_REQUEST_CODE = 2;
     private static final int PHOTO_CLIP = 3;
+
     //选择本地图片
     private void takePhoto() {
-        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 "image/*");
         startActivityForResult(intent, TAKE_PHOTO_REQUEST_CODE);
@@ -298,6 +320,7 @@ public class AuthenticationActivity extends BaseActivity implements EasyPermissi
     }
 
     private File filepath;
+
     private void toUploadFile() {
         if (filepath.exists()) {
             Log.i("521", "toUploadFile: 文件存在...");
@@ -324,5 +347,69 @@ public class AuthenticationActivity extends BaseActivity implements EasyPermissi
         if (filepath != null && filepath.exists()) {
             filepath.delete();
         }
+    }
+
+    /**
+     * 提交数据，实名认证
+     */
+    public void getAuthentication() {
+        if (!NetWorkUtil.isNetWorkConnect(this)) {
+            showToast("请检查网络设置");
+            return;
+        }
+        String realName = MyPublic.getText(mEtRealName);
+        if (TextUtils.isEmpty(realName)) {
+            showToast("请输入真实姓名");
+            return;
+        }
+        String realIdNumber = MyPublic.getText(mEtRealIdNumber);
+        if (TextUtils.isEmpty(realIdNumber)) {
+            showToast("请输入身份证号");
+            return;
+        }
+        String realPhoto = MyPublic.getText(mEtRealPhoto);
+        if (TextUtils.isEmpty(realPhoto) || !ValidationUtil.isPhone(realPhoto)) {
+            showToast("手机号格式错误");
+            return;
+        }
+
+        final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
+                .setTitleText("Loading");
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        pDialog.setCancelable(false);
+        pDialog.show();
+        APPApi.getInstance().service
+                .authentication(UserUtils.getUserId().toString(), realName, realIdNumber, realPhoto, filepath)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<BaseBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseBean baseBean) {
+                        pDialog.cancel();
+                        String msg = baseBean.getMsg();
+                        if ("提交成功".equals(msg)) {
+
+                        } else {
+
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        pDialog.cancel();
+                        LogUtil.e("Fc_请求网路失败" + e.getMessage());
+                        showToast("网络繁忙，请稍后再试");
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 }

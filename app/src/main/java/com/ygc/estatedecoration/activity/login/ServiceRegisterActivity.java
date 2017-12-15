@@ -248,7 +248,7 @@ public class ServiceRegisterActivity extends BaseActivity {
             return;
         }
 
-        MyPublic.getVerification(ServiceRegisterActivity.this, photoNum, mServiceTvGetVerification);
+        MyPublic.getVerification(ServiceRegisterActivity.this, photoNum, mServiceTvGetVerification,"0");
     }
 
     /**
@@ -372,6 +372,7 @@ public class ServiceRegisterActivity extends BaseActivity {
 
                     @Override
                     public void onError(Throwable e) {
+                        pDialog.cancel();
                         LogUtil.e("Fc_请求网路失败" + e.getMessage());
                         Toast.makeText(ServiceRegisterActivity.this, "网络繁忙，请稍后再试", Toast.LENGTH_SHORT).show();
                     }

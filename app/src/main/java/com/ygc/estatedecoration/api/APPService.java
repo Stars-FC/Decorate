@@ -1,15 +1,23 @@
 package com.ygc.estatedecoration.api;
 
 import com.ygc.estatedecoration.bean.LoginBean;
+import com.ygc.estatedecoration.bean.MyBrightBean;
 import com.ygc.estatedecoration.bean.NeedBean;
 import com.ygc.estatedecoration.bean.BaseBean;
 import com.ygc.estatedecoration.bean.RoleFindAllBean;
+import com.ygc.estatedecoration.bean.UserInformationBean;
 import com.ygc.estatedecoration.entity.base.Base;
 
+import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
@@ -29,11 +37,8 @@ public interface APPService {
     Observable<Base> queryUserHomeData();
 
 
-    /**
-     * 登录、注册、找回密码部分
-     */
+    /*********************************************登录、注册、找回密码部分*******************************************/
 
-    //用户端-------------------------
     @FormUrlEncoded
     @POST("user/doSendCode.action")
     Observable<BaseBean> doSendCode(@Field("phone") String phone, @Field("type") String type);  //获取验证码
@@ -44,8 +49,7 @@ public interface APPService {
 
     @FormUrlEncoded
     @POST("user/register.action")
-    Observable<BaseBean> register(@Field("username") String username,
-                                  @Field("type") int type,
+    Observable<BaseBean> register(@Field("username") String username, @Field("type") int type,
                                   @Field("r_id") int r_id,
                                   @Field("nickname") String nickname,
                                   @Field("password") String password,
@@ -61,6 +65,10 @@ public interface APPService {
     Observable<LoginBean> updatePwd(@Field("username") String username, @Field("password")
             String password, @Field("code") String code);  //重置密码
 
+    @FormUrlEncoded
+    @POST("user/login_wechat.action")
+    Observable<Base> login_wechat(@Field("code") String code);  //微信登录
+
 
     /*********************************************服务商端*******************************************/
 
@@ -70,6 +78,33 @@ public interface APPService {
 
     @FormUrlEncoded
     @POST("landMark/wzd/Demand/getDemandListByauId.action")
-    Observable<NeedBean> queryRecommendNeed(@Field("auId") String auId, @Field("searchType") String searchType, @Field("orderState") String orderState, @Field("auId") int page);
+    Observable<NeedBean> queryRecommendNeed(@Field("auId") String auId, @Field("searchType") String searchType, @Field("orderState") String orderState, @Field("page") int page);
+
+
+    /*********************************************个人中心*******************************************/
+
+    @FormUrlEncoded
+    @POST("user/getById.action")
+    Observable<UserInformationBean> userInformation(@Field("au_id") String au_id);  //用户信息
+
+    @FormUrlEncoded
+    @POST("user/subCertification.action")
+    Observable<BaseBean> authentication(@Field("au_id") String au_id, @Field("real_name") String real_name,
+                                        @Field("numbe") String numbe,
+                                        @Field("tel") String tel,
+                                        @Field("file") File file);  //实名认证
+
+    @FormUrlEncoded
+    @POST("UserSparkle/findAllByAuId.action")
+    Observable<MyBrightBean> myBright(@Field("au_id") String au_id);  //我的亮点
+
+
+    @POST("UserSparkle/create.action")
+    Observable<BaseBean> addMyBright(@Body RequestBody  body);  //添加我的亮点
+//    Observable<BaseBean> addMyBright(@Field("au_id") String au_id, @Field("us_title") String us_title, @Body MultipartBody body);  //添加我的亮点
+    /*@Multipart
+    @POST("UserSparkle/create.action")
+    Observable<BaseBean> addMyBright(@PartMap Map<String, RequestBody> params,
+                                     @Part List<MultipartBody.Part> parts);*/
 
 }

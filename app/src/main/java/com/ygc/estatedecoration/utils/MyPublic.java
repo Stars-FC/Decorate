@@ -135,10 +135,10 @@ public class MyPublic {
     /**
      * 获取验证码
      */
-    public static void getVerification(final Context context, String photoNum, final Button button) {
+    public static void getVerification(final Context context, String photoNum, final Button button, String type) {
 
         APPApi.getInstance().service
-                .doSendCode(photoNum, "0")
+                .doSendCode(photoNum, type)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<BaseBean>() {
@@ -152,10 +152,9 @@ public class MyPublic {
                         LogUtil.e("请求网路成功");
 
                         if (null == baseBean) return;
-
-                        new PhoneGetCodeUtil(button, context).onStart();
-
                         String msg = baseBean.getMsg();
+//                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+                        new PhoneGetCodeUtil(button, context).onStart();
                         String responseState = baseBean.getResponseState();
 //                        showToast("responseState");
                     }

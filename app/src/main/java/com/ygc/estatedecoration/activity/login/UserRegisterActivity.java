@@ -174,6 +174,7 @@ public class UserRegisterActivity extends BaseActivity {
 
                     @Override
                     public void onError(Throwable e) {
+                        pDialog.cancel();
                         LogUtil.e("Fc_请求网路失败" + e.getMessage());
                         Toast.makeText(UserRegisterActivity.this, "网络繁忙，请稍后再试", Toast.LENGTH_SHORT).show();
                     }
@@ -207,6 +208,6 @@ public class UserRegisterActivity extends BaseActivity {
             return;
         }
 
-        MyPublic.getVerification(UserRegisterActivity.this, photoNum, mTvGetVerification);
+        MyPublic.getVerification(UserRegisterActivity.this, photoNum, mTvGetVerification, "0");
     }
 }

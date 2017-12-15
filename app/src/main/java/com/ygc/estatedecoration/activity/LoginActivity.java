@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -64,6 +67,18 @@ public class LoginActivity extends AutoLayoutActivity {
 
     private int identity = 0; //表示身份（0：用户，1：服务商）
 
+    // 定义一个变量，来标识是否退出
+    private static boolean isExit = false;
+
+    Handler mHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            isExit = false;
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,7 +114,7 @@ public class LoginActivity extends AutoLayoutActivity {
             }
         });
     }
-    
+
     @OnClick({R.id.tv_pwd_forget, R.id.tv_register, R.id.login_btn, R.id.login_weixin})
     public void onViewClicked(View view) {
         Intent intent = new Intent();
@@ -134,6 +149,8 @@ public class LoginActivity extends AutoLayoutActivity {
         }
     }
 
+    // TODO: 2017/12/14 微信登录未实现
+
     /**
      * 微信登录绑定
      */
@@ -153,7 +170,7 @@ public class LoginActivity extends AutoLayoutActivity {
      * 登陆
      */
     public void loginEvent() {
-        Intent intent = new Intent();
+        /*Intent intent = new Intent();
         if (mordinaryuser.isChecked()) {
             intent.setClass(LoginActivity.this, UserHomeActivity.class);
             startActivity(intent);
@@ -162,10 +179,10 @@ public class LoginActivity extends AutoLayoutActivity {
             intent.setClass(LoginActivity.this, HomeActivity.class);
             startActivity(intent);
             finish();
-        }
+        }*/
 
 
-        /*if (mordinaryuser.isChecked()) {
+        if (mordinaryuser.isChecked()) {
             identity = 0;
         } else if (mServiceuser.isChecked()) {
             identity = 1;
@@ -183,12 +200,12 @@ public class LoginActivity extends AutoLayoutActivity {
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
         pDialog.setCancelable(false);
         pDialog.show();
-       *//*pDialog.getProgressHelper().setBarWidth(10);//转圈圆环宽度
-        pDialog.getProgressHelper().setRimWidth(2);//--中间半圆环空隙
-        pDialog.getProgressHelper().setInstantProgress(10f);
-        pDialog.getProgressHelper().setSpinSpeed(10);//转的速度
-        pDialog.getProgressHelper().setProgress(2);//转了一圈
-        pDialog.getProgressHelper().setCircleRadius(10);*//*
+//        pDialog.getProgressHelper().setBarWidth(10);//转圈圆环宽度
+//        pDialog.getProgressHelper().setRimWidth(2);//--中间半圆环空隙
+//        pDialog.getProgressHelper().setInstantProgress(10f);
+//        pDialog.getProgressHelper().setSpinSpeed(10);//转的速度
+//        pDialog.getProgressHelper().setProgress(2);//转了一圈
+//        pDialog.getProgressHelper().setCircleRadius(10);
 
         APPApi.getInstance().service
                 .login(num, pwd, identity)
@@ -203,15 +220,15 @@ public class LoginActivity extends AutoLayoutActivity {
                     @Override
                     public void onNext(LoginBean roleFindAllBean) {
                         String msg = roleFindAllBean.getMsg();
-                        int type = roleFindAllBean.getData().getType();//用户、服务端
-                        int r_id = roleFindAllBean.getData().getR_id();//材料商
-
-                        String username = roleFindAllBean.getData().getUsername();
-                        String password = roleFindAllBean.getData().getPassword();
                         if ("登录成功".equals(msg)) {
+                            String password = roleFindAllBean.getData().getPassword();
+                            String userId = String.valueOf(roleFindAllBean.getData().getAu_id());
+                            int type = roleFindAllBean.getData().getType();//用户、服务端
+                            int r_id = roleFindAllBean.getData().getR_id();//材料商
                             pDialog.cancel();
                             //保存用户名、密码
-                            UserUtils.setParam(UserUtils.USER, UserUtils.userId, username);
+                            UserUtils.setParam(UserUtils.USER, UserUtils.userId, userId);
+                            LogUtil.e("userId==--------"+userId);
                             UserUtils.setParam(UserUtils.USER, UserUtils.userPws, password);
                             UserUtils.putOnLineBoolean(LoginActivity.this, "", true);//标记用户退出登录
 
@@ -235,6 +252,7 @@ public class LoginActivity extends AutoLayoutActivity {
 
                     @Override
                     public void onError(Throwable e) {
+                        pDialog.cancel();
                         LogUtil.e("Fc_请求网路失败" + e.getMessage());
                         Toast.makeText(LoginActivity.this, "网络繁忙，请稍后再试", Toast.LENGTH_SHORT).show();
                     }
@@ -243,6 +261,31 @@ public class LoginActivity extends AutoLayoutActivity {
                     public void onComplete() {
 
                     }
-                });*/
+                });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exit();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    /**
+     * 对退出时间的监听
+     */
+    private void exit() {
+        if (!isExit) {
+            isExit = true;
+            Toast.makeText(getApplicationContext(), "再按一次退出程序",
+                    Toast.LENGTH_SHORT).show();
+            // 利用handler延迟发送更改状态信息
+            mHandler.sendEmptyMessageDelayed(0, 2000);
+        } else {
+            finish();
+            System.exit(0);
+        }
     }
 }

@@ -11,11 +11,15 @@
         android:layout_marginBottom="30px">
 
         <ImageView
+            android:id="@+id/my_bright_iv_show"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:src="@color/colorAccent"/>
 
         <TextView
+            android:id="@+id/my_bright_tv_introduce"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -23,7 +27,7 @@
             android:layout_marginBottom="15px"
             android:layout_marginLeft="15px"
             android:text="亮点介绍"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="31px"/>
     </RelativeLayout>
 

@@ -21,10 +21,12 @@
         android:textSize="32px"/>
 
     <EditText
+        android:id="@+id/et_real_name"
         android:layout_width="match_parent"
         android:layout_height="80px"
         android:background="@color/white"
         android:hint="真实姓名"
+        android:lines="1"
         android:paddingLeft="20px"
         android:textSize="26px"/>
 
@@ -34,6 +36,7 @@
         android:background="@color/settingbc"/>
 
     <EditText
+        android:id="@+id/et_real_id_number"
         android:layout_width="match_parent"
         android:layout_height="80px"
         android:background="@color/white"
@@ -52,6 +55,7 @@
         android:textSize="32px"/>
 
     <EditText
+        android:id="@+id/et_real_photo"
         android:layout_width="match_parent"
         android:layout_height="80px"
         android:background="@color/white"

@@ -4,6 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/rl_add_bright"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -19,12 +20,14 @@
             android:background="@color/line"/>
 
         <ImageView
+            android:id="@+id/add_my_bright_iv"
             android:layout_width="match_parent"
             android:layout_height="300px"
             android:layout_marginTop="15px"
-            android:src="@color/line"/>
+            android:src="@drawable/fankui"/>
 
         <EditText
+            android:id="@+id/add_my_bright_et"
             android:layout_width="match_parent"
             android:layout_height="180px"
             android:layout_marginTop="30px"
@@ -49,7 +52,7 @@
         android:textSize="22px"/>
 
     <TextView
-        android:id="@+id/my_add_bright_ok"
+        android:id="@+id/add_my_bright_ok"
         android:layout_width="match_parent"
         android:layout_height="90px"
         android:layout_alignParentBottom="true"
