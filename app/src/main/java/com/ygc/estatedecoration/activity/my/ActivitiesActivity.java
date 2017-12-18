@@ -7,13 +7,20 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygc.estatedecoration.R;
+import com.ygc.estatedecoration.activity.LoginActivity;
 import com.ygc.estatedecoration.adapter.MyActivitiesAdapter;
+import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
+import com.ygc.estatedecoration.bean.MyActivitesBean;
+import com.ygc.estatedecoration.utils.LogUtil;
+import com.ygc.estatedecoration.utils.NetWorkUtil;
 import com.ygc.estatedecoration.utils.RecyclerSpace;
+import com.ygc.estatedecoration.utils.UserUtils;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import java.util.ArrayList;
@@ -22,6 +29,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
+/**
+ * 我的活动页面
+ */
 
 public class ActivitiesActivity extends BaseActivity {
 
@@ -62,36 +77,20 @@ public class ActivitiesActivity extends BaseActivity {
             @Override
             public void onRefresh() {
                 mAdapter.setEnableLoadMore(false);//这里的作用是防止下拉刷新的时候还可以上拉加载
-                if (mSwipeRefreshLayout.isRefreshing()) {
-                    mSwipeRefreshLayout.setRefreshing(false);
-                }
+                getDataFromNet();
             }
         });
 
-        //上拉加载更多
-        mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-            @Override
-            public void onLoadMoreRequested() {
-                mAdapter.loadMoreComplete();//完成
-//                mAdapter.loadMoreFail();//失败
-//                mAdapter.loadMoreEnd();//结束
-            }
-        }, mRecyclerview);
     }
 
     @Override
     protected void initView() {
-
+        getDataFromNet();
     }
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            list.add("" + i);
-        }
-        mAdapter = new MyActivitiesAdapter(list);
-//        mRecyclerview.addItemDecoration(new RecyclerSpace(20, Color.parseColor("#f6f6f6")));
+        mAdapter = new MyActivitiesAdapter();
         mRecyclerview.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
         mRecyclerview.setAdapter(mAdapter);
     }
@@ -110,8 +109,50 @@ public class ActivitiesActivity extends BaseActivity {
             case R.id.naviFrameRight://发起活动
                 Intent intent = new Intent(ActivitiesActivity.this, LaunchActivitesActivity.class);
                 startActivity(intent);
-//                showToast("发起活动");
                 break;
         }
+    }
+
+    public void getDataFromNet() {
+
+        if (!NetWorkUtil.isNetWorkConnect(this)) {
+            showToast("请检查网络设置");
+            return;
+        }
+
+        APPApi.getInstance().service
+                .myActivites(UserUtils.getUserId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<MyActivitesBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(MyActivitesBean myActivitesBean) {
+
+                        mAdapter.addData(myActivitesBean.getData());
+
+                        if (mSwipeRefreshLayout.isRefreshing()) {
+                            mSwipeRefreshLayout.setRefreshing(false);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if (mSwipeRefreshLayout.isRefreshing()) {
+                            mSwipeRefreshLayout.setRefreshing(false);
+                        }
+                        LogUtil.e("Fc_请求网路失败" + e.getMessage());
+                        showToast(getResources().getString(R.string.network_error));
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 }

@@ -4,6 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/ll_launch_activites"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -19,9 +20,10 @@
             android:background="@color/line"/>
 
         <ImageView
+            android:id="@+id/launch_activites_image"
             android:layout_width="match_parent"
             android:layout_height="300px"
-            android:src="@color/line"/>
+            android:src="@drawable/fankui"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,20 +32,59 @@
             android:orientation="horizontal">
 
             <com.ygc.estatedecoration.widget.CircleImageView
+                android:id="@+id/launch_activites_icon"
                 android:layout_width="65px"
                 android:layout_height="65px"
                 android:layout_marginLeft="25px"
                 android:src="@drawable/touxiangxuqiubaojia"/>
 
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="90px"
+            android:paddingLeft="22px"
+            android:paddingRight="28px">
+
             <TextView
+                android:id="@+id/activites_tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="18px"
+                android:layout_alignParentLeft="true"
+                android:gravity="center_vertical"
+                android:text="活动标题"
+                android:textColor="@color/black"
+                android:textSize="27px"/>
+
+            <EditText
+                android:id="@+id/launch_activites_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:background="@null"
+                android:gravity="right|center_vertical"
+                android:hint="活动标题"
+                android:minWidth="300px"
+                android:textSize="27px"/>
+
+            <TextView
+                android:id="@+id/launch_activites_nick"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="43dp"
                 android:gravity="center_vertical"
                 android:text="邓颖"
                 android:textColor="@color/black"
                 android:textSize="28px"/>
-        </LinearLayout>
+        </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
@@ -67,6 +108,7 @@
                 android:textSize="27px"/>
 
             <EditText
+                android:id="@+id/launch_activites_starttime"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
@@ -100,6 +142,7 @@
                 android:textSize="27px"/>
 
             <EditText
+                android:id="@+id/launch_activites_endtime"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
@@ -133,6 +176,7 @@
                 android:textSize="27px"/>
 
             <EditText
+                android:id="@+id/launch_activites_place"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
@@ -150,11 +194,12 @@
             android:background="@color/line"/>
 
         <EditText
+            android:id="@+id/launch_activites_introduce"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="25px"
-            android:gravity="start"
             android:background="@null"
+            android:gravity="start"
             android:hint="活动介绍，活动介绍，活动介绍，活动介绍，活动介绍，活动介绍……"
             android:maxLength="20"
             android:paddingLeft="22px"

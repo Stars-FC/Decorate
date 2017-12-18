@@ -21,7 +21,8 @@
         tools:replace="android:icon,android:theme">
         <activity android:name=".activity.LoginActivity">
         </activity>
-        <activity android:name=".activity.HomeActivity"
+        <activity
+            android:name=".activity.HomeActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -60,7 +61,6 @@
         <activity android:name=".activity.my.GuaranteeMoneyActivity"/>
         <activity android:name=".activity.my.CollectionActivity"/>
         <activity android:name=".user_activity.UserHomeActivity">
-
         </activity>
         <activity android:name=".user_activity.UserSearchActivity"/>
         <activity android:name=".user_activity.CaseDetailActivity"/>

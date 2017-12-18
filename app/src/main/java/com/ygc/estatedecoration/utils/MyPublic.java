@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.activity.login.UserRegisterActivity;
 import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.bean.BaseBean;
@@ -18,6 +19,7 @@ import com.ygc.estatedecoration.bean.BaseBean;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -133,6 +135,27 @@ public class MyPublic {
     }
 
     /**
+     * 判断string集合中有没有空值
+     */
+    public static boolean isEmpty(List<String> list) {
+        boolean flag = false;
+        for (String string : list) {
+            if (MyPublic.isEmpty(string)) {
+                flag = true;
+                break;
+            }
+        }
+        return flag;
+    }
+
+    /**
+     * 判断string是否为空
+     */
+    public static boolean isEmpty(String string) {
+        return TextUtils.isEmpty(string);
+    }
+
+    /**
      * 获取验证码
      */
     public static void getVerification(final Context context, String photoNum, final Button button, String type) {
@@ -162,7 +185,7 @@ public class MyPublic {
                     @Override
                     public void onError(Throwable e) {
                         LogUtil.e("Fc_请求网路失败" + e.getMessage());
-                        Toast.makeText(context, "网络繁忙，请稍后再试", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, context.getResources().getString(R.string.network_error), Toast.LENGTH_SHORT).show();
 //                        showToast("请稍后再试");
                     }
 

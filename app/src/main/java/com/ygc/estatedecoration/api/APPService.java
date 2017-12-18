@@ -3,10 +3,13 @@ package com.ygc.estatedecoration.api;
 import com.ygc.estatedecoration.bean.BaseBean;
 import com.ygc.estatedecoration.bean.DemandOfferBean;
 import com.ygc.estatedecoration.bean.LoginBean;
+import com.ygc.estatedecoration.bean.MyActivitesBean;
 import com.ygc.estatedecoration.bean.MyBrightBean;
 import com.ygc.estatedecoration.bean.NeedBean;
 import com.ygc.estatedecoration.bean.RoleFindAllBean;
 import com.ygc.estatedecoration.bean.UserInformationBean;
+import com.ygc.estatedecoration.bean.UserBalanceOrderBean;
+import com.ygc.estatedecoration.bean.UserShopCarBean;
 import com.ygc.estatedecoration.entity.base.Base;
 
 import java.io.File;
@@ -66,19 +69,23 @@ public interface APPService {
     /*********************************************服务商端*******************************************/
 
     @FormUrlEncoded
-    @POST("wzd/Demand/getDemandList.action")//所有需求
+    @POST("wzd/Demand/getDemandList.action")
+//所有需求
     Observable<NeedBean> queryAllNeed(@Field("page") int page, @Field("missionType") String missionType, @Field("constructionStatusQuo") String constructionStatusQuo, @Field("missionStartTime") String missionStartTime, @Field("missionEndTime") String missionEndTime, @Field("mixBuildingArea") String mixBuildingArea, @Field("maxBuildingArea") String maxBuildingArea, @Field("address") String address);
 
     @FormUrlEncoded
-    @POST("wzd/Demand/getDemandListByauId.action")//推荐需求 交易管理
+    @POST("wzd/Demand/getDemandListByauId.action")
+//推荐需求 交易管理
     Observable<NeedBean> queryRecommendNeed(@Field("auId") String auId, @Field("searchType") String searchType, @Field("orderState") String orderState, @Field("page") int page);
 
     @FormUrlEncoded
-    @POST("wzd/Demand/addDemandOffer.action")//报价
+    @POST("wzd/Demand/addDemandOffer.action")
+//报价
     Observable<Base> demandOffer(@Field("cId") String cId, @Field("dId") String dId, @Field("price") String price, @Field("needTime") String needTime, @Field("message") String message, @Field("toOpen") String toOpen);
 
     @FormUrlEncoded
-    @POST("wzd/Demand/getDemandOfferList.action")//报价列表
+    @POST("wzd/Demand/getDemandOfferList.action")
+//报价列表
     Observable<DemandOfferBean> getDemandOfferList(@Field("doId") String doId, @Field("dId") String dId, @Field("page") String page);
 
 
@@ -101,11 +108,28 @@ public interface APPService {
 
 
     @POST("UserSparkle/create.action")
-    Observable<BaseBean> addMyBright(@Body RequestBody  body);  //添加我的亮点
-//    Observable<BaseBean> addMyBright(@Field("au_id") String au_id, @Field("us_title") String us_title, @Body MultipartBody body);  //添加我的亮点
+    Observable<BaseBean> addMyBright(@Body RequestBody body);  //添加我的亮点
+
+    //    Observable<BaseBean> addMyBright(@Field("au_id") String au_id, @Field("us_title") String us_title, @Body MultipartBody body);  //添加我的亮点
     /*@Multipart
     @POST("UserSparkle/create.action")
     Observable<BaseBean> addMyBright(@PartMap Map<String, RequestBody> params,
                                      @Part List<MultipartBody.Part> parts);*/
+    @POST("UserFeedback/create.action")
+    Observable<BaseBean> feedback(@Body RequestBody body);  //意见反馈
 
+    @FormUrlEncoded
+    @POST("user/getUserBalanceOrder.action")
+    Observable<UserBalanceOrderBean> queryBalanceOrder(@Field("auId") String au_id, @Field("page") int page);  //用户明细
+
+    @FormUrlEncoded
+    @POST("wzd/commodityCar/getCommodityCarInfo.action")
+    Observable<UserShopCarBean> queryCommodityCarInfo(@Field("auId") String au_id, @Field("page") int page);  //查询购物车信息
+
+    @FormUrlEncoded
+    @POST("Activity/findAllByAuId.action")
+    Observable<MyActivitesBean> myActivites(@Field("au_id") String au_id);  //我的活动
+
+    @POST("Activity/add.action")
+    Observable<BaseBean> addMyActivites(@Body RequestBody body);  //添加我的活动
 }

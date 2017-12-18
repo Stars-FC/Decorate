@@ -129,7 +129,7 @@ public class MyBrightActivity extends BaseActivity {
                 .subscribe(new Observer<MyBrightBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        compositeDisposable.add(d);
                     }
 
                     @Override
@@ -138,13 +138,14 @@ public class MyBrightActivity extends BaseActivity {
                         if (!(mData.size() == 0)) {
                             mAdapter.setNewData(brightBean.getData());
                         }
-
+                        mSwipeRefreshLayout.setRefreshing(false);
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        mSwipeRefreshLayout.setRefreshing(false);
                         LogUtil.e("Fc_请求网路失败" + e.getMessage());
-                        showToast("网络繁忙，请稍后再试");
+                        showToast(getResources().getString(R.string.network_error));
                     }
 
                     @Override
@@ -154,5 +155,10 @@ public class MyBrightActivity extends BaseActivity {
                 });
     }
 
-
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        mSwipeRefreshLayout.setRefreshing(true);
+        getDataFromNet();
+    }
 }

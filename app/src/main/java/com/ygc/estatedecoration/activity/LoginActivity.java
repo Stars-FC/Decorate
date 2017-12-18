@@ -27,7 +27,9 @@ import com.ygc.estatedecoration.bean.LoginBean;
 import com.ygc.estatedecoration.user_activity.UserHomeActivity;
 import com.ygc.estatedecoration.utils.LogUtil;
 import com.ygc.estatedecoration.utils.MyPublic;
+import com.ygc.estatedecoration.utils.NetWorkUtil;
 import com.ygc.estatedecoration.utils.UserUtils;
+import com.ygc.estatedecoration.utils.ValidationUtil;
 import com.zhy.autolayout.AutoLayoutActivity;
 
 import butterknife.BindView;
@@ -180,7 +182,10 @@ public class LoginActivity extends AutoLayoutActivity {
             startActivity(intent);
             finish();
         }*/
-
+        if (!NetWorkUtil.isNetWorkConnect(this)) {
+            Toast.makeText(LoginActivity.this,"请检查网络设置",Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         if (mordinaryuser.isChecked()) {
             identity = 0;
@@ -192,6 +197,10 @@ public class LoginActivity extends AutoLayoutActivity {
         String pwd = MyPublic.getText(mEtPwd);
         if (TextUtils.isEmpty(num) || TextUtils.isEmpty(pwd)) {
             Toast.makeText(LoginActivity.this, "请填写用户名和密码", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!ValidationUtil.isPhone(num)) {
+            Toast.makeText(LoginActivity.this, "手机号格式错误", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -254,7 +263,7 @@ public class LoginActivity extends AutoLayoutActivity {
                     public void onError(Throwable e) {
                         pDialog.cancel();
                         LogUtil.e("Fc_请求网路失败" + e.getMessage());
-                        Toast.makeText(LoginActivity.this, "网络繁忙，请稍后再试", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, getResources().getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -264,6 +273,7 @@ public class LoginActivity extends AutoLayoutActivity {
                 });
     }
 
+    /*@Override
    /* @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {

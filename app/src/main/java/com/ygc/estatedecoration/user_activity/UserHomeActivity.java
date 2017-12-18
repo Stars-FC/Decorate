@@ -160,6 +160,7 @@ public class UserHomeActivity extends BaseActivity {
                     break;
                 case R.id.my_ll:
                     /*if (UserUtils.isLogin()) {  //判断用户是否登录，如果登录直接显示，否则跳转到登录界面*/
+                    changeTabStyle(4);
                     if (UserUtils.getOnLineBoolean(getApplicationContext(), "")) {  //判断用户是否登录，如果登录直接显示，否则跳转到登录界面
                         changeTabStyle(4);
                         mIv_home.setImageResource(R.drawable.shouye);

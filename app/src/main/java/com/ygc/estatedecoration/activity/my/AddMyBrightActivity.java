@@ -115,7 +115,7 @@ public class AddMyBrightActivity extends BaseActivity implements EasyPermissions
      */
     private void addBrightToNet() {
 
-        String text = MyPublic.getText(mAddMyBrightEt) + "";
+        String text = MyPublic.getText(mAddMyBrightEt);
 
         //以MultiPart类型上传数据
 //        MultipartBody.Builder builder = new MultipartBody.Builder();
@@ -141,7 +141,7 @@ public class AddMyBrightActivity extends BaseActivity implements EasyPermissions
                 .subscribe(new Observer<BaseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        compositeDisposable.add(d);
                     }
 
                     @Override
@@ -154,7 +154,7 @@ public class AddMyBrightActivity extends BaseActivity implements EasyPermissions
                     @Override
                     public void onError(Throwable e) {
                         LogUtil.e("Fc_请求网路失败" + e.getMessage());
-                        showToast("网络繁忙，请稍后再试");
+                        showToast(getResources().getString(R.string.network_error));
                     }
 
                     @Override

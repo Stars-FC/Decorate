@@ -345,8 +345,7 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
         intent.putExtra("return-data", true);
         startActivityForResult(intent, PHOTO_CLIP);
     }
-
-
+    
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -485,7 +484,7 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
                 .subscribe(new Observer<UserInformationBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        compositeDisposable.add(d);
                     }
 
                     @Override
@@ -506,7 +505,7 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
                     @Override
                     public void onError(Throwable e) {
                         LogUtil.e("Fc_请求网路失败" + e.getMessage());
-                        showToast("网络繁忙，请稍后再试");
+                        showToast(getResources().getString(R.string.network_error));
                     }
 
                     @Override

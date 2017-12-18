@@ -10,28 +10,29 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.ygc.estatedecoration.R;
+import com.ygc.estatedecoration.bean.UserShopCarBean;
 
 import java.util.List;
 
-public class UserShopCarAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+public class UserShopCarAdapter extends BaseQuickAdapter<UserShopCarBean.DataBean, BaseViewHolder> {
 
-    private Context mContext;
-    private List<String> dataList;
-    public UserShopCarAdapter(@LayoutRes int layoutResId, @Nullable List<String> data, Context context) {
-        super(layoutResId, data);
-        this.mContext = context;
-        this.dataList = data;
+    public UserShopCarAdapter(@LayoutRes int layoutResId) {
+        super(layoutResId);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, String item) {
+    protected void convert(BaseViewHolder helper, UserShopCarBean.DataBean item) {
         int layoutPosition = helper.getLayoutPosition();
         RecyclerView recyclerView = helper.getView(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
-        recyclerView.setAdapter(new UserShopCarCommodityDetailAdapter(R.layout.item_shop_car_commodity_detail, dataList, mContext, layoutPosition));
+        recyclerView.setAdapter(new UserShopCarCommodityDetailAdapter(R.layout.item_shop_car_commodity_detail, item.getCommodityCarItem(), mContext, layoutPosition));
+
+        // TODO: 2017/12/18 为控件赋值，还有子RecyclerView的值
+        //为控件赋值
+//        helper.setText(R.id.)
 
         View view = helper.getView(R.id.view);
-        if (dataList.size() - 1 == layoutPosition) {
+        if (getData().size() - 1 == layoutPosition) {
             view.setVisibility(View.GONE);
         } else {
             view.setVisibility(View.VISIBLE);

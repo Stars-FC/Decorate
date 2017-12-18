@@ -280,7 +280,7 @@ public class ServiceRegisterActivity extends BaseActivity {
                     @Override
                     public void onError(Throwable e) {
                         LogUtil.e("Fc_请求网路失败" + e.getMessage());
-                        showToast("网络繁忙，请稍后再试");
+                        showToast(getResources().getString(R.string.network_error));
                     }
 
                     @Override
@@ -373,7 +373,7 @@ public class ServiceRegisterActivity extends BaseActivity {
                     public void onError(Throwable e) {
                         pDialog.cancel();
                         LogUtil.e("Fc_请求网路失败" + e.getMessage());
-                        Toast.makeText(ServiceRegisterActivity.this, "网络繁忙，请稍后再试", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ServiceRegisterActivity.this, getResources().getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

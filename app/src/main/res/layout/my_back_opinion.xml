@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/ll_back_feel"
     android:background="@color/recyclerBc"
     android:orientation="vertical">
 
@@ -17,8 +18,8 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-
         <EditText
+            android:id="@+id/back_opinion_et_content"
             android:layout_width="match_parent"
             android:layout_height="150px"
             android:layout_marginLeft="20px"
@@ -31,6 +32,7 @@
             android:textSize="28px"/>
 
         <ImageView
+            android:id="@+id/back_opinion_add_image"
             android:layout_width="186px"
             android:layout_height="186px"
             android:layout_marginBottom="20px"
@@ -40,7 +42,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/bt_logout"
+        android:id="@+id/back_opinion_bt_ok"
         android:layout_width="520px"
         android:layout_height="80px"
         android:layout_centerInParent="true"

@@ -180,7 +180,7 @@ public class ForgetPwdActivity extends BaseActivity {
                     public void onError(Throwable e) {
                         pDialog.cancel();
                         LogUtil.e("Fc_请求网路失败" + e.getMessage());
-                        showToast("网络繁忙，请稍后再试");
+                        showToast(getResources().getString(R.string.network_error));
                     }
 
                     @Override
