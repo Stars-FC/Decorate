@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="18px">
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2017.11.06   11:14:56"
+            android:textColor="@color/black"
+            android:textSize="30px"/>
+
+        <TextView
+            android:id="@+id/content_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18px"
+            android:layout_below="@id/time_tv"
+            android:text="雇主XXX雇佣了您，赶紧发起合同吧！"
+            android:textColor="@color/black"
+            android:maxLength="25"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:textSize="30px"/>
+
+
+
+        <TextView
+            android:id="@+id/operate_contract_tv"
+            android:gravity="center"
+            android:layout_width="126px"
+            android:layout_height="54px"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/shape_hollow_rounded_rectangle"
+            android:text=""
+            android:textColor="@color/green_4fbc64"
+            android:textSize="23px" />
+
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+</com.zhy.autolayout.AutoLinearLayout>

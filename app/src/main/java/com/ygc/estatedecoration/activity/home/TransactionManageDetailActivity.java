@@ -2,13 +2,12 @@ package com.ygc.estatedecoration.activity.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.androidkun.xtablayout.XTabLayout;
 import com.ygc.estatedecoration.R;
-import com.ygc.estatedecoration.adapter.HomeMyStoreAdapter;
+import com.ygc.estatedecoration.adapter.DemandAndProgressLazyFragmentPagerAdapter;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.bean.NeedBean;
@@ -22,6 +21,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -40,12 +40,6 @@ public class TransactionManageDetailActivity extends BaseActivity {
     @BindView(R.id.viewpager)
     ViewPager mViewpager;
 
-    private ArrayList<BaseFragment> mFragments;
-
-    private List<String> mList;
-
-    private HomeMyStoreAdapter mAdapter;
-    private String mDIdStr;
     private NeedBean.DataBean mDataBean;
     private int mPosition;
 
@@ -68,19 +62,13 @@ public class TransactionManageDetailActivity extends BaseActivity {
     protected void initData(Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
         getIntentData();
-        mList = new ArrayList<>();
-        mList.add("需求详情");
-        mList.add("报  价");
 
-        mFragments = new ArrayList<>();
-        mFragments.add(TransactionManageNeedFragment.getInstance(mDIdStr, mDataBean));
-        mFragments.add(TransactionManageOfferFragment.getInstance(mDIdStr));
+        String[] titleArray = {"需求详情", "报  价"};
+        List<BaseFragment> fragmentList = new ArrayList<>();
+        fragmentList.add(TransactionManageNeedFragment.getInstance(mDataBean));
+        fragmentList.add(TransactionManageOfferFragment.getInstance(String.valueOf(mDataBean.getDId())));
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        mAdapter = new HomeMyStoreAdapter(fragmentManager, mFragments, mList);
-
-        mViewpager.setAdapter(mAdapter);
-        mViewpager.setOffscreenPageLimit(1);
+        mViewpager.setAdapter(new DemandAndProgressLazyFragmentPagerAdapter(getSupportFragmentManager(), fragmentList, Arrays.asList(titleArray)));
         mXTabLayout.setupWithViewPager(mViewpager);
 
     }
@@ -88,7 +76,6 @@ public class TransactionManageDetailActivity extends BaseActivity {
     private void getIntentData() {
         Bundle bundle = getIntent().getBundleExtra("bundle");
         mDataBean = (NeedBean.DataBean) bundle.getSerializable("demand");
-        mDIdStr = String.valueOf(mDataBean.getDId());
         mPosition = bundle.getInt("position");
 
     }
@@ -107,7 +94,7 @@ public class TransactionManageDetailActivity extends BaseActivity {
                 break;
             case R.id.tv_offer:
                 intent.setClass(TransactionManageDetailActivity.this, TransactionManageOfferActivity.class);
-                intent.putExtra("dId", mDIdStr);
+                intent.putExtra("dId", String.valueOf(mDataBean.getDId()));
                 intent.putExtra("position", mPosition);
                 startActivity(intent);
                 break;

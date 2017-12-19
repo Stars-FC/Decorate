@@ -2,7 +2,6 @@ package com.ygc.estatedecoration.activity.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
@@ -10,13 +9,14 @@ import android.widget.Button;
 
 import com.androidkun.xtablayout.XTabLayout;
 import com.ygc.estatedecoration.R;
-import com.ygc.estatedecoration.adapter.HomeMyStoreAdapter;
+import com.ygc.estatedecoration.adapter.DemandAndProgressLazyFragmentPagerAdapter;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
+import com.ygc.estatedecoration.bean.NeedBean;
 import com.ygc.estatedecoration.event.ChangeContractStateMsg;
 import com.ygc.estatedecoration.event.ContractStateMsg;
-import com.ygc.estatedecoration.fragment.home.ServiceNeedFragment;
 import com.ygc.estatedecoration.fragment.home.ServiceProgressFragment;
+import com.ygc.estatedecoration.fragment.home.TransactionManageNeedFragment;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import org.greenrobot.eventbus.EventBus;
@@ -24,7 +24,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -40,9 +40,10 @@ public class DemandAndProgressActivity extends BaseActivity {
     @BindView(R.id.start_contract_btn)
     Button mBtn_startContract;
 
-    private List<String> titleList = new ArrayList<>();
-
+    private String[] titleArray = {"需求详情", "进  度"};
     private ArrayList<BaseFragment> fragmentList = new ArrayList<>();
+
+    private NeedBean.DataBean mDataBean;
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
@@ -62,18 +63,18 @@ public class DemandAndProgressActivity extends BaseActivity {
     @Override
     protected void initData(Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
-        titleList.add("需求详情");
-        titleList.add("进  度");
+        getIntentData();
 
-        fragmentList.add(ServiceNeedFragment.newInstance());
-        fragmentList.add(ServiceProgressFragment.newInstance());
+        fragmentList.add(TransactionManageNeedFragment.getInstance(mDataBean));
+        fragmentList.add(ServiceProgressFragment.newInstance(mDataBean));
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        HomeMyStoreAdapter adapter = new HomeMyStoreAdapter(fragmentManager, fragmentList, titleList);
-
-        mViewpager.setAdapter(adapter);
+        mViewpager.setAdapter(new DemandAndProgressLazyFragmentPagerAdapter(getSupportFragmentManager(), fragmentList, Arrays.asList(titleArray)));
 
         mTabLayout.setupWithViewPager(mViewpager);
+    }
+
+    private void getIntentData() {
+        mDataBean = (NeedBean.DataBean) getIntent().getBundleExtra("bundle").getSerializable("demand");
     }
 
     @Override
@@ -118,12 +119,5 @@ public class DemandAndProgressActivity extends BaseActivity {
         } else {
             mBtn_startContract.setText("补充合同");
         }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.i("521", "onActivityResult: DemandAndProgresActivity。。。。");
-        EventBus.getDefault().post(new ChangeContractStateMsg(data, requestCode, resultCode));
     }
 }

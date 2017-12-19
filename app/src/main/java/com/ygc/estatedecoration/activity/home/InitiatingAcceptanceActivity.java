@@ -1,6 +1,5 @@
 package com.ygc.estatedecoration.activity.home;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,9 +8,6 @@ import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
 import com.ygc.estatedecoration.bean.ScheduleBean;
 import com.ygc.estatedecoration.widget.TitleBar;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import butterknife.OnClick;
 
@@ -50,7 +46,7 @@ public class InitiatingAcceptanceActivity extends BaseActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bean.setType("6");
+                /*bean.setType("6");
                 Intent intent=new Intent();
                 SimpleDateFormat formatter = new SimpleDateFormat ("yyyy.MM.dd HH:mm:ss ");
                 Date curDate = new Date(System.currentTimeMillis());//获取当前时间
@@ -58,7 +54,7 @@ public class InitiatingAcceptanceActivity extends BaseActivity {
                 intent.putExtra("time",time);
                 intent.putExtra("bean",bean);
                 InitiatingAcceptanceActivity.this.setResult(0,intent);
-                finish();
+                finish();*/
             }
         });
     }

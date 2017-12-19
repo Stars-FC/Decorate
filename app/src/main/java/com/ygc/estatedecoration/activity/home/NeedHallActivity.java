@@ -99,16 +99,21 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
 
     private List<NeedBean.DataBean> mDataBeanList = new ArrayList<>();
     private HomeNeedHallAdapter mAdapter;
-    private String mStartTimeStr = null;
-    private String mEndTimeStr = null;
-    private String mMinAreaStr = null;
-    private String mMaxAreaStr = null;
-    private String mAddressStr = null;
     private ListView typesList;
     private ListView nowsList;
 
     private String[] missionTypeArray = {"家装", "工装"};
     private String[] constructionStatusQuoArray = {"局部改造", "毛胚房", "旧房翻新"};
+
+    private int curPageNumAllData = 0;
+    private String missionType = null;//装修类型
+    private String constructionStatusQuo = null;//建筑现状
+    private String mStartTimeStr = null;
+    private String mEndTimeStr = null;
+    private String mMinAreaStr = null;
+    private String mMaxAreaStr = null;
+    private String mAddressStr = null;
+
     private String curSelectedMissionTypePosition = null;
     private String curSelectedConstructionStatusQuoPosition = null;
     private SweetAlertDialog mPDialog;
@@ -135,21 +140,22 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
                 mDropDownMenu.closeMenu();//关闭选择列表
                 typesAdapter.setCheckItem(0);
                 nowsAdapter.setCheckItem(0);
+
+                curPageNumAllData = 0;
+                missionType = null;
+                constructionStatusQuo = null;
                 mStartTimeStr = null;
                 mEndTimeStr = null;
                 mMinAreaStr = null;
                 mMaxAreaStr = null;
                 mAddressStr = null;
-                missionType = null;
-                constructionStatusQuo = null;
-                curSelectedConstructionStatusQuoPosition = null;
-                curSelectedMissionTypePosition = null;
-                curPageNumAllData = 0;
+//                curSelectedMissionTypePosition = null;
+//                curSelectedConstructionStatusQuoPosition = null;
+
                 mDataBeanList.clear();
                 mAdapter.notifyDataSetChanged();
                 mPDialog.show();
                 queryNeedDataEvent(0, Constant.NORMAL_REQUEST, missionType, constructionStatusQuo, mStartTimeStr, mEndTimeStr, mMinAreaStr, mMaxAreaStr, null);
-
 
                 nowsAdapter.setCheckItem(0);
                 mDropDownMenu.setListener1(headers[0]);
@@ -287,21 +293,25 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 typesAdapter.setCheckItem(position);
                 mDropDownMenu.setTabText(position == 0 ? headers[0] : types[position]);
-                LogUtil.e("pos" + position);
                 mDropDownMenu.closeMenu();
-                mStartTimeStr = null;
-                mEndTimeStr = null;
-                mMinAreaStr = null;
-                mMaxAreaStr = null;
-                mAddressStr = null;
+
+                curPageNumAllData = 0;
                 if (position - 1 >= 0) {
                     missionType = String.valueOf(position - 1);
                 } else {
                     missionType = null;
                 }
+                mStartTimeStr = null;
+                mEndTimeStr = null;
+                mMinAreaStr = null;
+                mMaxAreaStr = null;
+                mAddressStr = null;
+//                curSelectedMissionTypePosition = null;
+//                curSelectedConstructionStatusQuoPosition = null;
+
                 mDataBeanList.clear();
                 mAdapter.notifyDataSetChanged();
-                curPageNumAllData = 0;
+                mPDialog.show();
                 queryNeedDataEvent(0, Constant.NORMAL_REQUEST, missionType, constructionStatusQuo, mStartTimeStr, mEndTimeStr, mMinAreaStr, mMaxAreaStr, mAddressStr);
             }
         });
@@ -312,19 +322,24 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
                 nowsAdapter.setCheckItem(position);
                 mDropDownMenu.setTabText(position == 0 ? headers[1] : nows[position]);
                 mDropDownMenu.closeMenu();
-                mStartTimeStr = null;
-                mEndTimeStr = null;
-                mMinAreaStr = null;
-                mMaxAreaStr = null;
-                mAddressStr = null;
+
+                curPageNumAllData = 0;
                 if (position - 1 >= 0) {
                     constructionStatusQuo = String.valueOf(position - 1);
                 } else {
                     constructionStatusQuo = null;
                 }
+                mStartTimeStr = null;
+                mEndTimeStr = null;
+                mMinAreaStr = null;
+                mMaxAreaStr = null;
+                mAddressStr = null;
+//                curSelectedMissionTypePosition = null;
+//                curSelectedConstructionStatusQuoPosition = null;
+
                 mDataBeanList.clear();
                 mAdapter.notifyDataSetChanged();
-                curPageNumAllData = 0;
+                mPDialog.show();
                 queryNeedDataEvent(0, Constant.NORMAL_REQUEST, missionType, constructionStatusQuo, mStartTimeStr, mEndTimeStr, mMinAreaStr, mMaxAreaStr, mAddressStr);
             }
         });
@@ -343,16 +358,12 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
         queryNeedDataEvent(0, Constant.NORMAL_REQUEST, missionType, constructionStatusQuo, mStartTimeStr, mEndTimeStr, mMinAreaStr, mMaxAreaStr, mAddressStr);
     }
 
-    private int curPageNumAllData = 0;
-    private String missionType = null;//装修类型
-    private String constructionStatusQuo = null;//建筑现状
-
     private void queryNeedDataEvent(int pageNum, final String requestMark, String tempMissionType, String tempConstructionStatusQuo,
-                                    String startTimeStr, String endTimeStr, String minAreaStr, String maxAreaStr, String addressStr) {
-        Log.i("521", "queryNeedDataEvent: " + pageNum + "===" + requestMark + "===" + tempMissionType + "===" + tempConstructionStatusQuo + "===" + startTimeStr + "===" + endTimeStr + "===" + minAreaStr + "===" + maxAreaStr + "===" + addressStr);
+                                    String tempStartTimeStr, String tempEndTimeStr, String tempMinAreaStr, String tempMaxAreaStr, String tempAddressStr) {
+        Log.i("521", "queryNeedDataEvent: " + pageNum + "===" + requestMark + "===" + tempMissionType + "===" + tempConstructionStatusQuo + "===" + tempStartTimeStr + "===" + tempEndTimeStr + "===" + tempMinAreaStr + "===" + tempMaxAreaStr + "===" + tempAddressStr);
 
         APPApi.getInstance().service
-                .queryAllNeed(pageNum, tempMissionType, tempConstructionStatusQuo, startTimeStr, endTimeStr, minAreaStr, maxAreaStr, addressStr)
+                .queryAllNeed(pageNum, tempMissionType, tempConstructionStatusQuo, tempStartTimeStr, tempEndTimeStr, tempMinAreaStr, tempMaxAreaStr, tempAddressStr)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<NeedBean>() {
@@ -387,16 +398,14 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
                             } else {
                                 refreshFinishEvent(false);
                             }
-                            showToast(needBean.msg);
                         }
-                        if (requestMark.equals(Constant.REFRESH_REQUEST)) {
-                            mAdapter.setEnableLoadMore(true);
-                        }
+                        showToast(needBean.msg);
                         cancelDialog();
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
+                        cancelDialog();
                         loadMoreFinishEvent();
                         refreshFinishEvent(false);
                         showToast(getResources().getString(R.string.network_error));
@@ -424,6 +433,7 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
     }
 
     private void refreshFinishEvent(boolean isSuccess) {
+        mAdapter.setEnableLoadMore(true);
         if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
             if (isSuccess) {
@@ -477,27 +487,26 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
 
     //确认筛选条件
     private void sureSelectCondition() {
-        missionType = null;
-        constructionStatusQuo = null;
-        mDataBeanList.clear();
-        mAdapter.notifyDataSetChanged();
-
+        missionType = curSelectedMissionTypePosition;
+        constructionStatusQuo = curSelectedConstructionStatusQuoPosition;
         if (TextUtils.isEmpty(curSelectedMissionTypePosition)) {
             typesAdapter.setCheckItem(0);
+            mDropDownMenu.setListener1(headers[0]);
         } else {
-            typesAdapter.setCheckItem(Integer.valueOf(curSelectedMissionTypePosition));
+            typesAdapter.setCheckItem(Integer.valueOf(curSelectedMissionTypePosition)+1);
+            mDropDownMenu.setListener1(missionTypeArray[Integer.valueOf(curSelectedMissionTypePosition)]);
         }
         if (TextUtils.isEmpty(curSelectedConstructionStatusQuoPosition)) {
             nowsAdapter.setCheckItem(0);
+            mDropDownMenu.setListener2(headers[1]);
         } else {
-            nowsAdapter.setCheckItem(Integer.valueOf(curSelectedConstructionStatusQuoPosition));
+            nowsAdapter.setCheckItem(Integer.valueOf(curSelectedConstructionStatusQuoPosition)+1);
+            mDropDownMenu.setListener2(constructionStatusQuoArray[Integer.valueOf(curSelectedConstructionStatusQuoPosition)]);
         }
-
-        nowsAdapter.setCheckItem(0);
-        mDropDownMenu.setListener1(headers[0]);
-        typesAdapter.setCheckItem(0);
-        mDropDownMenu.setListener2(headers[1]);
         mDrawerLayout.closeDrawer(Gravity.END);
+
+        mDataBeanList.clear();
+        mAdapter.notifyDataSetChanged();
 
         mStartTimeStr = mEt_startTime.getText().toString().trim();
         if (TextUtils.isEmpty(mStartTimeStr)) {

@@ -2,12 +2,22 @@ package com.ygc.estatedecoration.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.view.ViewGroup;
 
 import com.ygc.estatedecoration.R;
-import com.ygc.estatedecoration.adapter.MyViewPagerAdapter;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
+import com.ygc.estatedecoration.app.fragment.BaseFragment;
+import com.ygc.estatedecoration.fragment.HomeFragment;
+import com.ygc.estatedecoration.fragment.ManageFragment;
+import com.ygc.estatedecoration.fragment.MyFragment;
+import com.ygc.estatedecoration.utils.lazyviewpager.LazyFragmentPagerAdapter;
 import com.ygc.estatedecoration.widget.TitleBar;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import me.majiajie.pagerbottomtabstrip.NavigationController;
@@ -24,10 +34,10 @@ public class HomeActivity extends BaseActivity {
     @BindView(R.id.viewPager)
     ViewPager mViewPager;
 
-    //    @BindView(R.id.rg_main)
-//    RadioGroup mRadioGroup;
     @BindView(R.id.tab)
     PageNavigationView tab;
+
+    private static List<BaseFragment> fragmentList = new ArrayList<>();
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
@@ -52,55 +62,8 @@ public class HomeActivity extends BaseActivity {
                 .addItem(newItem(R.drawable.wode, R.drawable.wode_sel,"我的"))
                 .build();
 
-        mViewPager.setAdapter(new MyViewPagerAdapter(getSupportFragmentManager(), navigationController.getItemCount()));
-        mViewPager.setOffscreenPageLimit(2);
+        mViewPager.setAdapter(new HomeLazyFragmentAdapter(getSupportFragmentManager()));
         navigationController.setupWithViewPager(mViewPager);
-        //设置单选按钮的点击事件
-//        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-//                switch (i) {
-//                    case R.id.rb_home:
-//                        mViewPager.setCurrentItem(0, false);
-//                        break;
-//                    case R.id.rb_case:
-//                        mViewPager.setCurrentItem(1, false);
-//                        break;
-//                    case R.id.rb_manage:
-//                        mViewPager.setCurrentItem(2, false);
-//                        break;
-//                    case R.id.rb_news:
-//                        mViewPager.setCurrentItem(3, false);
-//                        break;
-//                    case R.id.rb_my:
-//                        mViewPager.setCurrentItem(4, false);
-//                        break;
-//                }
-//            }
-//        });
-//        //设置监听viewpager滑动的事件
-//        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-//            @Override
-//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//
-//            }
-//
-//            /**
-//             * 当某个页面呗被中的时候调用这个方法
-//             * @param position 被选中页面的位置
-//             */
-//            @Override
-//            public void onPageSelected(int position) {
-//            }
-//
-//            @Override
-//            public void onPageScrollStateChanged(int state) {
-//
-//            }
-//        });
-
-        //设置默认选中页面
-//        mRadioGroup.check(R.id.rb_home);
     }
 
     /**
@@ -121,6 +84,29 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
+        initFragment();
+    }
 
+    private void initFragment() {
+        fragmentList.add(HomeFragment.newInstance(""));
+        fragmentList.add(ManageFragment.newInstance(""));
+        fragmentList.add(MyFragment.newInstance(""));
+    }
+
+    private static class HomeLazyFragmentAdapter extends LazyFragmentPagerAdapter{
+
+        public HomeLazyFragmentAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        protected Fragment getItem(ViewGroup container, int position) {
+            return fragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return fragmentList.size();
+        }
     }
 }

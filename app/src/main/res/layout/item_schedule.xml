@@ -1,90 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.autolayout.AutoLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="220px"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:descendantFocusability="blocksDescendants"
     android:paddingLeft="32px"
     android:paddingRight="22px">
 
     <com.zhy.autolayout.AutoLinearLayout
-        android:id="@+id/left"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginRight="23px"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:paddingBottom="10px">
 
-        <View
-            android:id="@+id/item_schedule_left_top"
-            android:layout_width="2px"
-            android:layout_height="5px"
-            android:layout_gravity="center"
-            android:layout_marginBottom="9px"
-            android:background="@color/green_4fbc64" />
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/item_schedule_hollow_circle"
-            android:layout_width="30px"
-            android:layout_height="30px"
-            android:layout_marginBottom="14px"
-            android:background="@drawable/shape_green_hollow_circle" />
+            <TextView
+                android:id="@+id/item_schedule_hollow_circle"
+                android:layout_width="28px"
+                android:layout_height="28px"
+                android:background="@drawable/shape_green_hollow_circle"/>
 
-        <View
-            android:id="@+id/item_schedule_left_bottom"
-            android:layout_width="2px"
-            android:layout_height="150px"
-            android:layout_gravity="center"
+            <View
+                android:id="@+id/item_schedule_left_bottom"
+                android:layout_width="2px"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10px"
+                android:background="@color/green_4fbc64"/>
 
-            android:background="@color/green_4fbc64" />
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="31px"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="确认工作"
+                android:textColor="@color/black"
+                android:textSize="30px"/>
+
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/time_and_content_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/time_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="21px"
+                    android:text="2017.11.06   11:14:56"
+                    android:textColor="@color/black"
+                    android:textSize="30px"/>
+
+                <TextView
+                    android:id="@+id/content_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18px"
+                    android:text="雇主XXX雇佣了您，赶紧发起合同吧！"
+                    android:textColor="@color/black"
+                    android:textSize="30px"/>
+
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/stage_main_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="21px"
+                android:visibility="gone">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/stage_minor_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18px"
+                android:visibility="gone">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </com.zhy.autolayout.AutoLinearLayout>
+
     </com.zhy.autolayout.AutoLinearLayout>
 
-    <com.zhy.autolayout.AutoLinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14px"
-        android:layout_toRightOf="@+id/left"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/item_schedule_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24px"
-            android:text="合同签署"
-            android:textColor="@color/black_010101"
-            android:textSize="30px" />
-
-        <TextView
-            android:id="@+id/item_schedule_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="19px"
-            android:text="2017.11.16   11:14:56"
-            android:textColor="@color/black_010101"
-            android:textSize="21px" />
-
-        <TextView
-            android:id="@+id/item_schedule_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="您已经和雇主签署了合同"
-            android:textColor="@color/black_010101"
-            android:textSize="25px" />
-
-    </com.zhy.autolayout.AutoLinearLayout>
-
-    <TextView
-        android:gravity="center"
-        android:id="@+id/item_schedule_btn"
-        android:layout_width="126px"
-        android:layout_height="54px"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/shape_hollow_rounded_rectangle"
-        android:text="查看合同"
-        android:textColor="@color/green_4fbc64"
-        android:textSize="23px" />
-
-
-</com.zhy.autolayout.AutoRelativeLayout>
+</com.zhy.autolayout.AutoLinearLayout>

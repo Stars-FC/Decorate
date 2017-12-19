@@ -8,11 +8,6 @@ import java.util.List;
 public class NeedBean extends Base {
 
 
-    /**
-     * responseState : 1
-     * data : [{"dId":2,"dType":"0","missionStartTime":1513007999,"missionType":"0","constructionStatusQuo":2,"buildingArea":260,"offer":10000,"address":"辽宁沈阳","demandDetails":"厕所改装","demandNote":"防水","createTime":"2017-12-12 14:29:00.0","dState":1,"creator":{"picture_url":"","create_time":1512445530000,"openid":"","sex":0,"warranty_gold":"","real_name":"","au_id":1,"type":0,"certification":1,"number":"","password":"123456","balance":0,"nickname":"小月","tel":"","username":"18742494800","head_portrait":""}},{"dId":1,"dType":"0","missionStartTime":1513007999,"missionType":"0","constructionStatusQuo":1,"buildingArea":300,"offer":10000,"address":"辽宁沈阳","demandDetails":"厕所改装","demandNote":"防水","createTime":"2017-12-12 14:28:57.0","dState":1,"creator":{"picture_url":"","create_time":1512445530000,"openid":"","sex":0,"warranty_gold":"","real_name":"","au_id":1,"type":0,"certification":1,"number":"","password":"123456","balance":0,"nickname":"小月","tel":"","username":"18742494800","head_portrait":""}},{"dId":3,"dType":"0","missionStartTime":1513007999,"missionType":"0","constructionStatusQuo":0,"buildingArea":500,"offer":10000,"address":"辽宁沈阳","demandDetails":"厕所改装","demandNote":"防水","createTime":"2017-12-12 14:28:53.0","dState":2,"creator":{"picture_url":"","create_time":1512445530000,"openid":"","sex":0,"warranty_gold":"","real_name":"","au_id":1,"type":0,"certification":1,"number":"","password":"123456","balance":0,"nickname":"小月","tel":"","username":"18742494800","head_portrait":""}}]
-     */
-
     private List<DataBean> data;
 
     public List<DataBean> getData() {
@@ -25,24 +20,28 @@ public class NeedBean extends Base {
 
     public static class DataBean implements Serializable{
         /**
-         * dId : 2
+         * dId : 18
          * dType : 0
-         * missionStartTime : 1513007999
+         * missionStartTime : 20170552545
          * missionType : 0
-         * constructionStatusQuo : 2
+         * constructionStatusQuo : 0
          * buildingArea : 260
          * offer : 10000
          * address : 辽宁沈阳
          * demandDetails : 厕所改装
          * demandNote : 防水
-         * createTime : 2017-12-12 14:29:00.0
+         * createTime : 2017-12-15 16:57:38.0
          * dState : 1
-         * creator : {"picture_url":"","create_time":1512445530000,"openid":"","sex":0,"warranty_gold":"","real_name":"","au_id":1,"type":0,"certification":1,"number":"","password":"123456","balance":0,"nickname":"小月","tel":"","username":"18742494800","head_portrait":""}
+         * creator : {"picture_url":"","create_time":1512445530000,"openid":"","sex":0,"warranty_gold":"","real_name":"","au_id":1,"type":1,"certification":1,"number":"","password":"123456","balance":64.51,"nickname":"小月","tel":"","username":"18742494800","head_portrait":""}
+         * title :
+         * photos :
+         * needDays : 3
+         * payId :
          */
 
         private int dId;
         private String dType;
-        private String missionStartTime;
+        private long missionStartTime;
         private String missionType;
         private int constructionStatusQuo;
         private int buildingArea;
@@ -55,6 +54,8 @@ public class NeedBean extends Base {
         private CreatorBean creator;
         private String title;
         private String photos;
+        private int needDays;
+        private String payId;
 
         public int getDId() {
             return dId;
@@ -72,11 +73,11 @@ public class NeedBean extends Base {
             this.dType = dType;
         }
 
-        public String getMissionStartTime() {
+        public long getMissionStartTime() {
             return missionStartTime;
         }
 
-        public void setMissionStartTime(String missionStartTime) {
+        public void setMissionStartTime(long missionStartTime) {
             this.missionStartTime = missionStartTime;
         }
 
@@ -176,6 +177,22 @@ public class NeedBean extends Base {
             this.photos = photos;
         }
 
+        public int getNeedDays() {
+            return needDays;
+        }
+
+        public void setNeedDays(int needDays) {
+            this.needDays = needDays;
+        }
+
+        public String getPayId() {
+            return payId;
+        }
+
+        public void setPayId(String payId) {
+            this.payId = payId;
+        }
+
         public static class CreatorBean implements Serializable{
             /**
              * picture_url :
@@ -185,11 +202,11 @@ public class NeedBean extends Base {
              * warranty_gold :
              * real_name :
              * au_id : 1
-             * type : 0
+             * type : 1
              * certification : 1
              * number :
              * password : 123456
-             * balance : 0
+             * balance : 64.51
              * nickname : 小月
              * tel :
              * username : 18742494800
@@ -207,7 +224,7 @@ public class NeedBean extends Base {
             private int certification;
             private String number;
             private String password;
-            private int balance;
+            private String balance;
             private String nickname;
             private String tel;
             private String username;
@@ -301,11 +318,11 @@ public class NeedBean extends Base {
                 this.password = password;
             }
 
-            public int getBalance() {
+            public String getBalance() {
                 return balance;
             }
 
-            public void setBalance(int balance) {
+            public void setBalance(String balance) {
                 this.balance = balance;
             }
 

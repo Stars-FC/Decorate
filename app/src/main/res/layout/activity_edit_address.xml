@@ -28,6 +28,7 @@
             android:textSize="25px"/>
 
         <EditText
+            android:id="@+id/name_et"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
@@ -36,6 +37,8 @@
             android:gravity="left|center_vertical"
             android:hint="请输入收货人姓名"
             android:maxLines="1"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:text=""
             android:textColor="@color/black"
             android:textColorHint="#999999"
@@ -63,6 +66,7 @@
             android:textSize="25px"/>
 
         <EditText
+            android:id="@+id/line_phone_number_et"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
@@ -72,6 +76,8 @@
             android:hint="请输入收货人电话"
             android:maxLines="1"
             android:text=""
+            android:inputType="number"
+            android:maxLength="11"
             android:textColor="@color/black"
             android:textColorHint="#999999"
             android:textSize="25px"/>
@@ -98,6 +104,7 @@
             android:textSize="25px"/>
 
         <EditText
+            android:id="@+id/province_city_et"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
@@ -134,6 +141,7 @@
             android:textSize="25px"/>
 
         <EditText
+            android:id="@+id/details_address_et"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"

@@ -21,4 +21,6 @@ public class AccountDetailAdapter extends BaseQuickAdapter<UserBalanceOrderBean.
         helper.setText(R.id.account_time, bean.getCreate_time() + "");//时间
         helper.setText(R.id.account_money, bean.getTotal_price() + "");//金额
     }
+
+
 }

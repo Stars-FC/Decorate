@@ -36,6 +36,7 @@ import com.ygc.estatedecoration.bean.LoginBean;
 import com.ygc.estatedecoration.bean.UserInformationBean;
 import com.ygc.estatedecoration.utils.LogUtil;
 import com.ygc.estatedecoration.utils.UserUtils;
+import com.ygc.estatedecoration.utils.lazyviewpager.LazyFragmentPagerAdapter;
 import com.ygc.estatedecoration.widget.BasePopupWindow;
 import com.ygc.estatedecoration.widget.CircleImageView;
 import com.ygc.estatedecoration.widget.TitleBar;
@@ -65,7 +66,7 @@ import static android.app.Activity.RESULT_OK;
  * 我的界面
  */
 
-public class MyFragment extends BaseFragment implements EasyPermissions.PermissionCallbacks {
+public class MyFragment extends BaseFragment implements EasyPermissions.PermissionCallbacks, LazyFragmentPagerAdapter.Laziable {
 
     @BindView(R.id.parent_Layout)
     ScrollView mLl_parentLayout;

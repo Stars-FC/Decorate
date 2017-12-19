@@ -13,12 +13,11 @@ import com.ygc.estatedecoration.adapter.TransactionManageNeedAdapter;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.bean.NeedBean;
 import com.ygc.estatedecoration.entity.base.Constant;
-import com.ygc.estatedecoration.utils.DateUtil;
+import com.ygc.estatedecoration.utils.lazyviewpager.LazyFragmentPagerAdapter;
 import com.ygc.estatedecoration.widget.CircleImageView;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -28,7 +27,7 @@ import butterknife.BindView;
  * 首页-交易管理-ViewPager第一界面需求详情页面
  */
 
-public class TransactionManageNeedFragment extends BaseFragment {
+public class TransactionManageNeedFragment extends BaseFragment implements LazyFragmentPagerAdapter.Laziable{
 
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerView;
@@ -64,13 +63,11 @@ public class TransactionManageNeedFragment extends BaseFragment {
     private TransactionManageNeedAdapter mTransactionManageNeedAdapter;
     private List<String> dataList = new ArrayList<>();
     private NeedBean.DataBean mDataBean;
-    private String mDId;
 
-    public static TransactionManageNeedFragment getInstance(String dId, NeedBean.DataBean creatorBean) {
+    public static TransactionManageNeedFragment getInstance(NeedBean.DataBean creatorBean) {
         TransactionManageNeedFragment transactionManageNeedFragment = new TransactionManageNeedFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable("creator", creatorBean);
-        bundle.putString("dId", dId);
         transactionManageNeedFragment.setArguments(bundle);
         return transactionManageNeedFragment;
     }
@@ -81,7 +78,6 @@ public class TransactionManageNeedFragment extends BaseFragment {
         Bundle arguments = getArguments();
         if (arguments != null) {
             mDataBean = (NeedBean.DataBean) arguments.getSerializable("creator");
-            mDId = arguments.getString("dId");
         }
     }
 
@@ -98,7 +94,7 @@ public class TransactionManageNeedFragment extends BaseFragment {
             mIvCustomerIcon.setImageResource(R.drawable.touxiangxuqiubaojia);
         }
         mIvCustomerName.setText(mDataBean.getCreator().getNickname());
-        mTvOrderNumber.setText(mDId);
+        mTvOrderNumber.setText(String.valueOf(mDataBean.getDId()));
 
         if (TextUtils.isEmpty(mDataBean.getTitle())) {
             mDemandTitleTv.setText("无标题");

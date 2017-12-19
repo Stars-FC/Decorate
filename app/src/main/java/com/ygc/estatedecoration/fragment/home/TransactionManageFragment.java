@@ -87,7 +87,15 @@ public class TransactionManageFragment extends BaseFragment implements LazyFragm
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(mActivity, DemandAndProgressActivity.class);
-                mActivity.startActivity(intent);
+                NeedBean.DataBean dataBean = (NeedBean.DataBean) adapter.getItem(position);
+                if (dataBean != null) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("demand", dataBean);
+                    intent.putExtra("bundle", bundle);
+                    mActivity.startActivity(intent);
+                } else {
+                    showToast("数据异常！");
+                }
             }
         });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));

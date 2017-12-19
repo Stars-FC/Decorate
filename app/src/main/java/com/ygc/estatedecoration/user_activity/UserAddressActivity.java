@@ -10,9 +10,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.adapter.AddressAdapter;
+import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
+import com.ygc.estatedecoration.bean.UserAddressDataListBean;
+import com.ygc.estatedecoration.entity.base.Constant;
 import com.ygc.estatedecoration.event.RefreshAddressInfoMsg;
 import com.ygc.estatedecoration.widget.TitleBar;
 
@@ -20,13 +24,16 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.pedant.SweetAlert.SweetAlertDialog;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
-public class UserAddressActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class UserAddressActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
 
     @BindView(R.id.content_layout)
     LinearLayout content_layout;
@@ -35,7 +42,8 @@ public class UserAddressActivity extends BaseActivity implements SwipeRefreshLay
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerView;
     private AddressAdapter mAddressAdapter;
-    private List<String> dataList = new ArrayList<>();
+    private SweetAlertDialog mPDialog;
+    private int curPageNum = 0;
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
@@ -56,18 +64,77 @@ public class UserAddressActivity extends BaseActivity implements SwipeRefreshLay
     }
 
     private void initRecyclerView() {
-        mAddressAdapter = new AddressAdapter(R.layout.item_add_address, dataList, content_layout);
+        mAddressAdapter = new AddressAdapter(content_layout);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         mRecyclerView.setAdapter(mAddressAdapter);
+        mAddressAdapter.setOnLoadMoreListener(this, mRecyclerView);
     }
 
     @Override
     protected void initData(Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
-        for (int i = 0; i < 1; i++) {
-            dataList.add("heh");
-        }
+        initDialog();
+        getMyAddressDataList(0, Constant.NORMAL_REQUEST);
+    }
+
+    private void initDialog() {
+        mPDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
+                .setTitleText("正在加载...");
+        mPDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        mPDialog.setCancelable(false);
+        mPDialog.show();
+    }
+
+    private void getMyAddressDataList(int curPage, final String requestMark) {
+        APPApi.getInstance().service
+                .myAddressDataList("auId", String.valueOf(curPage))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<UserAddressDataListBean>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        compositeDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(@NonNull UserAddressDataListBean userAddressDataListBean) {
+                        cancelDialog();
+                        showToast(userAddressDataListBean.msg);
+                        if (userAddressDataListBean.responseState.equals("1")) {
+                            if (requestMark.equals(Constant.REFRESH_REQUEST)) {
+                                mAddressAdapter.setNewData(userAddressDataListBean.getData());
+                                refreshFinishEvent(true);
+                            } else {
+                                mAddressAdapter.addData(userAddressDataListBean.getData());
+                                if (userAddressDataListBean.getData().size() > 0) {
+                                    mAddressAdapter.loadMoreComplete();
+                                } else {
+                                    mAddressAdapter.loadMoreEnd();
+                                }
+                            }
+                        } else {
+                            if (requestMark.equals(Constant.REFRESH_REQUEST)) {
+                                refreshFinishEvent(false);
+                            } else {
+                                loadMoreErrorEvent();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        cancelDialog();
+                        showToast(getResources().getString(R.string.network_error));
+                        refreshFinishEvent(false);
+                        loadMoreErrorEvent();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     @Override
@@ -97,14 +164,44 @@ public class UserAddressActivity extends BaseActivity implements SwipeRefreshLay
 
     @Override
     public void onRefresh() {
+        mAddressAdapter.setEnableLoadMore(false);
+        getMyAddressDataList(0, Constant.REFRESH_REQUEST);
+    }
+
+    @Override
+    public void onLoadMoreRequested() {
+        curPageNum += 1;
+        getMyAddressDataList(curPageNum, Constant.NORMAL_REQUEST);
+    }
+
+    private void cancelDialog() {
+        if (mPDialog != null && mPDialog.isShowing()) {
+            mPDialog.dismiss();
+        }
+    }
+
+    private void loadMoreErrorEvent() {
+        mAddressAdapter.loadMoreFail();
+        curPageNum -= 1;
+        if (curPageNum < 0) {
+            curPageNum = 0;
+        }
+    }
+
+    private void refreshFinishEvent(boolean isSuccess) {
+        mAddressAdapter.setEnableLoadMore(true);
         if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
+            if (isSuccess) {
+                curPageNum = 0;
+            }
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshAddressInfoEvent(RefreshAddressInfoMsg refreshAddressInfoMsg) {
-
+        mAddressAdapter.setEnableLoadMore(false);
+        getMyAddressDataList(0, Constant.REFRESH_REQUEST);
     }
 
     @Override

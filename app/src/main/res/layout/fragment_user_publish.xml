@@ -1,5 +1,6 @@
 <com.zhy.autolayout.AutoLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zhy="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -279,11 +280,11 @@
                             android:background="@drawable/edit_bg"
                             android:gravity="center_vertical"
                             android:hint="请输入房屋面积"
-                            android:paddingLeft="7px"
                             android:inputType="numberDecimal"
-                            android:singleLine="true"
-                            android:maxLines="1"
                             android:maxLength="10"
+                            android:maxLines="1"
+                            android:paddingLeft="7px"
+                            android:singleLine="true"
                             android:textColor="@android:color/black"
                             android:textColorHint="#b8b8b8"
                             android:textSize="26px"/>
@@ -324,9 +325,9 @@
                         android:background="@drawable/edit_bg"
                         android:gravity="center_vertical"
                         android:hint="请输入需求标题"
+                        android:maxLines="1"
                         android:paddingLeft="7px"
                         android:singleLine="true"
-                        android:maxLines="1"
                         android:textColor="@android:color/black"
                         android:textColorHint="#b8b8b8"
                         android:textSize="26px"/>
@@ -389,6 +390,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:checked="false"
                                 android:paddingLeft="10px"
                                 android:text="施工服务"
 
@@ -422,9 +424,9 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
+                                android:checked="false"
                                 android:paddingLeft="10px"
                                 android:text="装修材料服务"
-
                                 android:textSize="26px"/>
 
                         </com.zhy.autolayout.AutoLinearLayout>
@@ -433,16 +435,54 @@
 
                 </com.zhy.autolayout.AutoLinearLayout>
 
-                <android.support.v7.widget.RecyclerView
+                <!--<android.support.v7.widget.RecyclerView
                     android:id="@+id/materials_type_recyclerview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="37px"
                     android:background="#f6f6f6"
                     android:visibility="gone"
                     android:padding="20px">
 
-                </android.support.v7.widget.RecyclerView>
+                </android.support.v7.widget.RecyclerView>-->
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:id="@+id/type_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="37px"
+                    android:background="#f6f6f6"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <com.zhy.view.flowlayout.TagFlowLayout
+                        android:id="@+id/flow_layout_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        zhy:max_select="-1"
+                        android:padding="20px"/>
+
+                    <com.zhy.autolayout.AutoRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="40px"
+                        android:paddingBottom="20px">
+
+                        <TextView
+                            android:id="@+id/sure_selected_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:background="@drawable/shape_all_bt"
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp"
+                            android:paddingTop="5dp"
+                            android:text="确定"
+                            android:textColor="@color/white"
+                            android:textSize="14sp"/>
+                    </com.zhy.autolayout.AutoRelativeLayout>
+
+                </com.zhy.autolayout.AutoLinearLayout>
 
                 <com.zhy.autolayout.AutoLinearLayout
                     android:layout_width="match_parent"
@@ -472,10 +512,10 @@
                             android:background="@drawable/edit_bg"
                             android:gravity="center_vertical"
                             android:hint="请输入装修工期"
-                            android:paddingLeft="7px"
                             android:inputType="number"
-                            android:singleLine="true"
                             android:maxLines="1"
+                            android:paddingLeft="7px"
+                            android:singleLine="true"
                             android:textColor="@android:color/black"
                             android:textColorHint="#b8b8b8"
                             android:textSize="26px"/>
@@ -582,10 +622,10 @@
                             android:background="@drawable/edit_bg"
                             android:gravity="center_vertical"
                             android:hint="请输入预算价格"
-                            android:paddingLeft="7px"
                             android:inputType="number"
-                            android:singleLine="true"
                             android:maxLines="1"
+                            android:paddingLeft="7px"
+                            android:singleLine="true"
                             android:textColor="@android:color/black"
                             android:textColorHint="#b8b8b8"
                             android:textSize="26px"/>

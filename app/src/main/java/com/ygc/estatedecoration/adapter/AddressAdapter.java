@@ -3,34 +3,63 @@ package com.ygc.estatedecoration.adapter;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.ygc.estatedecoration.R;
+import com.ygc.estatedecoration.api.APPApi;
+import com.ygc.estatedecoration.bean.UserAddressDataListBean;
+import com.ygc.estatedecoration.entity.base.Base;
 import com.ygc.estatedecoration.user_activity.EditAddressActivity;
 import com.ygc.estatedecoration.widget.BasePopupWindow;
 
 import java.util.List;
-public class AddressAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
+public class AddressAdapter extends BaseQuickAdapter<UserAddressDataListBean.DataBean, BaseViewHolder> {
     private LinearLayout content_layout;
     private BasePopupWindow delAddressPopupWindow;
-
-    public AddressAdapter(@LayoutRes int layoutResId, @Nullable List<String> data, LinearLayout content_layout) {
-        super(layoutResId, data);
+    private int position;
+    public AddressAdapter(LinearLayout content_layout) {
+        super(R.layout.item_add_address);
         this.content_layout = content_layout;
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, String item) {
+    protected void convert(final BaseViewHolder helper, final UserAddressDataListBean.DataBean item) {
+        ((TextView)helper.getView(R.id.name_tv)).setText(item.getUserName());
+        ((TextView)helper.getView(R.id.phone_number_tv)).setText(item.getUserMobile());
+        ((TextView)helper.getView(R.id.address_details_tv)).setText(item.getProvince()+item.getDetail());
+        ImageView defaultAddressIconIv = helper.getView(R.id.default_address_icon_iv);
+        int defau = item.getDefau();
+        if (defau == 1) {
+            defaultAddressIconIv.setImageResource(R.drawable.xuanzhong_address);
+        } else {
+            defaultAddressIconIv.setImageResource(R.drawable.weixuanzhong);
+        }
+        ((CheckBox)helper.getView(R.id.set_default_address_ll)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                setDefaultAddressEvent(helper.getLayoutPosition());
+            }
+        });
+
         LinearLayout editAddressLl = helper.getView(R.id.edit_address_ll);
         LinearLayout delAddressLl = helper.getView(R.id.del_address_ll);
 
@@ -39,6 +68,7 @@ public class AddressAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, EditAddressActivity.class);
                 intent.putExtra(EditAddressActivity.OPERATE_ADDRESS, 2);
+                intent.putExtra("dataBean", item);
                 mContext.startActivity(intent);
             }
         });
@@ -46,9 +76,53 @@ public class AddressAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
         delAddressLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                position = helper.getLayoutPosition();
                 showDelAddressPopupWindow();
             }
         });
+    }
+
+    private void setDefaultAddressEvent(final int position) {
+        final List<UserAddressDataListBean.DataBean> dataBeanList = getData();
+        final UserAddressDataListBean.DataBean item = dataBeanList.get(position);
+        APPApi.getInstance().service
+                .modifyUserDefaultAddress(item.getAId(), item.getAuId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Base>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@NonNull Base base) {
+                        Toast.makeText(mContext, base.msg, Toast.LENGTH_SHORT).show();
+                        if (base.responseState.equals("1")) {
+                            for (int i = 0; i < dataBeanList.size(); i++) {
+                                UserAddressDataListBean.DataBean dataBean = dataBeanList.get(i);
+                                if (position == i) {
+                                    dataBean.setDefau(1);
+                                } else {
+                                    dataBean.setDefau(0);
+                                }
+                            }
+                            remove(position);
+                            addData(0, item);
+                            notifyDataSetChanged();
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Toast.makeText(mContext, mContext.getResources().getString(R.string.network_error), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     private void showDelAddressPopupWindow() {
@@ -67,6 +141,7 @@ public class AddressAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
             @Override
             public void onClick(View v) {
                 delAddressPopupWindow.dismiss();
+                sureDeleteEvent();
 
             }
         });
@@ -95,5 +170,37 @@ public class AddressAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
         });
         delAddressPopupWindow.setContentView(popupView);
         delAddressPopupWindow.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#70000000")));
+    }
+
+    private void sureDeleteEvent() {
+        APPApi.getInstance().service
+                .deleteUserAddress("", "")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Base>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@NonNull Base base) {
+                        Toast.makeText(mContext, base.msg, Toast.LENGTH_SHORT).show();
+                        if (base.responseState.equals("1")) {
+                            remove(position);
+                            notifyDataSetChanged();
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Toast.makeText(mContext, mContext.getResources().getString(R.string.network_error), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 }

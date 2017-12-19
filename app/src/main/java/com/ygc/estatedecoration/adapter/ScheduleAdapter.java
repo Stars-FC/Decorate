@@ -1,85 +1,70 @@
 package com.ygc.estatedecoration.adapter;
 
-import android.app.Activity;
-import android.view.LayoutInflater;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.bean.ScheduleBean;
 
 import java.util.List;
 
-public class ScheduleAdapter extends BaseAdapter {
-    private Activity activity;
-    private List<ScheduleBean> list;
+public class ScheduleAdapter extends BaseQuickAdapter<ScheduleBean.DataBeanX, BaseViewHolder> {
 
-    public ScheduleAdapter(Activity activity, List<ScheduleBean> list) {
-        this.activity = activity;
-        this.list = list;
+    public ScheduleAdapter() {
+        super(R.layout.item_schedule);
     }
 
     @Override
-    public int getCount() {
-        return list.size();
-    }
+    protected void convert(BaseViewHolder helper, ScheduleBean.DataBeanX item) {
+        TextView titleTv = helper.getView(R.id.title_tv);
+        LinearLayout timeAndContentLl = helper.getView(R.id.time_and_content_ll);
+        TextView timeTv = helper.getView(R.id.time_tv);
+        TextView contentTv = helper.getView(R.id.content_tv);
+        RecyclerView recyclerViewMainStage = helper.getView(R.id.stage_main_recyclerview);
+        RecyclerView recyclerViewMinorStage = helper.getView(R.id.stage_minor_recyclerview);
 
-    @Override
-    public Object getItem(int position) {
-        return list.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        final TextView title, time, content, hollowCircle, btn;
-        final View top, bottom;
-        convertView = LayoutInflater.from(activity).inflate(R.layout.item_schedule, null);
-        title = (TextView) convertView.findViewById(R.id.item_schedule_title);
-        time = (TextView) convertView.findViewById(R.id.item_schedule_time);
-        content = (TextView) convertView.findViewById(R.id.item_schedule_content);
-        hollowCircle = (TextView) convertView.findViewById(R.id.item_schedule_hollow_circle);
-        btn = (TextView) convertView.findViewById(R.id.item_schedule_btn);
-        top = convertView.findViewById(R.id.item_schedule_left_top);
-        bottom = convertView.findViewById(R.id.item_schedule_left_bottom);
-
-
-        if (list.size() == 1) {
-            bottom.setVisibility(View.INVISIBLE);
-            top.setVisibility(View.INVISIBLE);
-            btn.setVisibility(View.GONE);
+        titleTv.setText(item.getTitle());
+        if (helper.getLayoutPosition() == 0) {
+            timeAndContentLl.setVisibility(View.VISIBLE);
+            recyclerViewMainStage.setVisibility(View.GONE);
+            recyclerViewMinorStage.setVisibility(View.GONE);
+            timeTv.setText(item.getTime());
+            contentTv.setText(item.getDetail());
+        } else if (helper.getLayoutPosition() == 1) {
+            timeAndContentLl.setVisibility(View.GONE);
+            recyclerViewMinorStage.setVisibility(View.GONE);
+            List<ScheduleBean.DataBeanX.DataBean> dataBeanList = item.getData();
+            if (dataBeanList != null && dataBeanList.size() > 0) {
+                recyclerViewMainStage.setVisibility(View.VISIBLE);
+                recyclerViewMainStage.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+                recyclerViewMainStage.setAdapter(new ContractAdapter1(dataBeanList));
+            } else {
+                recyclerViewMainStage.setVisibility(View.GONE);
+            }
+        } else if (helper.getLayoutPosition() == 2) {
+            timeAndContentLl.setVisibility(View.GONE);
+            recyclerViewMinorStage.setVisibility(View.VISIBLE);
+            List<ScheduleBean.DataBeanX.ContractStageListBean> contractStageList = item.getContractStageList();
+            if (contractStageList != null && contractStageList.size() > 0) {
+                recyclerViewMainStage.setVisibility(View.VISIBLE);
+                recyclerViewMainStage.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+                recyclerViewMainStage.setAdapter(new ContractAdapter2(contractStageList));
+            } else {
+                recyclerViewMainStage.setVisibility(View.GONE);
+            }
+            List<ScheduleBean.DataBeanX.ReplenishContractListBean> replenishContractList = item.getReplenishContractList();
+            if (replenishContractList != null && replenishContractList.size() > 0) {
+                recyclerViewMinorStage.setVisibility(View.VISIBLE);
+                recyclerViewMinorStage.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+                recyclerViewMinorStage.setAdapter(new ContractAdapter3(replenishContractList));
+            } else {
+                recyclerViewMinorStage.setVisibility(View.GONE);
+            }
         }
-        if (list.get(position).getType().equals("0")) {
-//            bottom.setVisibility(View.VISIBLE);
-            top.setVisibility(View.INVISIBLE);
-            btn.setVisibility(View.GONE);
-            hollowCircle.setBackground(activity.getResources().getDrawable(R.drawable.shape_green_hollow_circle));
-        } else if (list.get(position).getType().equals("1")) {
-            btn.setText("编辑合同");
-        } else if (list.get(position).getType().equals("2")) {
-            btn.setText("查看合同");
-        } else if (list.get(position).getType().equals("3")) {
-            btn.setText("发起验收");
-        } else if (list.get(position).getType().equals("6")){
-            btn.setText("提醒验收");
-        }else if (list.get(position).getType().equals("4")) {
-            bottom.setVisibility(View.INVISIBLE);
-            content.setVisibility(View.INVISIBLE);
-            time.setVisibility(View.INVISIBLE);
-            btn.setText("去评价");
-            hollowCircle.setBackground(activity.getResources().getDrawable(R.drawable.shape_gray_hollow_circle));
-        }
-        title.setText(list.get(position).getTitle());
-        time.setText(list.get(position).getTime());
-        content.setText(list.get(position).getContent());
-        return convertView;
     }
-
-
 }

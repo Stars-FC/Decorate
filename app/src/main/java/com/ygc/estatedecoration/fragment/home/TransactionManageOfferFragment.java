@@ -15,6 +15,7 @@ import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.bean.DemandOfferBean;
 import com.ygc.estatedecoration.entity.base.Constant;
+import com.ygc.estatedecoration.utils.lazyviewpager.LazyFragmentPagerAdapter;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import butterknife.BindView;
@@ -29,7 +30,7 @@ import io.reactivex.schedulers.Schedulers;
  * 首页-交易管理-ViewPager第二界面报价页面
  */
 
-public class TransactionManageOfferFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+public class TransactionManageOfferFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, LazyFragmentPagerAdapter.Laziable {
 
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerView;

@@ -1,69 +1,55 @@
 package com.ygc.estatedecoration.fragment.home;
 
-
-import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.util.AndroidRuntimeException;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.ygc.estatedecoration.R;
-import com.ygc.estatedecoration.activity.home.InitiatingAcceptanceActivity;
-import com.ygc.estatedecoration.activity.home.InitiatingContractActivity;
-import com.ygc.estatedecoration.activity.home.ReadInitiatingContractActivity;
-import com.ygc.estatedecoration.activity.home.SupplementaryContractActivity;
 import com.ygc.estatedecoration.adapter.ScheduleAdapter;
 import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
+import com.ygc.estatedecoration.bean.NeedBean;
 import com.ygc.estatedecoration.bean.ScheduleBean;
-import com.ygc.estatedecoration.entity.base.Base;
-import com.ygc.estatedecoration.entity.base.Constant;
-import com.ygc.estatedecoration.event.ChangeContractStateMsg;
-import com.ygc.estatedecoration.event.ContractStateMsg;
+import com.ygc.estatedecoration.utils.lazyviewpager.LazyFragmentPagerAdapter;
 import com.ygc.estatedecoration.widget.TitleBar;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class ServiceProgressFragment extends BaseFragment implements AdapterView.OnItemClickListener {
+public class ServiceProgressFragment extends BaseFragment implements LazyFragmentPagerAdapter.Laziable, SwipeRefreshLayout.OnRefreshListener {
 
-    @BindView(R.id.schedule_list_view)
-    ListView listView;
-    private List<ScheduleBean> list = new ArrayList<>();
-    private ScheduleAdapter adapter;
-    private List<String> titleList = new ArrayList<>();
-    private List<String> contentList = new ArrayList<>();
-    private List<String> timeList = new ArrayList<>();
-    private ScheduleBean scheduleBean;
+    private NeedBean.DataBean mDataBean;
 
-    private CompositeDisposable compositeDisposable;
+    @BindView(R.id.swiperefreshLayout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
+    @BindView(R.id.recyclerview)
+    RecyclerView mRecyclerView;
+    private ScheduleAdapter mScheduleAdapter;
+    private SweetAlertDialog mPDialog;
 
-    public static ServiceProgressFragment newInstance() {
+    public static ServiceProgressFragment newInstance(NeedBean.DataBean dataBean) {
         ServiceProgressFragment fragment = new ServiceProgressFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("demand", dataBean);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments()!=null) {
+            mDataBean = (NeedBean.DataBean) getArguments().getSerializable("demand");
+        }
     }
 
     @Override
@@ -73,58 +59,33 @@ public class ServiceProgressFragment extends BaseFragment implements AdapterView
 
     @Override
     protected void initData(Bundle arguments) {
-        EventBus.getDefault().register(this);
-
-        compositeDisposable = new CompositeDisposable(); //RxJava的内存泄露处理
-        getDataFromNet(Constant.NORMAL_REQUEST);//获取网络数据
-
-        getData(); //原版获取数据
+        initDialog();
+        getDemandPlan();
     }
 
-    /**
-     * 原版获取数据及其为适配器赋值
-     */
-    private void getData() {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss ");
-        Date curDate = new Date(System.currentTimeMillis());//获取当前时间
-        String time = formatter.format(curDate);
-        String title[] = {"确认工作", "签署合同", "服务商工作中", "评价"};
-        String content[] = {"雇主XXX雇佣了您，赶紧发起合同吧", "您已和雇主签署了合同", "XXXXXXXXXXXXXXXXXXXXXX", ""};
-        titleList = Arrays.asList(title);
-        contentList = Arrays.asList(content);
-        timeList.add(time);
-        for (int i = 0; i < 1; i++) {
-            ScheduleBean bean = new ScheduleBean();
-            bean.setTitle(titleList.get(i));
-            bean.setTime(timeList.get(i));
-            if (i >= 1) {
-                bean.setType("" + (i + 1));
-            } else {
-                bean.setType("" + i);
-            }
-            bean.setContent(contentList.get(i));
-            list.add(bean);
-
-        }
-        adapter = new ScheduleAdapter(mActivity, list);
-        listView.setAdapter(adapter);
-        if (list != null && list.size() != 0) {
-            if (list.get(list.size() - 1).getType().equals("0")) {
-                EventBus.getDefault().post(new ContractStateMsg(1));
-            } else {
-                EventBus.getDefault().post(new ContractStateMsg(2));
-            }
-        }
+    private void initDialog() {
+        mPDialog = new SweetAlertDialog(mActivity, SweetAlertDialog.PROGRESS_TYPE)
+                .setTitleText("正在加载...");
+        mPDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        mPDialog.setCancelable(false);
+        mPDialog.show();
     }
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        initRecyclerView();
+    }
 
+    private void initRecyclerView() {
+        mScheduleAdapter = new ScheduleAdapter();
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
+        mRecyclerView.setAdapter(mScheduleAdapter);
     }
 
     @Override
     protected void addListener() {
-        listView.setOnItemClickListener(this);
+        mSwipeRefreshLayout.setColorSchemeColors(Color.parseColor(String.valueOf(R.color.colorAccent)));
+        mSwipeRefreshLayout.setOnRefreshListener(this);
     }
 
     @Override
@@ -138,134 +99,65 @@ public class ServiceProgressFragment extends BaseFragment implements AdapterView
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (list.get(position).getType().equals("3")) {
-            Intent intent = new Intent(mActivity, InitiatingAcceptanceActivity.class);
-            intent.putExtra("bean", list.get(position));
-            startActivityForResult(intent, 10);
-        } else if (list.get(position).getType().equals("2")) {
-            Intent intent = new Intent(mActivity, ReadInitiatingContractActivity.class);
-            startActivity(intent);
-        } else if (list.get(position).getType().equals("1")) {
-            startActivityForResult(new Intent(mActivity, SupplementaryContractActivity.class), 12);
-        }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void changeContractStateMsg(ChangeContractStateMsg changeContractStateMsg) {
-        Intent data = changeContractStateMsg.getIntent();
-        int requestCode = changeContractStateMsg.getRequestCode();
-        int resultCode = changeContractStateMsg.getResultCode();
-
-        if (data != null) {
-            scheduleBean = new ScheduleBean();
-            scheduleBean = (ScheduleBean) data.getSerializableExtra("bean");
-            String time = "";
-            switch (requestCode) {
-                case 10:
-                    list.clear();
-                    time = data.getStringExtra("time");
-                    timeList.add(2, time);
-
-                    for (int i = 0; i < 4; i++) {
-                        ScheduleBean bean = new ScheduleBean();
-                        bean.setTitle(titleList.get(i));
-                        bean.setTime(timeList.get(i));
-                        if (i >= 1) {
-                            if (i == 2) {
-                                bean.setType(scheduleBean.getType());
-                            } else {
-                                bean.setType("" + (i + 1));
-                            }
-
-                        } else {
-                            bean.setType("" + i);
-                        }
-                        bean.setContent(contentList.get(i));
-
-                        list.add(bean);
-                    }
-
-                    break;
-                case 11:
-                    list.clear();
-                    time = data.getStringExtra("time");
-                    timeList.add(time);
-                    for (int i = 0; i < 2; i++) {
-                        ScheduleBean bean = new ScheduleBean();
-                        bean.setTitle(titleList.get(i));
-                        bean.setTime(timeList.get(i));
-                        bean.setType("" + i);
-                        bean.setContent(contentList.get(i));
-                        list.add(bean);
-                    }
-                    EventBus.getDefault().post(new ContractStateMsg(2));
-                    break;
-                case 12:
-                    list.clear();
-                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss ");
-                    Date curDate = new Date(System.currentTimeMillis());//获取当前时间
-                    time = formatter.format(curDate);
-                    timeList.add(time);
-                    timeList.add(time);
-                    for (int i = 0; i < 4; i++) {
-                        ScheduleBean bean = new ScheduleBean();
-                        bean.setTitle(titleList.get(i));
-                        bean.setTime(timeList.get(i));
-                        if (i >= 1) {
-                            bean.setType("" + (i + 1));
-
-                        } else {
-                            bean.setType("" + i);
-
-                        }
-                        bean.setContent(contentList.get(i));
-                        list.add(bean);
-                    }
-                    EventBus.getDefault().post(new ContractStateMsg(2));
-                    break;
-            }
-            adapter.notifyDataSetChanged();
-        } else {
-            return;
-        }
-    }
-
-    @Override
     public void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
-        compositeDisposable.clear();
     }
 
-    /**
-     * 获取网络数据
-     */
-    public void getDataFromNet(String request) {
-       /* APPApi.getInstance().service
-                .queryCasePanoramaData()        //接口方法名
+
+    private void getDemandPlan() {
+          APPApi.getInstance().service
+                .getDemandPlan(String.valueOf(mDataBean.getDId()), mDataBean.getDType())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Base>() {
+                .subscribe(new Observer<ScheduleBean>() {
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
                         compositeDisposable.add(d);
                     }
 
                     @Override
-                    public void onNext(Base base) {
-
+                    public void onNext(@NonNull ScheduleBean scheduleBean) {
+                        requestFinish();
+                        if (scheduleBean.getResponseState().equals("1")) {
+                            List<ScheduleBean.DataBeanX> dataBeanXList = scheduleBean.getData();
+                            mScheduleAdapter.setNewData(dataBeanXList);
+                        } else {
+                            showToast(scheduleBean.getMsg());
+                        }
                     }
 
                     @Override
-                    public void onError(Throwable e) {
-
+                    public void onError(@NonNull Throwable e) {
+                        requestFinish();
+                        showToast(getResources().getString(R.string.network_error));
                     }
 
                     @Override
                     public void onComplete() {
 
                     }
-                });*/
+                });
+    }
+
+    private void requestFinish() {
+        refreshFinishEvent();
+        cancelDialog();
+    }
+
+    @Override
+    public void onRefresh() {
+        getDemandPlan();
+    }
+
+    private void refreshFinishEvent() {
+        if (mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
+    }
+
+    private void cancelDialog() {
+        if (mPDialog != null && mPDialog.isShowing()) {
+            mPDialog.dismiss();
+        }
     }
 }

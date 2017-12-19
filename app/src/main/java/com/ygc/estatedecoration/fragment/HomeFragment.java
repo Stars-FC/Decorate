@@ -25,6 +25,7 @@ import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.bean.NeedBean;
 import com.ygc.estatedecoration.entity.base.Constant;
 import com.ygc.estatedecoration.event.DeleteRecommendDemandMsg;
+import com.ygc.estatedecoration.utils.lazyviewpager.LazyFragmentPagerAdapter;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import org.greenrobot.eventbus.EventBus;
@@ -45,7 +46,7 @@ import io.reactivex.schedulers.Schedulers;
  * 首页
  */
 
-public class HomeFragment extends BaseFragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class HomeFragment extends BaseFragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, LazyFragmentPagerAdapter.Laziable {
 
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerView;

@@ -80,7 +80,7 @@ public class ServiceRegisterActivity extends BaseActivity {
      * 材料商身份
      */
     private int insmallRole = 0;
-    private List<RoleFindAllBean.DataBean.materialBean> mRoleBeans; //材料商详细身份
+    private List<RoleFindAllBean.DataBean._$4Bean> mRoleBeans; //材料商详细身份
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
@@ -261,7 +261,7 @@ public class ServiceRegisterActivity extends BaseActivity {
         }
 
         APPApi.getInstance().service
-                .roleFindAll("")
+                .roleFindAll()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<RoleFindAllBean>() {
@@ -274,7 +274,7 @@ public class ServiceRegisterActivity extends BaseActivity {
                     public void onNext(RoleFindAllBean roleFindAllBean) {
                         LogUtil.e("请求网路成功");
                         if (null == roleFindAllBean) return;
-                        mRoleBeans = roleFindAllBean.getData().getMaterial();
+                        mRoleBeans = roleFindAllBean.getData().get_$4();
                     }
 
                     @Override
