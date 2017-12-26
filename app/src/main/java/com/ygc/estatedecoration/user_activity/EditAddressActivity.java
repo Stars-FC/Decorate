@@ -16,6 +16,7 @@ import com.ygc.estatedecoration.app.activity.BaseActivity;
 import com.ygc.estatedecoration.bean.UserAddressDataListBean;
 import com.ygc.estatedecoration.entity.base.Base;
 import com.ygc.estatedecoration.event.RefreshAddressInfoMsg;
+import com.ygc.estatedecoration.utils.UserUtils;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import org.greenrobot.eventbus.EventBus;
@@ -44,6 +45,7 @@ public class EditAddressActivity extends BaseActivity {
     EditText mDetailsAddressEt;
     private SweetAlertDialog mPDialog;
     private int mMark;
+    private String mAId;
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
@@ -84,6 +86,7 @@ public class EditAddressActivity extends BaseActivity {
         } else if (mMark == 2) {
             mTitleBar.setTitleText("编辑地址");
             UserAddressDataListBean.DataBean dataBean = (UserAddressDataListBean.DataBean) intent.getSerializableExtra("dataBean");
+            mAId = dataBean.getAId();
             mNameEt.setText(dataBean.getUserName());
             mLinePhoneNumberEt.setText(dataBean.getUserMobile());
             mProvinceCityEt.setText(dataBean.getProvince());
@@ -133,10 +136,10 @@ public class EditAddressActivity extends BaseActivity {
             showToast("请输入详细地址");
             return;
         }
+        mPDialog.show();
         if (mMark == 1) {
-            mPDialog.show();
             APPApi.getInstance().service
-                    .addUserAddress("auId", nameStr, linePhoneNumberStr, provinceCityStr, detailsAddressStr)
+                    .addUserAddress(UserUtils.getUserId(), nameStr, linePhoneNumberStr, provinceCityStr, detailsAddressStr)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Observer<Base>() {
@@ -167,7 +170,37 @@ public class EditAddressActivity extends BaseActivity {
                         }
                     });
         } else {
+            APPApi.getInstance().service
+                    .editUserAddress(mAId, UserUtils.getUserId(), nameStr, linePhoneNumberStr, provinceCityStr, detailsAddressStr)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<Base>() {
+                        @Override
+                        public void onSubscribe(@NonNull Disposable d) {
+                            compositeDisposable.add(d);
+                        }
 
+                        @Override
+                        public void onNext(@NonNull Base base) {
+                            mPDialog.dismiss();
+                            showToast(base.msg);
+                            if (base.responseState.equals("1")) {
+                                EventBus.getDefault().post(new RefreshAddressInfoMsg());
+                                finish();
+                            }
+                        }
+
+                        @Override
+                        public void onError(@NonNull Throwable e) {
+                            mPDialog.dismiss();
+                            showToast(getResources().getString(R.string.network_error));
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
         }
     }
 

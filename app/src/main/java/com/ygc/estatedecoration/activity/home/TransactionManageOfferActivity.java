@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -23,6 +24,7 @@ import com.ygc.estatedecoration.app.activity.BaseActivity;
 import com.ygc.estatedecoration.entity.base.Base;
 import com.ygc.estatedecoration.event.DeleteRecommendDemandMsg;
 import com.ygc.estatedecoration.event.OfferFinishMsg;
+import com.ygc.estatedecoration.utils.UserUtils;
 import com.ygc.estatedecoration.widget.BasePopupWindow;
 import com.ygc.estatedecoration.widget.TitleBar;
 
@@ -57,6 +59,7 @@ public class TransactionManageOfferActivity extends BaseActivity {
     private String isToOpen = "0";
     private String mDIdStr;
     private int mPosition;
+    private String mMark;
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
@@ -94,6 +97,7 @@ public class TransactionManageOfferActivity extends BaseActivity {
         Intent intent = getIntent();
         mDIdStr = intent.getStringExtra("dId");
         mPosition = intent.getIntExtra("position", -1);
+        mMark = intent.getStringExtra("mark");
     }
 
     @Override
@@ -141,8 +145,9 @@ public class TransactionManageOfferActivity extends BaseActivity {
             timeStr = "-1";
         }
         String messageStr = mEt_message.getText().toString();
+        Log.i("521", "submitOffer: userId>" + UserUtils.getUserId());
         APPApi.getInstance().service
-                .demandOffer("9", mDIdStr, priceStr, timeStr, messageStr, isToOpen)
+                .demandOffer(UserUtils.getUserId(), mDIdStr, priceStr, timeStr, messageStr, isToOpen)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Base>() {
@@ -156,14 +161,17 @@ public class TransactionManageOfferActivity extends BaseActivity {
                         mPDialog.dismiss();
                         showToast(base.msg);
                         if (base.responseState.equals("1")) {
-                            EventBus.getDefault().post(new DeleteRecommendDemandMsg(mPosition));
-                            EventBus.getDefault().post(new OfferFinishMsg());
+                            if (!mMark.equals("需求大厅")) {
+                                EventBus.getDefault().post(new DeleteRecommendDemandMsg(mPosition));
+                                EventBus.getDefault().post(new OfferFinishMsg());
+                            }
                             finish();
                         }
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
+                        mPDialog.dismiss();
                         showToast(getResources().getString(R.string.network_error));
                     }
 

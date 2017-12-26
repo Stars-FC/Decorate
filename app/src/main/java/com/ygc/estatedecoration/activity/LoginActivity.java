@@ -249,6 +249,7 @@ public class LoginActivity extends AutoLayoutActivity {
                                 finish();
                             } else {      //1、2、3、4
                                 //服务商端登陆
+                                UserUtils.sDataBean = roleFindAllBean.getData();
                                 intent.setClass(LoginActivity.this, HomeActivity.class);
                                 startActivity(intent);
                                 finish();

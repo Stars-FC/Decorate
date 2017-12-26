@@ -2,7 +2,8 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +18,22 @@
             android:layout_height="1px"
             android:background="@color/line"/>
 
+        <TextView
+            android:id="@+id/contract_content_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="27px"
+            android:paddingRight="15px"
+            android:paddingBottom="15px"
+            android:paddingTop="15px"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line"/>
+
         <RelativeLayout
+            android:id="@+id/gongqi_rl"
             android:layout_width="match_parent"
             android:layout_height="88px"
             android:gravity="center_vertical"
@@ -34,6 +50,7 @@
                 android:textSize="24px"/>
 
             <ImageView
+                android:id="@+id/gongqi_iv"
                 android:layout_width="22px"
                 android:layout_height="22px"
                 android:layout_alignParentRight="true"
@@ -43,10 +60,12 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/gongqi_ll"
             android:layout_width="match_parent"
             android:layout_height="298px"
             android:background="@color/settingbc"
-            android:padding="20px">
+            android:padding="20px"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -57,6 +76,7 @@
                 android:paddingRight="20px">
 
                 <RelativeLayout
+                    android:id="@+id/project_start_time_rl"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1">
@@ -72,12 +92,12 @@
                         android:textColor="@color/black"
                         android:textSize="24px"/>
 
-                    <EditText
+                    <TextView
+                        android:id="@+id/project_start_time_et"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_alignParentRight="true"
                         android:layout_toRightOf="@+id/tv_project_start_time"
-                        android:background="@null"
                         android:gravity="right|center_vertical"
                         android:hint="项目开始时间"
                         android:minWidth="200px"
@@ -90,6 +110,7 @@
                     android:background="@color/line"/>
 
                 <RelativeLayout
+                    android:id="@+id/project_end_time_rl"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1">
@@ -105,12 +126,12 @@
                         android:textColor="@color/black"
                         android:textSize="24px"/>
 
-                    <EditText
+                    <TextView
+                        android:id="@+id/project_end_time_et"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_alignParentRight="true"
                         android:layout_toRightOf="@+id/tv_project_end_time"
-                        android:background="@null"
                         android:gravity="right|center_vertical"
                         android:hint="项目结束时间"
                         android:minWidth="200px"
@@ -138,22 +159,32 @@
                         android:textColor="@color/black"
                         android:textSize="24px"/>
 
-                    <EditText
+                    <TextView
+                        android:id="@+id/project_all_time_et"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_alignParentRight="true"
                         android:layout_toRightOf="@+id/tv_project_all_time"
-                        android:background="@null"
                         android:gravity="right|center_vertical"
                         android:hint="共计时间"
                         android:minWidth="200px"
                         android:textSize="24px"/>
+
                 </RelativeLayout>
+
             </LinearLayout>
 
         </LinearLayout>
 
+        <View
+            android:id="@+id/gongqi_v"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line"
+            android:visibility="visible"/>
+
         <RelativeLayout
+            android:id="@+id/zhibaojin_rl"
             android:layout_width="match_parent"
             android:layout_height="88px"
             android:gravity="center_vertical"
@@ -170,6 +201,7 @@
                 android:textSize="24px"/>
 
             <ImageView
+                android:id="@+id/zhibaojin_iv"
                 android:layout_width="22px"
                 android:layout_height="22px"
                 android:layout_alignParentRight="true"
@@ -179,11 +211,12 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/zhibaojin_ll"
             android:layout_width="match_parent"
             android:layout_height="125px"
             android:background="@color/settingbc"
-            android:padding="20px">
-
+            android:padding="20px"
+            android:visibility="gone">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -204,6 +237,7 @@
                     android:textSize="24px"/>
 
                 <EditText
+                    android:id="@+id/zhibaojin_et"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
@@ -211,14 +245,22 @@
                     android:background="@null"
                     android:gravity="right|center_vertical"
                     android:hint="请输入质保金额"
+                    android:inputType="numberDecimal"
                     android:minWidth="200px"
                     android:textSize="24px"/>
             </RelativeLayout>
 
-
         </LinearLayout>
 
+        <View
+            android:id="@+id/zhibaojin_v"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line"
+            android:visibility="visible"/>
+
         <RelativeLayout
+            android:id="@+id/project_stage_rl"
             android:layout_width="match_parent"
             android:layout_height="88px"
             android:gravity="center_vertical"
@@ -235,6 +277,7 @@
                 android:textSize="24px"/>
 
             <ImageView
+                android:id="@+id/project_stage_iv"
                 android:layout_width="22px"
                 android:layout_height="22px"
                 android:layout_alignParentRight="true"
@@ -243,184 +286,91 @@
 
         </RelativeLayout>
 
-        <LinearLayout
+        <com.zhy.autolayout.AutoLinearLayout
+            android:id="@+id/project_stage_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/settingbc"
             android:orientation="vertical"
-            android:padding="20px">
+            android:visibility="gone">
 
-
-            <RelativeLayout
+            <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="85px"
-                android:background="@color/white"
+                android:layout_height="wrap_content"
+                android:background="@color/settingbc"
+                android:paddingLeft="20px"
+                android:paddingRight="20px"
+                android:paddingTop="20px">
+
+                <com.zhy.autolayout.AutoRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="85px"
+                    android:background="@color/white"
+                    android:paddingLeft="20px"
+                    android:paddingRight="20px">
+
+                    <TextView
+                        android:id="@+id/tv_project_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginRight="20px"
+                        android:gravity="center_vertical"
+                        android:text="项目金额（元）"
+                        android:textColor="@color/black"
+                        android:textSize="24px"/>
+
+                    <EditText
+                        android:id="@+id/project_jine_et"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_toRightOf="@+id/tv_project_money"
+                        android:background="@null"
+                        android:gravity="right|center_vertical"
+                        android:hint="请输入项目金额"
+                        android:inputType="numberDecimal"
+                        android:minWidth="200px"
+                        android:textSize="24px"/>
+                </com.zhy.autolayout.AutoRelativeLayout>
+
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <com.ygc.estatedecoration.widget.MaxRecyclerView
+                android:id="@+id/project_stage_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </com.ygc.estatedecoration.widget.MaxRecyclerView>
+
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/settingbc"
                 android:paddingLeft="20px"
                 android:paddingRight="20px">
 
                 <TextView
-                    android:id="@+id/tv_project_money"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginRight="20px"
-                    android:gravity="center_vertical"
-                    android:text="项目金额（元）"
-                    android:textColor="@color/black"
-                    android:textSize="24px"/>
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentRight="true"
-                    android:layout_toRightOf="@+id/tv_project_money"
-                    android:background="@null"
-                    android:gravity="right|center_vertical"
-                    android:hint="请输入项目金额"
-                    android:minWidth="200px"
-                    android:textSize="24px"/>
-            </RelativeLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="342px"
-                android:layout_marginTop="20px"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:paddingLeft="20px"
-                android:paddingRight="20px">
-
-                <RelativeLayout
+                    android:id="@+id/add_project_stage_tv"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
+                    android:layout_height="80px"
+                    android:layout_marginBottom="42px"
+                    android:layout_marginTop="34px"
+                    android:background="@drawable/bg_anli"
+                    android:gravity="center"
+                    android:text="添加项目阶段"
+                    android:textColor="@color/white"
+                    android:textSize="28px"
+                    android:visibility="visible"/>
 
-                    <TextView
-                        android:id="@+id/tv_project_stage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginRight="20px"
-                        android:gravity="center_vertical"
-                        android:text="项目阶段一"
-                        android:textColor="@color/black"
-                        android:textSize="24px"/>
+            </com.zhy.autolayout.AutoRelativeLayout>
 
-                    <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentRight="true"
-                        android:layout_toRightOf="@+id/tv_project_stage"
-                        android:background="@null"
-                        android:gravity="right|center_vertical"
-                        android:hint="项目阶段一"
-                        android:minWidth="200px"
-                        android:textSize="24px"/>
-                </RelativeLayout>
+        </com.zhy.autolayout.AutoLinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="@color/line"/>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:id="@+id/tv_project_content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginRight="20px"
-                        android:gravity="center_vertical"
-                        android:text="项目内容"
-                        android:textColor="@color/black"
-                        android:textSize="24px"/>
-
-                    <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentRight="true"
-                        android:layout_toRightOf="@+id/tv_project_content"
-                        android:background="@null"
-                        android:gravity="right|center_vertical"
-                        android:hint="请输入项目内容"
-                        android:minWidth="200px"
-                        android:textSize="24px"/>
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="@color/line"/>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:id="@+id/tv_pay_money"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginRight="20px"
-                        android:gravity="center_vertical"
-                        android:text="付款金额（元）"
-                        android:textColor="@color/black"
-                        android:textSize="24px"/>
-
-                    <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentRight="true"
-                        android:layout_toRightOf="@+id/tv_pay_money"
-                        android:background="@null"
-                        android:gravity="right|center_vertical"
-                        android:hint="请输入付款金额"
-                        android:minWidth="200px"
-                        android:textSize="24px"/>
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="@color/line"/>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:id="@+id/tv_need_day"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginRight="20px"
-                        android:gravity="center_vertical"
-                        android:text="所需工时（天）"
-                        android:textColor="@color/black"
-                        android:textSize="24px"/>
-
-                    <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentRight="true"
-                        android:layout_toRightOf="@+id/tv_need_day"
-                        android:background="@null"
-                        android:gravity="right|center_vertical"
-                        android:hint="请输入所需天数"
-                        android:minWidth="200px"
-                        android:textSize="24px"/>
-                </RelativeLayout>
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <!--可能需要添加按钮-->
+        <View
+            android:id="@+id/project_stage_v"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line"/>
 
         <RelativeLayout
             android:layout_width="match_parent"

@@ -1,6 +1,8 @@
 package com.ygc.estatedecoration.api;
 
 import com.ygc.estatedecoration.bean.BaseBean;
+import com.ygc.estatedecoration.bean.ContractContentBean;
+import com.ygc.estatedecoration.bean.ContractInfoBean;
 import com.ygc.estatedecoration.bean.DemandOfferBean;
 import com.ygc.estatedecoration.bean.LoginBean;
 import com.ygc.estatedecoration.bean.MyActivitesBean;
@@ -9,19 +11,23 @@ import com.ygc.estatedecoration.bean.NeedBean;
 import com.ygc.estatedecoration.bean.RoleFindAllBean;
 import com.ygc.estatedecoration.bean.ScheduleBean;
 import com.ygc.estatedecoration.bean.UserAddressDataListBean;
-import com.ygc.estatedecoration.bean.UserInformationBean;
 import com.ygc.estatedecoration.bean.UserBalanceOrderBean;
+import com.ygc.estatedecoration.bean.UserInformationBean;
+import com.ygc.estatedecoration.bean.UserProjectProgressBean;
 import com.ygc.estatedecoration.bean.UserShopCarBean;
 import com.ygc.estatedecoration.entity.base.Base;
 
 import java.io.File;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PartMap;
 
 public interface APPService {
 
@@ -71,8 +77,11 @@ public interface APPService {
 
     @FormUrlEncoded
     @POST("wzd/Demand/getDemandList.action")
-//所有需求
-    Observable<NeedBean> queryAllNeed(@Field("page") int page, @Field("missionType") String missionType, @Field("constructionStatusQuo") String constructionStatusQuo, @Field("missionStartTime") String missionStartTime, @Field("missionEndTime") String missionEndTime, @Field("mixBuildingArea") String mixBuildingArea, @Field("maxBuildingArea") String maxBuildingArea, @Field("address") String address);
+    Observable<NeedBean> queryAllNeed(@Field("cId") String cId, @Field("dState") int dState, @Field("page") int page, @Field("missionType") String missionType, @Field("constructionStatusQuo") String constructionStatusQuo, @Field("missionStartTime") String missionStartTime, @Field("missionEndTime") String missionEndTime, @Field("mixBuildingArea") String mixBuildingArea, @Field("maxBuildingArea") String maxBuildingArea, @Field("address") String address);
+
+    @FormUrlEncoded
+    @POST("wzd/Demand/getDemandList.action")
+    Observable<NeedBean> queryAllNeed(@Field("cId") String cId, @Field("page") int page, @Field("missionType") String missionType, @Field("constructionStatusQuo") String constructionStatusQuo, @Field("missionStartTime") String missionStartTime, @Field("missionEndTime") String missionEndTime, @Field("mixBuildingArea") String mixBuildingArea, @Field("maxBuildingArea") String maxBuildingArea, @Field("address") String address);
 
     @FormUrlEncoded
     @POST("wzd/Demand/getDemandListByauId.action")//推荐需求 交易管理
@@ -84,15 +93,46 @@ public interface APPService {
 
     @FormUrlEncoded
     @POST("wzd/Demand/getDemandOfferList.action")//报价列表
-    Observable<DemandOfferBean> getDemandOfferList(@Field("doId") String doId, @Field("dId") String dId, @Field("page") String page);
+    Observable<DemandOfferBean> getDemandOfferList(@Field("dId") String dId, @Field("page") String page);
 
     @FormUrlEncoded
-    @POST("wzd/Demand/getDemandPlan.action")//项目进度
+    @POST("wzd/Demand/getDemandPlan.action")//服务商项目进度
     Observable<ScheduleBean> getDemandPlan(@Field("dId") String dId , @Field("category") String category);
 
+    @FormUrlEncoded
+    @POST("wzd/Demand/getUserDemandPlan.action")//普通用户查看项目进度
+    Observable<UserProjectProgressBean> getDemandPlan(@Field("cId") String cId , @Field("dId") String dId , @Field("category") String category);
+
+    @Multipart
+    @POST("wzd/Demand/addDemand.action")
+    Observable<Base> publishDemand(@PartMap Map<String, RequestBody> params);//发布需求
+
+    @FormUrlEncoded
+    @POST("wzd/Demand/updateDemandOfferSelectState.action")//需求选标
+    Observable<Base> demandSelected(@Field("dId") String dId , @Field("doId") String doId, @Field("category") int category);
+
+    @FormUrlEncoded
+    @POST("wzd/Demand/getContract.action")//获取合同信息
+    Observable<ContractInfoBean> getContractInfo(@Field("dId") String dId , @Field("category") int category);
+
+    @FormUrlEncoded
+    @POST("wzd/Demand/getContract.action")//获取合同信息
+    Observable<ContractInfoBean> getContractInfo(@Field("conId") String conId);
+
+    @POST("wzd/Demand/getSystemData.action")//获取合同主体内容
+    Observable<ContractContentBean> getContractContentData();
+
+    @FormUrlEncoded
+    @POST("wzd/Demand/confimContract.action")//雇主确认合同
+    Observable<Base> confimContract(@Field("auId") String auId, @Field("conId") String conId);
+
+    @FormUrlEncoded
+    @POST("wzd/Demand/addContract.action")
+    Observable<Base> faQiContract(@Field("contractDetail") String contractDetail, @Field("ServiceProvidersId") String ServiceProvidersId, @Field("confirmId") String confirmId,@Field("dId") String dId,@Field("totalPrice") String totalPrice,
+                                  @Field("startTime") String startTime,@Field("endTime") String endTime,@Field("needTime") String needTime,@Field("qualityGuaranteeDeposit") String qualityGuaranteeDeposit,
+                                  @Field("title") String title,@Field("detail") String detail,@Field("price") String price,@Field("needDays") String needDays,@Field("category") String category);//发布需求
 
     /*********************************************个人中心*******************************************/
-
     @FormUrlEncoded
     @POST("user/getById.action")
     Observable<UserInformationBean> userInformation(@Field("au_id") String au_id);  //用户信息
@@ -134,20 +174,25 @@ public interface APPService {
 
     @POST("Activity/add.action")
     Observable<BaseBean> addMyActivites(@Body RequestBody body);  //添加我的活动
+
     @FormUrlEncoded
-    @POST("wzd/Order/updateDefaultAddress.action")
+    @POST("wzd/Order/getAddressList.action")
     Observable<UserAddressDataListBean> myAddressDataList(@Field("auId") String auId, @Field("page") String page);  //用户地址
 
     @FormUrlEncoded
-    @POST("wzd/Order/getAddressList.action")
+    @POST("wzd/Order/updateDefaultAddress.action")
     Observable<Base> modifyUserDefaultAddress(@Field("aId") String aId, @Field("auId") String auId);  //修改用户默认地址
 
     @FormUrlEncoded
-    @POST("wzd/Order/getAddressList.action")
-    Observable<Base> deleteUserAddress(@Field("aId") String aId, @Field("auId") String auId);  //删除用户地址
+    @POST("wzd/Order/deleteAddress.action")
+    Observable<Base> deleteUserAddress(@Field("aId") String aId);  //删除地址
 
     @FormUrlEncoded
     @POST("wzd/Order/addAddress.action")
     Observable<Base> addUserAddress(@Field("auId") String auId, @Field("userName") String userName, @Field("userMobile") String userMobile, @Field("province") String province, @Field("detail") String detail);  //添加用户地址
+
+    @FormUrlEncoded
+    @POST("wzd/Order/editAddress.action")
+    Observable<Base> editUserAddress(@Field("aId") String aId, @Field("auId") String auId, @Field("userName") String userName, @Field("userMobile") String userMobile, @Field("province") String province, @Field("detail") String detail);  //编辑用户地址
 
 }

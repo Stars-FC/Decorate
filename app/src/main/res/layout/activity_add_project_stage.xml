@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_f8f8f8"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    tools:context="com.ygc.estatedecoration.activity.home.AddProjectStageActivity">
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="87px"
+            android:layout_marginBottom="1px"
+            android:layout_marginTop="20px"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingLeft="36px"
+            android:paddingRight="64px">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_marginRight="20px"
+                android:gravity="center"
+                android:text="项目阶段名称"
+                android:textColor="@color/black_010101"
+                android:textSize="28px"/>
+
+            <EditText
+                android:id="@+id/supplementary_contract_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@id/name"
+                android:background="@null"
+                android:gravity="right|center_vertical"
+                android:hint="请输入阶段名称"
+                android:maxLength="15"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text=""
+                android:textColor="@color/black_010101"
+                android:textCursorDrawable="@null"
+                android:textSize="26px"/>
+        </com.zhy.autolayout.AutoRelativeLayout>
+
+
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="87px"
+            android:layout_marginBottom="1px"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingLeft="36px"
+            android:paddingRight="64px">
+
+            <TextView
+                android:id="@+id/centent"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_marginRight="20px"
+                android:gravity="center"
+                android:text="项目内容"
+                android:textColor="@color/black_010101"
+                android:textSize="28px"/>
+
+            <EditText
+                android:id="@+id/supplementary_contract_content"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@id/centent"
+                android:background="@null"
+                android:gravity="right|center_vertical"
+                android:hint="请输入项目内容"
+                android:maxLength="15"
+                android:minWidth="100px"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/black_010101"
+                android:textCursorDrawable="@null"
+                android:textSize="26px"/>
+        </com.zhy.autolayout.AutoRelativeLayout>
+
+
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="87px"
+            android:layout_marginBottom="1px"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingLeft="36px"
+            android:paddingRight="64px">
+
+            <TextView
+                android:id="@+id/money"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_marginRight="20px"
+                android:gravity="center"
+                android:text="付款金额（元）"
+                android:textColor="@color/black_010101"
+                android:textSize="28px"/>
+
+            <EditText
+                android:id="@+id/supplementary_contract_pay_money"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@id/money"
+                android:background="@null"
+                android:gravity="right|center_vertical"
+                android:hint="请输入付款金额"
+                android:inputType="numberDecimal"
+                android:minWidth="100px"
+                android:maxLength="15"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:textColor="@color/black_010101"
+                android:textCursorDrawable="@null"
+                android:textSize="26px"/>
+        </com.zhy.autolayout.AutoRelativeLayout>
+
+
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="87px"
+            android:layout_marginBottom="20px"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingLeft="36px"
+            android:paddingRight="64px">
+
+            <TextView
+                android:id="@+id/day"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_marginRight="20px"
+                android:gravity="center"
+                android:text="所需工时（天）"
+                android:textColor="@color/black_010101"
+                android:textSize="28px"/>
+
+            <EditText
+                android:id="@+id/supplementary_contract_day"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@+id/day"
+                android:background="@null"
+                android:gravity="right|center_vertical"
+                android:hint="请输入所需工时"
+                android:inputType="number"
+                android:minWidth="100px"
+                android:singleLine="true"
+                android:maxLength="15"
+                android:maxLines="1"
+                android:textColor="@color/black_010101"
+                android:textCursorDrawable="@null"
+                android:textSize="26px"/>
+        </com.zhy.autolayout.AutoRelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/sure_submit"
+            android:layout_width="match_parent"
+            android:layout_height="90px"
+            android:background="@color/green_4fbc64"
+            android:text="确定添加"
+            android:textColor="@color/white"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+
+</com.zhy.autolayout.AutoRelativeLayout>

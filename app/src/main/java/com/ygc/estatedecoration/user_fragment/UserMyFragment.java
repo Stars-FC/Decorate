@@ -25,14 +25,13 @@ import android.widget.TextView;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.activity.my.ActivitiesActivity;
 import com.ygc.estatedecoration.activity.my.AuthenticationActivity;
-import com.ygc.estatedecoration.activity.my.CollectionActivity;
+import com.ygc.estatedecoration.activity.my.UserDemandActivity;
 import com.ygc.estatedecoration.activity.my.MoneyBagActivity;
 import com.ygc.estatedecoration.activity.my.SettingActivity;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.user_activity.UserAddressActivity;
 import com.ygc.estatedecoration.user_activity.UserAllOrderActivity;
 import com.ygc.estatedecoration.user_activity.UserCollectionActivity;
-import com.ygc.estatedecoration.user_activity.UserProjectProgressActivity;
 import com.ygc.estatedecoration.user_activity.UserShopCarActivity;
 import com.ygc.estatedecoration.widget.BasePopupWindow;
 import com.ygc.estatedecoration.widget.CircleImageView;
@@ -46,7 +45,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -159,7 +157,8 @@ public class UserMyFragment extends BaseFragment implements EasyPermissions.Perm
                 startActivity(intent);
                 break;
             case R.id.my_need://我的需求
-                intent.setClass(mActivity, CollectionActivity.class);
+                intent.setClass(mActivity, UserDemandActivity.class);
+                intent.putExtra("mark", -1);
                 startActivity(intent);
                 break;
             case R.id.imageView_right_titlebar://设置
@@ -190,8 +189,11 @@ public class UserMyFragment extends BaseFragment implements EasyPermissions.Perm
                 startActivity(addressIntent);
                 break;
             case R.id.project_progress_rl://查看进度
-                Intent projectProgressIntent = new Intent(mActivity, UserProjectProgressActivity.class);
-                startActivity(projectProgressIntent);
+                /*Intent projectProgressIntent = new Intent(mActivity, UserProjectProgressActivity.class);
+                startActivity(projectProgressIntent);*/
+                intent.setClass(mActivity, UserDemandActivity.class);
+                intent.putExtra("mark", 1);
+                startActivity(intent);
                 break;
             case R.id.my_activity_rl://我的活动
                 Intent myActivity = new Intent(mActivity, ActivitiesActivity.class);

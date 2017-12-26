@@ -15,10 +15,12 @@ import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.bean.DemandOfferBean;
 import com.ygc.estatedecoration.entity.base.Constant;
+import com.ygc.estatedecoration.utils.UserUtils;
 import com.ygc.estatedecoration.utils.lazyviewpager.LazyFragmentPagerAdapter;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import butterknife.BindView;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -41,6 +43,7 @@ public class TransactionManageOfferFragment extends BaseFragment implements Swip
     private HomeTransactionManageOfferAdapter mAdapter;
     private String mDId;
     private int curPageNum = 0;
+    private SweetAlertDialog mPDialog;
 
 
     public static TransactionManageOfferFragment getInstance(String dId) {
@@ -77,13 +80,17 @@ public class TransactionManageOfferFragment extends BaseFragment implements Swip
 
             }
         });
-
+        mPDialog = new SweetAlertDialog(mActivity, SweetAlertDialog.PROGRESS_TYPE)
+                .setTitleText("正在加载...");
+        mPDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        mPDialog.setCancelable(false);
+        mPDialog.show();
         getDemandOfferList(0, Constant.NORMAL_REQUEST);
     }
 
     private void getDemandOfferList(int page, final String requestMark) {
         APPApi.getInstance().service
-                .getDemandOfferList("9", mDId, String.valueOf(page))
+                .getDemandOfferList(mDId, String.valueOf(page))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<DemandOfferBean>() {
@@ -94,6 +101,7 @@ public class TransactionManageOfferFragment extends BaseFragment implements Swip
 
                     @Override
                     public void onNext(@NonNull DemandOfferBean base) {
+                        cancelDialog();
                         if (base.responseState.equals("1")) {
                             if (requestMark.equals(Constant.REFRESH_REQUEST)) {
                                 mAdapter.setNewData(base.getData());
@@ -117,8 +125,10 @@ public class TransactionManageOfferFragment extends BaseFragment implements Swip
 
                     @Override
                     public void onError(@NonNull Throwable e) {
+                        cancelDialog();
                         loadMoreDefeatEvent();
                         refreshFinishEvent(false);
+                        showToast(getResources().getString(R.string.network_error));
                     }
 
                     @Override
@@ -126,6 +136,12 @@ public class TransactionManageOfferFragment extends BaseFragment implements Swip
 
                     }
                 });
+    }
+
+    private void cancelDialog() {
+        if (mPDialog != null && mPDialog.isShowing()) {
+            mPDialog.dismiss();
+        }
     }
 
     @Override

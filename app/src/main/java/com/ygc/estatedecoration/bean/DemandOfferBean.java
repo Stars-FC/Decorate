@@ -2,6 +2,7 @@ package com.ygc.estatedecoration.bean;
 
 import com.ygc.estatedecoration.entity.base.Base;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class DemandOfferBean extends Base {
@@ -16,7 +17,7 @@ public class DemandOfferBean extends Base {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * doId : a883c750f7f541cf95f60a00c28c03d9
          * cId : 1

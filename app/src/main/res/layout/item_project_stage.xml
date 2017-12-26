@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/settingbc"
+        android:orientation="vertical"
+        android:padding="20px">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="342px"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:paddingLeft="20px"
+            android:paddingRight="20px">
+
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_project_stage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="20px"
+                    android:gravity="center_vertical"
+                    android:text="项目阶段一"
+                    android:textColor="@color/black"
+                    android:textSize="24px"/>
+
+                <TextView
+                    android:id="@+id/stage_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@+id/tv_project_stage"
+                    android:gravity="right|center_vertical"
+                    android:maxLength="15"
+                    android:maxLines="1"
+                    android:minWidth="200px"
+                    android:singleLine="true"
+                    android:textSize="24px"/>
+
+            </com.zhy.autolayout.AutoRelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line"/>
+
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_project_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="20px"
+                    android:gravity="center_vertical"
+                    android:text="项目内容"
+                    android:textColor="@color/black"
+                    android:textSize="24px"/>
+
+                <TextView
+                    android:id="@+id/stage_content_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@+id/tv_project_content"
+                    android:gravity="right|center_vertical"
+                    android:maxLength="15"
+                    android:maxLines="1"
+                    android:minWidth="200px"
+                    android:singleLine="true"
+                    android:textSize="24px"/>
+            </com.zhy.autolayout.AutoRelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line"/>
+
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_pay_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="20px"
+                    android:gravity="center_vertical"
+                    android:text="付款金额（元）"
+                    android:textColor="@color/black"
+                    android:textSize="24px"/>
+
+                <TextView
+                    android:id="@+id/payMoney_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@+id/tv_pay_money"
+                    android:gravity="right|center_vertical"
+                    android:maxLength="15"
+                    android:maxLines="1"
+                    android:minWidth="200px"
+                    android:singleLine="true"
+                    android:textSize="24px"/>
+            </com.zhy.autolayout.AutoRelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line"/>
+
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_need_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="20px"
+                    android:gravity="center_vertical"
+                    android:text="所需工时（天）"
+                    android:textColor="@color/black"
+                    android:textSize="24px"/>
+
+                <TextView
+                    android:id="@+id/needDays_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@+id/tv_need_day"
+                    android:gravity="right|center_vertical"
+                    android:maxLength="15"
+                    android:maxLines="1"
+                    android:minWidth="200px"
+                    android:singleLine="true"
+                    android:textSize="24px"/>
+            </com.zhy.autolayout.AutoRelativeLayout>
+
+        </com.zhy.autolayout.AutoLinearLayout>
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+</com.zhy.autolayout.AutoLinearLayout>

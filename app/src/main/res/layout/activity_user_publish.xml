@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <com.zhy.autolayout.AutoLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:zhy="http://schemas.android.com/tools"
@@ -5,9 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
     android:orientation="vertical"
-    tools:context="com.ygc.estatedecoration.user_fragment.UserPublishFragment">
+    tools:context="com.ygc.estatedecoration.user_activity.UserPublishActivity">
 
     <View
         android:layout_width="match_parent"
@@ -586,7 +586,7 @@
                         android:layout_marginTop="46px"
                         android:background="@drawable/edit_bg"
                         android:gravity="top|left"
-                        android:hint="请输入输入其他备注信息"
+                        android:hint="输入其他备注信息"
                         android:padding="7px"
                         android:textColor="@android:color/black"
                         android:textColorHint="#b8b8b8"
@@ -684,10 +684,11 @@
                             android:src="@drawable/shaixuandingwei"/>
 
                         <TextView
+                            android:id="@+id/address_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="8px"
-                            android:text="沈阳"
+                            android:text="请选择"
                             android:textColor="@android:color/black"
                             android:textSize="20px"/>
 

@@ -24,7 +24,14 @@ public class ContractAdapter2 extends BaseQuickAdapter<ScheduleBean.DataBeanX.Co
         ((TextView) helper.getView(R.id.time_tv)).setText(item.getCreateTime());
         ((TextView)helper.getView(R.id.content_tv)).setText(item.getDetail());
         TextView operateContractTv = helper.getView(R.id.operate_contract_tv);
-        operateContractTv.setText("发起验收");
+        String conId = item.getConId();
+        String consId = item.getConsId();
+        int csState = item.getCsState();
+        if (csState == 0) {
+            operateContractTv.setText("发起验收");
+        } else {
+            operateContractTv.setText("提醒验收");
+        }
         operateContractTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

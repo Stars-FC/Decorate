@@ -188,7 +188,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                 if (dataBean != null) {
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("demand", dataBean);
-                    intent.putExtra("position", position);
+                    bundle.putInt("position", position);
+                    bundle.putString("mark", "推荐需求");
                     intent.putExtra("bundle", bundle);
                     startActivity(intent);
                 } else {

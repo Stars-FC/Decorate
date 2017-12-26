@@ -42,6 +42,7 @@ public class TransactionManageDetailActivity extends BaseActivity {
 
     private NeedBean.DataBean mDataBean;
     private int mPosition;
+    private String mMark;
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
@@ -77,7 +78,7 @@ public class TransactionManageDetailActivity extends BaseActivity {
         Bundle bundle = getIntent().getBundleExtra("bundle");
         mDataBean = (NeedBean.DataBean) bundle.getSerializable("demand");
         mPosition = bundle.getInt("position");
-
+        mMark = bundle.getString("mark");
     }
 
     @Override
@@ -96,6 +97,7 @@ public class TransactionManageDetailActivity extends BaseActivity {
                 intent.setClass(TransactionManageDetailActivity.this, TransactionManageOfferActivity.class);
                 intent.putExtra("dId", String.valueOf(mDataBean.getDId()));
                 intent.putExtra("position", mPosition);
+                intent.putExtra("mark", mMark);
                 startActivity(intent);
                 break;
         }

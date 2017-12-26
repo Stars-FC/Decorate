@@ -18,6 +18,7 @@ import com.ygc.estatedecoration.widget.CircleImageView;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -104,7 +105,7 @@ public class TransactionManageNeedFragment extends BaseFragment implements LazyF
         mTvMoney.setText(mDataBean.getOffer()+"");
         mTimeTv.setText(mDataBean.getCreateTime().substring(0, 10));
         mAddressTv.setText(mDataBean.getAddress());
-        if ((Long.valueOf(mDataBean.getMissionStartTime()) - System.currentTimeMillis()) > 0) {
+        if ((Long.valueOf(mDataBean.getMissionStartTime()) - System.currentTimeMillis()/1000) > 0) {
             long time = (Long.valueOf(mDataBean.getMissionStartTime()) - System.currentTimeMillis() / 1000);
             int day = (int) (time / (24 * 60 * 60));
             int hour = (int) ((time % (24 * 60 * 60)) / (60 * 60));
@@ -127,13 +128,12 @@ public class TransactionManageNeedFragment extends BaseFragment implements LazyF
             mConstructionStatusQuoTv.setText("旧房翻新");
         }
         mBuildingAreaTv.setText(mDataBean.getBuildingArea() + "㎡");
-//        DateUtil.millis2String(Long.valueOf(mDataBean.getMissionStartTime()) * 1000).substring(0, 10) + "开工"
-        mFinishTimeTv.setText("未定义");
+        mFinishTimeTv.setText(mDataBean.getNeedDays()+"天完工");
         mDemandDetailsTv.setText(mDataBean.getDemandDetails());
         mExplainTv.setText(mDataBean.getDemandNote());
-//        String photos = mDataBean.getPhotos();
-//        String[] split = photos.split(",");
-//        dataList.addAll(Arrays.asList(split));
+        String photos = mDataBean.getPhotos();
+        String[] split = photos.split(",");
+        dataList.addAll(Arrays.asList(split));
     }
 
     @Override

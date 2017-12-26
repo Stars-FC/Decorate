@@ -18,6 +18,7 @@ import com.ygc.estatedecoration.app.activity.BaseActivity;
 import com.ygc.estatedecoration.bean.UserAddressDataListBean;
 import com.ygc.estatedecoration.entity.base.Constant;
 import com.ygc.estatedecoration.event.RefreshAddressInfoMsg;
+import com.ygc.estatedecoration.utils.UserUtils;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import org.greenrobot.eventbus.EventBus;
@@ -88,7 +89,7 @@ public class UserAddressActivity extends BaseActivity implements SwipeRefreshLay
 
     private void getMyAddressDataList(int curPage, final String requestMark) {
         APPApi.getInstance().service
-                .myAddressDataList("auId", String.valueOf(curPage))
+                .myAddressDataList(UserUtils.getUserId(), String.valueOf(curPage))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<UserAddressDataListBean>() {

@@ -60,8 +60,8 @@ public class HomeTransactionManageOfferAdapter extends BaseQuickAdapter<DemandOf
         }
         int price = item.getPrice();
         int needTime = item.getNeedTime();
-        moneyTv.setText(price + "元");
-        consumeTimeTv.setText(needTime + "天");
+        moneyTv.setText(price + "(元)");
+        consumeTimeTv.setText(needTime + "(天)");
 
         msgTv.setText(item.getMessage());
     }

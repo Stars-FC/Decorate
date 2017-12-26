@@ -17,6 +17,7 @@ import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.bean.NeedBean;
 import com.ygc.estatedecoration.entity.base.Constant;
+import com.ygc.estatedecoration.utils.UserUtils;
 import com.ygc.estatedecoration.utils.lazyviewpager.LazyFragmentPagerAdapter;
 import com.ygc.estatedecoration.widget.TitleBar;
 
@@ -78,7 +79,7 @@ public class ManageFragment extends BaseFragment implements SwipeRefreshLayout.O
 
     private void getGoingDemandDataList(int pageNum, final String requestMark) {
         APPApi.getInstance().service
-                .queryRecommendNeed("9", "1", "0", pageNum)
+                .queryRecommendNeed(UserUtils.getUserId(), "1", "0", pageNum)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<NeedBean>() {

@@ -212,7 +212,8 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
                 if (dataBean != null) {
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("demand", dataBean);
-                    intent.putExtra("position", position);
+                    bundle.putInt("position", position);
+                    bundle.putString("mark", "需求大厅");
                     intent.putExtra("bundle", bundle);
                     startActivity(intent);
                 } else {
@@ -363,7 +364,7 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
         Log.i("521", "queryNeedDataEvent: " + pageNum + "===" + requestMark + "===" + tempMissionType + "===" + tempConstructionStatusQuo + "===" + tempStartTimeStr + "===" + tempEndTimeStr + "===" + tempMinAreaStr + "===" + tempMaxAreaStr + "===" + tempAddressStr);
 
         APPApi.getInstance().service
-                .queryAllNeed(pageNum, tempMissionType, tempConstructionStatusQuo, tempStartTimeStr, tempEndTimeStr, tempMinAreaStr, tempMaxAreaStr, tempAddressStr)
+                .queryAllNeed("", pageNum, tempMissionType, tempConstructionStatusQuo, tempStartTimeStr, tempEndTimeStr, tempMinAreaStr, tempMaxAreaStr, tempAddressStr)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<NeedBean>() {

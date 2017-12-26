@@ -55,10 +55,6 @@ public class TransactionManageActivity extends BaseActivity {
     @Override
     protected void initData(Bundle savedInstanceState) {
 
-//        for (int i = 0; i < list.size(); i++) {
-//        }
-//            mBasePagers.add(new TransactionDetailPager(TransactionManageActivity.this, i == 0 ? "-1" : String.valueOf(i - 1), compositeDisposable, mPDialog));//有网络数据时传入获取打的数据集合、修改构造方法
-
         mTabLayout.setupWithViewPager(mViewpager);
 
         mViewpager.setAdapter(new CustomLazyFragmentPagerAdapter(getSupportFragmentManager()));

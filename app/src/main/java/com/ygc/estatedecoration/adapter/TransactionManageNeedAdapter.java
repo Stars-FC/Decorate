@@ -2,6 +2,7 @@ package com.ygc.estatedecoration.adapter;
 
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -21,7 +22,7 @@ public class TransactionManageNeedAdapter extends BaseQuickAdapter<String, BaseV
 
     @Override
     protected void convert(BaseViewHolder helper, String item) {
-        RoundedImageView roundedImageView = helper.getView(R.id.icon_riv);
+        ImageView roundedImageView = helper.getView(R.id.icon_riv);
         Glide.with(mContext).load(Constant.BASE_IMG + data.get(helper.getLayoutPosition())).into(roundedImageView);
     }
 }

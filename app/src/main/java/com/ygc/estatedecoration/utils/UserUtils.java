@@ -1,12 +1,11 @@
 package com.ygc.estatedecoration.utils;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
-import com.ygc.estatedecoration.activity.LoginActivity;
 import com.ygc.estatedecoration.app.MyApplication;
+import com.ygc.estatedecoration.bean.LoginBean;
 
 /**
  * Created by FC on 2017/11/21.
@@ -20,6 +19,7 @@ public class UserUtils {
     public static final String userId = "userId";
     public static final String userPws = "userPws";
     public static final String onLine = "onLine";  //判断用户是否在线
+    public static LoginBean.DataBean sDataBean;
 
     /**
      * 保存用户信息

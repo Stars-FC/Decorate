@@ -84,6 +84,8 @@
         android:layout_marginTop="34px"
         android:paddingLeft="29px"
         android:paddingRight="20px"
+        android:maxLines="2"
+        android:ellipsize="end"
         android:text="服务上留言服务上留言服务上留言服务上留言服务上留言服务上留言服务上留言"
         android:textColor="@color/black"
         android:textSize="27px"/>
@@ -96,13 +98,13 @@
         android:paddingRight="20px">
 
         <TextView
-            android:id="@+id/look_progress_tv"
+            android:id="@+id/btn_event_tv"
             android:layout_width="161px"
             android:layout_height="62px"
             android:layout_alignParentRight="true"
             android:background="@drawable/bg_progress"
             android:gravity="center"
-            android:text="查看进度"
+            android:text=""
             android:textColor="#4ebe67"
             android:textSize="27px"/>
     </com.zhy.autolayout.AutoRelativeLayout>

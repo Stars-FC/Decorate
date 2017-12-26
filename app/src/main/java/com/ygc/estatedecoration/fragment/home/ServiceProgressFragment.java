@@ -12,20 +12,21 @@ import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.bean.NeedBean;
 import com.ygc.estatedecoration.bean.ScheduleBean;
-import com.ygc.estatedecoration.utils.lazyviewpager.LazyFragmentPagerAdapter;
+import com.ygc.estatedecoration.event.OperateContractMsg;
 import com.ygc.estatedecoration.widget.TitleBar;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
 import butterknife.BindView;
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class ServiceProgressFragment extends BaseFragment implements LazyFragmentPagerAdapter.Laziable, SwipeRefreshLayout.OnRefreshListener {
+public class ServiceProgressFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private NeedBean.DataBean mDataBean;
 
@@ -34,7 +35,6 @@ public class ServiceProgressFragment extends BaseFragment implements LazyFragmen
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerView;
     private ScheduleAdapter mScheduleAdapter;
-    private SweetAlertDialog mPDialog;
 
     public static ServiceProgressFragment newInstance(NeedBean.DataBean dataBean) {
         ServiceProgressFragment fragment = new ServiceProgressFragment();
@@ -59,16 +59,7 @@ public class ServiceProgressFragment extends BaseFragment implements LazyFragmen
 
     @Override
     protected void initData(Bundle arguments) {
-        initDialog();
         getDemandPlan();
-    }
-
-    private void initDialog() {
-        mPDialog = new SweetAlertDialog(mActivity, SweetAlertDialog.PROGRESS_TYPE)
-                .setTitleText("正在加载...");
-        mPDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-        mPDialog.setCancelable(false);
-        mPDialog.show();
     }
 
     @Override
@@ -84,7 +75,7 @@ public class ServiceProgressFragment extends BaseFragment implements LazyFragmen
 
     @Override
     protected void addListener() {
-        mSwipeRefreshLayout.setColorSchemeColors(Color.parseColor(String.valueOf(R.color.colorAccent)));
+        mSwipeRefreshLayout.setColorSchemeColors(Color.parseColor("#4EBE65"));
         mSwipeRefreshLayout.setOnRefreshListener(this);
     }
 
@@ -106,7 +97,7 @@ public class ServiceProgressFragment extends BaseFragment implements LazyFragmen
 
     private void getDemandPlan() {
           APPApi.getInstance().service
-                .getDemandPlan(String.valueOf(mDataBean.getDId()), mDataBean.getDType())
+                .getDemandPlan(String.valueOf(mDataBean.getDId()), String.valueOf(mDataBean.getCreator().getType()))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<ScheduleBean>() {
@@ -120,6 +111,11 @@ public class ServiceProgressFragment extends BaseFragment implements LazyFragmen
                         requestFinish();
                         if (scheduleBean.getResponseState().equals("1")) {
                             List<ScheduleBean.DataBeanX> dataBeanXList = scheduleBean.getData();
+                            if (dataBeanXList.size() > 0) {
+                                if (dataBeanXList.get(0)!=null) {
+                                    EventBus.getDefault().post(new OperateContractMsg());
+                                }
+                            }
                             mScheduleAdapter.setNewData(dataBeanXList);
                         } else {
                             showToast(scheduleBean.getMsg());
@@ -141,7 +137,6 @@ public class ServiceProgressFragment extends BaseFragment implements LazyFragmen
 
     private void requestFinish() {
         refreshFinishEvent();
-        cancelDialog();
     }
 
     @Override
@@ -152,12 +147,6 @@ public class ServiceProgressFragment extends BaseFragment implements LazyFragmen
     private void refreshFinishEvent() {
         if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
-        }
-    }
-
-    private void cancelDialog() {
-        if (mPDialog != null && mPDialog.isShowing()) {
-            mPDialog.dismiss();
         }
     }
 }

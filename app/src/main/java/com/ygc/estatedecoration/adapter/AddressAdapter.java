@@ -53,9 +53,9 @@ public class AddressAdapter extends BaseQuickAdapter<UserAddressDataListBean.Dat
         } else {
             defaultAddressIconIv.setImageResource(R.drawable.weixuanzhong);
         }
-        ((CheckBox)helper.getView(R.id.set_default_address_ll)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        helper.getView(R.id.set_default_address_ll).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            public void onClick(View v) {
                 setDefaultAddressEvent(helper.getLayoutPosition());
             }
         });
@@ -173,8 +173,9 @@ public class AddressAdapter extends BaseQuickAdapter<UserAddressDataListBean.Dat
     }
 
     private void sureDeleteEvent() {
+        String aId = getData().get(position).getAId();
         APPApi.getInstance().service
-                .deleteUserAddress("", "")
+                .deleteUserAddress(aId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Base>() {

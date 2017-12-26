@@ -84,7 +84,7 @@ public class MyBrightActivity extends BaseActivity {
 //                mAdapter.loadMoreFail();//失败
 //                mAdapter.loadMoreEnd();//结束
             }
-        }, mRecyclerview);*/
+        }, mRecyclerView);*/
     }
 
     @Override

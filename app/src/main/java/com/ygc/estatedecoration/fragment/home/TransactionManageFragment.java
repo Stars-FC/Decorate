@@ -18,6 +18,7 @@ import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.bean.NeedBean;
 import com.ygc.estatedecoration.entity.base.Constant;
+import com.ygc.estatedecoration.utils.UserUtils;
 import com.ygc.estatedecoration.utils.lazyviewpager.LazyFragmentPagerAdapter;
 import com.ygc.estatedecoration.widget.TitleBar;
 
@@ -135,7 +136,7 @@ public class TransactionManageFragment extends BaseFragment implements LazyFragm
     private void getTransactionDemandData(int pageNum, final String requestMark) {
         Log.i("521", "getTransactionDemandData: orderState:" + orderState + "===pageNum:" + pageNum);
         APPApi.getInstance().service
-                .queryRecommendNeed("9", "1", orderState, pageNum)
+                .queryRecommendNeed(UserUtils.getUserId(), "1", orderState, pageNum)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<NeedBean>() {
