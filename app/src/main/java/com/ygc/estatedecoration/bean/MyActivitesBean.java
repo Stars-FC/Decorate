@@ -8,7 +8,7 @@ import java.util.List;
  * 我的亮点
  */
 
-public class MyActivitesBean implements Serializable {
+public class MyActivitesBean {
 
     /**
      * responseState : 1
@@ -44,7 +44,7 @@ public class MyActivitesBean implements Serializable {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable {
         /**
          * activity_id : 2
          * au_id : 9

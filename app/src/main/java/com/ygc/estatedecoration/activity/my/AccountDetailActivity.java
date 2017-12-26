@@ -64,7 +64,7 @@ public class AccountDetailActivity extends BaseActivity {
                 getUserBalanceOrder(pager, Constant.NORMAL_REQUEST);
             }
         }, mRecyclerView);
-//        mAdapter.disableLoadMoreIfNotFullPage(mRecyclerView);//默认第一次加载会进入回调，如果不需要可以配置：
+        mAdapter.disableLoadMoreIfNotFullPage(mRecyclerView);//默认第一次加载会进入回调，如果不需要可以配置：
         getUserBalanceOrder(0, Constant.REFRESH_REQUEST);
     }
 

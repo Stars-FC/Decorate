@@ -346,7 +346,7 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
         intent.putExtra("return-data", true);
         startActivityForResult(intent, PHOTO_CLIP);
     }
-    
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

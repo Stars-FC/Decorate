@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--修改店铺信息-->
+
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/ll_change_store"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1px"
+                android:background="@color/line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10px"
+                android:layout_marginRight="30px"
+                android:layout_marginTop="10px"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="56dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20px"
+                    android:text="头像"
+                    android:textColor="@color/black"
+                    android:textSize="27px"/>
+
+                <com.ygc.estatedecoration.widget.CircleImageView
+                    android:id="@+id/iv_company_icon"
+                    android:layout_width="100px"
+                    android:layout_height="100px"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="20px"
+                    android:src="@drawable/zhuyetouxiang"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="90px"
+                android:paddingLeft="22px"
+                android:paddingRight="38px">
+
+                <TextView
+                    android:id="@+id/activites_tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center_vertical"
+                    android:text="昵称"
+                    android:textColor="@color/black"
+                    android:textSize="27px"/>
+
+                <EditText
+                    android:id="@+id/launch_activites_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:background="@null"
+                    android:gravity="right|center_vertical"
+                    android:hint="请输入昵称"
+                    android:minWidth="300px"
+                    android:textSize="27px"/>
+
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="90px"
+                android:orientation="horizontal"
+                android:paddingLeft="22px"
+                android:paddingRight="13px">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="90px"
+                    android:layout_marginRight="20px"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="性别"
+                    android:textColor="@color/black"
+                    android:textSize="27px"/>
+
+                <org.angmarch.views.NiceSpinner
+                    android:id="@+id/nice_spinner_sex"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5px"
+                    android:layout_marginTop="5px"
+                    android:minWidth="150px"
+                    />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="90px"
+                android:orientation="horizontal"
+                android:paddingLeft="22px"
+                android:paddingRight="13px">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="90px"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="类型"
+                    android:textColor="@color/black"
+                    android:textSize="27px"/>
+
+                <org.angmarch.views.NiceSpinner
+                    android:id="@+id/nice_spinner_sex_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5px"
+                    android:layout_marginTop="5px"
+                    android:minWidth="150px"
+                    />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="90px"
+                android:paddingLeft="22px"
+                android:paddingRight="13px">
+
+                <TextView
+                    android:id="@+id/activites_tv_endtime"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="工作经验"
+                    android:textColor="@color/black"
+                    android:textSize="27px"/>
+
+                <org.angmarch.views.NiceSpinner
+                    android:id="@+id/nice_spinner_work_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5px"
+                    android:layout_marginTop="5px"
+                    android:minWidth="150px"
+                    />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="90px"
+                android:orientation="horizontal"
+                android:paddingLeft="22px"
+                android:paddingRight="13px">
+
+                <TextView
+                    android:id="@+id/home_change_store_style"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="风格类型"
+                    android:textColor="@color/black"
+                    android:textSize="27px"/>
+
+                <org.angmarch.views.NiceSpinner
+                    android:id="@+id/nice_spinner_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5px"
+                    android:layout_marginTop="5px"
+                    android:minWidth="150px"
+                    />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:background="@color/line"/>
+
+            <LinearLayout
+                android:id="@+id/home_change_store_place"
+                android:layout_width="match_parent"
+                android:layout_height="90px"
+                android:orientation="horizontal"
+                android:paddingLeft="22px"
+                android:paddingRight="13px">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="地址"
+                    android:textColor="@color/black"
+                    android:textSize="27px"/>
+
+                <TextView
+                    android:id="@+id/tv_show_place"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="辽宁省 沈阳市"
+                    android:textColor="@color/black"
+                    android:textSize="27px"/>
+
+                <ImageView
+                    android:layout_width="15px"
+                    android:layout_height="15px"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10px"
+                    android:layout_marginRight="35px"
+                    android:src="@drawable/xiala"/>
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/my_launch_activites_ok"
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:background="@color/color_50bd65"
+        android:gravity="center"
+        android:text="确认修改"
+        android:textColor="@color/white"
+        android:textSize="32px"/>
+</LinearLayout>
+
+

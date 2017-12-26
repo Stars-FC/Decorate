@@ -40,6 +40,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ActivitiesActivity extends BaseActivity {
 
+    public static final String ACTIVITES_BEAN = "activites_bean";//意图key
+
 
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerview;
@@ -48,6 +50,10 @@ public class ActivitiesActivity extends BaseActivity {
     SwipeRefreshLayout mSwipeRefreshLayout;
 
     private MyActivitiesAdapter mAdapter;
+    private List<MyActivitesBean.DataBean> mData;
+
+    private MyActivitesBean bean = new MyActivitesBean();
+
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
@@ -60,17 +66,19 @@ public class ActivitiesActivity extends BaseActivity {
 
     @Override
     protected void addListener() {
+        mSwipeRefreshLayout.setColorSchemeColors(Color.parseColor("#4EBE65")); //设置下拉刷新箭头颜色
+
         //每个条目的点击事件
         mRecyclerview.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
 //                showToast("mRecyclerview第" + position + "数据");
                 Intent intent = new Intent(ActivitiesActivity.this, ActivitiesDetailsActivity.class);
+                MyActivitesBean.DataBean dataBean = mData.get(position);
+                intent.putExtra(ACTIVITES_BEAN, dataBean);
                 startActivity(intent);
             }
         });
-
-        mSwipeRefreshLayout.setColorSchemeColors(Color.parseColor("#4EBE65")); //设置下拉刷新箭头颜色
 
         //下拉加载
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -127,13 +135,13 @@ public class ActivitiesActivity extends BaseActivity {
                 .subscribe(new Observer<MyActivitesBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        compositeDisposable.add(d);
                     }
 
                     @Override
                     public void onNext(MyActivitesBean myActivitesBean) {
-
-                        mAdapter.addData(myActivitesBean.getData());
+                        mData = myActivitesBean.getData();
+                        mAdapter.setNewData(mData);
 
                         if (mSwipeRefreshLayout.isRefreshing()) {
                             mSwipeRefreshLayout.setRefreshing(false);
@@ -154,5 +162,12 @@ public class ActivitiesActivity extends BaseActivity {
 
                     }
                 });
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        mSwipeRefreshLayout.setRefreshing(true);
+        getDataFromNet();
     }
 }

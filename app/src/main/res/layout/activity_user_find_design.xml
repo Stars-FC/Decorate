@@ -1,56 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:orientation="vertical"
-    tools:context="com.ygc.estatedecoration.user_activity.UserFindSupervisorActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/white">
 
-     <android.support.v4.widget.SwipeRefreshLayout
-         android:id="@+id/swipeLayout"
-         android:layout_width="match_parent"
-         android:layout_height="match_parent">
-
-    <com.ygc.estatedecoration.widget.MyScrollview
-        android:id="@+id/scrollView"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <com.ygc.estatedecoration.widget.MyScrollview
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:scrollbars="none">
 
-            <cn.bingoogolapple.bgabanner.BGABanner
-                android:id="@+id/banner"
-                style="@style/BannerDefaultStyle"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="310px"
-                app:banner_transitionEffect="accordion"/>
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/line"/>
+                <cn.bingoogolapple.bgabanner.BGABanner
+                    android:id="@+id/banner"
+                    style="@style/BannerDefaultStyle"
+                    app:banner_transitionEffect="accordion"
+                    android:layout_width="match_parent"
+                    android:layout_height="310px"/>
 
-            <include layout="@layout/header_case"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/line"/>
 
-            <com.ygc.estatedecoration.widget.MaxRecyclerView
-                android:id="@+id/recyclerview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                <include layout="@layout/header_case"/>
 
-            </com.ygc.estatedecoration.widget.MaxRecyclerView>
+                <com.ygc.estatedecoration.widget.MaxRecyclerView
+                    android:id="@+id/recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-        </LinearLayout>
+                </com.ygc.estatedecoration.widget.MaxRecyclerView>
 
-    </com.ygc.estatedecoration.widget.MyScrollview>
+            </LinearLayout>
+
+        </com.ygc.estatedecoration.widget.MyScrollview>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

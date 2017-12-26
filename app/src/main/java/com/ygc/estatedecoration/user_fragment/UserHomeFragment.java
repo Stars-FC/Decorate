@@ -59,7 +59,8 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
 
     private List<String> findDesignDataList = new ArrayList<>();
 
-    public UserHomeFragment() {}
+    public UserHomeFragment() {
+    }
 
     public static UserHomeFragment newInstance() {
         return new UserHomeFragment();

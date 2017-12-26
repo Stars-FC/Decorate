@@ -11,6 +11,8 @@ import com.ygc.estatedecoration.bean.NeedBean;
 import com.ygc.estatedecoration.bean.RoleFindAllBean;
 import com.ygc.estatedecoration.bean.ScheduleBean;
 import com.ygc.estatedecoration.bean.UserAddressDataListBean;
+import com.ygc.estatedecoration.bean.UserCommentBean;
+import com.ygc.estatedecoration.bean.UserInformationBean;
 import com.ygc.estatedecoration.bean.UserBalanceOrderBean;
 import com.ygc.estatedecoration.bean.UserInformationBean;
 import com.ygc.estatedecoration.bean.UserProjectProgressBean;
@@ -77,6 +79,8 @@ public interface APPService {
 
     @FormUrlEncoded
     @POST("wzd/Demand/getDemandList.action")
+    //所有需求
+    Observable<NeedBean> queryAllNeed(@Field("page") int page, @Field("missionType") String missionType, @Field("constructionStatusQuo") String constructionStatusQuo, @Field("missionStartTime") String missionStartTime, @Field("missionEndTime") String missionEndTime, @Field("mixBuildingArea") String mixBuildingArea, @Field("maxBuildingArea") String maxBuildingArea, @Field("address") String address);
     Observable<NeedBean> queryAllNeed(@Field("cId") String cId, @Field("dState") int dState, @Field("page") int page, @Field("missionType") String missionType, @Field("constructionStatusQuo") String constructionStatusQuo, @Field("missionStartTime") String missionStartTime, @Field("missionEndTime") String missionEndTime, @Field("mixBuildingArea") String mixBuildingArea, @Field("maxBuildingArea") String maxBuildingArea, @Field("address") String address);
 
     @FormUrlEncoded
@@ -84,20 +88,25 @@ public interface APPService {
     Observable<NeedBean> queryAllNeed(@Field("cId") String cId, @Field("page") int page, @Field("missionType") String missionType, @Field("constructionStatusQuo") String constructionStatusQuo, @Field("missionStartTime") String missionStartTime, @Field("missionEndTime") String missionEndTime, @Field("mixBuildingArea") String mixBuildingArea, @Field("maxBuildingArea") String maxBuildingArea, @Field("address") String address);
 
     @FormUrlEncoded
-    @POST("wzd/Demand/getDemandListByauId.action")//推荐需求 交易管理
+    @POST("wzd/Demand/getDemandListByauId.action")
+        //推荐需求 交易管理
     Observable<NeedBean> queryRecommendNeed(@Field("auId") String auId, @Field("searchType") String searchType, @Field("orderState") String orderState, @Field("page") int page);
 
     @FormUrlEncoded
-    @POST("wzd/Demand/addDemandOffer.action")//报价
+    @POST("wzd/Demand/addDemandOffer.action")
+        //报价
     Observable<Base> demandOffer(@Field("cId") String cId, @Field("dId") String dId, @Field("price") String price, @Field("needTime") String needTime, @Field("message") String message, @Field("toOpen") String toOpen);
 
     @FormUrlEncoded
+    @POST("wzd/Demand/getDemandOfferList.action")
+        //报价列表
+    Observable<DemandOfferBean> getDemandOfferList(@Field("doId") String doId, @Field("dId") String dId, @Field("page") String page);
     @POST("wzd/Demand/getDemandOfferList.action")//报价列表
     Observable<DemandOfferBean> getDemandOfferList(@Field("dId") String dId, @Field("page") String page);
 
     @FormUrlEncoded
-    @POST("wzd/Demand/getDemandPlan.action")//服务商项目进度
-    Observable<ScheduleBean> getDemandPlan(@Field("dId") String dId , @Field("category") String category);
+    @POST("wzd/Demand/getDemandPlan.action")
+    Observable<ScheduleBean> getDemandPlan(@Field("dId") String dId, @Field("category") String category);   //项目进度
 
     @FormUrlEncoded
     @POST("wzd/Demand/getUserDemandPlan.action")//普通用户查看项目进度
@@ -148,7 +157,6 @@ public interface APPService {
     @POST("UserSparkle/findAllByAuId.action")
     Observable<MyBrightBean> myBright(@Field("au_id") String au_id);  //我的亮点
 
-
     @POST("UserSparkle/create.action")
     Observable<BaseBean> addMyBright(@Body RequestBody body);  //添加我的亮点
 
@@ -174,6 +182,10 @@ public interface APPService {
 
     @POST("Activity/add.action")
     Observable<BaseBean> addMyActivites(@Body RequestBody body);  //添加我的活动
+
+    @FormUrlEncoded
+    @POST("wzd/Demand/getUserComment.action")
+    Observable<UserCommentBean> queryUserEvaluate(@Field("serverId") int serverId, @Field("page") int page);  //获取服务商评价
 
     @FormUrlEncoded
     @POST("wzd/Order/getAddressList.action")

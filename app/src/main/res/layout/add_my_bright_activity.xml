@@ -2,9 +2,9 @@
 <!--添加亮点-->
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_add_bright"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/rl_add_bright"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -24,7 +24,8 @@
             android:layout_width="match_parent"
             android:layout_height="300px"
             android:layout_marginTop="15px"
-            android:src="@drawable/fankui"/>
+            android:scaleType="fitXY"
+            android:src="@drawable/liangdiantianjia"/>
 
         <EditText
             android:id="@+id/add_my_bright_et"

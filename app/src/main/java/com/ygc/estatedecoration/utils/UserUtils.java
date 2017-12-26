@@ -18,6 +18,7 @@ public class UserUtils {
     public static final String USER = "user_info";     //个人信息的缓存
     public static final String userId = "userId";
     public static final String userPws = "userPws";
+    public static final String userName = "userName";
     public static final String onLine = "onLine";  //判断用户是否在线
     public static LoginBean.DataBean sDataBean;
 
@@ -108,6 +109,15 @@ public class UserUtils {
     public static String getUserId() {
         SharedPreferences sp = MyApplication.getmContext().getSharedPreferences(USER, Context.MODE_PRIVATE);
         return sp.getString(userId, "");
+    }
+
+
+    /**
+     * @return 用户Name(手机号)
+     */
+    public static String getUserName() {
+        SharedPreferences sp = MyApplication.getmContext().getSharedPreferences(USER, Context.MODE_PRIVATE);
+        return sp.getString(userName, "");
     }
 
     /**

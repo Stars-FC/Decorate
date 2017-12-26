@@ -8,7 +8,6 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:id="@+id/rl_background"
         android:layout_height="368px"
         android:background="@drawable/zhuyebackgrund">
 
@@ -24,7 +23,7 @@
             android:src="@drawable/fanhuiwhite"/>
 
         <TextView
-            android:id="@+id/et_edit"
+            android:id="@+id/iv_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -34,12 +33,11 @@
             android:padding="10px"
             android:text="编辑信息"
             android:textColor="@color/white"
-            android:textSize="20px"/>
+            android:textSize="18px"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="20px"
             android:layout_centerInParent="true"
             android:gravity="center"
             android:orientation="vertical">
@@ -66,21 +64,19 @@
                     android:textSize="32px"/>
 
                 <ImageView
-                    android:layout_width="24px"
-                    android:layout_height="24px"
+                    android:layout_width="28px"
+                    android:layout_height="28px"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="8px"
-                    android:layout_marginRight="8px"
-                    android:src="@drawable/nan"/>
+                    android:layout_marginRight="8px"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_team_green"
-                    android:gravity="center"
                     android:text="团队"
                     android:textColor="@color/colorAccent"
-                    android:textSize="20px"/>
+                    android:textSize="24px"/>
             </LinearLayout>
 
             <com.ygc.estatedecoration.widget.StarView

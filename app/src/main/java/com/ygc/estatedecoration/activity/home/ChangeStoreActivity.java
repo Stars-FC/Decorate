@@ -1,7 +1,6 @@
-package com.ygc.estatedecoration.activity.my;
+package com.ygc.estatedecoration.activity.home;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -9,6 +8,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
@@ -17,15 +17,21 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
 import com.ygc.estatedecoration.bean.BaseBean;
+import com.ygc.estatedecoration.utils.AddressPickTask;
 import com.ygc.estatedecoration.utils.LogUtil;
 import com.ygc.estatedecoration.utils.MyPublic;
 import com.ygc.estatedecoration.utils.NetWorkUtil;
@@ -35,24 +41,27 @@ import com.ygc.estatedecoration.widget.BasePopupWindow;
 import com.ygc.estatedecoration.widget.CircleImageView;
 import com.ygc.estatedecoration.widget.TitleBar;
 
+import org.angmarch.views.NiceSpinner;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.pedant.SweetAlert.SweetAlertDialog;
-import io.reactivex.Flowable;
+import cn.qqtheme.framework.entity.City;
+import cn.qqtheme.framework.entity.County;
+import cn.qqtheme.framework.entity.Province;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -60,18 +69,28 @@ import okhttp3.RequestBody;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
-import top.zibin.luban.Luban;
 
 /**
  * Created by FC on 2017/12/12.
- * 发起活动
+ * 修改店铺信息
  */
 
-public class LaunchActivitesActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks {
+public class ChangeStoreActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks {
 
-    @BindView(R.id.ll_launch_activites)
-    LinearLayout mLinearLayout;
-    @BindView(R.id.launch_activites_image)
+    @BindView(R.id.ll_change_store)
+    ScrollView mLinearLayout;
+    @BindView(R.id.tv_show_place)
+    TextView tv_show_place;
+    @BindView(R.id.nice_spinner_sex)
+    NiceSpinner nice_spinner_sex;
+    @BindView(R.id.nice_spinner_sex_type)
+    NiceSpinner nice_spinner_sex_type;
+    @BindView(R.id.nice_spinner_work_time)
+    NiceSpinner nice_spinner_work_time;
+    @BindView(R.id.nice_spinner_style)
+    NiceSpinner nice_spinner_style;
+//    ⇐⇖⇑⇗⇒⇘⇓⇙
+  /*     @BindView(R.id.launch_activites_image)
     ImageView mLaunchActivitesImage;//活动图片
     @BindView(R.id.launch_activites_icon)
     CircleImageView mLaunchActivitesIcon;//发起人头像
@@ -86,14 +105,16 @@ public class LaunchActivitesActivity extends BaseActivity implements EasyPermiss
     @BindView(R.id.launch_activites_place)
     EditText mLaunchActivitesPlace;//活动地点
     @BindView(R.id.launch_activites_introduce)
-    EditText mLaunchActivitesIntroduce;//活动介绍
+    EditText mLaunchActivitesIntroduce;//活动介绍*/
 
     private BasePopupWindow mSelectPicPopupWindow;
     private File filepath;
+    Handler handler;
+
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
-        bar.setTitleText("发起活动");
+        bar.setTitleText("修改信息");
         bar.setLeftImageResource(R.drawable.fanhui);
         return true;
     }
@@ -105,34 +126,92 @@ public class LaunchActivitesActivity extends BaseActivity implements EasyPermiss
 
     @Override
     protected void initView() {
+        final List<String> dataset = new LinkedList<>(Arrays.asList("男", "女"));
+        nice_spinner_sex.attachDataSource(dataset);
+        nice_spinner_sex.addOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                LogUtil.e("------------------" + i);
+                showToast(dataset.get(i));
+            }
+        });
+
+        final List<String> dataset2 = new LinkedList<>(Arrays.asList("个体", "团体"));
+        nice_spinner_sex_type.attachDataSource(dataset2);
+        nice_spinner_sex_type.addOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                showToast(dataset2.get(i));
+            }
+        });
+
+        final List<String> dataset3 = new LinkedList<>(Arrays.asList("1年", "2年", "5年", "10年", "129 "));
+        nice_spinner_work_time.attachDataSource(dataset3);
+        nice_spinner_work_time.addOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                showToast(dataset3.get(i));
+            }
+        });
+
+        final List<String> dataset4 = new LinkedList<>(Arrays.asList("田园", "城市", "田园", "城市", "田园"));
+        nice_spinner_style.attachDataSource(dataset4);
+        nice_spinner_style.addOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                showToast(dataset4.get(i));
+            }
+        });
 
     }
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-
+        handler = new Handler();
     }
 
     @Override
     protected int getLayoutId() {
         //设置弹出软键盘时上移布局，防止EditText被挡住
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        return R.layout.my_launch_activities;
+        return R.layout.home_change_store;
     }
 
-    @OnClick({R.id.naviFrameLeft, R.id.my_launch_activites_ok, R.id.launch_activites_image})
+    @OnClick({R.id.naviFrameLeft, R.id.home_change_store_place, R.id.nice_spinner_work_time})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.naviFrameLeft:
                 finish();
                 break;
-            case R.id.launch_activites_image://图片
-                addICEvent();
+            case R.id.home_change_store_place://
+                setPlace();
+//                addICEvent();
                 break;
-            case R.id.my_launch_activites_ok://确认发起
-                getDataFromNet();
+            case R.id.nice_spinner_work_time://
+                mLinearLayout.fullScroll(ScrollView.FOCUS_DOWN);
+                LogUtil.e("!!!");
                 break;
         }
+    }
+
+    /**
+     * 选择地址
+     */
+    private void setPlace() {
+        AddressPickTask task = new AddressPickTask(this);
+        task.setHideCounty(true);
+        task.setCallback(new AddressPickTask.Callback() {
+            @Override
+            public void onAddressInitFailed() {
+                showToast("数据初始化失败");
+            }
+
+            @Override
+            public void onAddressPicked(Province province, City city, County county) {
+                tv_show_place.setText(province.getAreaName() + " " + city.getAreaName());
+            }
+        });
+        task.execute("辽宁", "沈阳");
     }
 
     public void getDataFromNet() {
@@ -148,12 +227,12 @@ public class LaunchActivitesActivity extends BaseActivity implements EasyPermiss
                     @Override
                     public void showResult(List<String> photos, List<File> list) {
                         File file = list.get(0);
-                        setNet(file);
+//                        setNet(file);
                     }
                 });
     }
 
-    private void setNet(File file) {
+   /* private void setNet(File file) {
         String title = MyPublic.getText(mLaunchActivitesTitle);
         String nick = MyPublic.getText(mLaunchActivitesNick);
         String startTime = MyPublic.getText(mLaunchActivitesStarttime);
@@ -178,7 +257,7 @@ public class LaunchActivitesActivity extends BaseActivity implements EasyPermiss
                 .addFormDataPart("end_time", endTime)
                 .addFormDataPart("place", place)
                 .addFormDataPart("introduce", introduce)
-                .addFormDataPart("file", file.getName(), RequestBody.create(MediaType.parse("image/*"), file))
+                .addFormDataPart("file", file.getName(), RequestBody.create(MediaType.parse("image*//*"), file))
                 .addFormDataPart("title", title)
                 .build();
 
@@ -212,14 +291,14 @@ public class LaunchActivitesActivity extends BaseActivity implements EasyPermiss
 
                     }
                 });
-    }
+    }*/
 
 
     /**
      * 判断权限
      */
     private void addICEvent() {
-        if (EasyPermissions.hasPermissions(LaunchActivitesActivity.this, Manifest.permission.CAMERA) || EasyPermissions.hasPermissions(LaunchActivitesActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+        if (EasyPermissions.hasPermissions(ChangeStoreActivity.this, Manifest.permission.CAMERA) || EasyPermissions.hasPermissions(ChangeStoreActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             showSelectPicPopupWindow();
         } else {
             cameraReadAndWriteTask();
@@ -231,9 +310,9 @@ public class LaunchActivitesActivity extends BaseActivity implements EasyPermiss
      */
     private void showSelectPicPopupWindow() {
         if (mSelectPicPopupWindow == null) {
-            mSelectPicPopupWindow = new BasePopupWindow(LaunchActivitesActivity.this);
+            mSelectPicPopupWindow = new BasePopupWindow(ChangeStoreActivity.this);
             mSelectPicPopupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
-            final View popupView = LayoutInflater.from(LaunchActivitesActivity.this).inflate(R.layout.popup_window_select_pic, null);
+            final View popupView = LayoutInflater.from(ChangeStoreActivity.this).inflate(R.layout.popup_window_select_pic, null);
             popupView.findViewById(R.id.take_photo_tv).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -308,11 +387,11 @@ public class LaunchActivitesActivity extends BaseActivity implements EasyPermiss
     }
 
     private boolean hasReadAndWritePermission() {
-        return EasyPermissions.hasPermissions(LaunchActivitesActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        return EasyPermissions.hasPermissions(ChangeStoreActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
 
     private boolean hasCameraPermission() {
-        return EasyPermissions.hasPermissions(LaunchActivitesActivity.this, Manifest.permission.CAMERA);
+        return EasyPermissions.hasPermissions(ChangeStoreActivity.this, Manifest.permission.CAMERA);
     }
 
     @Override
@@ -419,7 +498,7 @@ public class LaunchActivitesActivity extends BaseActivity implements EasyPermiss
                                 e.printStackTrace();
                             }
                             //上传完成将照片写入imageview与用户进行交互
-                            mLaunchActivitesImage.setImageBitmap(photo);
+//                            mLaunchActivitesImage.setImageBitmap(photo);
                         }
                     }
                     break;

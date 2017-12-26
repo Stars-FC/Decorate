@@ -8,6 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="vertical">
 
         <com.zhy.autolayout.AutoLinearLayout
@@ -22,7 +24,8 @@
                 android:layout_marginLeft="15px"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="交易额："/>
+                android:text="交易额："
+                android:textColor="@color/black"/>
 
             <TextView
                 android:layout_width="0dp"
@@ -36,7 +39,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="好评率:"/>
+                android:text="好评率:"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:layout_width="0dp"
@@ -50,7 +54,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1.2"
                 android:gravity="center"
-                android:text="中标次数:"/>
+                android:text="中标次数:"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:layout_width="0dp"
@@ -86,7 +91,21 @@
                 android:layout_marginLeft="10px"
                 android:layout_toRightOf="@id/v_bc1"
                 android:text="店铺简介"
-                android:textSize="32px"/>
+                android:textColor="@color/black"
+                android:textSize="30px"/>
+
+            <TextView
+                android:id="@+id/et_introduce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10px"
+                android:layout_marginRight="30px"
+                android:background="@drawable/bg_team_green_big"
+                android:text="编辑"
+                android:textColor="@color/colorAccent"
+                android:textSize="24px"/>
         </RelativeLayout>
 
         <View
@@ -99,10 +118,15 @@
             android:layout_height="wrap_content"
             android:padding="30px">
 
-            <TextView
+            <EditText
+                android:id="@+id/my_store_introduce"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，"/>
+                android:background="@null"
+                android:selectAllOnFocus="true"
+                android:text="公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，公司简介，"
+                android:textColor="@color/black"
+                android:textSize="24px"/>
         </LinearLayout>
 
         <RelativeLayout
@@ -125,7 +149,21 @@
                 android:layout_marginLeft="10px"
                 android:layout_toRightOf="@id/v_bc2"
                 android:text="背景资料"
-                android:textSize="32px"/>
+                android:textColor="@color/black"
+                android:textSize="30px"/>
+
+            <TextView
+                android:id="@+id/et_background"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10px"
+                android:layout_marginRight="30px"
+                android:background="@drawable/bg_team_green_big"
+                android:text="编辑"
+                android:textColor="@color/colorAccent"
+                android:textSize="24px"/>
         </RelativeLayout>
 
         <View
@@ -138,10 +176,16 @@
             android:layout_height="wrap_content"
             android:padding="30px">
 
-            <TextView
+            <EditText
+                android:id="@+id/my_store_background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="背景资料介，背景资料背景资料简介，背景资背景资料背景资料背景资料背景资料背景资料背景资料背景资料背景资料料，背景资料，"/>
+                android:background="@null"
+                android:inputType="none"
+                android:selectAllOnFocus="true"
+                android:text="背景资料介，背景资料背景资料简介，背景资背景资料背景资料背景资料背景资料背景资料背景资料背景资料背景资料料，背景资料，"
+                android:textColor="@color/black"
+                android:textSize="24px"/>
         </LinearLayout>
 
         <RelativeLayout
@@ -164,7 +208,21 @@
                 android:layout_marginLeft="10px"
                 android:layout_toRightOf="@id/v_bc3"
                 android:text="工作经验"
-                android:textSize="32px"/>
+                android:textColor="@color/black"
+                android:textSize="30px"/>
+
+            <TextView
+                android:id="@+id/et_work_experience"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10px"
+                android:layout_marginRight="30px"
+                android:background="@drawable/bg_team_green_big"
+                android:text="编辑"
+                android:textColor="@color/colorAccent"
+                android:textSize="24px"/>
         </RelativeLayout>
 
         <View
@@ -177,10 +235,15 @@
             android:layout_height="wrap_content"
             android:padding="30px">
 
-            <TextView
+            <EditText
+                android:id="@+id/my_store_work_experience"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="工作经验工作经验工作经验工作经验工作经验工作经验工作经验工作经验工作经验工作经验工作经验工作经验，"/>
+                android:background="@null"
+                android:selectAllOnFocus="true"
+                android:text="工作经验工作经验工作经验工作经验工作经验工作经验工作经验工作经验工作经验工作经验工作经验工作经验，"
+                android:textColor="@color/black"
+                android:textSize="24px"/>
         </LinearLayout>
 
     </com.zhy.autolayout.AutoLinearLayout>

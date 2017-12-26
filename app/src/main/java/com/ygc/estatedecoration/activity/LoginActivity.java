@@ -39,6 +39,7 @@ import butterknife.Unbinder;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
@@ -72,6 +73,8 @@ public class LoginActivity extends AutoLayoutActivity {
     // 定义一个变量，来标识是否退出
     private static boolean isExit = false;
 
+    public CompositeDisposable compositeDisposable;
+
     Handler mHandler = new Handler() {
 
         @Override
@@ -92,7 +95,7 @@ public class LoginActivity extends AutoLayoutActivity {
         setContentView(R.layout.activity_login);
 
         mUnBinder = ButterKnife.bind(this);
-
+        compositeDisposable = new CompositeDisposable();
         initListener();
     }
 
@@ -102,6 +105,7 @@ public class LoginActivity extends AutoLayoutActivity {
         if (mUnBinder != null) {
             mUnBinder.unbind();
         }
+        compositeDisposable.dispose();
     }
 
     private void initListener() {
@@ -183,7 +187,7 @@ public class LoginActivity extends AutoLayoutActivity {
             finish();
         }*/
         if (!NetWorkUtil.isNetWorkConnect(this)) {
-            Toast.makeText(LoginActivity.this,"请检查网络设置",Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "请检查网络设置", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -223,22 +227,23 @@ public class LoginActivity extends AutoLayoutActivity {
                 .subscribe(new Observer<LoginBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        compositeDisposable.add(d);
                     }
 
                     @Override
                     public void onNext(LoginBean roleFindAllBean) {
                         String msg = roleFindAllBean.getMsg();
                         if ("登录成功".equals(msg)) {
-                            String password = roleFindAllBean.getData().getPassword();
-                            String userId = String.valueOf(roleFindAllBean.getData().getAu_id());
+                            String password = roleFindAllBean.getData().getPassword();//密码
+                            String userName = roleFindAllBean.getData().getUsername();//手机号
+                            String userId = String.valueOf(roleFindAllBean.getData().getAu_id());//用户id
                             int type = roleFindAllBean.getData().getType();//用户、服务端
                             int r_id = roleFindAllBean.getData().getR_id();//材料商
                             pDialog.cancel();
                             //保存用户名、密码
                             UserUtils.setParam(UserUtils.USER, UserUtils.userId, userId);
-                            LogUtil.e("userId==--------" + userId);
                             UserUtils.setParam(UserUtils.USER, UserUtils.userPws, password);
+                            UserUtils.setParam(UserUtils.USER, UserUtils.userName, userName);
                             UserUtils.putOnLineBoolean(LoginActivity.this, "", true);//标记用户退出登录
 
                             Intent intent = new Intent();

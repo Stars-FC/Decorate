@@ -138,12 +138,16 @@ public class MyBrightActivity extends BaseActivity {
                         if (!(mData.size() == 0)) {
                             mAdapter.setNewData(brightBean.getData());
                         }
-                        mSwipeRefreshLayout.setRefreshing(false);
+                        if (mSwipeRefreshLayout.isRefreshing()) {
+                            mSwipeRefreshLayout.setRefreshing(false);
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        mSwipeRefreshLayout.setRefreshing(false);
+                        if (mSwipeRefreshLayout.isRefreshing()) {
+                            mSwipeRefreshLayout.setRefreshing(false);
+                        }
                         LogUtil.e("Fc_请求网路失败" + e.getMessage());
                         showToast(getResources().getString(R.string.network_error));
                     }

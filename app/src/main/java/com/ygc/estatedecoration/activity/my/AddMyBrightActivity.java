@@ -45,6 +45,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -133,6 +134,11 @@ public class AddMyBrightActivity extends BaseActivity implements EasyPermissions
                 .addFormDataPart("file", filepath.getName(), RequestBody.create(MediaType.parse("image/*"), filepath))
                 .build();
 
+        final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
+                .setTitleText("Loading");
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        pDialog.setCancelable(false);
+        pDialog.show();
         APPApi.getInstance().service
 //                .addMyBright(builder.build())
                 .addMyBright(requestBody)
@@ -148,11 +154,13 @@ public class AddMyBrightActivity extends BaseActivity implements EasyPermissions
                     public void onNext(BaseBean baseBean) {
                         String msg = baseBean.getMsg();
                         showToast(msg);
+                        pDialog.cancel();
                         finish();
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        pDialog.cancel();
                         LogUtil.e("Fc_请求网路失败" + e.getMessage());
                         showToast(getResources().getString(R.string.network_error));
                     }

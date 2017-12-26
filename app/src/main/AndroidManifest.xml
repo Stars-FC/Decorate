@@ -23,14 +23,11 @@
         <activity
             android:name=".activity.HomeActivity"
             android:screenOrientation="portrait">
-
-            <!--
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-            -->
+            </intent-filter>-->
         </activity>
         <activity android:name=".activity.MainActivity"/>
         <activity android:name=".activity.home.MyStoreActivity"/>
@@ -63,11 +60,11 @@
         <activity android:name=".activity.my.GuaranteeMoneyActivity"/>
         <activity android:name=".activity.my.UserDemandActivity"/>
         <activity android:name=".user_activity.UserHomeActivity">
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity android:name=".user_activity.UserSearchActivity"/>
         <activity android:name=".user_activity.CaseDetailActivity"/>
@@ -123,6 +120,15 @@
         <activity android:name=".activity.my.WarrantyMoneyActivity">
         </activity>
         <activity android:name=".user_activity.FastPublishActivity">
+        </activity>
+        <activity android:name=".activity.home.ChangeStoreActivity">
+        </activity>
+        <activity android:name=".activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity android:name=".user_activity.UserPublishActivity">
         </activity>

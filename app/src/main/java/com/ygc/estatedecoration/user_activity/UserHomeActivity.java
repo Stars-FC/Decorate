@@ -9,15 +9,20 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ygc.estatedecoration.R;
+import com.ygc.estatedecoration.activity.HomeActivity;
 import com.ygc.estatedecoration.activity.LoginActivity;
+import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
+import com.ygc.estatedecoration.bean.LoginBean;
 import com.ygc.estatedecoration.event.SkipUserShopMsg;
 import com.ygc.estatedecoration.fragment.CaseFragment;
 import com.ygc.estatedecoration.user_fragment.UserHomeFragment;
 import com.ygc.estatedecoration.user_fragment.UserMyFragment;
 import com.ygc.estatedecoration.user_fragment.UserShopFragment;
+import com.ygc.estatedecoration.utils.LogUtil;
 import com.ygc.estatedecoration.utils.UserUtils;
 import com.ygc.estatedecoration.widget.TitleBar;
 
@@ -30,6 +35,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class UserHomeActivity extends BaseActivity {
 
@@ -78,6 +87,10 @@ public class UserHomeActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
+        /*if (UserUtils.getOnLineBoolean(getApplicationContext(), "")) {
+            toLogin();
+        }*/
+
         EventBus.getDefault().register(this);
         iv_iconList.add(mIv_home);
         iv_iconList.add(mIv_fangAn);
@@ -89,6 +102,47 @@ public class UserHomeActivity extends BaseActivity {
         txt_titleList.add(mTv_my);
         mSupportFragmentManager = getSupportFragmentManager();
         initFragment(savedInstanceState);
+    }
+
+    private void toLogin() {
+        APPApi.getInstance().service
+                .login(UserUtils.getUserName(), UserUtils.getUserPws(), 100)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<LoginBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        compositeDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(LoginBean roleFindAllBean) {
+                        String msg = roleFindAllBean.getMsg();
+                        if ("登录成功".equals(msg)) {
+                            int type = roleFindAllBean.getData().getType();//用户、服务端
+                            Intent intent = new Intent();
+                            if (type != 0) {
+                                //服务商端登陆
+                                intent.setClass(UserHomeActivity.this, HomeActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        } else {
+                            Toast.makeText(UserHomeActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtil.e("Fc_请求网路失败" + e.getMessage());
+                        Toast.makeText(UserHomeActivity.this, getResources().getString(R.string.network_error), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     private void initFragment(Bundle savedInstanceState) {
