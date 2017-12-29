@@ -3,9 +3,12 @@ package com.ygc.estatedecoration.adapter;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.user_activity.ConfirmBuyActivity;
 
@@ -42,5 +45,12 @@ public class UserConfirmBuyAdapter extends BaseQuickAdapter<String, BaseViewHold
 
         mChildRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mChildRecyclerView.setAdapter(mAdapter);
+
+        mChildRecyclerView.addOnItemTouchListener(new com.chad.library.adapter.base.listener.OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Toast.makeText(mContext, "position__" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

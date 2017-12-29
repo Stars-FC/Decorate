@@ -16,6 +16,7 @@ public class UserUtils {
 
     public static final String SEARCH = "search_info"; //搜索的缓存
     public static final String USER = "user_info";     //个人信息的缓存
+    public static final String STOREID = "store_id";     //商铺id
     public static final String userId = "userId";
     public static final String userPws = "userPws";
     public static final String userName = "userName";

@@ -24,6 +24,7 @@
             android:textSize="28px"/>
 
         <EditText
+            android:id="@+id/add_bank_ev_bank_num"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
@@ -64,6 +65,7 @@
             android:textSize="28px"/>
 
         <EditText
+            android:id="@+id/add_bank_ev_bank_that"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
@@ -102,6 +104,7 @@
             android:textSize="28px"/>
 
         <EditText
+            android:id="@+id/add_bank_ev_name"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
@@ -140,6 +143,7 @@
             android:textSize="28px"/>
 
         <EditText
+            android:id="@+id/add_bank_ev_phonenum"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"

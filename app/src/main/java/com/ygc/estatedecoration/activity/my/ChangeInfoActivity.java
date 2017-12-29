@@ -1,4 +1,4 @@
-package com.ygc.estatedecoration.activity.home;
+package com.ygc.estatedecoration.activity.my;
 
 import android.Manifest;
 import android.content.Intent;
@@ -8,46 +8,39 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
 import com.ygc.estatedecoration.bean.BaseBean;
-import com.ygc.estatedecoration.utils.AddressPickTask;
+import com.ygc.estatedecoration.bean.InfoBevenBus;
 import com.ygc.estatedecoration.utils.LogUtil;
 import com.ygc.estatedecoration.utils.MyPublic;
 import com.ygc.estatedecoration.utils.NetWorkUtil;
-import com.ygc.estatedecoration.utils.PictureCompressUtil;
 import com.ygc.estatedecoration.utils.UserUtils;
 import com.ygc.estatedecoration.widget.BasePopupWindow;
 import com.ygc.estatedecoration.widget.CircleImageView;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import org.angmarch.views.NiceSpinner;
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -55,12 +48,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.pedant.SweetAlert.SweetAlertDialog;
-import cn.qqtheme.framework.entity.City;
-import cn.qqtheme.framework.entity.County;
-import cn.qqtheme.framework.entity.Province;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
@@ -70,42 +59,29 @@ import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
+
 /**
- * Created by FC on 2017/12/12.
- * 修改店铺信息
+ * 我的-编辑个人信息（昵称、头像、性别）
  */
 
-public class ChangeStoreActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks {
+public class ChangeInfoActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks {
 
-    @BindView(R.id.ll_change_store)
-    ScrollView mLinearLayout;
-    @BindView(R.id.tv_show_place)
-    TextView tv_show_place;//地点
-    @BindView(R.id.nice_spinner_sex)
-    NiceSpinner nice_spinner_sex;//性别
-    @BindView(R.id.nice_spinner_type)
-    NiceSpinner nice_spinner_type;//类别
-    @BindView(R.id.nice_spinner_work_time)
-    NiceSpinner nice_spinner_work_time;//工作经验
-    @BindView(R.id.nice_spinner_style)
-    NiceSpinner nice_spinner_style;//擅长风格
     @BindView(R.id.iv_company_icon)
     CircleImageView mImageView;//头像
     @BindView(R.id.home_change_nick)
     EditText mNick;//昵称
-
-    private String mProvince = "辽宁";//省
-    private String mCity = "沈阳";//城市
+    @BindView(R.id.ll_change_info)
+    LinearLayout mLl_parentLayout;
+    @BindView(R.id.nice_spinner_sex)
+    NiceSpinner nice_spinner_sex;//性别
 
     private BasePopupWindow mSelectPicPopupWindow;
-    private File filepath;
-    Handler handler;
-    private String mStoreId;
 
+    private int sexNum = 0; //性别
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
-        bar.setTitleText("修改信息");
+        bar.setTitleText("编辑资料");
         bar.setLeftImageResource(R.drawable.fanhui);
         return true;
     }
@@ -117,168 +93,81 @@ public class ChangeStoreActivity extends BaseActivity implements EasyPermissions
 
     @Override
     protected void initView() {
-        final List<String> dataset = new LinkedList<>(Arrays.asList("男", "女"));
-        nice_spinner_sex.attachDataSource(dataset);
-        nice_spinner_sex.addOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                LogUtil.e("------------------" + i);
-                showToast(dataset.get(i));
-            }
-        });
-
-        final List<String> dataset2 = new LinkedList<>(Arrays.asList("个体", "团体"));
-        nice_spinner_type.attachDataSource(dataset2);
-        nice_spinner_type.addOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                showToast(dataset2.get(i));
-            }
-        });
-
-        final List<String> dataset3 = new LinkedList<>(Arrays.asList("1年", "2年", "5年", "10年", "129 "));
-        nice_spinner_work_time.attachDataSource(dataset3);
-        nice_spinner_work_time.addOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                showToast(dataset3.get(i));
-            }
-        });
-
-        final List<String> dataset4 = new LinkedList<>(Arrays.asList("田园", "城市", "田园", "城市", "田园"));
-        nice_spinner_style.attachDataSource(dataset4);
-        nice_spinner_style.addOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                showToast(dataset4.get(i));
-            }
-        });
 
     }
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        handler = new Handler();
-        mStoreId = getIntent().getExtras().getString("storeId");
-        LogUtil.e("AASDASASA:" + mStoreId);
+        final List<String> dataset = new LinkedList<>(Arrays.asList("男", "女"));
+        nice_spinner_sex.attachDataSource(dataset);
+        nice_spinner_sex.addOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                sexNum = i;
+            }
+        });
     }
 
     @Override
     protected int getLayoutId() {
-        //设置弹出软键盘时上移布局，防止EditText被挡住
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        return R.layout.home_change_store;
+        return R.layout.activity_change_info;
     }
 
-    @OnClick({R.id.naviFrameLeft, R.id.ll_icon, R.id.home_change_store_place, R.id.home_change_store_ok})
+    @OnClick({R.id.naviFrameLeft, R.id.ll_icon, R.id.bt_change_info_ok})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.naviFrameLeft:
                 finish();
                 break;
-            case R.id.ll_icon://更换头像
+            case R.id.ll_icon:
                 addICEvent();
                 break;
-            case R.id.home_change_store_place://选择地址
-                setPlace();
-                break;
-            case R.id.home_change_store_ok://确认修改
-                changeDataFromNet();
+            case R.id.bt_change_info_ok:
+                changeInfo();
                 break;
         }
     }
 
     /**
-     * 选择地址
+     * 修改个人信息
      */
-    private void setPlace() {
-        AddressPickTask task = new AddressPickTask(this);
-        task.setHideCounty(true);
-        task.setCallback(new AddressPickTask.Callback() {
-            @Override
-            public void onAddressInitFailed() {
-                showToast("数据初始化失败");
-            }
-
-            @Override
-            public void onAddressPicked(Province province, City city, County county) {
-                tv_show_place.setText(province.getAreaName() + " " + city.getAreaName());
-                mProvince = province.getAreaName();
-                mCity = city.getAreaName();
-            }
-        });
-        task.execute("辽宁", "沈阳");
-    }
-
-    /**
-     * 修改信息页面修改信息
-     */
-    public void changeDataFromNet() {
-
-        if (!NetWorkUtil.isNetWorkConnect(this)) {
+    private void changeInfo() {
+        if (!NetWorkUtil.isNetWorkConnect(ChangeInfoActivity.this)) {
             showToast("请检查网络设置");
             return;
         }
 
-        PictureCompressUtil.getInstance().startCompress(this, Arrays.asList(new String[]{Environment.getExternalStorageDirectory()
-                        + "/" + filepath.getName()}),
-                new PictureCompressUtil.CompressedPicResultCallBack() {
-                    @Override
-                    public void showResult(List<String> photos, List<File> list) {
-                        File file = list.get(0);
-                        setNet(file);
-                    }
-                });
-    }
-
-    private void setNet(File file) {
-
         String nick = MyPublic.getText(mNick);
-        String sex = MyPublic.getText(nice_spinner_sex);
-        String type = MyPublic.getText(nice_spinner_type);
-        String workTime = MyPublic.getText(nice_spinner_work_time);
-        String style = MyPublic.getText(nice_spinner_style);
-        String place = MyPublic.getText(tv_show_place);
 
-        List<String> list = new ArrayList<>(Arrays.asList(nick, type, workTime, style, place, place));
-        if (MyPublic.isEmpty(list)) {
-            showToast("请填写完整");
+        if (TextUtils.isEmpty(nick)) {
+            showToast("请填写昵称");
             return;
         }
+
         final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
                 .setTitleText("Loading");
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
         pDialog.setCancelable(false);
         pDialog.show();
+        RequestBody requestBody;
+        if (filepath != null) {
+            requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                    .addFormDataPart("au_id", UserUtils.getUserId())
+                    .addFormDataPart("nickname", nick)
+                    .addFormDataPart("sex", String.valueOf(sexNum))
+                    .addFormDataPart("file", filepath.getName(), RequestBody.create(MediaType.parse("image"), filepath))
+                    .build();
+        } else {
+            requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                    .addFormDataPart("au_id", UserUtils.getUserId())
+                    .addFormDataPart("nickname", nick)
+                    .addFormDataPart("sex", String.valueOf(sexNum))
+                    .build();
+        }
 
-    /*    s_id 	string 	是 	店铺id
-        s_name 	string 	否 	店铺名称
-        s_type 	string 	否 	类型
-        introduce 	string 	否 	介绍
-        background_info 	string 	否 	背景资料
-        work_experience 	string 	否 	工作经验
-        work_year 	string 	否 	参加工作年数
-        s_province 	string 	否 	省
-        s_city 	string 	否 	城市
-        mProvince
-        r_id 	string 	否 	装修风格id（参照sys_role表）
-        file 	file 	否 	店铺头像*/
-
-        // TODO: 2017/12/27 性别，装修类型，
-
-        RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("s_id", mStoreId)
-//                .addFormDataPart("start_time", sex)
-                .addFormDataPart("s_type", type)
-                .addFormDataPart("work_experience", workTime)
-                .addFormDataPart("r_id", style)
-                .addFormDataPart("s_province", mProvince)
-                .addFormDataPart("s_city", mCity)
-                .addFormDataPart("file", file.getName(), RequestBody.create(MediaType.parse("image"), file))
-                .build();
 
         APPApi.getInstance().service
-                .addMyActivites(requestBody)
+                .updateInfo(requestBody)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<BaseBean>() {
@@ -292,13 +181,16 @@ public class ChangeStoreActivity extends BaseActivity implements EasyPermissions
                         String msg = bean.getMsg();
                         showToast(msg);
                         pDialog.cancel();
+                        if ("1".equals(bean.getResponseState())) {
+                            EventBus.getDefault().postSticky(new InfoBevenBus());
+                        }
                         finish();
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         pDialog.cancel();
-                        LogUtil.e("Fc_请求网路失败" + e.getMessage());
+                        LogUtil.e("Fc_修改个人信息" + e.getMessage());
                         showToast(getResources().getString(R.string.network_error));
                     }
 
@@ -309,12 +201,11 @@ public class ChangeStoreActivity extends BaseActivity implements EasyPermissions
                 });
     }
 
-
     /**
      * 判断权限
      */
     private void addICEvent() {
-        if (EasyPermissions.hasPermissions(ChangeStoreActivity.this, Manifest.permission.CAMERA) || EasyPermissions.hasPermissions(ChangeStoreActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+        if (EasyPermissions.hasPermissions(ChangeInfoActivity.this, Manifest.permission.CAMERA) || EasyPermissions.hasPermissions(ChangeInfoActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             showSelectPicPopupWindow();
         } else {
             cameraReadAndWriteTask();
@@ -326,9 +217,9 @@ public class ChangeStoreActivity extends BaseActivity implements EasyPermissions
      */
     private void showSelectPicPopupWindow() {
         if (mSelectPicPopupWindow == null) {
-            mSelectPicPopupWindow = new BasePopupWindow(ChangeStoreActivity.this);
+            mSelectPicPopupWindow = new BasePopupWindow(ChangeInfoActivity.this);
             mSelectPicPopupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
-            final View popupView = LayoutInflater.from(ChangeStoreActivity.this).inflate(R.layout.popup_window_select_pic, null);
+            final View popupView = LayoutInflater.from(ChangeInfoActivity.this).inflate(R.layout.popup_window_select_pic, null);
             popupView.findViewById(R.id.take_photo_tv).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -373,7 +264,7 @@ public class ChangeStoreActivity extends BaseActivity implements EasyPermissions
                 }
             });
         }
-        mSelectPicPopupWindow.showAtLocation(mLinearLayout, Gravity.BOTTOM, 0, 0);
+        mSelectPicPopupWindow.showAtLocation(mLl_parentLayout, Gravity.BOTTOM, 0, 0);
     }
 
     //申请所有需要的权限
@@ -403,11 +294,11 @@ public class ChangeStoreActivity extends BaseActivity implements EasyPermissions
     }
 
     private boolean hasReadAndWritePermission() {
-        return EasyPermissions.hasPermissions(ChangeStoreActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        return EasyPermissions.hasPermissions(ChangeInfoActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
 
     private boolean hasCameraPermission() {
-        return EasyPermissions.hasPermissions(ChangeStoreActivity.this, Manifest.permission.CAMERA);
+        return EasyPermissions.hasPermissions(ChangeInfoActivity.this, Manifest.permission.CAMERA);
     }
 
     @Override
@@ -469,11 +360,11 @@ public class ChangeStoreActivity extends BaseActivity implements EasyPermissions
         // 下面这个crop=true是设置在开启的Intent中设置显示的VIEW可裁剪
         intent.putExtra("crop", "true");
         // aspectX aspectY 是宽高的比例
- /*       intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectX", 1);
         intent.putExtra("aspectY", 1);
         // outputX outputY 是裁剪图片宽高
         intent.putExtra("outputX", 150);
-        intent.putExtra("outputY", 150);*/
+        intent.putExtra("outputY", 150);
         intent.putExtra("return-data", true);
         startActivityForResult(intent, PHOTO_CLIP);
     }
@@ -522,6 +413,7 @@ public class ChangeStoreActivity extends BaseActivity implements EasyPermissions
         }
     }
 
+    private File filepath;
 
     private void toUploadFile() {
         if (filepath.exists()) {
@@ -551,4 +443,5 @@ public class ChangeStoreActivity extends BaseActivity implements EasyPermissions
             filepath.delete();
         }
     }
+
 }

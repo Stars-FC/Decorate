@@ -9,7 +9,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.ygc.estatedecoration.R;
-import com.ygc.estatedecoration.activity.home.MyStoreActivity;
+import com.ygc.estatedecoration.user_activity.UserLookStoreActivity;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class UserFindDesignerAdapter extends BaseQuickAdapter<String, BaseViewHo
         helper.getView(R.id.server_info_ll).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, MyStoreActivity.class);
+                Intent intent = new Intent(context, UserLookStoreActivity.class);
                 context.startActivity(intent);
             }
         });

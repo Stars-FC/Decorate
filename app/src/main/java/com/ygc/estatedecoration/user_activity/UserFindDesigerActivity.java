@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -82,8 +83,6 @@ public class UserFindDesigerActivity extends BaseActivity {
             @Override
             public void onLoadMoreRequested() {
                 mAdapter.loadMoreComplete();//完成
-//                mAdapter.loadMoreFail();//失败
-//                mAdapter.loadMoreEnd();//结束
             }
         }, mRecyclerview);
     }
@@ -97,11 +96,15 @@ public class UserFindDesigerActivity extends BaseActivity {
 
     private void initRecyclerView() {
 //        View topView = View.inflate(UserFindDesigerActivity.this, R.layout.user_find_designer, null);
-        mAdapter = new UserFindDesignerDetailAdapter(list, UserFindDesigerActivity.this);
+        mAdapter = new UserFindDesignerDetailAdapter(list);
 //        mAdapter.addHeaderView(topView);
         mRecyclerview.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        mRecyclerview.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         mRecyclerview.setNestedScrollingEnabled(false);
         mRecyclerview.setAdapter(mAdapter);
+        if (mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
     }
 
     @Override
@@ -109,6 +112,7 @@ public class UserFindDesigerActivity extends BaseActivity {
         for (int i = 0; i < 10; i++) {
             list.add("" + i);
         }
+        mSwipeRefreshLayout.setRefreshing(true);
     }
 
     @Override

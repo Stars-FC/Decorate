@@ -1,5 +1,6 @@
 package com.ygc.estatedecoration.api;
 
+import com.ygc.estatedecoration.bean.BankCardBean;
 import com.ygc.estatedecoration.bean.BaseBean;
 import com.ygc.estatedecoration.bean.CaseStyleBean;
 import com.ygc.estatedecoration.bean.ContractContentBean;
@@ -8,16 +9,22 @@ import com.ygc.estatedecoration.bean.DemandOfferBean;
 import com.ygc.estatedecoration.bean.LoginBean;
 import com.ygc.estatedecoration.bean.MyActivitesBean;
 import com.ygc.estatedecoration.bean.MyBrightBean;
+import com.ygc.estatedecoration.bean.MyStoreBean;
 import com.ygc.estatedecoration.bean.NeedBean;
 import com.ygc.estatedecoration.bean.PanoramaBean;
 import com.ygc.estatedecoration.bean.RoleFindAllBean;
 import com.ygc.estatedecoration.bean.ScheduleBean;
 import com.ygc.estatedecoration.bean.UserAddressDataListBean;
 import com.ygc.estatedecoration.bean.UserBalanceOrderBean;
+import com.ygc.estatedecoration.bean.UserCollectionMaterialBean;
+import com.ygc.estatedecoration.bean.UserCollectionPanoramaBean;
+import com.ygc.estatedecoration.bean.UserCollectionResultChartBean;
+import com.ygc.estatedecoration.bean.UserBalanceOrderBean;
 import com.ygc.estatedecoration.bean.UserCommentBean;
 import com.ygc.estatedecoration.bean.UserInformationBean;
 import com.ygc.estatedecoration.bean.UserProjectProgressBean;
 import com.ygc.estatedecoration.bean.UserShopCarBean;
+import com.ygc.estatedecoration.bean.VisiterBean;
 import com.ygc.estatedecoration.entity.base.Base;
 
 import java.io.File;
@@ -82,6 +89,7 @@ public interface APPService {
     @POST("wzd/Demand/getDemandList.action")
     Observable<NeedBean> queryAllNeed(@Field("page") int page, @Field("missionType") String missionType, @Field("constructionStatusQuo") String constructionStatusQuo, @Field("missionStartTime") String missionStartTime, @Field("missionEndTime") String missionEndTime, @Field("mixBuildingArea") String mixBuildingArea, @Field("maxBuildingArea") String maxBuildingArea, @Field("address") String address);
 
+
     @FormUrlEncoded
     @POST("wzd/Demand/getDemandList.action")
     Observable<NeedBean> queryAllNeed(@Field("cId") String cId, @Field("dState") int dState, @Field("page") int page, @Field("missionType") String missionType, @Field("constructionStatusQuo") String constructionStatusQuo, @Field("missionStartTime") String missionStartTime, @Field("missionEndTime") String missionEndTime, @Field("mixBuildingArea") String mixBuildingArea, @Field("maxBuildingArea") String maxBuildingArea, @Field("address") String address);
@@ -102,6 +110,8 @@ public interface APPService {
     @POST("wzd/Demand/getDemandOfferList.action")
     Observable<DemandOfferBean> getDemandOfferList(@Field("doId") String doId, @Field("dId") String dId, @Field("page") String page);
 
+//报价列表
+
     @FormUrlEncoded
     @POST("wzd/Demand/getDemandOfferList.action")//报价列表
     Observable<DemandOfferBean> getDemandOfferList(@Field("dId") String dId, @Field("page") String page);
@@ -111,8 +121,9 @@ public interface APPService {
     Observable<ScheduleBean> getDemandPlan(@Field("dId") String dId, @Field("category") String category);   //项目进度
 
     @FormUrlEncoded
-    @POST("wzd/Demand/getUserDemandPlan.action")//普通用户查看项目进度
-    Observable<UserProjectProgressBean> getDemandPlan(@Field("cId") String cId , @Field("dId") String dId , @Field("category") String category);
+    @POST("wzd/Demand/getUserDemandPlan.action")
+//普通用户查看项目进度
+    Observable<UserProjectProgressBean> getDemandPlan(@Field("cId") String cId, @Field("dId") String dId, @Field("category") String category);
 
     @Multipart
     @POST("wzd/Demand/addDemand.action")
@@ -130,6 +141,7 @@ public interface APPService {
     @POST("wzd/Demand/getContract.action")//获取合同信息
     Observable<ContractInfoBean> getContractInfo(@Field("conId") String conId);
 
+//获取合同主体内容
     @FormUrlEncoded
     @POST("wzd/Demand/editContractContent.action")//修改主体合同信息
     Observable<Base> modifyMainContractInfo(@Field("conId") String conId, @Field("qualityGuaranteeDeposit") String qualityGuaranteeDeposit);
@@ -186,11 +198,6 @@ public interface APPService {
     @POST("UserSparkle/create.action")
     Observable<BaseBean> addMyBright(@Body RequestBody body);  //添加我的亮点
 
-    //    Observable<BaseBean> addMyBright(@Field("au_id") String au_id, @Field("us_title") String us_title, @Body MultipartBody body);  //添加我的亮点
-    /*@Multipart
-    @POST("UserSparkle/create.action")
-    Observable<BaseBean> addMyBright(@PartMap Map<String, RequestBody> params,
-                                     @Part List<MultipartBody.Part> parts);*/
     @POST("UserFeedback/create.action")
     Observable<BaseBean> feedback(@Body RequestBody body);  //意见反馈
 
@@ -233,6 +240,56 @@ public interface APPService {
     @POST("wzd/Order/editAddress.action")
     Observable<Base> editUserAddress(@Field("aId") String aId, @Field("auId") String auId, @Field("userName") String userName, @Field("userMobile") String userMobile, @Field("province") String province, @Field("detail") String detail);  //编辑用户地址
 
+
+    @FormUrlEncoded
+    @POST("wzd/bankCard/getBankCard.action")
+    Observable<BankCardBean> getBankCard(@Field("auId") String auId);  //获取银行卡信息
+
+    @FormUrlEncoded
+    @POST("wzd/bankCard/addBankCard.action")
+    Observable<BaseBean> addBankCard(@Field("bankNumber") String bankNumber, @Field("bankName") String bankName,
+                                     @Field("userName") String userName, @Field("userMobile") String userMobile,
+                                     @Field("auId") String auId);  //绑定银行卡
+
+    @POST("user/update.action")
+    Observable<BaseBean> updateInfo(@Body RequestBody body);   //编辑用户信息
+
+    @FormUrlEncoded
+    @POST("UserCollect/findAllByAuId.action")
+    Observable<UserCollectionResultChartBean> myCollectionResultChart(@Field("auId") String auId,
+                                                                      @Field("articleType") String articleType);  //我的收藏—效果图
+
+    @FormUrlEncoded
+    @POST("UserCollect/findAllByAuId.action")
+    Observable<UserCollectionPanoramaBean> myCollectionPanorama(@Field("auId") String auId,
+                                                                @Field("articleType") String articleType);  //我的收藏—全景图
+
+    @FormUrlEncoded
+    @POST("UserCollect/findAllByAuId.action")
+    Observable<UserCollectionMaterialBean> myCollectionMaterial(@Field("auId") String auId,
+                                                                @Field("articleType") String articleType);  //我的收藏—商品
+
+    /*********************************************店铺*******************************************/
+    @FormUrlEncoded
+    @POST("Store/getByAuId.action")
+    Observable<MyStoreBean> myStore(@Field("au_id") String au_id);  //我的店铺
+
+    @POST("Store/update.action")
+    Observable<BaseBean> editMyStore(@Body RequestBody body);//编辑我的店铺
+
+    /*********************************************访客*******************************************/
+    @FormUrlEncoded
+    @POST("UserVisited/findAllByAuId.action")
+    Observable<VisiterBean> findAllByAuId(@Field("au_id") String au_id);  //我的访客
+
+    /**
+     * @param visitor_id 访问者id
+     * @param au_id      被访问者id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("UserVisited/doVisited.action")
+    Observable<BaseBean> doVisited(@Field("visitor_id") String visitor_id, @Field("au_id") String au_id);  //访客
     /*********************************************用户案例*******************************************/
     @FormUrlEncoded
     @POST("Role/findAllByType.action")

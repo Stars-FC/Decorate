@@ -1,9 +1,8 @@
 package com.ygc.estatedecoration.fragment.home;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.text.InputFilter;
-import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +12,31 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ygc.estatedecoration.R;
+import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
+import com.ygc.estatedecoration.bean.BaseBean;
+import com.ygc.estatedecoration.bean.MyStoreBean;
+import com.ygc.estatedecoration.utils.LogUtil;
+import com.ygc.estatedecoration.utils.MyPublic;
+import com.ygc.estatedecoration.utils.NetWorkUtil;
+import com.ygc.estatedecoration.utils.UserUtils;
 import com.ygc.estatedecoration.widget.TitleBar;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import cn.pedant.SweetAlert.SweetAlertDialog;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Created by FC on 2017/11/14.
@@ -27,6 +44,12 @@ import butterknife.Unbinder;
  */
 
 public class MyStoreInformationFragment extends BaseFragment {
+    @BindView(R.id.tv_mystore_turnover)
+    TextView mTvMystoreTurnover;//交易额
+    @BindView(R.id.tv_mystore_comment)
+    TextView mTvMystoreComment;//好评率
+    @BindView(R.id.tv_mystore_bid_num)
+    TextView mTvMystoreBidNum;//中标次数
     @BindView(R.id.my_store_introduce)
     EditText mMyStoreIntroduce;//店铺内容
     @BindView(R.id.my_store_background)
@@ -52,6 +75,7 @@ public class MyStoreInformationFragment extends BaseFragment {
 
     @Override
     protected void initData(Bundle arguments) {
+
     }
 
     @Override
@@ -88,19 +112,40 @@ public class MyStoreInformationFragment extends BaseFragment {
                     isIntroduceState = false;
                     mEtIntroduce.setText("完成");//改变文字
                     isEdit(true, mMyStoreIntroduce);//设置可以修改
+
                 } else {
                     isIntroduceState = true;
                     mEtIntroduce.setText("编辑");
                     isEdit(false, mMyStoreIntroduce);
-                    showToast("修改成功");
-                    /**
-                     * 请求网络提交修改后的内容
-                     */
+                    // 请求网络提交修改后的内容
+                    changeContent("introduce", MyPublic.getText(mMyStoreIntroduce));
                 }
                 break;
             case R.id.et_background://编辑背景资料
+                if (isBackgroundState) {
+                    isBackgroundState = false;
+                    mEtBackground.setText("完成");//改变文字
+                    isEdit(true, mMyStoreBackground);//设置可以修改
+                } else {
+                    isBackgroundState = true;
+                    mEtBackground.setText("编辑");
+                    isEdit(false, mMyStoreBackground);
+                    // 请求网络提交修改后的内容
+                    changeContent("background_info", MyPublic.getText(mMyStoreBackground));
+                }
                 break;
             case R.id.et_work_experience://编辑工作经验
+                if (isExperienceState) {
+                    isExperienceState = false;
+                    mEtWorkExperience.setText("完成");//改变文字
+                    isEdit(true, mMyStoreWorkExperience);//设置可以修改
+                } else {
+                    isExperienceState = true;
+                    mEtWorkExperience.setText("编辑");
+                    isEdit(false, mMyStoreWorkExperience);
+                    // 请求网络提交修改后的内容
+                    changeContent("work_experience", MyPublic.getText(mMyStoreWorkExperience));
+                }
                 break;
         }
     }
@@ -144,5 +189,86 @@ public class MyStoreInformationFragment extends BaseFragment {
                 }
             }});*/
         }
+    }
+
+
+    /**
+     * 编辑店铺信息
+     *
+     * @param key     字段
+     * @param content 内容
+     */
+    public void changeContent(String key, String content) {
+
+        if (!NetWorkUtil.isNetWorkConnect(mActivity)) {
+            showToast("请检查网络设置");
+            return;
+        }
+
+        final SweetAlertDialog pDialog = new SweetAlertDialog(mActivity, SweetAlertDialog.PROGRESS_TYPE)
+                .setTitleText("Loading");
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        pDialog.setCancelable(false);
+        pDialog.show();
+
+        String storeId = (String) UserUtils.getParam(UserUtils.STOREID, "storeId", "");
+        RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("s_id", storeId)
+                .addFormDataPart(key, content)
+                .build();
+
+        APPApi.getInstance().service
+                .addMyActivites(requestBody)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<BaseBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        compositeDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(BaseBean bean) {
+                        String msg = bean.getMsg();
+                        showToast(msg);
+                        pDialog.cancel();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        pDialog.cancel();
+                        LogUtil.e("Fc_请求网路失败" + e.getMessage());
+                        showToast(getResources().getString(R.string.network_error));
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MyStoreBean bean) {
+
+        mTvMystoreTurnover.setText(bean.getData().getTurnover() + "");
+//        mTvMystoreComment.setText(bean.getData().getBackground_info());//好评率
+        mTvMystoreBidNum.setText(bean.getData().getBid_num() + "");
+        mMyStoreIntroduce.setText(bean.getData().getIntroduce());
+        mMyStoreBackground.setText(bean.getData().getBackground_info());
+        mMyStoreWorkExperience.setText(bean.getData().getWork_experience());
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 }

@@ -18,6 +18,8 @@ import butterknife.OnClick;
 
 public class ActivitiesDetailsActivity extends BaseActivity {
 
+    @BindView(R.id.my_activites_details_title)
+    TextView my_activites_details_title;//标题
     @BindView(R.id.my_activites_details_image)
     ImageView mMyActivitesDetailsImage;//活动图片
     @BindView(R.id.my_activites_details_startime)
@@ -55,7 +57,7 @@ public class ActivitiesDetailsActivity extends BaseActivity {
         mMyActivitesDetailsEndtime.setText(mBean.getEnd_time());
         mMyActivitesDetailsPlace.setText(mBean.getPlace());
         mMyActivitesDetailsIntroduce.setText(mBean.getIntroduce());
-
+        my_activites_details_title.setText(mBean.getTitle());
         String picture_url = Constant.BASE_IMG + mBean.getPicture_url();
 
         Glide.with(ActivitiesDetailsActivity.this)

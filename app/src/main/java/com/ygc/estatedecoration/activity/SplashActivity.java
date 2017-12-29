@@ -46,7 +46,7 @@ public class SplashActivity extends AutoLayoutActivity {
             }
         }, 2000);
     }
-    
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -94,6 +94,9 @@ public class SplashActivity extends AutoLayoutActivity {
                     public void onError(Throwable e) {
                         LogUtil.e("Fc_请求网路失败" + e.getMessage());
                         Toast.makeText(SplashActivity.this, getResources().getString(R.string.network_error), Toast.LENGTH_SHORT).show();
+                        //用户端登陆
+                        startActivity(new Intent(SplashActivity.this, UserHomeActivity.class));
+                        finish();
                     }
 
                     @Override

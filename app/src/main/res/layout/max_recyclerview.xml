@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/relativeLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/color_ececec"
+                android:background="@color/white"
                 android:orientation="vertical">
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -12,9 +11,10 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
+        <com.ygc.estatedecoration.widget.MaxRecyclerView
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content"/>
+
     </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>

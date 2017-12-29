@@ -22,20 +22,33 @@ import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.ygc.estatedecoration.activity.my.ChangeInfoActivity;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.activity.my.ActivitiesActivity;
 import com.ygc.estatedecoration.activity.my.AuthenticationActivity;
 import com.ygc.estatedecoration.activity.my.UserDemandActivity;
 import com.ygc.estatedecoration.activity.my.MoneyBagActivity;
 import com.ygc.estatedecoration.activity.my.SettingActivity;
+import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
+import com.ygc.estatedecoration.bean.InfoBevenBus;
+import com.ygc.estatedecoration.bean.UserInformationBean;
+import com.ygc.estatedecoration.entity.base.Constant;
 import com.ygc.estatedecoration.user_activity.UserAddressActivity;
 import com.ygc.estatedecoration.user_activity.UserAllOrderActivity;
 import com.ygc.estatedecoration.user_activity.UserCollectionActivity;
 import com.ygc.estatedecoration.user_activity.UserShopCarActivity;
+import com.ygc.estatedecoration.utils.LogUtil;
+import com.ygc.estatedecoration.utils.NetWorkUtil;
+import com.ygc.estatedecoration.utils.UserUtils;
 import com.ygc.estatedecoration.widget.BasePopupWindow;
 import com.ygc.estatedecoration.widget.CircleImageView;
 import com.ygc.estatedecoration.widget.TitleBar;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -45,6 +58,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -55,13 +72,10 @@ public class UserMyFragment extends BaseFragment implements EasyPermissions.Perm
 
     @BindView(R.id.parent_Layout)
     ScrollView mLl_parentLayout;
-
     @BindView(R.id.iv_company_icon)
     CircleImageView mImageView;
-
     @BindView(R.id.tv_name)
     TextView mTvName;
-
     @BindView(R.id.tv_sex)
     TextView mTvSex;
 
@@ -110,7 +124,7 @@ public class UserMyFragment extends BaseFragment implements EasyPermissions.Perm
 
     @Override
     protected void initData(Bundle arguments) {
-
+        getDataFromNet();
     }
 
     @Override
@@ -139,10 +153,12 @@ public class UserMyFragment extends BaseFragment implements EasyPermissions.Perm
         Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.iv_company_icon://更换头像
-                addICEvent();
+//                addICEvent();
                 break;
             case R.id.tv_chage://修改name，sex
-                showmModifyInfoPicPopupWindow();
+//                showmModifyInfoPicPopupWindow();
+                intent.setClass(mActivity, ChangeInfoActivity.class);
+                startActivity(intent);
                 break;
             case R.id.my_authentication://实名认证
                 intent.setClass(mActivity, AuthenticationActivity.class);
@@ -501,5 +517,80 @@ public class UserMyFragment extends BaseFragment implements EasyPermissions.Perm
         if (filepath != null && filepath.exists()) {
             filepath.delete();
         }
+    }
+
+    /**
+     * 获取网络数据
+     */
+    public void getDataFromNet() {
+        if (!NetWorkUtil.isNetWorkConnect(mActivity)) {
+            showToast("请检查网络设置");
+            return;
+        }
+        APPApi.getInstance().service
+                .userInformation(UserUtils.getUserId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<UserInformationBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        compositeDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(UserInformationBean userInformationBean) {
+                        String msg = userInformationBean.getMsg();
+                        if ("1".equals(userInformationBean.getResponseState())) {
+                            int sexint = userInformationBean.getData().getSex();
+                            String sex = "男";
+                            if (sexint == 0) {
+                                sex = "男";
+                            } else if (sexint == 1) {
+                                sex = "女";
+                            }
+                            mTvSex.setText(sex);
+                            mTvName.setText(userInformationBean.getData().getNickname());
+
+                            String picture_url = Constant.BASE_IMG + userInformationBean.getData().getHead_portrait();
+                            Glide.with(mActivity)
+                                    .load(picture_url)
+                                    .placeholder(R.drawable.iv_error)
+                                    .error(R.drawable.iv_error)
+                                    .dontAnimate()
+                                    .into(mImageView);
+                        } else {
+                            showToast(msg);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtil.e("Fc_请求网路失败" + e.getMessage());
+                        showToast(getResources().getString(R.string.network_error));
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void InfoBevenBus(InfoBevenBus event) {
+        getDataFromNet();
     }
 }

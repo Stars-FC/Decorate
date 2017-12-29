@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--修改个人信息-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_change_info"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1px"
+            android:background="@color/line"/>
+
+        <LinearLayout
+            android:id="@+id/ll_icon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10px"
+            android:layout_marginRight="30px"
+            android:layout_marginTop="10px"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="56dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="20px"
+                android:text="头像"
+                android:textColor="@color/black"
+                android:textSize="27px"/>
+
+            <com.ygc.estatedecoration.widget.CircleImageView
+                android:id="@+id/iv_company_icon"
+                android:layout_width="100px"
+                android:layout_height="100px"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="20px"
+                android:src="@drawable/zhuyetouxiang"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="90px"
+            android:paddingLeft="22px"
+            android:paddingRight="38px">
+
+            <TextView
+                android:id="@+id/activites_tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:gravity="center_vertical"
+                android:text="昵称"
+                android:textColor="@color/black"
+                android:textSize="27px"/>
+
+            <EditText
+                android:id="@+id/home_change_nick"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:background="@null"
+                android:gravity="right|center_vertical"
+                android:hint="请输入昵称"
+                android:maxLines="10"
+                android:minWidth="300px"
+                android:textSize="27px"/>
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="90px"
+            android:orientation="horizontal"
+            android:paddingLeft="22px"
+            android:paddingRight="13px">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="90px"
+                android:layout_marginRight="20px"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="性别"
+                android:textColor="@color/black"
+                android:textSize="27px"/>
+
+            <org.angmarch.views.NiceSpinner
+                android:id="@+id/nice_spinner_sex"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5px"
+                android:layout_marginTop="5px"
+                android:minWidth="150px"
+                />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_change_info_ok"
+        android:layout_width="520px"
+        android:layout_height="80px"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="123px"
+        android:background="@drawable/shape_all_bt"
+        android:elevation="3dp"
+        android:gravity="center"
+        android:text="确认修改"
+        android:textColor="@color/white"
+        android:textSize="28px"/>
+</LinearLayout>
+
+

@@ -13,12 +13,20 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygc.estatedecoration.R;
+import com.ygc.estatedecoration.activity.LoginActivity;
 import com.ygc.estatedecoration.adapter.MySettingBankCardAdapter;
+import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
+import com.ygc.estatedecoration.bean.BankCardBean;
+import com.ygc.estatedecoration.bean.LoginBean;
+import com.ygc.estatedecoration.utils.LogUtil;
+import com.ygc.estatedecoration.utils.NetWorkUtil;
+import com.ygc.estatedecoration.utils.UserUtils;
 import com.ygc.estatedecoration.widget.BasePopupWindow;
 import com.ygc.estatedecoration.widget.TitleBar;
 
@@ -27,6 +35,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 设置-管理银行卡页面
@@ -63,7 +75,6 @@ public class SettingBankCardActivity extends BaseActivity {
         mRecyclerview.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                showToast("mRecyclerview第" + position + "数据");
                 showSelectPicPopupWindow();
             }
         });
@@ -75,9 +86,7 @@ public class SettingBankCardActivity extends BaseActivity {
             @Override
             public void onRefresh() {
                 mAdapter.setEnableLoadMore(false);//这里的作用是防止下拉刷新的时候还可以上拉加载
-                if (mSwipeRefreshLayout.isRefreshing()) {
-                    mSwipeRefreshLayout.setRefreshing(false);
-                }
+                getBankCradData();
             }
         });
     }
@@ -89,14 +98,12 @@ public class SettingBankCardActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            list.add("" + i);
-        }
-        mAdapter = new MySettingBankCardAdapter(list);
+        mSwipeRefreshLayout.setRefreshing(true);
 
+        mAdapter = new MySettingBankCardAdapter();
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mRecyclerview.setAdapter(mAdapter);
+        getBankCradData();
     }
 
     @Override
@@ -118,7 +125,7 @@ public class SettingBankCardActivity extends BaseActivity {
     }
 
     /**
-     * 显示选择图片popopwindows
+     * 解绑银行卡popopwindows
      */
     private void showSelectPicPopupWindow() {
         if (mPopupWindow == null) {
@@ -156,4 +163,60 @@ public class SettingBankCardActivity extends BaseActivity {
         mPopupWindow.showAtLocation(mRelativeLayout, Gravity.BOTTOM, 0, 0);
     }
 
+
+    /**
+     * 获取银行卡信息
+     */
+    public void getBankCradData() {
+        if (!NetWorkUtil.isNetWorkConnect(this)) {
+            showToast("请检查网络设置");
+            return;
+        }
+
+        APPApi.getInstance().service
+//                .getBankCard(UserUtils.getUserId())
+                .getBankCard("1")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<BankCardBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        compositeDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(BankCardBean bean) {
+                        String msg = bean.getMsg();
+                        if ("1".equals(bean.getResponseState())) {
+                            mAdapter.setNewData(bean.getData());
+                        } else {
+                            showToast(msg);
+                        }
+                        if (mSwipeRefreshLayout.isRefreshing()) {
+                            mSwipeRefreshLayout.setRefreshing(false);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if (mSwipeRefreshLayout.isRefreshing()) {
+                            mSwipeRefreshLayout.setRefreshing(false);
+                        }
+                        LogUtil.e("Fc_获取银行卡" + e.getMessage());
+                        showToast(getResources().getString(R.string.network_error));
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        mSwipeRefreshLayout.setRefreshing(true);
+        getBankCradData();
+    }
 }

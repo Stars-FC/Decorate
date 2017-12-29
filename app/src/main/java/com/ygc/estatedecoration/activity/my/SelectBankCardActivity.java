@@ -65,11 +65,7 @@ public class SelectBankCardActivity extends BaseActivity {
     @Override
     protected void initData(Bundle savedInstanceState) {
 
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            list.add("" + i);
-        }
-        mAdapter = new MySettingBankCardAdapter(list);
+        mAdapter = new MySettingBankCardAdapter();
 
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mRecyclerview.setAdapter(mAdapter);

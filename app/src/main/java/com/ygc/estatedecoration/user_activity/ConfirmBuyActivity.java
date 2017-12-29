@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.adapter.UserConfirmBuyAdapter;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
@@ -37,7 +40,6 @@ public class ConfirmBuyActivity extends BaseActivity {
 
     @Override
     protected void addListener() {
-
     }
 
     @Override

@@ -1,20 +1,25 @@
 package com.ygc.estatedecoration.user_activity;
 
 import android.graphics.Color;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.androidkun.xtablayout.XTabLayout;
 import com.ygc.estatedecoration.R;
+import com.ygc.estatedecoration.activity.home.TransactionManageActivity;
 import com.ygc.estatedecoration.adapter.HomeMyStoreAdapter;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
-import com.ygc.estatedecoration.fragment.home.TransactionManageNeedFragment;
-import com.ygc.estatedecoration.fragment.home.TransactionManageOfferFragment;
-import com.ygc.estatedecoration.user_fragment.UserMyCollectionFragment;
+import com.ygc.estatedecoration.user_fragment.UserMyCollectionMaterialFragment;
+import com.ygc.estatedecoration.user_fragment.UserMyCollectionPanoramaFragment;
+import com.ygc.estatedecoration.user_fragment.UserMyCollectionResultChartFragment;
+import com.ygc.estatedecoration.utils.lazyviewpager.LazyFragmentPagerAdapter;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import java.util.ArrayList;
@@ -35,7 +40,7 @@ public class UserCollectionActivity extends BaseActivity {
 
     private List<String> mList;
 
-    private HomeMyStoreAdapter mAdapter;
+    private HomeLazyFragmentAdapter mAdapter;
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
@@ -60,25 +65,39 @@ public class UserCollectionActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        mList=new ArrayList<>();
-        mList.add("设计师");
-        mList.add("施 工");
+        mList = new ArrayList<>();
+        mList.add("效果图");
+        mList.add("全景图");
         mList.add("商 品");
-        mList.add("监 理");
-
-        mFragments=new ArrayList<>();
-        mFragments.add(new UserMyCollectionFragment());
-        mFragments.add(new UserMyCollectionFragment());
-        mFragments.add(new UserMyCollectionFragment());
-        mFragments.add(new UserMyCollectionFragment());
+        mFragments = new ArrayList<>();
+        mFragments.add(new UserMyCollectionResultChartFragment());
+        mFragments.add(new UserMyCollectionPanoramaFragment());
+        mFragments.add(new UserMyCollectionMaterialFragment());
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        mAdapter = new HomeMyStoreAdapter(fragmentManager, mFragments, mList);
-
+        mAdapter = new HomeLazyFragmentAdapter(fragmentManager);
 
         mViewpager.setAdapter(mAdapter);
 
+//        mViewpager.setCurrentItem(2);
         mTablayout.setupWithViewPager(mViewpager);
+//        mTablayout.addOnTabSelectedListener(new TabListener());
+        mTablayout.setOnTabSelectedListener(new XTabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(XTabLayout.Tab tab) {
+                mViewpager.setCurrentItem(tab.getPosition(), false);
+            }
+
+            @Override
+            public void onTabUnselected(XTabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(XTabLayout.Tab tab) {
+
+            }
+        });
     }
 
     @Override
@@ -92,6 +111,29 @@ public class UserCollectionActivity extends BaseActivity {
             case R.id.naviButtonLeft://后退按钮
                 finish();
                 break;
+        }
+    }
+
+    private class HomeLazyFragmentAdapter extends LazyFragmentPagerAdapter {
+
+        public HomeLazyFragmentAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        protected Fragment getItem(ViewGroup container, int position) {
+            return mFragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragments.size();
+        }
+
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mList.get(position);
         }
     }
 }

@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--我的银行卡的每个条目-->
 <LinearLayout
-    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:background="@color/white"
-    android:layout_height="wrap_content">
+    android:orientation="vertical">
 
     <View
         android:layout_width="match_parent"
         android:layout_height="25px"
-        android:background="@color/line"/>
+        android:background="@color/color_ececec"/>
 
     <RelativeLayout
+        android:elevation="2dp"
         android:layout_width="match_parent"
         android:layout_height="130px">
 
@@ -21,10 +22,11 @@
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="30px"
-            android:gravity="center"
+            android:gravity="left|center_vertical"
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/see_bank_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="中国建设银行"
@@ -32,6 +34,7 @@
                 android:textSize="32px"/>
 
             <TextView
+                android:id="@+id/see_bank_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20px"

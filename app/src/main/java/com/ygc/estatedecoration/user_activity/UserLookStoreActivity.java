@@ -1,10 +1,9 @@
-package com.ygc.estatedecoration.activity.home;
+package com.ygc.estatedecoration.user_activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -14,16 +13,20 @@ import com.androidkun.xtablayout.XTabLayout;
 import com.bumptech.glide.Glide;
 import com.gyf.barlibrary.ImmersionBar;
 import com.ygc.estatedecoration.R;
+import com.ygc.estatedecoration.activity.home.ChangeStoreActivity;
 import com.ygc.estatedecoration.adapter.HomeMyStoreAdapter;
 import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
+import com.ygc.estatedecoration.bean.BaseBean;
 import com.ygc.estatedecoration.bean.MyStoreBean;
 import com.ygc.estatedecoration.entity.base.Constant;
 import com.ygc.estatedecoration.fragment.home.MyStoreBrightFragment;
 import com.ygc.estatedecoration.fragment.home.MyStoreEvaluateFragment;
 import com.ygc.estatedecoration.fragment.home.MyStoreInformationFragment;
 import com.ygc.estatedecoration.fragment.home.MyStorePersonalCaseFragment;
+import com.ygc.estatedecoration.user_fragment.UserEvaluateFragment;
+import com.ygc.estatedecoration.user_fragment.UserInformationFragment;
 import com.ygc.estatedecoration.utils.LogUtil;
 import com.ygc.estatedecoration.utils.UserUtils;
 import com.ygc.estatedecoration.widget.CircleImageView;
@@ -36,7 +39,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -48,7 +50,7 @@ import io.reactivex.schedulers.Schedulers;
  * 主页-我的店铺页面
  */
 
-public class MyStoreActivity extends BaseActivity {
+public class UserLookStoreActivity extends BaseActivity {
 
     @BindView(R.id.tablayout)
     XTabLayout mTabLayout;
@@ -99,8 +101,8 @@ public class MyStoreActivity extends BaseActivity {
         ImmersionBar.with(this).fitsSystemWindows(false).transparentStatusBar().init();
 
         ArrayList<BaseFragment> fragments = new ArrayList<>();
-        fragments.add(new MyStoreInformationFragment());
-        fragments.add(new MyStoreEvaluateFragment());
+        fragments.add(new UserInformationFragment());
+        fragments.add(new UserEvaluateFragment());
         fragments.add(MyStorePersonalCaseFragment.newInstance());
         fragments.add(new MyStoreBrightFragment());
 
@@ -114,34 +116,65 @@ public class MyStoreActivity extends BaseActivity {
         mAdapter = new HomeMyStoreAdapter(fragmentManager, fragments, list);
         mViewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
+
+        getNetdoVisited();//访客访问向服务器提交数据
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.home_mystore;
+        return R.layout.user_look_service_store;
     }
 
-    @OnClick({R.id.iv_back, R.id.et_edit, R.id.rl_background})
+    @OnClick({R.id.iv_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
                 finish(); //后退
                 break;
-            case R.id.et_edit://编辑
-                Intent intent = new Intent(MyStoreActivity.this, ChangeStoreActivity.class);
-                intent.putExtra("storeId", mStoreId + "");
-                startActivity(intent);
-                break;
-            case R.id.rl_background://更换背景图片
-                showToast("更换背景图片");
-                break;
         }
     }
 
+    /**
+     * 访客
+     */
+    public void getNetdoVisited() {
+
+        // TODO: 2017/12/28  "9" --被访问者id（需要在主页面获取到被访问者id）
+        APPApi.getInstance().service
+                .doVisited(UserUtils.getUserId(), "9")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<BaseBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseBean bean) {
+                        String msg = bean.getMsg();
+//                        showToast(msg);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtil.e("FC_访问" + e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    /**
+     * 查询店铺信息
+     */
     public void getDataMyStore() {
         APPApi.getInstance().service
-//                .myStore(UserUtils.getUserId())
-                .myStore("1")
+                .myStore(UserUtils.getUserId())
+//                .myStore("1")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<MyStoreBean>() {
@@ -195,7 +228,7 @@ public class MyStoreActivity extends BaseActivity {
         UserUtils.setParam(UserUtils.STOREID, "storeId", mStoreId);
 
         String r_picture = Constant.BASE_IMG + bean.getData().getS_logo();
-        Glide.with(MyStoreActivity.this)
+        Glide.with(UserLookStoreActivity.this)
                 .load(r_picture)
                 .placeholder(R.drawable.iv_error)
                 .error(R.drawable.iv_error)
@@ -215,4 +248,5 @@ public class MyStoreActivity extends BaseActivity {
         super.onRestart();
         getDataMyStore();//从新获取数据
     }
+
 }

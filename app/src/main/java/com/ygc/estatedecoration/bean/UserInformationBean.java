@@ -1,5 +1,7 @@
 package com.ygc.estatedecoration.bean;
 
+import java.util.List;
+
 /**
  * Created by FC on 2017/12/14.
  * 用户信息
@@ -8,196 +10,232 @@ package com.ygc.estatedecoration.bean;
 public class UserInformationBean {
 
     /**
-     * au_id : 9
-     * type : 4
-     * r_id : 4
-     * username : 17054088454
-     * password : 1122
-     * head_portrait :
-     * nickname : 冯晨
-     * sex : 0
-     * warranty_gold :
-     * gold_coin : 0
-     * balance : 0
-     * openid : null
-     * work_year :
-     * certification : 0
-     * real_name :
-     * number :
-     * tel :
-     * picture_url :
-     * create_time : 2017-12-12 14:47:14.0
+     * responseState : 1
+     * msg : 查询成功
+     * data : {"au_id":9,"type":4,"r_id":4,"username":"17054088454","password":"1234","head_portrait":"/pictures/618cc20538934cc5aad56b70a8090d91.jpg","nickname":"还好，","sex":0,"warranty_gold":"","gold_coin":0,"balance":0,"openid":null,"certification":1,"real_name":"","number":"","tel":"","picture_url":"","create_time":"2017-12-12 14:47:14.0","demandList":[]}
      */
 
-    private int au_id;
-    private int type;
-    private int r_id;
-    private String username;
-    private String password;
-    private String head_portrait;
-    private String nickname;
-    private int sex;
-    private String warranty_gold;
-    private int gold_coin;
-    private int balance;
-    private Object openid;
-    private String work_year;
-    private int certification;
-    private String real_name;
-    private String number;
-    private String tel;
-    private String picture_url;
-    private String create_time;
+    private String responseState;
+    private String msg;
+    private DataBean data;
 
-    public int getAu_id() {
-        return au_id;
+    public String getResponseState() {
+        return responseState;
     }
 
-    public void setAu_id(int au_id) {
-        this.au_id = au_id;
+    public void setResponseState(String responseState) {
+        this.responseState = responseState;
     }
 
-    public int getType() {
-        return type;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
-    public int getR_id() {
-        return r_id;
+    public DataBean getData() {
+        return data;
     }
 
-    public void setR_id(int r_id) {
-        this.r_id = r_id;
+    public void setData(DataBean data) {
+        this.data = data;
     }
 
-    public String getUsername() {
-        return username;
-    }
+    public static class DataBean {
+        /**
+         * au_id : 9
+         * type : 4
+         * r_id : 4
+         * username : 17054088454
+         * password : 1234
+         * head_portrait : /pictures/618cc20538934cc5aad56b70a8090d91.jpg
+         * nickname : 还好，
+         * sex : 0
+         * warranty_gold :
+         * gold_coin : 0
+         * balance : 0
+         * openid : null
+         * certification : 1
+         * real_name :
+         * number :
+         * tel :
+         * picture_url :
+         * create_time : 2017-12-12 14:47:14.0
+         * demandList : []
+         */
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+        private int au_id;
+        private int type;
+        private int r_id;
+        private String username;
+        private String password;
+        private String head_portrait;
+        private String nickname;
+        private int sex;
+        private String warranty_gold;
+        private int gold_coin;
+        private int balance;
+        private Object openid;
+        private int certification;
+        private String real_name;
+        private String number;
+        private String tel;
+        private String picture_url;
+        private String create_time;
+        private List<?> demandList;
 
-    public String getPassword() {
-        return password;
-    }
+        public int getAu_id() {
+            return au_id;
+        }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+        public void setAu_id(int au_id) {
+            this.au_id = au_id;
+        }
 
-    public String getHead_portrait() {
-        return head_portrait;
-    }
+        public int getType() {
+            return type;
+        }
 
-    public void setHead_portrait(String head_portrait) {
-        this.head_portrait = head_portrait;
-    }
+        public void setType(int type) {
+            this.type = type;
+        }
 
-    public String getNickname() {
-        return nickname;
-    }
+        public int getR_id() {
+            return r_id;
+        }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
+        public void setR_id(int r_id) {
+            this.r_id = r_id;
+        }
 
-    public int getSex() {
-        return sex;
-    }
+        public String getUsername() {
+            return username;
+        }
 
-    public void setSex(int sex) {
-        this.sex = sex;
-    }
+        public void setUsername(String username) {
+            this.username = username;
+        }
 
-    public String getWarranty_gold() {
-        return warranty_gold;
-    }
+        public String getPassword() {
+            return password;
+        }
 
-    public void setWarranty_gold(String warranty_gold) {
-        this.warranty_gold = warranty_gold;
-    }
+        public void setPassword(String password) {
+            this.password = password;
+        }
 
-    public int getGold_coin() {
-        return gold_coin;
-    }
+        public String getHead_portrait() {
+            return head_portrait;
+        }
 
-    public void setGold_coin(int gold_coin) {
-        this.gold_coin = gold_coin;
-    }
+        public void setHead_portrait(String head_portrait) {
+            this.head_portrait = head_portrait;
+        }
 
-    public int getBalance() {
-        return balance;
-    }
+        public String getNickname() {
+            return nickname;
+        }
 
-    public void setBalance(int balance) {
-        this.balance = balance;
-    }
+        public void setNickname(String nickname) {
+            this.nickname = nickname;
+        }
 
-    public Object getOpenid() {
-        return openid;
-    }
+        public int getSex() {
+            return sex;
+        }
 
-    public void setOpenid(Object openid) {
-        this.openid = openid;
-    }
+        public void setSex(int sex) {
+            this.sex = sex;
+        }
 
-    public String getWork_year() {
-        return work_year;
-    }
+        public String getWarranty_gold() {
+            return warranty_gold;
+        }
 
-    public void setWork_year(String work_year) {
-        this.work_year = work_year;
-    }
+        public void setWarranty_gold(String warranty_gold) {
+            this.warranty_gold = warranty_gold;
+        }
 
-    public int getCertification() {
-        return certification;
-    }
+        public int getGold_coin() {
+            return gold_coin;
+        }
 
-    public void setCertification(int certification) {
-        this.certification = certification;
-    }
+        public void setGold_coin(int gold_coin) {
+            this.gold_coin = gold_coin;
+        }
 
-    public String getReal_name() {
-        return real_name;
-    }
+        public int getBalance() {
+            return balance;
+        }
 
-    public void setReal_name(String real_name) {
-        this.real_name = real_name;
-    }
+        public void setBalance(int balance) {
+            this.balance = balance;
+        }
 
-    public String getNumber() {
-        return number;
-    }
+        public Object getOpenid() {
+            return openid;
+        }
 
-    public void setNumber(String number) {
-        this.number = number;
-    }
+        public void setOpenid(Object openid) {
+            this.openid = openid;
+        }
 
-    public String getTel() {
-        return tel;
-    }
+        public int getCertification() {
+            return certification;
+        }
 
-    public void setTel(String tel) {
-        this.tel = tel;
-    }
+        public void setCertification(int certification) {
+            this.certification = certification;
+        }
 
-    public String getPicture_url() {
-        return picture_url;
-    }
+        public String getReal_name() {
+            return real_name;
+        }
 
-    public void setPicture_url(String picture_url) {
-        this.picture_url = picture_url;
-    }
+        public void setReal_name(String real_name) {
+            this.real_name = real_name;
+        }
 
-    public String getCreate_time() {
-        return create_time;
-    }
+        public String getNumber() {
+            return number;
+        }
 
-    public void setCreate_time(String create_time) {
-        this.create_time = create_time;
+        public void setNumber(String number) {
+            this.number = number;
+        }
+
+        public String getTel() {
+            return tel;
+        }
+
+        public void setTel(String tel) {
+            this.tel = tel;
+        }
+
+        public String getPicture_url() {
+            return picture_url;
+        }
+
+        public void setPicture_url(String picture_url) {
+            this.picture_url = picture_url;
+        }
+
+        public String getCreate_time() {
+            return create_time;
+        }
+
+        public void setCreate_time(String create_time) {
+            this.create_time = create_time;
+        }
+
+        public List<?> getDemandList() {
+            return demandList;
+        }
+
+        public void setDemandList(List<?> demandList) {
+            this.demandList = demandList;
+        }
     }
 }

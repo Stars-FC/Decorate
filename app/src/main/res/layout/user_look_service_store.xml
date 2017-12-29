@@ -23,19 +23,6 @@
             android:padding="10px"
             android:src="@drawable/fanhuiwhite"/>
 
-        <TextView
-            android:id="@+id/et_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="10px"
-            android:layout_marginTop="60px"
-            android:padding="10px"
-            android:text="编辑信息"
-            android:textColor="@color/white"
-            android:textSize="20px"/>
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

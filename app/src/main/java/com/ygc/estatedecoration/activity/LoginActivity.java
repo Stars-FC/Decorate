@@ -203,6 +203,7 @@ public class LoginActivity extends AutoLayoutActivity {
             Toast.makeText(LoginActivity.this, "请填写用户名和密码", Toast.LENGTH_SHORT).show();
             return;
         }
+
         if (!ValidationUtil.isPhone(num)) {
             Toast.makeText(LoginActivity.this, "手机号格式错误", Toast.LENGTH_SHORT).show();
             return;

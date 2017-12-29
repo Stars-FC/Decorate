@@ -22,6 +22,8 @@ import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.ygc.estatedecoration.activity.my.ChangeInfoActivity;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.activity.my.ActivitiesActivity;
 import com.ygc.estatedecoration.activity.my.AuthenticationActivity;
@@ -33,14 +35,20 @@ import com.ygc.estatedecoration.activity.my.SettingActivity;
 import com.ygc.estatedecoration.activity.my.WarrantyMoneyActivity;
 import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
-import com.ygc.estatedecoration.bean.LoginBean;
+import com.ygc.estatedecoration.bean.InfoBevenBus;
 import com.ygc.estatedecoration.bean.UserInformationBean;
+import com.ygc.estatedecoration.entity.base.Constant;
 import com.ygc.estatedecoration.utils.LogUtil;
+import com.ygc.estatedecoration.utils.NetWorkUtil;
 import com.ygc.estatedecoration.utils.UserUtils;
 import com.ygc.estatedecoration.utils.lazyviewpager.LazyFragmentPagerAdapter;
 import com.ygc.estatedecoration.widget.BasePopupWindow;
 import com.ygc.estatedecoration.widget.CircleImageView;
 import com.ygc.estatedecoration.widget.TitleBar;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -49,9 +57,7 @@ import java.io.IOException;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -107,7 +113,6 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        LogUtil.e("我的初始化");
     }
 
     @Override
@@ -131,10 +136,12 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
         Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.iv_company_icon://更换头像
-                addICEvent();
+//                addICEvent();
                 break;
             case R.id.tv_chage://修改name，sex
-                showmModifyInfoPicPopupWindow();
+//                showmModifyInfoPicPopupWindow();
+                intent.setClass(mActivity, ChangeInfoActivity.class);
+                startActivity(intent);
                 break;
             case R.id.my_anli_rl:
                 Intent anLiIntent = new Intent(mActivity, ServerMyAnLiActivity.class);
@@ -477,9 +484,12 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
      * 获取网络数据
      */
     public void getDataFromNet() {
-        LogUtil.e("userId2==--------" + UserUtils.getUserId());
+        if (!NetWorkUtil.isNetWorkConnect(mActivity)) {
+            showToast("请检查网络设置");
+            return;
+        }
         APPApi.getInstance().service
-                .userInformation(UserUtils.getUserId().toString())
+                .userInformation(UserUtils.getUserId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<UserInformationBean>() {
@@ -490,17 +500,31 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
 
                     @Override
                     public void onNext(UserInformationBean userInformationBean) {
-                        int sexint = userInformationBean.getSex();
-                        String sex = "男";
-                        if (sexint == 0) {
-                            sex = "男";
-                        } else if (sexint == 1) {
-                            sex = "女";
+                        String msg = userInformationBean.getMsg();
+                        if ("1".equals(userInformationBean.getResponseState())) {
+                            int sexint = userInformationBean.getData().getSex();
+                            String sex = "男";
+                            if (sexint == 0) {
+                                sex = "男";
+                            } else if (sexint == 1) {
+                                sex = "女";
+                            }
+                            mTvSex.setText(sex);
+                            mTvName.setText(userInformationBean.getData().getNickname());
+                            mWarrantyGold.setText(userInformationBean.getData().getWarranty_gold());
+                            mGoldCoin.setText(String.valueOf(userInformationBean.getData().getGold_coin()));
+
+                            String picture_url = Constant.BASE_IMG + userInformationBean.getData().getHead_portrait();
+
+                            Glide.with(mActivity)
+                                    .load(picture_url)
+                                    .placeholder(R.drawable.iv_error)
+                                    .error(R.drawable.iv_error)
+                                    .dontAnimate()
+                                    .into(mImageView);
+                        } else {
+                            showToast(msg);
                         }
-                        mTvSex.setText(sex);
-                        mTvName.setText(userInformationBean.getNickname());
-                        mWarrantyGold.setText(userInformationBean.getWarranty_gold());
-                        mGoldCoin.setText(String.valueOf(userInformationBean.getGold_coin()));
                     }
 
                     @Override
@@ -516,4 +540,23 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
                 });
 
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void InfoBevenBus(InfoBevenBus event) {
+        getDataFromNet();
+    }
+
+    ;
 }
