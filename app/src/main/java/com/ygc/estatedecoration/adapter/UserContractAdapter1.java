@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.ygc.estatedecoration.R;
+import com.ygc.estatedecoration.activity.home.LookBuChongContractActivity;
 import com.ygc.estatedecoration.activity.home.LookMainContractActivity;
 import com.ygc.estatedecoration.bean.UserProjectProgressBean;
 
@@ -16,6 +17,7 @@ import java.util.List;
 public class UserContractAdapter1 extends BaseQuickAdapter<UserProjectProgressBean.DataBeanX.DataBean, BaseViewHolder> {
 
     List<UserProjectProgressBean.DataBeanX.DataBean> data;
+
     public UserContractAdapter1(@Nullable List<UserProjectProgressBean.DataBeanX.DataBean> data) {
         super(R.layout.item_contract_stage, data);
         this.data = data;
@@ -25,10 +27,11 @@ public class UserContractAdapter1 extends BaseQuickAdapter<UserProjectProgressBe
     protected void convert(BaseViewHolder helper, UserProjectProgressBean.DataBeanX.DataBean item) {
         final int layoutPosition = helper.getLayoutPosition();
         ((TextView) helper.getView(R.id.time_tv)).setText(item.getTime());
-        ((TextView)helper.getView(R.id.content_tv)).setText(item.getDetail());
+        ((TextView) helper.getView(R.id.content_tv)).setText(item.getDetail());
         TextView operateContractTv = helper.getView(R.id.operate_contract_tv);
         operateContractTv.setText("查看合同");
-        final String conId = item.getCon_id();
+        final String conId = item.getConId();
+        final String rcId = item.getRcId();
         operateContractTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,7 +39,8 @@ public class UserContractAdapter1 extends BaseQuickAdapter<UserProjectProgressBe
                 if (layoutPosition == 0) {
                     intent.setClass(mContext, LookMainContractActivity.class);
                 } else {
-                    intent.setClass(mContext, LookMainContractActivity.class);
+                    intent.setClass(mContext, LookBuChongContractActivity.class);
+                    intent.putExtra("rcId", rcId);
                 }
                 intent.putExtra("conId", conId);
                 mContext.startActivity(intent);

@@ -1,8 +1,9 @@
 package com.ygc.estatedecoration.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ProjectStageBean {
+public class ProjectStageBean implements Serializable{
 
     public List<DataBean> getDataBeanList() {
         return mDataBeanList;
@@ -14,14 +15,38 @@ public class ProjectStageBean {
 
     private List<DataBean> mDataBeanList;
 
-    public static class DataBean{
+    public static class DataBean implements Serializable{
         private String projectStageName;
 
         private String projectContent;
 
         private String payMoneyJinE;
 
+        private String startTime;
+
+        private String endTime;
+
         private String needDays;
+
+        private int position;
+
+        public int getPosition() {
+            return position;
+        }
+
+        public void setPosition(int position) {
+            this.position = position;
+        }
+
+        public String getMark() {
+            return mark;
+        }
+
+        public void setMark(String mark) {
+            this.mark = mark;
+        }
+
+        private String mark = "1";
 
         public String getProjectStageName() {
             return projectStageName;
@@ -53,6 +78,22 @@ public class ProjectStageBean {
 
         public void setNeedDays(String needDays) {
             this.needDays = needDays;
+        }
+
+        public String getStartTime() {
+            return startTime;
+        }
+
+        public void setStartTime(String startTime) {
+            this.startTime = startTime;
+        }
+
+        public String getEndTime() {
+            return endTime;
+        }
+
+        public void setEndTime(String endTime) {
+            this.endTime = endTime;
         }
     }
 }

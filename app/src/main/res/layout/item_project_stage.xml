@@ -14,7 +14,7 @@
 
         <com.zhy.autolayout.AutoLinearLayout
             android:layout_width="match_parent"
-            android:layout_height="342px"
+            android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="vertical"
             android:paddingLeft="20px"
@@ -22,44 +22,30 @@
 
             <com.zhy.autolayout.AutoRelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-
-                <TextView
-                    android:id="@+id/tv_project_stage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginRight="20px"
-                    android:gravity="center_vertical"
-                    android:text="项目阶段一"
-                    android:textColor="@color/black"
-                    android:textSize="24px"/>
+                android:layout_height="88px">
 
                 <TextView
                     android:id="@+id/stage_name_tv"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="项目阶段1"
+                    android:textColor="#51bb66"
+                    android:textSize="26px"/>
+
+                <ImageView
+                    android:id="@+id/edit_iv"
+                    android:layout_width="28px"
+                    android:layout_height="28px"
                     android:layout_alignParentRight="true"
-                    android:layout_toRightOf="@+id/tv_project_stage"
-                    android:gravity="right|center_vertical"
-                    android:maxLength="15"
-                    android:maxLines="1"
-                    android:minWidth="200px"
-                    android:singleLine="true"
-                    android:textSize="24px"/>
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/bianji"/>
 
             </com.zhy.autolayout.AutoRelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/line"/>
-
             <com.zhy.autolayout.AutoRelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
+                android:layout_height="88px">
 
                 <TextView
                     android:id="@+id/tv_project_content"
@@ -93,8 +79,7 @@
 
             <com.zhy.autolayout.AutoRelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
+                android:layout_height="88px">
 
                 <TextView
                     android:id="@+id/tv_pay_money"
@@ -128,8 +113,75 @@
 
             <com.zhy.autolayout.AutoRelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
+                android:layout_height="88px">
+
+                <TextView
+                    android:id="@+id/start_time_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="20px"
+                    android:gravity="center_vertical"
+                    android:text="开始日期"
+                    android:textColor="@color/black"
+                    android:textSize="24px"/>
+
+                <TextView
+                    android:id="@+id/start_time_et"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@+id/start_time_tv"
+                    android:gravity="right|center_vertical"
+                    android:maxLength="15"
+                    android:maxLines="1"
+                    android:minWidth="200px"
+                    android:singleLine="true"
+                    android:textSize="24px"/>
+            </com.zhy.autolayout.AutoRelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line"/>
+
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="88px">
+
+                <TextView
+                    android:id="@+id/end_time_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="20px"
+                    android:gravity="center_vertical"
+                    android:text="结束日期"
+                    android:textColor="@color/black"
+                    android:textSize="24px"/>
+
+                <TextView
+                    android:id="@+id/end_time_et"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@+id/end_time_tv"
+                    android:gravity="right|center_vertical"
+                    android:maxLength="15"
+                    android:maxLines="1"
+                    android:minWidth="200px"
+                    android:singleLine="true"
+                    android:textSize="24px"/>
+            </com.zhy.autolayout.AutoRelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line"/>
+
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="88px">
 
                 <TextView
                     android:id="@+id/tv_need_day"

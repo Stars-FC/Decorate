@@ -2,6 +2,7 @@ package com.ygc.estatedecoration.app.fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import com.ygc.estatedecoration.widget.TitleBar;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.reactivex.disposables.CompositeDisposable;
 
 public abstract class BaseFragment extends Fragment {
@@ -51,6 +53,8 @@ public abstract class BaseFragment extends Fragment {
      */
     protected boolean mIsPrepare;
 
+    private SweetAlertDialog mPDialog;
+
     private Unbinder mUnBinder;
 
     @Override
@@ -74,6 +78,8 @@ public abstract class BaseFragment extends Fragment {
         mUnBinder = ButterKnife.bind(this, mRootView);
 
         initData(getArguments());
+
+        initDialog();
 
         initView(savedInstanceState);
 
@@ -178,6 +184,25 @@ public abstract class BaseFragment extends Fragment {
      */
     public boolean judgeNetworkIsConnect() {
         return NetWorkUtil.isNetWorkConnect(mActivity);
+    }
+
+    private void initDialog() {
+        mPDialog = new SweetAlertDialog(mActivity, SweetAlertDialog.PROGRESS_TYPE)
+                .setTitleText("请求中...");
+        mPDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        mPDialog.setCancelable(false);
+    }
+
+    public void showDialog() {
+        if (mPDialog != null && !mPDialog.isShowing()) {
+            mPDialog.show();
+        }
+    }
+
+    public void cancelDialog() {
+        if (mPDialog != null && mPDialog.isShowing()) {
+            mPDialog.dismiss();
+        }
     }
 
     @Override

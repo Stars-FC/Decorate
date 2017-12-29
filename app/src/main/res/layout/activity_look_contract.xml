@@ -62,20 +62,20 @@
         <LinearLayout
             android:id="@+id/gongqi_ll"
             android:layout_width="match_parent"
-            android:layout_height="298px"
+            android:layout_height="wrap_content"
             android:background="@color/settingbc"
             android:padding="20px"
             android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:orientation="vertical"
                 android:paddingLeft="20px"
                 android:paddingRight="20px">
 
-                <RelativeLayout
+                <!--<RelativeLayout
                     android:id="@+id/project_start_time_rl"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -141,12 +141,11 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:background="@color/line"/>
+                    android:background="@color/line"/>-->
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
+                    android:layout_height="83px">
 
                     <TextView
                         android:id="@+id/tv_project_all_time"
@@ -406,18 +405,20 @@
                         android:textSize="23px"/>
 
                     <ImageView
+                        android:id="@+id/jia_agree_iv"
                         android:layout_width="125px"
                         android:layout_height="70px"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:src="@color/deepskyblue"/>
+                        android:src="@drawable/daitongyi"/>
                 </RelativeLayout>
 
                 <TextView
+                    android:id="@+id/jia_time_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40px"
-                    android:text="2017年12月7日"
+                    android:text="签约时间："
                     android:textSize="23px"/>
 
             </LinearLayout>
@@ -462,14 +463,15 @@
                         android:layout_height="70px"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:src="@color/deepskyblue"/>
+                        android:src="@drawable/yitongyi"/>
                 </RelativeLayout>
 
                 <TextView
+                    android:id="@+id/yi_time_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40px"
-                    android:text="2017年12月7日"
+                    android:text="签约时间："
                     android:textSize="23px"/>
 
             </LinearLayout>

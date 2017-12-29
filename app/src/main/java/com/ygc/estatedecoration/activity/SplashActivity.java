@@ -74,11 +74,13 @@ public class SplashActivity extends AutoLayoutActivity {
                             Intent intent = new Intent();
                             if (type == 0) {
                                 //用户端登陆
+                                UserUtils.sDataBean = roleFindAllBean.getData();
                                 intent.setClass(SplashActivity.this, UserHomeActivity.class);
                                 startActivity(intent);
                                 finish();
                             } else {      //1、2、3、4
                                 //服务商端登陆
+                                UserUtils.sDataBean = roleFindAllBean.getData();
                                 intent.setClass(SplashActivity.this, HomeActivity.class);
                                 startActivity(intent);
                                 finish();

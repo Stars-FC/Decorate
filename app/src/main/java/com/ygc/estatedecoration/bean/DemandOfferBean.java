@@ -5,7 +5,7 @@ import com.ygc.estatedecoration.entity.base.Base;
 import java.io.Serializable;
 import java.util.List;
 
-public class DemandOfferBean extends Base {
+public class DemandOfferBean extends Base implements Serializable{
 
     private List<DataBean> data;
 
@@ -122,7 +122,7 @@ public class DemandOfferBean extends Base {
             this.creator = creator;
         }
 
-        public static class CreatorBean {
+        public static class CreatorBean implements Serializable{
             /**
              * password : 123456
              * balance : 0

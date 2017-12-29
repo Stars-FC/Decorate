@@ -58,7 +58,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
     private static final String ARG_C = "content";
     private View mView;
-    private SweetAlertDialog mPDialog;
+//    private SweetAlertDialog mPDialog;
 
     public static HomeFragment newInstance(String content) {
         Bundle args = new Bundle();
@@ -84,11 +84,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     @Override
     protected void initData(Bundle arguments) {
         EventBus.getDefault().register(this);
-        mPDialog = new SweetAlertDialog(mActivity, SweetAlertDialog.PROGRESS_TYPE)
+        /*mPDialog = new SweetAlertDialog(mActivity, SweetAlertDialog.PROGRESS_TYPE)
                 .setTitleText("正在加载...");
         mPDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
         mPDialog.setCancelable(false);
-        mPDialog.show();
+        mPDialog.show();*/
+        showDialog();
         getRecommendNeedData(0, Constant.NORMAL_REQUEST);
     }
 
@@ -144,11 +145,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                 });
     }
 
-    private void cancelDialog() {
+   /* private void cancelDialog() {
         if (mPDialog != null && mPDialog.isShowing()) {
             mPDialog.dismiss();
         }
-    }
+    }*/
 
     private int curPageNum = 0;
 

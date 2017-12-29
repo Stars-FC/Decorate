@@ -115,7 +115,7 @@ public class ServerMyAnLiActivity extends BaseActivity implements SwipeRefreshLa
 
     private void initFragment() {
         mFragmentManager = getSupportFragmentManager();
-        PanoramaFragment panoramaFragment = PanoramaFragment.newInstance("", "");
+        PanoramaFragment panoramaFragment = PanoramaFragment.newInstance();
         EffectFragment effectFragment = EffectFragment.newInstance("", "");
         mFragmentList.add(panoramaFragment);
         mFragmentList.add(effectFragment);

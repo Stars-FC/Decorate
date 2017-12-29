@@ -12,10 +12,13 @@ import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.bean.NeedBean;
 import com.ygc.estatedecoration.bean.ScheduleBean;
-import com.ygc.estatedecoration.event.OperateContractMsg;
+import com.ygc.estatedecoration.event.UpdateServiceProgressMsg;
+import com.ygc.estatedecoration.utils.UserUtils;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -47,7 +50,7 @@ public class ServiceProgressFragment extends BaseFragment implements SwipeRefres
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments()!=null) {
+        if (getArguments() != null) {
             mDataBean = (NeedBean.DataBean) getArguments().getSerializable("demand");
         }
     }
@@ -59,6 +62,7 @@ public class ServiceProgressFragment extends BaseFragment implements SwipeRefres
 
     @Override
     protected void initData(Bundle arguments) {
+        EventBus.getDefault().register(this);
         getDemandPlan();
     }
 
@@ -89,15 +93,21 @@ public class ServiceProgressFragment extends BaseFragment implements SwipeRefres
         return R.layout.fragment_service_progress;
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getProgressMsg(UpdateServiceProgressMsg updateServiceProgressMsg) {
+        getDemandPlan();
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
 
     private void getDemandPlan() {
-          APPApi.getInstance().service
-                .getDemandPlan(String.valueOf(mDataBean.getDId()), String.valueOf(mDataBean.getCreator().getType()))
+        APPApi.getInstance().service
+                .getDemandPlan(String.valueOf(mDataBean.getDId()), String.valueOf(UserUtils.sDataBean.getType()))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<ScheduleBean>() {
@@ -111,11 +121,7 @@ public class ServiceProgressFragment extends BaseFragment implements SwipeRefres
                         requestFinish();
                         if (scheduleBean.getResponseState().equals("1")) {
                             List<ScheduleBean.DataBeanX> dataBeanXList = scheduleBean.getData();
-                            if (dataBeanXList.size() > 0) {
-                                if (dataBeanXList.get(0)!=null) {
-                                    EventBus.getDefault().post(new OperateContractMsg());
-                                }
-                            }
+                            dataBeanXList.add(new ScheduleBean.DataBeanX());
                             mScheduleAdapter.setNewData(dataBeanXList);
                         } else {
                             showToast(scheduleBean.getMsg());
@@ -136,17 +142,13 @@ public class ServiceProgressFragment extends BaseFragment implements SwipeRefres
     }
 
     private void requestFinish() {
-        refreshFinishEvent();
+        if (mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
     }
 
     @Override
     public void onRefresh() {
         getDemandPlan();
-    }
-
-    private void refreshFinishEvent() {
-        if (mSwipeRefreshLayout.isRefreshing()) {
-            mSwipeRefreshLayout.setRefreshing(false);
-        }
     }
 }

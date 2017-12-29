@@ -59,7 +59,6 @@ public class UserProjectProgressActivity extends BaseActivity implements SwipeRe
         mRecyclerView.setAdapter(mUserScheduleAdapter);
     }
 
-
     @Override
     protected void initData(Bundle savedInstanceState) {
         initDialog();

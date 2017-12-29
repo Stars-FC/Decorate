@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line"/>
+
+        <TextView
+            android:id="@+id/contract_content_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15px"
+            android:paddingLeft="27px"
+            android:paddingRight="15px"
+            android:paddingTop="15px"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line"/>
+
+        <RelativeLayout
+            android:id="@+id/gongqi_rl"
+            android:layout_width="match_parent"
+            android:layout_height="88px"
+            android:gravity="center_vertical"
+            android:paddingLeft="27px"
+            android:paddingRight="15px">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:gravity="center_vertical"
+                android:text="工期"
+                android:textColor="@color/colorAccent"
+                android:textSize="24px"/>
+
+            <ImageView
+                android:id="@+id/gongqi_iv"
+                android:layout_width="22px"
+                android:layout_height="22px"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/gengduo"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/gongqi_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/settingbc"
+            android:padding="20px"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingLeft="20px"
+                android:paddingRight="20px">
+
+                <!--<RelativeLayout
+                    android:id="@+id/project_start_time_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tv_project_start_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginRight="20px"
+                        android:gravity="center_vertical"
+                        android:text="项目开始时间"
+                        android:textColor="@color/black"
+                        android:textSize="24px"/>
+
+                    <TextView
+                        android:id="@+id/project_start_time_et"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_toRightOf="@+id/tv_project_start_time"
+                        android:gravity="right|center_vertical"
+                        android:hint="项目开始时间"
+                        android:minWidth="200px"
+                        android:textSize="24px"/>
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/line"/>
+
+                <RelativeLayout
+                    android:id="@+id/project_end_time_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tv_project_end_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginRight="20px"
+                        android:gravity="center_vertical"
+                        android:text="项目结束时间"
+                        android:textColor="@color/black"
+                        android:textSize="24px"/>
+
+                    <TextView
+                        android:id="@+id/project_end_time_et"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_toRightOf="@+id/tv_project_end_time"
+                        android:gravity="right|center_vertical"
+                        android:hint="项目结束时间"
+                        android:minWidth="200px"
+                        android:textSize="24px"/>
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/line"/>-->
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="83px">
+
+                    <TextView
+                        android:id="@+id/tv_project_all_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginRight="20px"
+                        android:gravity="center_vertical"
+                        android:text="共计时间"
+                        android:textColor="@color/black"
+                        android:textSize="24px"/>
+
+                    <TextView
+                        android:id="@+id/project_all_time_et"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_toRightOf="@+id/tv_project_all_time"
+                        android:gravity="right|center_vertical"
+                        android:hint="共计时间"
+                        android:minWidth="200px"
+                        android:textSize="24px"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/gongqi_v"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line"
+            android:visibility="visible"/>
+
+        <RelativeLayout
+            android:id="@+id/zhibaojin_rl"
+            android:layout_width="match_parent"
+            android:layout_height="88px"
+            android:gravity="center_vertical"
+            android:paddingLeft="27px"
+            android:paddingRight="15px">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:gravity="center_vertical"
+                android:text="质保金"
+                android:textColor="@color/colorAccent"
+                android:textSize="24px"/>
+
+            <ImageView
+                android:id="@+id/zhibaojin_iv"
+                android:layout_width="22px"
+                android:layout_height="22px"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/gengduo"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/zhibaojin_ll"
+            android:layout_width="match_parent"
+            android:layout_height="125px"
+            android:background="@color/settingbc"
+            android:padding="20px"
+            android:visibility="gone">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:paddingLeft="20px"
+                android:paddingRight="20px">
+
+                <TextView
+                    android:id="@+id/tv_guarantee_gold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="20px"
+                    android:gravity="center_vertical"
+                    android:text="质保金额（元）"
+                    android:textColor="@color/black"
+                    android:textSize="24px"/>
+
+                <EditText
+                    android:id="@+id/zhibaojin_et"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@+id/tv_guarantee_gold"
+                    android:gravity="right|center_vertical"
+                    android:minWidth="200px"
+                    android:inputType="numberDecimal"
+                    android:singleLine="true"
+                    android:maxLength="15"
+                    android:hint="请输入质保金额"
+                    android:textColor="#8A000000"
+                    android:background="@null"
+                    android:maxLines="1"
+                    android:textSize="24px"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/zhibaojin_v"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line"
+            android:visibility="visible"/>
+
+        <RelativeLayout
+            android:id="@+id/project_stage_rl"
+            android:layout_width="match_parent"
+            android:layout_height="88px"
+            android:gravity="center_vertical"
+            android:paddingLeft="27px"
+            android:paddingRight="15px">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:gravity="center_vertical"
+                android:text="项目阶段"
+                android:textColor="@color/colorAccent"
+                android:textSize="24px"/>
+
+            <ImageView
+                android:id="@+id/project_stage_iv"
+                android:layout_width="22px"
+                android:layout_height="22px"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/gengduo"/>
+
+        </RelativeLayout>
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:id="@+id/project_stage_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/settingbc"
+                android:paddingLeft="20px"
+                android:paddingRight="20px"
+                android:paddingTop="20px">
+
+                <com.zhy.autolayout.AutoRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="85px"
+                    android:background="@color/white"
+                    android:paddingLeft="20px"
+                    android:paddingRight="20px">
+
+                    <TextView
+                        android:id="@+id/tv_project_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginRight="20px"
+                        android:gravity="center_vertical"
+                        android:text="项目金额（元）"
+                        android:textColor="@color/black"
+                        android:textSize="24px"/>
+
+                    <TextView
+                        android:id="@+id/project_jine_et"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_toRightOf="@+id/tv_project_money"
+                        android:gravity="right|center_vertical"
+                        android:minWidth="200px"
+                        android:textSize="24px"/>
+                </com.zhy.autolayout.AutoRelativeLayout>
+
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <com.ygc.estatedecoration.widget.MaxRecyclerView
+                android:id="@+id/project_stage_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </com.ygc.estatedecoration.widget.MaxRecyclerView>
+
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <View
+            android:id="@+id/project_stage_v"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="88px"
+            android:gravity="center_vertical"
+            android:paddingLeft="27px"
+            android:paddingRight="15px">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:gravity="center_vertical"
+                android:text="签署主合同"
+                android:textColor="@color/colorAccent"
+                android:textSize="24px"/>
+
+            <ImageView
+                android:layout_width="22px"
+                android:layout_height="22px"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/gengduo"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="228px"
+            android:background="@color/settingbc"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingLeft="36px"
+                android:paddingRight="36px"
+                android:paddingTop="26px">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80px">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:text="甲方"
+                        android:textColor="@color/black"
+                        android:textSize="31px"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:text="雇主"
+                        android:textSize="23px"/>
+
+                    <ImageView
+                        android:id="@+id/jia_agree_iv"
+                        android:layout_width="125px"
+                        android:layout_height="70px"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/daitongyi"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/jia_time_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40px"
+                    android:text="签约时间："
+                    android:textSize="23px"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="5px"
+                android:layout_height="match_parent"
+                android:background="@color/line"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingLeft="36px"
+                android:paddingRight="36px"
+                android:paddingTop="26px">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80px">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:text="乙方"
+                        android:textColor="@color/black"
+                        android:textSize="31px"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:text="服务商"
+                        android:textSize="23px"/>
+
+                    <ImageView
+                        android:layout_width="125px"
+                        android:layout_height="70px"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/yitongyi"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/yi_time_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40px"
+                    android:text="签约时间："
+                    android:textSize="23px"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/activity_initiating_contract_submit"
+            android:layout_width="match_parent"
+            android:layout_height="90px"
+            android:background="@color/green_4fbc64"
+            android:gravity="center"
+            android:text="确认修改"
+            android:textColor="@color/white"
+            android:textSize="30px"/>
+
+    </LinearLayout>
+
+</ScrollView>

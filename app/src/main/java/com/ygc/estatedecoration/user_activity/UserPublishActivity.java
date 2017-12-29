@@ -685,7 +685,7 @@ public class UserPublishActivity extends BaseActivity {
             showToast("请输入需求标题");
             return;
         }
-        String userId = UserUtils.getUserId();
+        String userId = String.valueOf(UserUtils.sDataBean.getAu_id());
         Log.i("521", "publishEvent: userId>" + userId);
         Log.i("521", "publishEvent: dType>" + dType);
         Log.i("521", "publishEvent: rId>" + rid);

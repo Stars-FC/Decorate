@@ -9,47 +9,30 @@ import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.adapter.CasePanoramaAdapter;
 import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
-import com.ygc.estatedecoration.entity.base.Base;
+import com.ygc.estatedecoration.bean.PanoramaBean;
 import com.ygc.estatedecoration.entity.base.Constant;
+import com.ygc.estatedecoration.utils.lazyviewpager.LazyFragmentPagerAdapter;
 import com.ygc.estatedecoration.widget.TitleBar;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class PanoramaFragment extends BaseFragment{
-
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
+public class PanoramaFragment extends BaseFragment implements LazyFragmentPagerAdapter.Laziable{
 
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerView;
     private CasePanoramaAdapter mCasePanoramaAdapter;
-    private List<String> dataList = new ArrayList<>();
 
     private int allPagerNum;//总页数
     private int curPagerNum = 1;//当前页数
-    private CompositeDisposable compositeDisposable;
 
-    public PanoramaFragment() {
-        // Required empty public constructor
-    }
-
-    public static PanoramaFragment newInstance(String param1, String param2) {
+    public static PanoramaFragment newInstance() {
         PanoramaFragment fragment = new PanoramaFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,12 +40,6 @@ public class PanoramaFragment extends BaseFragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-        compositeDisposable = new CompositeDisposable();
-        requestDataEvent(Constant.NORMAL_REQUEST);
     }
 
     @Override
@@ -72,7 +49,7 @@ public class PanoramaFragment extends BaseFragment{
 
     @Override
     protected void initData(Bundle arguments) {
-
+        requestDataEvent(curPagerNum, Constant.NORMAL_REQUEST);
     }
 
     @Override
@@ -105,29 +82,25 @@ public class PanoramaFragment extends BaseFragment{
     }
 
     private void initRecyclerView() {
-        for (int i = 0; i < 10; i++) {
-            dataList.add("haha" + (i + 1));
-        }
-        mCasePanoramaAdapter = new CasePanoramaAdapter(R.layout.item_case_panorama, dataList);
+        mCasePanoramaAdapter = new CasePanoramaAdapter();
         mRecyclerView.setNestedScrollingEnabled(true);
         mRecyclerView.setLayoutManager( new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(mCasePanoramaAdapter);
     }
 
-    private void requestDataEvent(final String requestMark) {
-        /*APPApi.getInstance().service
+    private void requestDataEvent(int curPageNum, final String requestMark) {
+        APPApi.getInstance().service
                 .queryCasePanoramaData()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Base>() {
+                .subscribe(new Observer<PanoramaBean>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         compositeDisposable.add(d);
                     }
 
                     @Override
-                    public void onNext(@NonNull Base base) {
-                        requestFinishEvent(base, requestMark);
+                    public void onNext(@NonNull PanoramaBean panoramaBean) {
 
                     }
 
@@ -140,13 +113,11 @@ public class PanoramaFragment extends BaseFragment{
                     public void onComplete() {
 
                     }
-                });*/
+                });
     }
 
-    private void requestFinishEvent(Base base, String requestMark) {
-        if (requestMark.equals(Constant.REFRESH_REQUEST)) {
-            mCasePanoramaAdapter.setEnableLoadMore(true);
-        }
+    private void requestFinishEvent() {
+
     }
 
     @Override

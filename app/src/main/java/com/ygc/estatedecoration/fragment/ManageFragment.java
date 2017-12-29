@@ -45,7 +45,7 @@ public class ManageFragment extends BaseFragment implements SwipeRefreshLayout.O
     SwipeRefreshLayout mSwipeRefreshLayout;
 
     private ManageAdapter mAdapter;
-    private SweetAlertDialog mPDialog;
+//    private SweetAlertDialog mPDialog;
 
     public static ManageFragment newInstance(String content) {
         Bundle args = new Bundle();
@@ -65,17 +65,18 @@ public class ManageFragment extends BaseFragment implements SwipeRefreshLayout.O
 
     @Override
     protected void initData(Bundle arguments) {
-        initDialog();
+//        initDialog();
+        showDialog();
         getGoingDemandDataList(0, Constant.NORMAL_REQUEST);
     }
 
-    private void initDialog() {
+    /*private void initDialog() {
         mPDialog = new SweetAlertDialog(mActivity, SweetAlertDialog.PROGRESS_TYPE)
                 .setTitleText("正在加载...");
         mPDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
         mPDialog.setCancelable(false);
         mPDialog.show();
-    }
+    }*/
 
     private void getGoingDemandDataList(int pageNum, final String requestMark) {
         APPApi.getInstance().service
@@ -128,11 +129,11 @@ public class ManageFragment extends BaseFragment implements SwipeRefreshLayout.O
                 });
     }
 
-    private void cancelDialog() {
+    /*private void cancelDialog() {
         if (mPDialog != null && mPDialog.isShowing()) {
             mPDialog.dismiss();
         }
-    }
+    }*/
 
     private int curPageNum = 0;
 

@@ -31,7 +31,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class TransactionManageFragment extends BaseFragment implements LazyFragmentPagerAdapter.Laziable{
 
-    private SweetAlertDialog mSweetAlertDialog;
+//    private SweetAlertDialog mSweetAlertDialog;
     private String orderState;
     private int curPageNum = 0;
 
@@ -65,17 +65,18 @@ public class TransactionManageFragment extends BaseFragment implements LazyFragm
     @Override
     protected void initData(Bundle arguments) {
         Log.i("521", "initData: orderState:" + orderState);
-        initDialog();
+//        initDialog();
+        showDialog();
         getTransactionDemandData(0, Constant.NORMAL_REQUEST);
     }
 
-    private void initDialog() {
+    /*private void initDialog() {
         mSweetAlertDialog = new SweetAlertDialog(mActivity, SweetAlertDialog.PROGRESS_TYPE)
                 .setTitleText("正在加载...");
         mSweetAlertDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
         mSweetAlertDialog.setCancelable(false);
         mSweetAlertDialog.show();
-    }
+    }*/
 
     @Override
     protected void initView(Bundle savedInstanceState) {
@@ -189,11 +190,11 @@ public class TransactionManageFragment extends BaseFragment implements LazyFragm
                 });
     }
 
-    private void cancelDialog() {
+    /*public void cancelDialog() {
         if (mSweetAlertDialog != null && mSweetAlertDialog.isShowing()) {
             mSweetAlertDialog.dismiss();
         }
-    }
+    }*/
 
     private void loadMoreFinishEvent() {
         mAdapter.loadMoreFail();

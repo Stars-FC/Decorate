@@ -15,9 +15,14 @@ import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.bean.DemandOfferBean;
 import com.ygc.estatedecoration.entity.base.Constant;
+import com.ygc.estatedecoration.event.OfferFinishMsg;
 import com.ygc.estatedecoration.utils.UserUtils;
 import com.ygc.estatedecoration.utils.lazyviewpager.LazyFragmentPagerAdapter;
 import com.ygc.estatedecoration.widget.TitleBar;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -43,7 +48,7 @@ public class TransactionManageOfferFragment extends BaseFragment implements Swip
     private HomeTransactionManageOfferAdapter mAdapter;
     private String mDId;
     private int curPageNum = 0;
-    private SweetAlertDialog mPDialog;
+//    private SweetAlertDialog mPDialog;
 
 
     public static TransactionManageOfferFragment getInstance(String dId) {
@@ -70,7 +75,7 @@ public class TransactionManageOfferFragment extends BaseFragment implements Swip
 
     @Override
     protected void initData(Bundle arguments) {
-
+        EventBus.getDefault().register(this);
         mAdapter = new HomeTransactionManageOfferAdapter();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         mRecyclerView.setAdapter(mAdapter);
@@ -80,11 +85,12 @@ public class TransactionManageOfferFragment extends BaseFragment implements Swip
 
             }
         });
-        mPDialog = new SweetAlertDialog(mActivity, SweetAlertDialog.PROGRESS_TYPE)
+        /*mPDialog = new SweetAlertDialog(mActivity, SweetAlertDialog.PROGRESS_TYPE)
                 .setTitleText("正在加载...");
         mPDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
         mPDialog.setCancelable(false);
-        mPDialog.show();
+        mPDialog.show();*/
+        showDialog();
         getDemandOfferList(0, Constant.NORMAL_REQUEST);
     }
 
@@ -138,11 +144,11 @@ public class TransactionManageOfferFragment extends BaseFragment implements Swip
                 });
     }
 
-    private void cancelDialog() {
+    /*private void cancelDialog() {
         if (mPDialog != null && mPDialog.isShowing()) {
             mPDialog.dismiss();
         }
-    }
+    }*/
 
     @Override
     protected void initView(Bundle savedInstanceState) {
@@ -195,5 +201,16 @@ public class TransactionManageOfferFragment extends BaseFragment implements Swip
                 curPageNum = 0;
             }
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void offerFinishEvent(OfferFinishMsg offerFinishMsg) {
+        getDemandOfferList(0, Constant.REFRESH_REQUEST);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

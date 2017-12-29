@@ -133,6 +133,85 @@
                 android:textSize="26px"/>
         </com.zhy.autolayout.AutoRelativeLayout>
 
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/start_time_rl"
+            android:layout_width="match_parent"
+            android:layout_height="87px"
+            android:layout_marginBottom="1px"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingLeft="36px"
+            android:paddingRight="64px">
+
+            <TextView
+                android:id="@+id/start_time_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_marginRight="20px"
+                android:gravity="center"
+                android:text="开始日期"
+                android:textColor="@color/black_010101"
+                android:textSize="28px"/>
+
+            <TextView
+                android:id="@+id/start_time_et"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@id/name"
+                android:background="@null"
+                android:gravity="right|center_vertical"
+                android:hint="请选择开始日期"
+                android:maxLength="15"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text=""
+                android:textColor="@color/black_010101"
+                android:textCursorDrawable="@null"
+                android:textSize="26px"/>
+
+        </com.zhy.autolayout.AutoRelativeLayout>
+
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/end_time_rl"
+            android:layout_width="match_parent"
+            android:layout_height="87px"
+            android:layout_marginBottom="1px"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingLeft="36px"
+            android:paddingRight="64px">
+
+            <TextView
+                android:id="@+id/end_time_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_marginRight="20px"
+                android:gravity="center"
+                android:text="结束日期"
+                android:textColor="@color/black_010101"
+                android:textSize="28px"/>
+
+            <TextView
+                android:id="@+id/end_time_et"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@id/name"
+                android:background="@null"
+                android:gravity="right|center_vertical"
+                android:hint="请选择结束日期"
+                android:maxLength="15"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text=""
+                android:textColor="@color/black_010101"
+                android:textCursorDrawable="@null"
+                android:textSize="26px"/>
+
+        </com.zhy.autolayout.AutoRelativeLayout>
 
         <com.zhy.autolayout.AutoRelativeLayout
             android:layout_width="match_parent"
@@ -154,7 +233,7 @@
                 android:textColor="@color/black_010101"
                 android:textSize="28px"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/supplementary_contract_day"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -162,7 +241,7 @@
                 android:layout_toRightOf="@+id/day"
                 android:background="@null"
                 android:gravity="right|center_vertical"
-                android:hint="请输入所需工时"
+                android:hint="共计时间"
                 android:inputType="number"
                 android:minWidth="100px"
                 android:singleLine="true"
@@ -183,7 +262,7 @@
             android:layout_width="match_parent"
             android:layout_height="90px"
             android:background="@color/green_4fbc64"
-            android:text="确定添加"
+            android:text=""
             android:textColor="@color/white"/>
     </com.zhy.autolayout.AutoLinearLayout>
 

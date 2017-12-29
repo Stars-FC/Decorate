@@ -1,6 +1,5 @@
 package com.ygc.estatedecoration.activity.home;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -38,10 +37,10 @@ public class LookMainContractActivity extends BaseActivity {
 
     @BindView(R.id.gongqi_iv)
     ImageView mGongqiIv;
-    @BindView(R.id.project_start_time_et)
+    /*@BindView(R.id.project_start_time_et)
     TextView mProjectStartTimeEt;
     @BindView(R.id.project_end_time_et)
-    TextView mProjectEndTimeEt;
+    TextView mProjectEndTimeEt;*/
     @BindView(R.id.project_all_time_et)
     TextView mProjectAllTimeEt;
     @BindView(R.id.gongqi_ll)
@@ -68,10 +67,16 @@ public class LookMainContractActivity extends BaseActivity {
     View mV_projectStage;
     @BindView(R.id.project_stage_recyclerview)
     MaxRecyclerView mMaxRecyclerView;
+    @BindView(R.id.jia_time_tv)
+    TextView mTv_jiaTime;
+    @BindView(R.id.yi_time_tv)
+    TextView mTv_yiTime;
     private ProjectMainStageAdapter mProjectStageAdapter;
     private SweetAlertDialog mPDialog;
     private String mConId;
 
+    @BindView(R.id.jia_agree_iv)
+    ImageView mIv_jiaAgree;
     @BindView(R.id.activity_initiating_contract_submit)
     Button mBtn_submit;
     private int mContractState;
@@ -149,11 +154,11 @@ public class LookMainContractActivity extends BaseActivity {
 
     private void handleEntityData(ContractInfoBean.DataBean dataBean) {
         mTv_contractContent.setText(dataBean.getContractDetail());
-        mProjectStartTimeEt.setText(dataBean.getStartTime());
-        mProjectEndTimeEt.setText(dataBean.getEndTime());
+//        mProjectStartTimeEt.setText(dataBean.getStartTime());
+//        mProjectEndTimeEt.setText(dataBean.getEndTime());
         mProjectAllTimeEt.setText(dataBean.getNeedTime() + "天");
-        mZhibaojinEt.setText(dataBean.getQualityGuaranteeDeposit());
-        mProjectJineEt.setText(dataBean.getTotalPrice());
+        mZhibaojinEt.setText(dataBean.getQualityGuaranteeDeposit()+"");
+        mProjectJineEt.setText(dataBean.getTotalPrice()+"");
 
         List<ContractInfoBean.DataBean.ContractStageListBean> contractStageList = dataBean.getContractStageList();
         mProjectStageAdapter.setNewData(contractStageList);
@@ -165,6 +170,7 @@ public class LookMainContractActivity extends BaseActivity {
                 mBtn_submit.setText("确认合同");
                 break;
             case 1:
+                mIv_jiaAgree.setImageResource(R.drawable.yitongyi);
                 mBtn_submit.setText("合同已签署");
                 mBtn_submit.setBackgroundColor(Color.parseColor("#eeeeee"));
                 break;
@@ -174,6 +180,10 @@ public class LookMainContractActivity extends BaseActivity {
                 break;
 
         }
+
+        String createTime = dataBean.getCreateTime();
+        mTv_jiaTime.setText(createTime.substring(0, 10));
+        mTv_yiTime.setText(createTime.substring(0, 10));
     }
 
     private void getIntentData() {
@@ -199,7 +209,7 @@ public class LookMainContractActivity extends BaseActivity {
         return R.layout.activity_look_contract;
     }
 
-    @OnClick({R.id.naviFrameLeft, R.id.gongqi_rl, R.id.zhibaojin_rl, R.id.project_stage_rl, R.id.add_project_stage_tv,
+    @OnClick({R.id.naviFrameLeft, R.id.gongqi_rl, R.id.zhibaojin_rl, R.id.project_stage_rl,
             R.id.activity_initiating_contract_submit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -214,10 +224,6 @@ public class LookMainContractActivity extends BaseActivity {
                 break;
             case R.id.project_stage_rl:
                 clickProjectStageEvent();
-                break;
-            case R.id.add_project_stage_tv:
-                Intent intent = new Intent(this, AddProjectStageActivity.class);
-                startActivity(intent);
                 break;
             case R.id.activity_initiating_contract_submit:
                 if (mContractState == 0) {

@@ -19,7 +19,8 @@ import com.ygc.estatedecoration.bean.ContractContentBean;
 import com.ygc.estatedecoration.bean.NeedBean;
 import com.ygc.estatedecoration.bean.ProjectStageBean;
 import com.ygc.estatedecoration.entity.base.Base;
-import com.ygc.estatedecoration.utils.DateUtil;
+import com.ygc.estatedecoration.event.FaQiContractFinishMsg;
+import com.ygc.estatedecoration.event.UpdateServiceProgressMsg;
 import com.ygc.estatedecoration.utils.UserUtils;
 import com.ygc.estatedecoration.widget.MaxRecyclerView;
 import com.ygc.estatedecoration.widget.TitleBar;
@@ -36,8 +37,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.pedant.SweetAlert.SweetAlertDialog;
-import cn.qqtheme.framework.picker.DatePicker;
-import cn.qqtheme.framework.util.ConvertUtils;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -50,10 +49,10 @@ public class InitiatingContractActivity extends BaseActivity {
     TextView mTv_contractContent;
     @BindView(R.id.gongqi_iv)
     ImageView mGongqiIv;
-    @BindView(R.id.project_start_time_et)
+    /*@BindView(R.id.project_start_time_et)
     TextView mProjectStartTimeEt;
     @BindView(R.id.project_end_time_et)
-    TextView mProjectEndTimeEt;
+    TextView mProjectEndTimeEt;*/
     @BindView(R.id.project_all_time_et)
     TextView mProjectAllTimeEt;
     @BindView(R.id.gongqi_ll)
@@ -73,7 +72,7 @@ public class InitiatingContractActivity extends BaseActivity {
     @BindView(R.id.project_stage_iv)
     ImageView mProjectStageIv;
     @BindView(R.id.project_jine_et)
-    EditText mProjectJineEt;
+    TextView mProjectJineEt;
     @BindView(R.id.project_stage_ll)
     AutoLinearLayout mProjectStageLl;
     @BindView(R.id.project_stage_v)
@@ -185,8 +184,8 @@ public class InitiatingContractActivity extends BaseActivity {
         return R.layout.activity_initiating_contract;
     }
 
-    @OnClick({R.id.naviFrameLeft, R.id.gongqi_rl, R.id.project_start_time_rl, R.id.project_end_time_rl,
-            R.id.zhibaojin_rl, R.id.project_stage_rl, R.id.add_project_stage_tv, R.id.activity_initiating_contract_submit})
+    @OnClick({R.id.naviFrameLeft, R.id.gongqi_rl, R.id.zhibaojin_rl, R.id.project_stage_rl, R.id.add_project_stage_tv,
+            R.id.activity_initiating_contract_submit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.naviFrameLeft:
@@ -194,12 +193,6 @@ public class InitiatingContractActivity extends BaseActivity {
                 break;
             case R.id.gongqi_rl:
                 clickGongQiEvent();
-                break;
-            case R.id.project_start_time_rl:
-                onYearMonthDayPicker(0);
-                break;
-            case R.id.project_end_time_rl:
-                onYearMonthDayPicker(1);
                 break;
             case R.id.zhibaojin_rl:
                 clickZhiBaoJinEvent();
@@ -209,6 +202,7 @@ public class InitiatingContractActivity extends BaseActivity {
                 break;
             case R.id.add_project_stage_tv:
                 Intent intent = new Intent(this, AddProjectStageActivity.class);
+                intent.putExtra("mark", "1");
                 startActivity(intent);
                 break;
             case R.id.activity_initiating_contract_submit:
@@ -232,69 +226,8 @@ public class InitiatingContractActivity extends BaseActivity {
         }
     }
 
-    public void onYearMonthDayPicker(final int mark) {
-        final DatePicker picker = new DatePicker(this);
-        picker.setCanceledOnTouchOutside(true);
-        picker.setUseWeight(true);
-        picker.setTopPadding(ConvertUtils.toPx(this, 10));
-        picker.setTopLineColor(0x994EBE65);
-        picker.setTextColor(0xFF4EBE65);
-        picker.setCancelTextColor(0xFF4EBE65);
-        picker.setSubmitTextColor(0xFF4EBE65);
-        picker.setTitleTextColor(0xFF4EBE65);
-        picker.setDividerColor(0xFF4EBE65);
-        picker.setRangeEnd(2111, 1, 11);
-        picker.setRangeStart(2016, 8, 29);
-        String curYearMonthDayStr = DateUtil.getNowString();
-        String substring = curYearMonthDayStr.substring(0, 10);
-        String[] split = substring.split("-");
-        picker.setSelectedItem(Integer.valueOf(split[0]), Integer.valueOf(split[1]), Integer.valueOf(split[2]));
-        picker.setResetWhileWheel(false);
-        picker.setOnDatePickListener(new DatePicker.OnYearMonthDayPickListener() {
-            @Override
-            public void onDatePicked(String year, String month, String day) {
-                if (mark == 0) {
-                    mProjectStartTimeEt.setText(year + "-" + month + "-" + day);
-                } else if (mark == 1) {
-                    mProjectEndTimeEt.setText(year + "-" + month + "-" + day);
-                }
-                String projectStartTimeStr = mProjectStartTimeEt.getText().toString().trim();
-                String projectEndTimeStr = mProjectEndTimeEt.getText().toString().trim();
-
-                if (!TextUtils.isEmpty(projectStartTimeStr) && !TextUtils.isEmpty(projectEndTimeStr)) {
-                    String startTimeStr = projectStartTimeStr + " 00:00:00";
-                    long startTimeLog = DateUtil.string2Millis(startTimeStr);
-                    String endTimeStr = projectEndTimeStr + " 00:00:00";
-                    long endTimeLog = DateUtil.string2Millis(endTimeStr);
-                    if (startTimeLog > endTimeLog) {
-                        showToast("项目结束时间不能小于开始时间");
-                        return;
-                    }
-                    int allTimeInt = (int) ((endTimeLog - startTimeLog) / 1000 / 60 / 60 / 24);
-                    mProjectAllTimeEt.setText(allTimeInt + "天");
-                }
-            }
-        });
-        picker.setOnWheelListener(new DatePicker.OnWheelListener() {
-            @Override
-            public void onYearWheeled(int index, String year) {
-                picker.setTitleText(year + "-" + picker.getSelectedMonth() + "-" + picker.getSelectedDay());
-            }
-
-            @Override
-            public void onMonthWheeled(int index, String month) {
-                picker.setTitleText(picker.getSelectedYear() + "-" + month + "-" + picker.getSelectedDay());
-            }
-
-            @Override
-            public void onDayWheeled(int index, String day) {
-                picker.setTitleText(picker.getSelectedYear() + "-" + picker.getSelectedMonth() + "-" + day);
-            }
-        });
-        picker.show();
-    }
-
     private boolean zhibaojin = false;
+
     private void clickZhiBaoJinEvent() {
         zhibaojin = !zhibaojin;
         if (zhibaojin) {
@@ -309,36 +242,10 @@ public class InitiatingContractActivity extends BaseActivity {
     }
 
     private void faQiContractEvent() {
-        String projectStartTimeStr = mProjectStartTimeEt.getText().toString().trim();
-        if (TextUtils.isEmpty(projectStartTimeStr)) {
-            showToast("请选择项目开始时间");
-            return;
-        }
-        String projectEndTimeStr = mProjectEndTimeEt.getText().toString().trim();
-        if (TextUtils.isEmpty(projectEndTimeStr)) {
-            showToast("请选择项目结束时间");
-            return;
-        }
-        String startTimeStr = projectStartTimeStr + " 00:00:00";
-        long startTimeLog = DateUtil.string2Millis(startTimeStr);
-        String endTimeStr = projectEndTimeStr + " 00:00:00";
-        long endTimeLog = DateUtil.string2Millis(endTimeStr);
-        if (startTimeLog > endTimeLog) {
-            showToast("项目结束时间不能小于开始时间");
-            return;
-        }
-        int allTimeInt = (int) ((endTimeLog - startTimeLog) / 1000 / 60 / 60 / 24);
-        mProjectAllTimeEt.setText(allTimeInt + "天");
 
         String zhiBaoJinStr = mZhibaojinEt.getText().toString().trim();
         if (TextUtils.isEmpty(zhiBaoJinStr)) {
             showToast("请输入质保金额");
-            return;
-        }
-
-        String projectJinEStr = mProjectJineEt.getText().toString().trim();
-        if (TextUtils.isEmpty(projectJinEStr)) {
-            showToast("请输入项目金额");
             return;
         }
 
@@ -347,51 +254,42 @@ public class InitiatingContractActivity extends BaseActivity {
             return;
         }
 
-        double projectAllJinE = 0.00;
-        int needTime = 0;//总周期
         String title = "";
         String detail = "";
         String price = "";
+        String startTime = "";
+        String endTime = "";
         String needDays = "";
         for (int i = 0; i < mDataBeanList.size(); i++) {
             ProjectStageBean.DataBean dataBean = mDataBeanList.get(i);
-            projectAllJinE += Double.valueOf(dataBean.getPayMoneyJinE());
-            needTime += Integer.valueOf(dataBean.getNeedDays());
             if (i == 0) {
-                title += dataBean.getProjectStageName() + ",";
-                detail += dataBean.getProjectContent() + ",";
-                price += dataBean.getPayMoneyJinE() + ",";
-                needDays += dataBean.getNeedDays() + ",";
-            } else {
                 title += dataBean.getProjectStageName();
                 detail += dataBean.getProjectContent();
                 price += dataBean.getPayMoneyJinE();
+                startTime += dataBean.getStartTime();
+                endTime += dataBean.getEndTime();
                 needDays += dataBean.getNeedDays();
+            } else {
+                title += "," + dataBean.getProjectStageName();
+                detail += "," + dataBean.getProjectContent();
+                price += "," + dataBean.getPayMoneyJinE();
+                startTime += "," + dataBean.getStartTime();
+                endTime += "," + dataBean.getEndTime();
+                needDays += "," + dataBean.getNeedDays();
             }
         }
 
-        String allTimeStr = mProjectAllTimeEt.getText().toString();
-        if (!allTimeStr.equals(String.valueOf(needTime))) {
-            showToast("项目工期选择错误");
-            return;
-        }
         java.text.DecimalFormat decimalFormat = new DecimalFormat("0.00");
-        String projectAllJinEStr = decimalFormat.format(projectAllJinE);//总金额
-        String projectJinED = decimalFormat.format(Double.valueOf(projectJinEStr));
-        if (!projectJinED.equals(projectAllJinEStr)) {
-            showToast("项目金额输入错误");
-            return;
-        }
+        String allTimeStr = mProjectAllTimeEt.getText().toString().trim();
+        String projectAllJinEStr = mProjectJineEt.getText().toString().trim();
 
         String contractContentStr = mTv_contractContent.getText().toString().trim();
         String userId = UserUtils.getUserId();
         int au_id = mDataBean.getCreator().getAu_id();
         int dId = mDataBean.getDId();
-        String startTime = String.valueOf(startTimeLog / 1000);
-        String endTime = String.valueOf(endTimeLog / 1000);
         String zhiBaoJinD = decimalFormat.format(Double.valueOf(zhiBaoJinStr));
 
-        sureSponsorContractEvent(contractContentStr, userId, String.valueOf(au_id), String.valueOf(dId), projectAllJinEStr, projectStartTimeStr, projectEndTimeStr, allTimeStr, zhiBaoJinD, title, detail, price, needDays, String.valueOf(mType));
+        sureSponsorContractEvent(contractContentStr, userId, String.valueOf(au_id), String.valueOf(dId), projectAllJinEStr, startTime, endTime, allTimeStr, zhiBaoJinD, title, detail, price, needDays, String.valueOf(mType));
     }
 
     private void sureSponsorContractEvent(String contractContentStr, String userId, String s, String s1, String projectAllJinEStr, String startTime, String endTime, String allTimeStr, String zhiBaoJinD, String title, String detail, String price, String needDays, String s2) {
@@ -413,6 +311,8 @@ public class InitiatingContractActivity extends BaseActivity {
                         cancelDialog();
                         showToast(base.msg);
                         if (base.responseState.equals("1")) {
+                            EventBus.getDefault().post(new FaQiContractFinishMsg());
+                            EventBus.getDefault().post(new UpdateServiceProgressMsg());
                             finish();
                         }
                     }
@@ -420,6 +320,7 @@ public class InitiatingContractActivity extends BaseActivity {
                     @Override
                     public void onError(@NonNull Throwable e) {
                         cancelDialog();
+                        showToast(getResources().getString(R.string.network_error));
                     }
 
                     @Override
@@ -431,6 +332,7 @@ public class InitiatingContractActivity extends BaseActivity {
     }
 
     private boolean gongQi = false;
+
     private void clickGongQiEvent() {
         gongQi = !gongQi;
         if (gongQi) {
@@ -446,7 +348,22 @@ public class InitiatingContractActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void receiveStageMsg(ProjectStageBean.DataBean dataBean) {
-        mDataBeanList.add(dataBean);
+        if (dataBean.getMark().equals("2")) {
+            mDataBeanList.remove(dataBean.getPosition());
+            mDataBeanList.add(dataBean.getPosition(), dataBean);
+        } else {
+            mDataBeanList.add(dataBean);
+        }
+        java.text.DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        double money = 0.00;
+        int needTime = 0;
+        for (ProjectStageBean.DataBean data : mDataBeanList) {
+            String payMoneyJinE = data.getPayMoneyJinE();
+            money += Double.valueOf(decimalFormat.format(Double.valueOf(payMoneyJinE)));
+            needTime += Integer.valueOf(data.getNeedDays());
+        }
+        mProjectAllTimeEt.setText(String.valueOf(needTime));
+        mProjectJineEt.setText(String.valueOf(money));
         mProjectStageAdapter.setNewData(mDataBeanList);
     }
 

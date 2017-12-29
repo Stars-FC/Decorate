@@ -13,6 +13,7 @@ import com.ygc.estatedecoration.adapter.CaseEffectAdapter;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.entity.base.Constant;
 import com.ygc.estatedecoration.user_activity.CaseDetailActivity;
+import com.ygc.estatedecoration.utils.lazyviewpager.LazyFragmentPagerAdapter;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import java.util.List;
 import butterknife.BindView;
 import io.reactivex.disposables.CompositeDisposable;
 
-public class EffectFragment extends BaseFragment{
+public class EffectFragment extends BaseFragment implements LazyFragmentPagerAdapter.Laziable{
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";

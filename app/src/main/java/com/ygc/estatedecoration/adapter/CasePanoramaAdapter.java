@@ -1,21 +1,19 @@
 package com.ygc.estatedecoration.adapter;
 
-import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.ygc.estatedecoration.R;
+import com.ygc.estatedecoration.bean.PanoramaBean;
 
-import java.util.List;
+public class CasePanoramaAdapter extends BaseQuickAdapter<PanoramaBean.DataBean, BaseViewHolder> {
 
-public class CasePanoramaAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
-    public CasePanoramaAdapter(@LayoutRes int layoutResId, @Nullable List<String> data) {
-        super(layoutResId, data);
+    public CasePanoramaAdapter() {
+        super(R.layout.item_case_panorama);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, String item) {
+    protected void convert(BaseViewHolder helper, PanoramaBean.DataBean item) {
 
     }
 }

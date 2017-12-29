@@ -61,7 +61,6 @@ public class TransactionManageDetailActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        EventBus.getDefault().register(this);
         getIntentData();
 
         String[] titleArray = {"需求详情", "报  价"};
@@ -101,16 +100,5 @@ public class TransactionManageDetailActivity extends BaseActivity {
                 startActivity(intent);
                 break;
         }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void offerFinishEvent(OfferFinishMsg offerFinishMsg) {
-        finish();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
     }
 }

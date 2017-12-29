@@ -29,7 +29,7 @@ public class MyViewPagerAdapter extends FragmentPagerAdapter {
         } else if (position == 1) {
             return ManageFragment.newInstance(position + "");
         }else if (position == 2) {
-            return MyFragment.newInstance(position + "");
+            return MyFragment.newInstance();
         } else {
             return HomeFragment.newInstance(position + "");
         }

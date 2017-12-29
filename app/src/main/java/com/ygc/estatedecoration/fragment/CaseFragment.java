@@ -19,8 +19,11 @@ import com.androidkun.xtablayout.XTabLayout;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.adapter.CaseStyleAdapter;
+import com.ygc.estatedecoration.adapter.DemandAndProgressLazyFragmentPagerAdapter;
 import com.ygc.estatedecoration.adapter.HomeMyStoreAdapter;
+import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
+import com.ygc.estatedecoration.bean.CaseStyleBean;
 import com.ygc.estatedecoration.fragment.cas.EffectFragment;
 import com.ygc.estatedecoration.fragment.cas.PanoramaFragment;
 import com.ygc.estatedecoration.utils.LogUtil;
@@ -34,6 +37,12 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.pedant.SweetAlert.SweetAlertDialog;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by FC on 2017/11/13.
@@ -62,6 +71,7 @@ public class CaseFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     private int curTab = 0;
     private int curCaseState = 0;//当前案例的状态
+    private List<CaseStyleBean.DataBean> mDataBeanList;//案例风格数据
 
     public static CaseFragment newInstance(String content) {
         Bundle args = new Bundle();
@@ -80,26 +90,23 @@ public class CaseFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initFragmentTitle();
-        initFragment();
-        initStylePopupWindow();
+
     }
 
-    private String[] styleList = {"欧式", "中式", "美式", "田园", "地中海", "工业风",
-            "东南亚", "混搭", "日式", "美式乡村", "简欧", "新古典"};
-
+    private List<String> caseStyleList = new ArrayList<>();
+    private CaseStyleAdapter mCaseStyleAdapter;
     private void initStylePopupWindow() {
         mCasePopupWindow = new BasePopupWindow(mActivity);
         View popupView = LayoutInflater.from(mActivity).inflate(R.layout.popup_window_case_style, null);
         RecyclerView styleRecyclerView = (RecyclerView) popupView.findViewById(R.id.style_recyclerview);
-        CaseStyleAdapter caseStyleAdapter = new CaseStyleAdapter(R.layout.item_case_style, Arrays.asList(styleList));
+        mCaseStyleAdapter = new CaseStyleAdapter(R.layout.item_case_style, caseStyleList);
         styleRecyclerView.setLayoutManager(new GridLayoutManager(mActivity, 3));
         styleRecyclerView.addItemDecoration(new RecyclerSpace(30, Color.parseColor("#f6f6f6")));
-        styleRecyclerView.setAdapter(caseStyleAdapter);
-        caseStyleAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        styleRecyclerView.setAdapter(mCaseStyleAdapter);
+        mCaseStyleAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Log.i("521", "onItemClick: style:" + styleList[position]);
+                Log.i("521", "onItemClick: style:" + caseStyleList.get(position));
                 mCasePopupWindow.dismiss();
             }
         });
@@ -109,6 +116,54 @@ public class CaseFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @Override
     protected void initData(Bundle arguments) {
+        initFragmentTitle();
+        initFragment();
+        initStylePopupWindow();
+        getCaseStyleData();
+    }
+
+    private void getCaseStyleData() {
+        showDialog();
+        APPApi.getInstance().service
+                .getCaseStyleData("5")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<CaseStyleBean>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        compositeDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(@NonNull CaseStyleBean caseStyleBean) {
+                        cancelDialog();
+                        if (caseStyleBean.responseState.equals("1")) {
+                            mDataBeanList = caseStyleBean.getData();
+                            if (caseStyleList.size() > 0) {
+                                caseStyleList.clear();
+                            }
+                            caseStyleList.add("全部");
+                            for (CaseStyleBean.DataBean dataBean : mDataBeanList) {
+                                String r_name = dataBean.getR_name();
+                                caseStyleList.add(r_name);
+                                mCaseStyleAdapter.notifyDataSetChanged();
+                            }
+                        } else {
+                            showToast(caseStyleBean.msg);
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        cancelDialog();
+                        showToast(getResources().getString(R.string.network_error));
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     private void initFragmentTitle() {
@@ -118,7 +173,7 @@ public class CaseFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     private void initFragment() {
         mChildFragmentManager = getChildFragmentManager();
-        PanoramaFragment panoramaFragment = PanoramaFragment.newInstance("", "");
+        PanoramaFragment panoramaFragment = PanoramaFragment.newInstance();
         EffectFragment effectFragment = EffectFragment.newInstance("", "");
         mFragmentList.add(panoramaFragment);
         mFragmentList.add(effectFragment);
@@ -126,13 +181,13 @@ public class CaseFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        LogUtil.e("案例初始化");
         initTabLayoutAndViewPager();
     }
 
     private void initTabLayoutAndViewPager() {
-        HomeMyStoreAdapter homeMyStoreAdapter = new HomeMyStoreAdapter(mChildFragmentManager, mFragmentList, mFragmentTitleList);
-        mViewPager.setAdapter(homeMyStoreAdapter);
+        DemandAndProgressLazyFragmentPagerAdapter adapter = new DemandAndProgressLazyFragmentPagerAdapter(mChildFragmentManager, mFragmentList, mFragmentTitleList);
+//        HomeMyStoreAdapter homeMyStoreAdapter = new HomeMyStoreAdapter(mChildFragmentManager, mFragmentList, mFragmentTitleList);
+        mViewPager.setAdapter(adapter);
         mTabLayout.setupWithViewPager(mViewPager);
     }
 

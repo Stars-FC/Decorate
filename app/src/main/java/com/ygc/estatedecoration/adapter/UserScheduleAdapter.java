@@ -25,7 +25,7 @@ public class UserScheduleAdapter extends BaseQuickAdapter<UserProjectProgressBea
         LinearLayout timeAndContentLl = helper.getView(R.id.time_and_content_ll);
         TextView timeTv = helper.getView(R.id.time_tv);
         TextView contentTv = helper.getView(R.id.content_tv);
-        RecyclerView recyclerViewMainStage = helper.getView(R.id.stage_main_recyclerview);
+        final RecyclerView recyclerViewMainStage = helper.getView(R.id.stage_main_recyclerview);
         RecyclerView recyclerViewMinorStage = helper.getView(R.id.stage_minor_recyclerview);
 
         titleTv.setText(item.getTitle());

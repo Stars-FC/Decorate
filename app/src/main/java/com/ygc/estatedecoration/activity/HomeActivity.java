@@ -90,7 +90,7 @@ public class HomeActivity extends BaseActivity {
     private void initFragment() {
         fragmentList.add(HomeFragment.newInstance(""));
         fragmentList.add(ManageFragment.newInstance(""));
-        fragmentList.add(MyFragment.newInstance(""));
+        fragmentList.add(MyFragment.newInstance());
     }
 
     private static class HomeLazyFragmentAdapter extends LazyFragmentPagerAdapter{

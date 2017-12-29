@@ -44,7 +44,7 @@ public class UserDemandFragment extends BaseFragment implements LazyFragmentPage
     SwipeRefreshLayout mSwipeRefreshLayout;
 
     private MyCollectionAdapter mAdapter;
-    private SweetAlertDialog mPDialog;
+//    private SweetAlertDialog mPDialog;
     private int curPageNumAllData = 0;
     private String mMark = "";
 
@@ -71,11 +71,12 @@ public class UserDemandFragment extends BaseFragment implements LazyFragmentPage
 
     @Override
     protected void initData(Bundle arguments) {
-        mPDialog = new SweetAlertDialog(mActivity, SweetAlertDialog.PROGRESS_TYPE)
+        /*mPDialog = new SweetAlertDialog(mActivity, SweetAlertDialog.PROGRESS_TYPE)
                 .setTitleText("正在加载...");
         mPDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
         mPDialog.setCancelable(false);
-        mPDialog.show();
+        mPDialog.show();*/
+        showDialog();
         getMyDemandData(0, Constant.NORMAL_REQUEST);
     }
 
@@ -85,11 +86,11 @@ public class UserDemandFragment extends BaseFragment implements LazyFragmentPage
         Observable<NeedBean> needBeanObservable;
         if (TextUtils.isEmpty(mMark)) {
             needBeanObservable = service
-                    .queryAllNeed(UserUtils.getUserId(), pageNum, null, null, null, null, null, null, null);
+                    .queryAllNeed(String.valueOf(UserUtils.sDataBean.getAu_id()), pageNum, null, null, null, null, null, null, null);
             Log.i("521", "getMyDemandData: 请求的是全部数据>>" + mMark);
         } else {
             needBeanObservable = service
-                    .queryAllNeed(UserUtils.getUserId(), Integer.valueOf(mMark), pageNum, null, null, null, null, null, null, null);
+                    .queryAllNeed(String.valueOf(UserUtils.sDataBean.getAu_id()), Integer.valueOf(mMark), pageNum, null, null, null, null, null, null, null);
             Log.i("521", "getMyDemandData: 请求的是分类数据>>" + mMark);
         }
         needBeanObservable
@@ -142,11 +143,11 @@ public class UserDemandFragment extends BaseFragment implements LazyFragmentPage
                 });
     }
 
-    private void cancelDialog() {
+    /*private void cancelDialog() {
         if (mPDialog != null && mPDialog.isShowing()) {
             mPDialog.dismiss();
         }
-    }
+    }*/
 
     private void loadMoreFinishEvent() {
         mAdapter.loadMoreFail();

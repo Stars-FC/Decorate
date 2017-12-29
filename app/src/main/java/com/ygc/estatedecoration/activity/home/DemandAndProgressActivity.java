@@ -16,7 +16,7 @@ import com.ygc.estatedecoration.app.activity.BaseActivity;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.bean.ContractInfoBean;
 import com.ygc.estatedecoration.bean.NeedBean;
-import com.ygc.estatedecoration.event.OperateContractMsg;
+import com.ygc.estatedecoration.event.FaQiContractFinishMsg;
 import com.ygc.estatedecoration.fragment.home.ServiceProgressFragment;
 import com.ygc.estatedecoration.fragment.home.TransactionManageNeedFragment;
 import com.ygc.estatedecoration.utils.UserUtils;
@@ -56,6 +56,8 @@ public class DemandAndProgressActivity extends BaseActivity {
     private NeedBean.DataBean mDataBean;
     private SweetAlertDialog mPDialog;
     private int mContractState = -1;
+    private String mConId;
+    private int sign = 0;
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
@@ -105,6 +107,11 @@ public class DemandAndProgressActivity extends BaseActivity {
                         List<ContractInfoBean.DataBean> data = contractInfoBean.getData();
                         if (data != null && data.size() > 0) {
                             mContractState = data.get(0).getContractState();
+                            mConId = data.get(0).getConId();
+                            List<ContractInfoBean.DataBean.ReplenishContractBean> replenishContract = data.get(0).getReplenishContract();
+                            if (replenishContract != null && replenishContract.size() > 0) {
+                                sign = replenishContract.size();
+                            }
                             Log.i("521", "onNext: contractState:" + mContractState);
                             switch (mContractState) {
                                 case 0:
@@ -189,18 +196,21 @@ public class DemandAndProgressActivity extends BaseActivity {
             startActivity(intent);
         } else {
             intent.setClass(this, SupplementaryContractActivity.class);
+            intent.putExtra("mark", "1");
+            intent.putExtra("conId", mConId);
+            intent.putExtra("sign", sign);
             startActivity(intent);
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventMsg(FaQiContractFinishMsg faQiContractFinishMsg) {
+        getContractInfoEvent();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void modifyContractState(OperateContractMsg operateContractMsg) {
-        mBtn_startContract.setText("补充合同");
     }
 }

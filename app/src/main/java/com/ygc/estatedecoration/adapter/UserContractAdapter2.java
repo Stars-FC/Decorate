@@ -13,10 +13,8 @@ import java.util.List;
 
 public class UserContractAdapter2 extends BaseQuickAdapter<UserProjectProgressBean.DataBeanX.ContractStageListBean, BaseViewHolder> {
 
-    private List<UserProjectProgressBean.DataBeanX.ContractStageListBean> data;
     public UserContractAdapter2(@Nullable List<UserProjectProgressBean.DataBeanX.ContractStageListBean> data) {
         super(R.layout.item_contract_stage, data);
-        this.data = data;
     }
 
     @Override
@@ -25,12 +23,17 @@ public class UserContractAdapter2 extends BaseQuickAdapter<UserProjectProgressBe
         ((TextView)helper.getView(R.id.content_tv)).setText(item.getDetail());
         TextView operateContractTv = helper.getView(R.id.operate_contract_tv);
         String conId = item.getConId();
-        String consId = item.getConsId();
         int csState = item.getCsState();
         if (csState == 0) {
-            operateContractTv.setText("发起验收");
-        } else {
-            operateContractTv.setText("提醒验收");
+            operateContractTv.setVisibility(View.GONE);
+        } else if (csState == 1) {
+            operateContractTv.setVisibility(View.VISIBLE);
+            operateContractTv.setText("确认验收");
+            operateContractTv.setBackgroundResource(R.drawable.shape_hollow_rounded_rectangle);
+        } else if (csState == 2) {
+            operateContractTv.setVisibility(View.VISIBLE);
+            operateContractTv.setText("已验收");
+            operateContractTv.setBackgroundResource(R.drawable.shape_hollow_rounded_rectangle2);
         }
         operateContractTv.setOnClickListener(new View.OnClickListener() {
             @Override

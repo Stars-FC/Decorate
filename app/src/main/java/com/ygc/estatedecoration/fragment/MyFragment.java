@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -82,7 +83,6 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
     TextView mWarrantyGold;//质保金
     @BindView(R.id.gold_coin)
     TextView mGoldCoin;//金币
-    Unbinder unbinder;
 
     private static final String ARG_C = "content";
 
@@ -91,12 +91,8 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
     private String mSex;
 
 
-    public static MyFragment newInstance(String content) {
-        Bundle args = new Bundle();
-        args.putString(ARG_C, content);
-        MyFragment fragment = new MyFragment();
-        fragment.setArguments(args);
-        return fragment;
+    public static MyFragment newInstance() {
+        return new MyFragment();
     }
 
     @Override
@@ -107,9 +103,7 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
     }
 
     @Override
-    protected void initData(Bundle arguments) {
-        getDataFromNet();
-    }
+    protected void initData(Bundle arguments) {}
 
     @Override
     protected void initView(Bundle savedInstanceState) {
@@ -471,6 +465,12 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
         if (filepath != null && filepath.exists()) {
             filepath.delete();
         }
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        getDataFromNet();
     }
 
     /**

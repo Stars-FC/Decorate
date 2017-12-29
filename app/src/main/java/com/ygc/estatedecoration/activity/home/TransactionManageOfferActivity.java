@@ -163,8 +163,8 @@ public class TransactionManageOfferActivity extends BaseActivity {
                         if (base.responseState.equals("1")) {
                             if (!mMark.equals("需求大厅")) {
                                 EventBus.getDefault().post(new DeleteRecommendDemandMsg(mPosition));
-                                EventBus.getDefault().post(new OfferFinishMsg());
                             }
+                            EventBus.getDefault().post(new OfferFinishMsg());
                             finish();
                         }
                     }

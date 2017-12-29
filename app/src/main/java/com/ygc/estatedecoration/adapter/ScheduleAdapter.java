@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.bean.ScheduleBean;
+import com.zhy.autolayout.AutoLinearLayout;
 
 import java.util.List;
 
@@ -21,6 +22,9 @@ public class ScheduleAdapter extends BaseQuickAdapter<ScheduleBean.DataBeanX, Ba
 
     @Override
     protected void convert(BaseViewHolder helper, ScheduleBean.DataBeanX item) {
+        AutoLinearLayout bottomLl = helper.getView(R.id.bottom_ll);
+        TextView circle = helper.getView(R.id.item_schedule_hollow_circle);
+        TextView mTv_pingJia = helper.getView(R.id.operate_contract_tv);
         TextView titleTv = helper.getView(R.id.title_tv);
         LinearLayout timeAndContentLl = helper.getView(R.id.time_and_content_ll);
         TextView timeTv = helper.getView(R.id.time_tv);
@@ -30,12 +34,18 @@ public class ScheduleAdapter extends BaseQuickAdapter<ScheduleBean.DataBeanX, Ba
 
         titleTv.setText(item.getTitle());
         if (helper.getLayoutPosition() == 0) {
+            circle.setBackgroundResource(R.drawable.shape_green_hollow_circle);
+            bottomLl.setVisibility(View.VISIBLE);
+            mTv_pingJia.setVisibility(View.INVISIBLE);
             timeAndContentLl.setVisibility(View.VISIBLE);
             recyclerViewMainStage.setVisibility(View.GONE);
             recyclerViewMinorStage.setVisibility(View.GONE);
             timeTv.setText(item.getTime());
             contentTv.setText(item.getDetail());
         } else if (helper.getLayoutPosition() == 1) {
+            circle.setBackgroundResource(R.drawable.shape_green_hollow_circle);
+            bottomLl.setVisibility(View.VISIBLE);
+            mTv_pingJia.setVisibility(View.INVISIBLE);
             timeAndContentLl.setVisibility(View.GONE);
             recyclerViewMinorStage.setVisibility(View.GONE);
             List<ScheduleBean.DataBeanX.DataBean> dataBeanList = item.getData();
@@ -47,6 +57,9 @@ public class ScheduleAdapter extends BaseQuickAdapter<ScheduleBean.DataBeanX, Ba
                 recyclerViewMainStage.setVisibility(View.GONE);
             }
         } else if (helper.getLayoutPosition() == 2) {
+            circle.setBackgroundResource(R.drawable.shape_green_hollow_circle);
+            bottomLl.setVisibility(View.VISIBLE);
+            mTv_pingJia.setVisibility(View.INVISIBLE);
             timeAndContentLl.setVisibility(View.GONE);
             recyclerViewMinorStage.setVisibility(View.VISIBLE);
             List<ScheduleBean.DataBeanX.ContractStageListBean> contractStageList = item.getContractStageList();
@@ -65,6 +78,18 @@ public class ScheduleAdapter extends BaseQuickAdapter<ScheduleBean.DataBeanX, Ba
             } else {
                 recyclerViewMinorStage.setVisibility(View.GONE);
             }
+        } else if (helper.getLayoutPosition() == 3) {
+            titleTv.setText("评价");
+            bottomLl.setVisibility(View.GONE);
+            mTv_pingJia.setVisibility(View.VISIBLE);
+            circle.setBackgroundResource(R.drawable.shape_gray_hollow_circle);
+
+            mTv_pingJia.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
         }
     }
 }

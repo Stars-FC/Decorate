@@ -664,7 +664,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="10、所在区域"
+                        android:text="11、所在区域"
                         android:textColor="@android:color/black"
                         android:textSize="26px"/>
 
@@ -706,7 +706,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="11、上传图片"
+                        android:text="12、上传图片"
                         android:textColor="@android:color/black"
                         android:textSize="26px"/>
 

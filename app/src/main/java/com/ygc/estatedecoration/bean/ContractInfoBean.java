@@ -2,6 +2,7 @@ package com.ygc.estatedecoration.bean;
 
 import com.ygc.estatedecoration.entity.base.Base;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class ContractInfoBean extends Base {
@@ -181,7 +182,7 @@ public class ContractInfoBean extends Base {
             this.replenishContract = replenishContract;
         }
 
-        public static class ContractStageListBean {
+        public static class ContractStageListBean implements Serializable{
             /**
              * consId : d833cb0f6fe04fab8815228445a31ed8
              * conId : 80fd626fed074da28554b4f5ecc42910
@@ -198,11 +199,13 @@ public class ContractInfoBean extends Base {
             private String conId;
             private String title;
             private String detail;
-            private int price;
+            private String price;
             private int needDays;
             private int sign;
             private int csState;
             private String createTime;
+            private String stageStartTime;
+            private String stageEndTime;
 
             public String getConsId() {
                 return consId;
@@ -236,11 +239,11 @@ public class ContractInfoBean extends Base {
                 this.detail = detail;
             }
 
-            public int getPrice() {
+            public String getPrice() {
                 return price;
             }
 
-            public void setPrice(int price) {
+            public void setPrice(String price) {
                 this.price = price;
             }
 
@@ -275,6 +278,22 @@ public class ContractInfoBean extends Base {
             public void setCreateTime(String createTime) {
                 this.createTime = createTime;
             }
+
+            public String getStageStartTime() {
+                return stageStartTime;
+            }
+
+            public void setStageStartTime(String stageStartTime) {
+                this.stageStartTime = stageStartTime;
+            }
+
+            public String getStageEndTime() {
+                return stageEndTime;
+            }
+
+            public void setStageEndTime(String stageEndTime) {
+                this.stageEndTime = stageEndTime;
+            }
         }
 
         public static class ReplenishContractBean {
@@ -296,13 +315,15 @@ public class ContractInfoBean extends Base {
             private String conId;
             private String title;
             private String detail;
-            private int price;
+            private String price;
             private int needDays;
             private int sign;
             private String replenishDetail;
             private String accessory;
             private String createTime;
             private String rcState;
+            private String startTime;
+            private String endTime;
 
             public String getRcId() {
                 return rcId;
@@ -336,11 +357,11 @@ public class ContractInfoBean extends Base {
                 this.detail = detail;
             }
 
-            public int getPrice() {
+            public String getPrice() {
                 return price;
             }
 
-            public void setPrice(int price) {
+            public void setPrice(String price) {
                 this.price = price;
             }
 
@@ -390,6 +411,22 @@ public class ContractInfoBean extends Base {
 
             public void setRcState(String rcState) {
                 this.rcState = rcState;
+            }
+
+            public String getStartTime() {
+                return startTime;
+            }
+
+            public void setStartTime(String startTime) {
+                this.startTime = startTime;
+            }
+
+            public String getEndTime() {
+                return endTime;
+            }
+
+            public void setEndTime(String endTime) {
+                this.endTime = endTime;
             }
         }
     }
