@@ -14,7 +14,12 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.adapter.UserFindDesignerDetailAdapter;
+import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
+import com.ygc.estatedecoration.bean.FindAllTypeBean;
+import com.ygc.estatedecoration.entity.base.Constant;
+import com.ygc.estatedecoration.utils.LogUtil;
+import com.ygc.estatedecoration.utils.NetWorkUtil;
 import com.ygc.estatedecoration.widget.MyScrollview;
 import com.ygc.estatedecoration.widget.TitleBar;
 
@@ -24,6 +29,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.bingoogolapple.bgabanner.BGABanner;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Created by FC on 2017/11/29.
@@ -45,7 +56,8 @@ public class UserFindDesigerActivity extends BaseActivity {
     SwipeRefreshLayout mSwipeRefreshLayout;
 
     private UserFindDesignerDetailAdapter mAdapter;
-    List<String> list = new ArrayList<>();
+
+    private int mPager = 1;
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
@@ -72,9 +84,8 @@ public class UserFindDesigerActivity extends BaseActivity {
             @Override
             public void onRefresh() {
                 mAdapter.setEnableLoadMore(false);//这里的作用是防止下拉刷新的时候还可以上拉加载
-                if (mSwipeRefreshLayout.isRefreshing()) {
-                    mSwipeRefreshLayout.setRefreshing(false);
-                }
+                mPager = 1;
+                findAllType(mPager, Constant.REFRESH_REQUEST);
             }
         });
 
@@ -82,7 +93,8 @@ public class UserFindDesigerActivity extends BaseActivity {
         mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                mAdapter.loadMoreComplete();//完成
+                ++mPager;
+                findAllType(mPager, Constant.NORMAL_REQUEST);
             }
         }, mRecyclerview);
     }
@@ -95,24 +107,17 @@ public class UserFindDesigerActivity extends BaseActivity {
     }
 
     private void initRecyclerView() {
-//        View topView = View.inflate(UserFindDesigerActivity.this, R.layout.user_find_designer, null);
-        mAdapter = new UserFindDesignerDetailAdapter(list);
-//        mAdapter.addHeaderView(topView);
+        mAdapter = new UserFindDesignerDetailAdapter();
         mRecyclerview.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerview.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         mRecyclerview.setNestedScrollingEnabled(false);
         mRecyclerview.setAdapter(mAdapter);
-        if (mSwipeRefreshLayout.isRefreshing()) {
-            mSwipeRefreshLayout.setRefreshing(false);
-        }
     }
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        for (int i = 0; i < 10; i++) {
-            list.add("" + i);
-        }
         mSwipeRefreshLayout.setRefreshing(true);
+        findAllType(mPager, Constant.REFRESH_REQUEST);
     }
 
     @Override
@@ -131,5 +136,83 @@ public class UserFindDesigerActivity extends BaseActivity {
                 startActivity(intent);
                 break;
         }
+    }
+
+    /**
+     * 获取1-设计师信息
+     *
+     * @param pager 当前页数
+     * @param value 区分下拉，上拉
+     */
+    private void findAllType(int pager, final String value) {
+
+        if (!NetWorkUtil.isNetWorkConnect(UserFindDesigerActivity.this)) {
+            showToast("请检查网络设置");
+            return;
+        }
+
+        RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("type", "1")
+                .addFormDataPart("pn", String.valueOf(pager))
+                .addFormDataPart("pageSize", "10")
+                .build();
+
+        APPApi.getInstance().service
+                .findAllType(requestBody)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<FindAllTypeBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        compositeDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(FindAllTypeBean bean) {
+                        int size = bean.getData() == null ? 0 : bean.getData().size();
+                        String msg = bean.getMessage();
+                        if ("1".equals(bean.getResponseState())) {
+                            if (Constant.REFRESH_REQUEST.equals(value)) {
+                                mAdapter.setNewData(bean.getData());
+                            } else if (Constant.NORMAL_REQUEST.equals(value)) {
+                                if (size > 0) {
+                                    mAdapter.addData(bean.getData());
+                                }
+                            }
+                            if (size < 10) {
+                                //第一页如果不够一页就不显示没有更多数据布局
+                                mAdapter.loadMoreEnd(false);
+                            } else {
+                                mAdapter.loadMoreComplete();
+                            }
+                        } else {
+                            showToast(msg);
+                        }
+                        if (mSwipeRefreshLayout.isRefreshing()) {
+                            mSwipeRefreshLayout.setRefreshing(false);
+                        }
+                        mAdapter.setEnableLoadMore(true);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        --mPager;
+                        if (mPager < 1) {
+                            mPager = 1;
+                        }
+                        if (mSwipeRefreshLayout.isRefreshing()) {
+                            mSwipeRefreshLayout.setRefreshing(false);
+                        }
+                        mAdapter.loadMoreFail();
+                        mAdapter.setEnableLoadMore(true);
+                        LogUtil.e("Fc_用户端1-设计师，请求网路失败" + e.getMessage());
+                        showToast(getResources().getString(R.string.network_error));
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 }

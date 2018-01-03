@@ -10,7 +10,7 @@ public class  MyStoreBean {
     /**
      * responseState : 1
      * msg : 查询成功
-     * data : {"s_id":1,"au_id":"1","s_name":"小月的材料屋","s_logo":"/pictures/1.jpg","s_type":"","turnover":0,"bid_num":0,"introduce":"真诚服务","background_info":"","work_experience":"","work_year":"","s_province":"辽宁","s_city":"沈阳","r_id":"1","create_time":"2017-12-07 16:52:19.0","rinfo":{"r_id":1,"r_name":"木工","r_picture":"/pictures/1.jpg","type":4}}
+     * data : {"s_id":1,"au_id":"1","s_name":"小月的材料屋","s_logo":"/pictures/1.jpg","s_type":"","turnover":0,"bid_num":0,"introduce":"真诚服务","background_info":"","work_experience":"","work_year":"1","s_province":"辽宁","s_city":"沈阳","r_id":"1","create_time":"2017-12-07 16:52:19.0","applause_rate":"100","comprehensive_score":"5","rinfo":{"r_id":1,"r_name":"木工","r_picture":"/pictures/1.jpg","type":4}}
      */
 
     private String responseState;
@@ -53,11 +53,13 @@ public class  MyStoreBean {
          * introduce : 真诚服务
          * background_info :
          * work_experience :
-         * work_year :
+         * work_year : 1
          * s_province : 辽宁
          * s_city : 沈阳
          * r_id : 1
          * create_time : 2017-12-07 16:52:19.0
+         * applause_rate : 100
+         * comprehensive_score : 5
          * rinfo : {"r_id":1,"r_name":"木工","r_picture":"/pictures/1.jpg","type":4}
          */
 
@@ -76,6 +78,8 @@ public class  MyStoreBean {
         private String s_city;
         private String r_id;
         private String create_time;
+        private String applause_rate;
+        private String comprehensive_score;
         private RinfoBean rinfo;
 
         public int getS_id() {
@@ -196,6 +200,22 @@ public class  MyStoreBean {
 
         public void setCreate_time(String create_time) {
             this.create_time = create_time;
+        }
+
+        public String getApplause_rate() {
+            return applause_rate;
+        }
+
+        public void setApplause_rate(String applause_rate) {
+            this.applause_rate = applause_rate;
+        }
+
+        public String getComprehensive_score() {
+            return comprehensive_score;
+        }
+
+        public void setComprehensive_score(String comprehensive_score) {
+            this.comprehensive_score = comprehensive_score;
         }
 
         public RinfoBean getRinfo() {

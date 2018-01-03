@@ -18,7 +18,7 @@
             android:layout_height="106px">
 
             <com.ygc.estatedecoration.widget.CircleImageView
-                android:id="@+id/server_head_iv"
+                android:id="@+id/iv_server_icom"
                 android:layout_width="106px"
                 android:layout_height="106px"
                 android:src="@color/line"/>
@@ -37,6 +37,7 @@
                     android:paddingRight="10px">
 
                     <TextView
+                        android:id="@+id/tv_server_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="设计师名称"
@@ -44,6 +45,7 @@
                         android:textSize="26px"/>
 
                     <TextView
+                        android:id="@+id/tv_server_type"
                         android:layout_width="42px"
                         android:layout_height="26px"
                         android:layout_marginLeft="10px"
@@ -86,6 +88,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_server_place"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="江苏 苏州"
@@ -98,6 +101,7 @@
                             android:layout_weight="1"/>
 
                         <TextView
+                            android:id="@+id/tv_server_work_year"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="10年设计经验"
@@ -124,6 +128,7 @@
                                 android:textSize="20px"/>
 
                             <TextView
+                                android:id="@+id/tv_server_bid_num"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="4px"
@@ -138,6 +143,7 @@
                             android:layout_weight="1"/>
 
                         <TextView
+                            android:id="@+id/tv_server_house_type"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="擅长普通户型"
@@ -158,10 +164,12 @@
             android:layout_marginTop="24px">
 
             <ImageView
+                android:id="@+id/iv_service_picture"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#eeeeee"
-            android:src="@drawable/shangpin_heng"/>
+                android:scaleType="fitXY"
+                android:src="@drawable/shangpin_heng"/>
 
             <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="wrap_content"
@@ -177,6 +185,7 @@
                 android:paddingTop="8px">
 
                 <TextView
+                    android:id="@+id/tv_city"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="城市"
@@ -184,6 +193,7 @@
                     android:textSize="21px"/>
 
                 <TextView
+                    android:id="@+id/tv_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="29px"
@@ -192,6 +202,7 @@
                     android:textSize="21px"/>
 
                 <TextView
+                    android:id="@+id/tv_house_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="29px"

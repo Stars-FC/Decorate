@@ -220,7 +220,10 @@ public class ChangeStoreActivity extends BaseActivity implements EasyPermissions
             return;
         }
 
-        PictureCompressUtil.getInstance().startCompress(this, Arrays.asList(new String[]{Environment.getExternalStorageDirectory()
+        setNet();
+
+        //图片压缩（上传头像可能用不到）
+       /* PictureCompressUtil.getInstance().startCompress(this, Arrays.asList(new String[]{Environment.getExternalStorageDirectory()
                         + "/" + filepath.getName()}),
                 new PictureCompressUtil.CompressedPicResultCallBack() {
                     @Override
@@ -228,10 +231,10 @@ public class ChangeStoreActivity extends BaseActivity implements EasyPermissions
                         File file = list.get(0);
                         setNet(file);
                     }
-                });
+                });*/
     }
 
-    private void setNet(File file) {
+    private void setNet() {
 
         String nick = MyPublic.getText(mNick);
         String sex = MyPublic.getText(nice_spinner_sex);
@@ -250,32 +253,31 @@ public class ChangeStoreActivity extends BaseActivity implements EasyPermissions
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
         pDialog.setCancelable(false);
         pDialog.show();
-
-    /*    s_id 	string 	是 	店铺id
-        s_name 	string 	否 	店铺名称
-        s_type 	string 	否 	类型
-        introduce 	string 	否 	介绍
-        background_info 	string 	否 	背景资料
-        work_experience 	string 	否 	工作经验
-        work_year 	string 	否 	参加工作年数
-        s_province 	string 	否 	省
-        s_city 	string 	否 	城市
-        mProvince
-        r_id 	string 	否 	装修风格id（参照sys_role表）
-        file 	file 	否 	店铺头像*/
-
         // TODO: 2017/12/27 性别，装修类型，
 
-        RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("s_id", mStoreId)
+        RequestBody requestBody;
+        if (filepath != null) {
+            requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                    .addFormDataPart("s_id", mStoreId)
 //                .addFormDataPart("start_time", sex)
-                .addFormDataPart("s_type", type)
-                .addFormDataPart("work_experience", workTime)
-                .addFormDataPart("r_id", style)
-                .addFormDataPart("s_province", mProvince)
-                .addFormDataPart("s_city", mCity)
-                .addFormDataPart("file", file.getName(), RequestBody.create(MediaType.parse("image"), file))
-                .build();
+                    .addFormDataPart("s_type", type)
+                    .addFormDataPart("work_experience", workTime)
+                    .addFormDataPart("r_id", style)
+                    .addFormDataPart("s_province", mProvince)
+                    .addFormDataPart("s_city", mCity)
+                    .addFormDataPart("file", filepath.getName(), RequestBody.create(MediaType.parse("image"), filepath))
+                    .build();
+        } else {
+            requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                    .addFormDataPart("s_id", mStoreId)
+//                .addFormDataPart("start_time", sex)
+                    .addFormDataPart("s_type", type)
+                    .addFormDataPart("work_experience", workTime)
+                    .addFormDataPart("r_id", style)
+                    .addFormDataPart("s_province", mProvince)
+                    .addFormDataPart("s_city", mCity)
+                    .build();
+        }
 
         APPApi.getInstance().service
                 .addMyActivites(requestBody)

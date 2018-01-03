@@ -63,6 +63,9 @@ public class MyStoreInformationFragment extends BaseFragment {
     @BindView(R.id.et_work_experience)
     TextView mEtWorkExperience;//编辑工作经验
 
+    @BindView(R.id.tv_mystore_score)
+    TextView mTvMystoreScore;//综合评分
+
     private boolean isIntroduceState = true;//编辑的判断
     private boolean isBackgroundState = true;//编辑的判断
     private boolean isExperienceState = true;//编辑的判断
@@ -251,12 +254,14 @@ public class MyStoreInformationFragment extends BaseFragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MyStoreBean bean) {
 
-        mTvMystoreTurnover.setText(bean.getData().getTurnover() + "");
-//        mTvMystoreComment.setText(bean.getData().getBackground_info());//好评率
+        mTvMystoreTurnover.setText(bean.getData().getTurnover() + "万");
         mTvMystoreBidNum.setText(bean.getData().getBid_num() + "");
         mMyStoreIntroduce.setText(bean.getData().getIntroduce());
         mMyStoreBackground.setText(bean.getData().getBackground_info());
         mMyStoreWorkExperience.setText(bean.getData().getWork_experience());
+
+        mTvMystoreScore.setText(bean.getData().getComprehensive_score());//综合评分
+        mTvMystoreComment.setText(bean.getData().getApplause_rate());//好评率
 
     }
 

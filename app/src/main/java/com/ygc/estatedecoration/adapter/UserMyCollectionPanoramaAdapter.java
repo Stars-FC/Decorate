@@ -32,6 +32,7 @@ public class UserMyCollectionPanoramaAdapter extends BaseQuickAdapter<UserCollec
                 .load(dynamic_picture)
                 .placeholder(R.drawable.iv_error)
                 .error(R.drawable.iv_error)
+                .dontAnimate()
                 .into((ImageView) helper.getView(R.id.pic_iv));
     }
 }

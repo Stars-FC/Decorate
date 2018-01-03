@@ -6,6 +6,9 @@ import com.ygc.estatedecoration.bean.CaseStyleBean;
 import com.ygc.estatedecoration.bean.ContractContentBean;
 import com.ygc.estatedecoration.bean.ContractInfoBean;
 import com.ygc.estatedecoration.bean.DemandOfferBean;
+import com.ygc.estatedecoration.bean.FindActivitesBean;
+import com.ygc.estatedecoration.bean.FindAllTypeBean;
+import com.ygc.estatedecoration.bean.FindMaterialBean;
 import com.ygc.estatedecoration.bean.EffectBean;
 import com.ygc.estatedecoration.bean.LoginBean;
 import com.ygc.estatedecoration.bean.MyActivitesBean;
@@ -23,8 +26,8 @@ import com.ygc.estatedecoration.bean.UserCasePanoramaDetailBean;
 import com.ygc.estatedecoration.bean.UserCollectionMaterialBean;
 import com.ygc.estatedecoration.bean.UserCollectionPanoramaBean;
 import com.ygc.estatedecoration.bean.UserCollectionResultChartBean;
-import com.ygc.estatedecoration.bean.UserBalanceOrderBean;
 import com.ygc.estatedecoration.bean.UserCommentBean;
+import com.ygc.estatedecoration.bean.UserHomeSkillBean;
 import com.ygc.estatedecoration.bean.UserInformationBean;
 import com.ygc.estatedecoration.bean.UserProjectProgressBean;
 import com.ygc.estatedecoration.bean.UserShopCarBean;
@@ -284,10 +287,27 @@ public interface APPService {
     @FormUrlEncoded
     @POST("UserVisited/doVisited.action")
     Observable<BaseBean> doVisited(@Field("visitor_id") String visitor_id, @Field("au_id") String au_id);  //访客
+
     /*********************************************用户案例*******************************************/
     @FormUrlEncoded
     @POST("Role/findAllByType.action")
     Observable<CaseStyleBean> getCaseStyleData(@Field("type") String type);
+
+
+    /*********************************************用户端首页*******************************************/
+
+    @POST("Commodity/findAllPage.action")
+    Observable<FindMaterialBean> findMaterial(@Body RequestBody body);// 找材料
+
+    @POST("Activity/findAllPage.action")
+    Observable<FindActivitesBean> findActivity(@Body RequestBody body);// 推荐活动
+
+    @POST("CasePanorama/findAllPageByType.action")
+    Observable<FindAllTypeBean> findAllType(@Body RequestBody body);// 找设计/找施工/找监理
+
+    @FormUrlEncoded
+    @POST("Skill/findAllPage.action")
+    Observable<UserHomeSkillBean> getSkillData(@Field("pn") String pn, @Field("pageSize") String pageSize);//小技巧
 
     @FormUrlEncoded
     @POST("CasePanorama/findAllPage.action")

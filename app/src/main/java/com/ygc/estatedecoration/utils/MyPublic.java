@@ -18,6 +18,7 @@ import com.ygc.estatedecoration.bean.BaseBean;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -196,6 +197,18 @@ public class MyPublic {
      */
     public static boolean isEmpty(String string) {
         return TextUtils.isEmpty(string);
+    }
+
+    /**
+     * 拆分字符为"," ,然后把结果交给数组strArray
+     *
+     * @param str
+     * @return
+     */
+    public static List<String> convertStrToArray(String str) {
+        String[] strArray = null;
+        strArray = str.split(",");
+        return Arrays.asList(strArray);
     }
 
     /**

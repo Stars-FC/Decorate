@@ -126,7 +126,6 @@ public class AccountDetailActivity extends BaseActivity {
                             if (Constant.REFRESH_REQUEST.equals(requestMark)) {
                                 mAdapter.setNewData(mData);
                                 pager = 0;
-                                mAdapter.setEnableLoadMore(true);
                             } else if (Constant.NORMAL_REQUEST.equals(requestMark)) {
                                 if (size > 0) {
                                     mAdapter.addData(mData);
@@ -144,6 +143,7 @@ public class AccountDetailActivity extends BaseActivity {
                         if (mSwipeRefreshLayout.isRefreshing()) {
                             mSwipeRefreshLayout.setRefreshing(false);
                         }
+                        mAdapter.setEnableLoadMore(true);
                     }
 
                     @Override

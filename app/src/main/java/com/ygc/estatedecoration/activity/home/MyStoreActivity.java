@@ -138,6 +138,9 @@ public class MyStoreActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 获取网络数据
+     */
     public void getDataMyStore() {
         APPApi.getInstance().service
 //                .myStore(UserUtils.getUserId())
@@ -184,10 +187,13 @@ public class MyStoreActivity extends BaseActivity {
 
         EventBus.getDefault().post(bean);
 
-        // TODO: 2017/12/26  ，星星个数，擅长风格
-       /*
-        @BindView(R.id.mystore_starview)
-        StarView mMystoreStarview;//星星（设置个数）*/
+        //设置星星个数
+        double starNum = (Integer.parseInt(bean.getData().getApplause_rate())) * 0.05;
+        if (starNum != 0 && starNum <= 5) {
+            mMystoreStarview.setStar((float) starNum);
+        } else {
+            mMystoreStarview.setStar(0);
+        }
 
         //获取带店铺Id
         mStoreId = String.valueOf(bean.getData().getS_id());

@@ -9,9 +9,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.adapter.UserFindSupervisorDetailAdapter;
+import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
+import com.ygc.estatedecoration.bean.FindAllTypeBean;
+import com.ygc.estatedecoration.entity.base.Constant;
+import com.ygc.estatedecoration.utils.LogUtil;
+import com.ygc.estatedecoration.utils.NetWorkUtil;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import java.util.ArrayList;
@@ -19,17 +26,23 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
-public class UserFindSupervisorActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class UserFindSupervisorActivity extends BaseActivity {
 
     @BindView(R.id.swiperefreshLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
     @BindView(R.id.recyclerview)
-    RecyclerView mRecyclerView;
-    private UserFindSupervisorDetailAdapter adapter;
-    private List<String> dataList = new ArrayList<>();
+    RecyclerView mRecyclerview;
+    private UserFindSupervisorDetailAdapter mAdapter;
     private int mMark;
+    private int mPager = 1;
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
@@ -41,8 +54,34 @@ public class UserFindSupervisorActivity extends BaseActivity implements SwipeRef
 
     @Override
     protected void addListener() {
-        mSwipeRefreshLayout.setColorSchemeColors(Color.parseColor("#4EBE65"));
-        mSwipeRefreshLayout.setOnRefreshListener(this);
+        //每个条目的点击事件
+        mRecyclerview.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                showToast("mRecyclerview第" + position + "数据");
+            }
+        });
+
+        mSwipeRefreshLayout.setColorSchemeColors(Color.parseColor("#4EBE65")); //设置下拉刷新箭头颜色
+
+        //下拉加载
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mAdapter.setEnableLoadMore(false);//这里的作用是防止下拉刷新的时候还可以上拉加载
+                mPager = 1;
+                findAllType(mPager, Constant.REFRESH_REQUEST);
+            }
+        });
+
+        //上拉加载更多
+        mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                ++mPager;
+                findAllType(mPager, Constant.NORMAL_REQUEST);
+            }
+        }, mRecyclerview);
     }
 
     @Override
@@ -52,12 +91,12 @@ public class UserFindSupervisorActivity extends BaseActivity implements SwipeRef
     }
 
     private void initRecyclerView() {
-        adapter = new UserFindSupervisorDetailAdapter(R.layout.item_user_home_fragment_find_supervisor_more, dataList, mMark);
+        mAdapter = new UserFindSupervisorDetailAdapter(R.layout.item_user_home_fragment_find_supervisor_more, mMark);
         View headerView = View.inflate(this, R.layout.header_find_supervisor, null);
-        adapter.addHeaderView(headerView);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        mRecyclerView.setAdapter(adapter);
+        mAdapter.addHeaderView(headerView);
+        mRecyclerview.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        mRecyclerview.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        mRecyclerview.setAdapter(mAdapter);
     }
 
     @Override
@@ -68,9 +107,8 @@ public class UserFindSupervisorActivity extends BaseActivity implements SwipeRef
         } else {
             mTitleBar.setTitleText("找监理");
         }
-        for (int i = 0; i < 10; i++) {
-            dataList.add("hah");
-        }
+        mSwipeRefreshLayout.setRefreshing(true);
+        findAllType(mPager, Constant.REFRESH_REQUEST);
     }
 
     @Override
@@ -93,10 +131,92 @@ public class UserFindSupervisorActivity extends BaseActivity implements SwipeRef
         }
     }
 
-    @Override
-    public void onRefresh() {
-        if (mSwipeRefreshLayout.isRefreshing()) {
-            mSwipeRefreshLayout.setRefreshing(false);
+    /**
+     * 获取2-施工/3-监理信息
+     *
+     * @param pager 当前页数
+     * @param value 区分下拉，上拉
+     */
+    private void findAllType(int pager, final String value) {
+
+        if (!NetWorkUtil.isNetWorkConnect(UserFindSupervisorActivity.this)) {
+            showToast("请检查网络设置");
+            return;
         }
+
+        RequestBody requestBody = null;
+
+        if (mMark == 1) {//找施工
+            requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                    .addFormDataPart("type", "2")
+                    .addFormDataPart("pn", String.valueOf(pager))
+                    .addFormDataPart("pageSize", "10")
+                    .build();
+        } else if (mMark == 2) {//找监理
+            requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                    .addFormDataPart("type", "3")
+                    .addFormDataPart("pn", String.valueOf(pager))
+                    .addFormDataPart("pageSize", "10")
+                    .build();
+        }
+
+
+        APPApi.getInstance().service
+                .findAllType(requestBody)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<FindAllTypeBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        compositeDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(FindAllTypeBean bean) {
+                        int size = bean.getData() == null ? 0 : bean.getData().size();
+                        String msg = bean.getMessage();
+                        if ("1".equals(bean.getResponseState())) {
+                            if (Constant.REFRESH_REQUEST.equals(value)) {
+                                mAdapter.setNewData(bean.getData());
+                            } else if (Constant.NORMAL_REQUEST.equals(value)) {
+                                if (size > 0) {
+                                    mAdapter.addData(bean.getData());
+                                }
+                            }
+                            if (size < 10) {
+                                //第一页如果不够一页就不显示没有更多数据布局
+                                mAdapter.loadMoreEnd(false);
+                            } else {
+                                mAdapter.loadMoreComplete();
+                            }
+                        } else {
+                            showToast(msg);
+                        }
+                        if (mSwipeRefreshLayout.isRefreshing()) {
+                            mSwipeRefreshLayout.setRefreshing(false);
+                        }
+                        mAdapter.setEnableLoadMore(true);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        --mPager;
+                        if (mPager < 1) {
+                            mPager = 1;
+                        }
+                        if (mSwipeRefreshLayout.isRefreshing()) {
+                            mSwipeRefreshLayout.setRefreshing(false);
+                        }
+                        mAdapter.loadMoreFail();
+                        mAdapter.setEnableLoadMore(true);
+                        LogUtil.e("Fc_用户端1-设计师，请求网路失败" + e.getMessage());
+                        showToast(getResources().getString(R.string.network_error));
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 }

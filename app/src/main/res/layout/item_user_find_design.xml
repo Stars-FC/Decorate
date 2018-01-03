@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <LinearLayout
@@ -12,25 +13,27 @@
         android:background="#faf9f9"
         android:orientation="vertical"
         android:paddingBottom="22px"
-        android:paddingLeft="10px"
+        android:paddingLeft="27px"
         android:paddingTop="22px">
 
-        <LinearLayout
+        <com.zhy.autolayout.AutoLinearLayout
+            android:id="@+id/server_info_ll"
             android:layout_width="match_parent"
             android:layout_height="106px">
 
             <com.ygc.estatedecoration.widget.CircleImageView
+                android:id="@+id/iv_server_icom"
                 android:layout_width="106px"
                 android:layout_height="106px"
-                android:src="#ebebeb"/>
+                android:src="@color/line"/>
 
-            <LinearLayout
+            <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="19px"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <com.zhy.autolayout.AutoLinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -38,6 +41,7 @@
                     android:paddingRight="10px">
 
                     <TextView
+                        android:id="@+id/tv_server_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="设计师名称"
@@ -45,6 +49,7 @@
                         android:textSize="26px"/>
 
                     <TextView
+                        android:id="@+id/tv_server_type"
                         android:layout_width="42px"
                         android:layout_height="26px"
                         android:layout_marginLeft="10px"
@@ -55,38 +60,39 @@
                         android:textSize="17px"/>
 
                     <View
-                        android:layout_width="150px"
-                        android:layout_height="1px"/>
+                        android:layout_width="0dp"
+                        android:layout_height="26px"
+                        android:layout_weight="1"/>
 
                     <com.ygc.estatedecoration.widget.StarView
                         android:id="@+id/starview"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="26px"
                         app:starCount="5"
                         app:starFill="@drawable/xingxing"
                         app:starHalf="@drawable/xingxing"
-                        app:starImageSize="25px"
-                        app:starPadding="5px"
+                        app:starImageSize="23px"
                         app:starStep="5"
                         app:stepSize="Half"/>
 
-                </LinearLayout>
+                </com.zhy.autolayout.AutoLinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"/>
 
-                <LinearLayout
+                <com.zhy.autolayout.AutoLinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="57px">
 
-                    <LinearLayout
+                    <com.zhy.autolayout.AutoLinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="57px"
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_server_place"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="江苏 苏州"
@@ -99,21 +105,22 @@
                             android:layout_weight="1"/>
 
                         <TextView
+                            android:id="@+id/tv_server_work_year"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="10年设计经验"
                             android:textColor="#000"
                             android:textSize="20px"/>
 
-                    </LinearLayout>
+                    </com.zhy.autolayout.AutoLinearLayout>
 
-                    <LinearLayout
+                    <com.zhy.autolayout.AutoLinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="57px"
                         android:layout_marginLeft="21px"
                         android:orientation="vertical">
 
-                        <LinearLayout
+                        <com.zhy.autolayout.AutoLinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
@@ -125,13 +132,14 @@
                                 android:textSize="20px"/>
 
                             <TextView
+                                android:id="@+id/tv_server_bid_num"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="4px"
                                 android:text="1500"
                                 android:textColor="@color/colorAccent"
                                 android:textSize="20px"/>
-                        </LinearLayout>
+                        </com.zhy.autolayout.AutoLinearLayout>
 
                         <View
                             android:layout_width="match_parent"
@@ -139,24 +147,74 @@
                             android:layout_weight="1"/>
 
                         <TextView
+                            android:id="@+id/tv_server_house_type"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="擅长普通户型"
                             android:textColor="#000"
                             android:textSize="20px"/>
 
-                    </LinearLayout>
+                    </com.zhy.autolayout.AutoLinearLayout>
 
-                </LinearLayout>
+                </com.zhy.autolayout.AutoLinearLayout>
 
-            </LinearLayout>
+            </com.zhy.autolayout.AutoLinearLayout>
 
-        </LinearLayout>
+        </com.zhy.autolayout.AutoLinearLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/scrollrecyclerview"
+
+        <com.zhy.autolayout.AutoRelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="280px"
+            android:layout_marginTop="24px">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/scrollrecyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="20px"
+                android:layout_marginLeft="13px"
+                android:background="@drawable/bg_user_home"
+                android:orientation="horizontal"
+                android:paddingBottom="8px"
+                android:paddingLeft="20px"
+                android:paddingRight="20px"
+                android:paddingTop="8px">
+
+                <TextView
+                    android:id="@+id/tv_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="城市"
+                    android:textColor="@android:color/white"
+                    android:textSize="21px"/>
+
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="29px"
+                    android:text="小区名"
+                    android:textColor="@android:color/white"
+                    android:textSize="21px"/>
+
+                <TextView
+                    android:id="@+id/tv_house_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="29px"
+                    android:text="户型"
+                    android:textColor="@android:color/white"
+                    android:textSize="21px"/>
+
+            </com.zhy.autolayout.AutoLinearLayout>
+
+        </com.zhy.autolayout.AutoRelativeLayout>
 
     </LinearLayout>
 

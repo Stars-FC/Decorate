@@ -17,6 +17,7 @@
             android:layout_height="316px">
 
             <ImageView
+                android:id="@+id/materials_iv_cover_picture"
                 android:layout_width="match_parent"
                 android:layout_height="314px"
                 android:scaleType="fitXY"
@@ -27,13 +28,14 @@
                 android:layout_width="60px"
                 android:layout_height="60px"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="12px"
                 android:layout_marginRight="12px"
+                android:layout_marginTop="12px"
                 android:src="@drawable/duibi"/>
         </RelativeLayout>
 
 
         <TextView
+            android:id="@+id/materials_tv_cm_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20px"
@@ -50,6 +52,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/materials_tv_cm_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="￥ 2380"
@@ -57,6 +60,7 @@
                 android:textSize="24px"/>
 
             <TextView
+                android:id="@+id/materials_tv_sale_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

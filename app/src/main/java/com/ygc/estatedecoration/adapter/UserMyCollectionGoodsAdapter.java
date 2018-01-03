@@ -32,6 +32,7 @@ public class UserMyCollectionGoodsAdapter extends BaseQuickAdapter<UserCollectio
                 .load(detail_picture)
                 .placeholder(R.drawable.iv_error)
                 .error(R.drawable.iv_error)
+                .dontAnimate()
                 .into((ImageView) helper.getView(R.id.iv_detail_picture));
     }
 }

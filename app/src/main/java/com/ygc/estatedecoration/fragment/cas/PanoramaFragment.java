@@ -2,6 +2,7 @@ package com.ygc.estatedecoration.fragment.cas;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;

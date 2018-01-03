@@ -34,8 +34,8 @@
                     <com.zhy.autolayout.AutoLinearLayout
                         android:id="@+id/location_ll"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
 
                         <ImageView
                             android:id="@+id/imageView"
@@ -49,11 +49,11 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="16px"
-                            android:singleLine="true"
                             android:ellipsize="end"
-                            android:textColor="@color/colorAccent"
                             android:maxLines="1"
+                            android:singleLine="true"
                             android:text="辽宁省沈阳市浑南新区"
+                            android:textColor="@color/colorAccent"
                             android:textSize="29px"/>
 
                     </com.zhy.autolayout.AutoLinearLayout>
@@ -372,7 +372,7 @@
                     android:layout_height="280px"
                     android:layout_marginLeft="20px"
                     android:layout_marginRight="20px"
-                    android:scaleType="centerCrop"
+                    android:scaleType="fitXY"
                     android:src="@drawable/shangpin_heng"
                     app:riv_corner_radius="20dp"/>
 

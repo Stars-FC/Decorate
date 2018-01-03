@@ -9,18 +9,28 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.ygc.estatedecoration.R;
+import com.ygc.estatedecoration.activity.LoginActivity;
 import com.ygc.estatedecoration.adapter.UserFindDesignerAdapter;
 import com.ygc.estatedecoration.adapter.UserFindMaterialAdapter;
 import com.ygc.estatedecoration.adapter.UserRecommendActivityAdapter;
+import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
+import com.ygc.estatedecoration.bean.FindActivitesBean;
+import com.ygc.estatedecoration.bean.FindAllTypeBean;
+import com.ygc.estatedecoration.bean.FindMaterialBean;
+import com.ygc.estatedecoration.bean.UserHomeSkillBean;
 import com.ygc.estatedecoration.entity.base.Constant;
 import com.ygc.estatedecoration.event.SkipUserShopMsg;
 import com.ygc.estatedecoration.user_activity.UserFindDesigerActivity;
 import com.ygc.estatedecoration.user_activity.UserFindSupervisorActivity;
 import com.ygc.estatedecoration.user_activity.UserMsgActivity;
+import com.ygc.estatedecoration.utils.LogUtil;
+import com.ygc.estatedecoration.utils.NetWorkUtil;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import org.greenrobot.eventbus.EventBus;
@@ -31,6 +41,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.bingoogolapple.bgabanner.BGABanner;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
@@ -48,16 +64,21 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
     RecyclerView mRv_findSupervisor;
     @BindView(R.id.find_materials_recyclerview)
     RecyclerView mRv_findMaterials;
-
     @BindView(R.id.tips_riv)
-    RoundedImageView mRiv_tips;
+    RoundedImageView mRiv_tips;//小技巧图片
     @BindView(R.id.tips_title_tv)
-    TextView mTv_tips;
+    TextView mTv_tips;//小技巧标题
 
     @BindView(R.id.recommend_activity_recyclerview)
     RecyclerView mRv_recommendActivity;
 
-    private List<String> findDesignDataList = new ArrayList<>();
+//    private List<String> findDesignDataList = new ArrayList<>();
+
+    private UserFindDesignerAdapter mDesignAdapter;//找设计
+    private UserFindDesignerAdapter mFindImplementAdapter;//找施工
+    private UserFindDesignerAdapter mFindSupervisorAdapter;//找监理
+    private UserFindMaterialAdapter mFindMaterialsAdapter;//找材料
+    private UserRecommendActivityAdapter mRecommendActivityAdapter;//推荐活动
 
     public UserHomeFragment() {
     }
@@ -78,36 +99,15 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
 
     @Override
     protected void initData(Bundle arguments) {
-        getNetworkData(Constant.NORMAL_REQUEST);
-    }
+        mSwipeRefreshLayout.setRefreshing(true);//启动页面显示刷新状态
+        //获取 找设计/找施工/找监理信息
+        for (int i = 1; i <= 3; i++) {
+            findAllType(i);
+        }
+        findMaterial();
+        findSkill();
+        findActivity();
 
-    private void getNetworkData(String requestMark) {
-        /*APPApi.getInstance().service
-                .queryUserHomeData()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Base>() {
-                    @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-
-
-                    }
-
-                    @Override
-                    public void onNext(@NonNull Base base) {
-
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });*/
     }
 
     @Override
@@ -126,55 +126,52 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
 
     /*推荐活动*/
     private void initRecommendActivityRecyclerView() {
-        UserRecommendActivityAdapter userRecommendActivityAdapter = new UserRecommendActivityAdapter(R.layout.item_user_home_fragment_recommend_activity, findDesignDataList);
+        mRecommendActivityAdapter = new UserRecommendActivityAdapter(R.layout.item_user_home_fragment_recommend_activity);
         mRv_findDesign.setHasFixedSize(true);
         mRv_findDesign.setNestedScrollingEnabled(false);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false);
         mRv_recommendActivity.setLayoutManager(linearLayoutManager);
-        mRv_recommendActivity.setAdapter(userRecommendActivityAdapter);
+        mRv_recommendActivity.setAdapter(mRecommendActivityAdapter);
     }
 
     /*找材料*/
     private void initFindMaterialsRecyclerView() {
-        UserFindMaterialAdapter userFindMaterialAdapter = new UserFindMaterialAdapter(R.layout.item_user_home_fragment_find_materials, findDesignDataList);
+        mFindMaterialsAdapter = new UserFindMaterialAdapter(R.layout.item_user_home_fragment_find_materials);
         mRv_findDesign.setHasFixedSize(true);
         mRv_findDesign.setNestedScrollingEnabled(false);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false);
         mRv_findMaterials.setLayoutManager(linearLayoutManager);
-        mRv_findMaterials.setAdapter(userFindMaterialAdapter);
+        mRv_findMaterials.setAdapter(mFindMaterialsAdapter);
     }
 
     /*找监理*/
     private void initFindSupervisorRecyclerView() {
-        UserFindDesignerAdapter mUserFindDesignerAdapter = new UserFindDesignerAdapter(R.layout.item_user_home_fragment_find_design, findDesignDataList, mActivity);
+        mFindSupervisorAdapter = new UserFindDesignerAdapter(R.layout.item_user_home_fragment_find_design);
         mRv_findDesign.setHasFixedSize(true);
         mRv_findDesign.setNestedScrollingEnabled(false);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false);
         mRv_findSupervisor.setLayoutManager(linearLayoutManager);
-        mRv_findSupervisor.setAdapter(mUserFindDesignerAdapter);
+        mRv_findSupervisor.setAdapter(mFindSupervisorAdapter);
     }
 
     /*找施工*/
     private void initFindImplementRecyclerView() {
-        UserFindDesignerAdapter mUserFindDesignerAdapter = new UserFindDesignerAdapter(R.layout.item_user_home_fragment_find_design, findDesignDataList, mActivity);
+        mFindImplementAdapter = new UserFindDesignerAdapter(R.layout.item_user_home_fragment_find_design);
         mRv_findDesign.setHasFixedSize(true);
         mRv_findDesign.setNestedScrollingEnabled(false);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false);
         mRv_findImpl.setLayoutManager(linearLayoutManager);
-        mRv_findImpl.setAdapter(mUserFindDesignerAdapter);
+        mRv_findImpl.setAdapter(mFindImplementAdapter);
     }
 
     /*找设计*/
     private void initFindDesignRecyclerView() {
-        for (int i = 0; i < 5; i++) {
-            findDesignDataList.add("heh");
-        }
-        UserFindDesignerAdapter mUserFindDesignerAdapter = new UserFindDesignerAdapter(R.layout.item_user_home_fragment_find_design, findDesignDataList, mActivity);
+        mDesignAdapter = new UserFindDesignerAdapter(R.layout.item_user_home_fragment_find_design);
         mRv_findDesign.setHasFixedSize(true);
         mRv_findDesign.setNestedScrollingEnabled(false);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false);
         mRv_findDesign.setLayoutManager(linearLayoutManager);
-        mRv_findDesign.setAdapter(mUserFindDesignerAdapter);
+        mRv_findDesign.setAdapter(mDesignAdapter);
     }
 
 
@@ -262,9 +259,228 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
 
     @Override
     public void onRefresh() {
-        getNetworkData(Constant.REFRESH_REQUEST);
-        if (mSwipeRefreshLayout.isRefreshing()) {
+        /*if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
+        }*/
+//        mSwipeRefreshLayout.setRefreshing(true);
+        //获取 找设计/找施工/找监理信息
+        for (int i = 1; i <= 3; i++) {
+            findAllType(i);
         }
+        findMaterial();
+        findSkill();
+        findActivity();
+    }
+
+
+    /**
+     * 获取信息
+     *
+     * @param postion 1-设计师/2-施工/3-监理
+     */
+    private void findAllType(final int postion) {
+
+        if (!NetWorkUtil.isNetWorkConnect(mActivity)) {
+            showToast("请检查网络设置");
+            return;
+        }
+
+        RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("type", String.valueOf(postion))
+                .addFormDataPart("pageSize", "6")
+                .build();
+
+        APPApi.getInstance().service
+                .findAllType(requestBody)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<FindAllTypeBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        compositeDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(FindAllTypeBean bean) {
+                        String msg = bean.getMessage();
+                        if ("1".equals(bean.getResponseState())) {
+                            switch (postion) {
+                                case 1:
+                                    mDesignAdapter.setNewData(bean.getData());
+                                    break;
+                                case 2:
+                                    mFindImplementAdapter.setNewData(bean.getData());
+                                    break;
+                                case 3:
+                                    mFindSupervisorAdapter.setNewData(bean.getData());
+                                    break;
+                            }
+                        } else {
+                            showToast(msg);
+                        }
+                        if (mSwipeRefreshLayout.isRefreshing()) {
+                            mSwipeRefreshLayout.setRefreshing(false);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if (mSwipeRefreshLayout.isRefreshing()) {
+                            mSwipeRefreshLayout.setRefreshing(false);
+                        }
+                        LogUtil.e("Fc_用户端主页1-设计师/2-施工/3-监理，请求网路失败" + e.getMessage());
+                        showToast(getResources().getString(R.string.network_error));
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    /**
+     * 推荐活动
+     */
+    private void findActivity() {
+        RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("pageSize", "6")
+                .build();
+
+        APPApi.getInstance().service
+                .findActivity(requestBody)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<FindActivitesBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        compositeDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(FindActivitesBean bean) {
+                        String msg = bean.getMsg();
+                        if ("1".equals(bean.getResponseState())) {
+                            mRecommendActivityAdapter.setNewData(bean.getData());
+                        } else {
+                            showToast(msg);
+                        }
+                        if (mSwipeRefreshLayout.isRefreshing()) {
+                            mSwipeRefreshLayout.setRefreshing(false);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if (mSwipeRefreshLayout.isRefreshing()) {
+                            mSwipeRefreshLayout.setRefreshing(false);
+                        }
+                        LogUtil.e("Fc_用户端主页推荐活动，请求网路失败" + e.getMessage());
+                        showToast(getResources().getString(R.string.network_error));
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    /**
+     * 找材料
+     */
+    private void findMaterial() {
+        RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("pageSize", "6")
+                .build();
+
+        APPApi.getInstance().service
+                .findMaterial(requestBody)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<FindMaterialBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        compositeDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(FindMaterialBean bean) {
+                        String msg = bean.getMsg();
+                        if ("1".equals(bean.getResponseState())) {
+                            mFindMaterialsAdapter.setNewData(bean.getData());
+                        } else {
+                            showToast(msg);
+                        }
+                        if (mSwipeRefreshLayout.isRefreshing()) {
+                            mSwipeRefreshLayout.setRefreshing(false);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if (mSwipeRefreshLayout.isRefreshing()) {
+                            mSwipeRefreshLayout.setRefreshing(false);
+                        }
+                        LogUtil.e("Fc_用户端主页找材料，请求网路失败" + e.getMessage());
+                        showToast(getResources().getString(R.string.network_error));
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    }
+
+
+    /**
+     * 小技巧
+     */
+    private void findSkill() {
+        APPApi.getInstance().service
+                .getSkillData("1", "1")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<UserHomeSkillBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        compositeDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(UserHomeSkillBean bean) {
+                        String msg = bean.getMsg();
+                        if ("1".equals(bean.getResponseState())) {
+                            mTv_tips.setText(bean.getData().get(0).getSkill_title());
+                            String skill_picture = Constant.BASE_IMG + bean.getData().get(0).getSkill_picture();
+                            Glide.with(mActivity)
+                                    .load(skill_picture)
+                                    .placeholder(R.drawable.iv_error)
+                                    .error(R.drawable.iv_error)
+                                    .into(mRiv_tips);
+                        } else {
+                            showToast(msg);
+                        }
+                        if (mSwipeRefreshLayout.isRefreshing()) {
+                            mSwipeRefreshLayout.setRefreshing(false);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if (mSwipeRefreshLayout.isRefreshing()) {
+                            mSwipeRefreshLayout.setRefreshing(false);
+                        }
+                        LogUtil.e("Fc_用户端主页小技巧，请求网路失败" + e.getMessage());
+                        showToast(getResources().getString(R.string.network_error));
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 }

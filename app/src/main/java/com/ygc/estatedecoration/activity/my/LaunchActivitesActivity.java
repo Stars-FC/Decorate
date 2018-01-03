@@ -142,15 +142,20 @@ public class LaunchActivitesActivity extends BaseActivity implements EasyPermiss
             return;
         }
 
-        PictureCompressUtil.getInstance().startCompress(this, Arrays.asList(new String[]{Environment.getExternalStorageDirectory()
-                        + "/" + filepath.getName()}),
-                new PictureCompressUtil.CompressedPicResultCallBack() {
-                    @Override
-                    public void showResult(List<String> photos, List<File> list) {
-                        File file = list.get(0);
-                        setNet(file);
-                    }
-                });
+        if(filepath!=null){
+            PictureCompressUtil.getInstance().startCompress(this, Arrays.asList(new String[]{Environment.getExternalStorageDirectory()
+                            + "/" + filepath.getName()}),
+                    new PictureCompressUtil.CompressedPicResultCallBack() {
+                        @Override
+                        public void showResult(List<String> photos, List<File> list) {
+                            File file = list.get(0);
+                            setNet(file);
+                        }
+                    });
+        }else {
+            showToast("请添加活动图片");
+        }
+
     }
 
     private void setNet(File file) {

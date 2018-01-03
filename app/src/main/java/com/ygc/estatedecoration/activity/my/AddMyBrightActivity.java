@@ -30,6 +30,8 @@ import com.ygc.estatedecoration.bean.MyBrightBean;
 import com.ygc.estatedecoration.utils.LogUtil;
 import com.ygc.estatedecoration.utils.MultipartBodyUtil;
 import com.ygc.estatedecoration.utils.MyPublic;
+import com.ygc.estatedecoration.utils.NetWorkUtil;
+import com.ygc.estatedecoration.utils.PictureCompressUtil;
 import com.ygc.estatedecoration.utils.UserUtils;
 import com.ygc.estatedecoration.widget.BasePopupWindow;
 import com.ygc.estatedecoration.widget.TitleBar;
@@ -39,6 +41,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,6 +59,10 @@ import okhttp3.RequestBody;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
+
+/**
+ * 添加我的亮点
+ */
 
 public class AddMyBrightActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks {
 
@@ -106,32 +113,49 @@ public class AddMyBrightActivity extends BaseActivity implements EasyPermissions
                 addICEvent();
                 break;
             case R.id.add_my_bright_ok://确认添加
-                addBrightToNet();
+                getDataFrmoNet();
                 break;
         }
     }
 
     /**
+     * 判断网络、压缩图片
+     */
+    public void getDataFrmoNet() {
+
+        if (!NetWorkUtil.isNetWorkConnect(this)) {
+            showToast("请检查网络设置");
+            return;
+        }
+
+        if (filepath != null) {
+            PictureCompressUtil.getInstance().startCompress(this, Arrays.asList(new String[]{Environment.getExternalStorageDirectory()
+                            + "/" + filepath.getName()}),
+                    new PictureCompressUtil.CompressedPicResultCallBack() {
+                        @Override
+                        public void showResult(List<String> photos, List<File> list) {
+                            File file = list.get(0);
+                            addBrightToNet(file);
+                        }
+                    });
+        } else {
+            showToast("请添加亮点图片");
+        }
+    }
+
+
+    /**
      * 添加我的亮点
      */
-    private void addBrightToNet() {
+    private void addBrightToNet(File file) {
 
         String text = MyPublic.getText(mAddMyBrightEt);
 
-        //以MultiPart类型上传数据
-//        MultipartBody.Builder builder = new MultipartBody.Builder();
-        //图片
-//        MultipartBody file = MultipartBodyUtil.filesToMultipartBody("file",
-//                new String[]{(Environment.getExternalStorageDirectory().toString() + "/" + filepath.getName())}, MediaType.parse("image/*"));
-        //添加文字
-        /*builder = MultipartBodyUtil.addTextPart(builder, "au_id", UserUtils.getUserId().toString());
-        builder = MultipartBodyUtil.addTextPart(builder, "us_title", text);
-        builder.addPart(file);*/
         //构建body
         RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("au_id", UserUtils.getUserId().toString())
                 .addFormDataPart("us_title", text)
-                .addFormDataPart("file", filepath.getName(), RequestBody.create(MediaType.parse("image/*"), filepath))
+                .addFormDataPart("file", file.getName(), RequestBody.create(MediaType.parse("image/*"), file))
                 .build();
 
         final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
@@ -140,7 +164,6 @@ public class AddMyBrightActivity extends BaseActivity implements EasyPermissions
         pDialog.setCancelable(false);
         pDialog.show();
         APPApi.getInstance().service
-//                .addMyBright(builder.build())
                 .addMyBright(requestBody)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

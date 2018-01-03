@@ -30,6 +30,7 @@ public class UserMyCollectionResultChartAdapter extends BaseQuickAdapter<UserCol
                 .load(effect_picture)
                 .placeholder(R.drawable.iv_error)
                 .error(R.drawable.iv_error)
+                .dontAnimate()
                 .into((ImageView) helper.getView(R.id.pic_iv));
     }
 }

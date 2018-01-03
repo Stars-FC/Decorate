@@ -1,10 +1,14 @@
 package com.ygc.estatedecoration.adapter;
 
+import android.util.Log;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.ygc.estatedecoration.R;
+import com.ygc.estatedecoration.entity.base.Constant;
+import com.ygc.estatedecoration.utils.LogUtil;
 
 import java.util.List;
 
@@ -21,6 +25,12 @@ public class ImageAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, String item) {
-        ImageView imageView = (ImageView) helper.getView(R.id.iv_design_image);
+        String imageUrl = Constant.BASE_IMG + item;
+        Glide.with(mContext)
+                .load(imageUrl)
+                .placeholder(R.drawable.iv_error)
+                .error(R.drawable.iv_error)
+                .dontAnimate()
+                .into((ImageView) helper.getView(R.id.iv_design_image));
     }
 }
