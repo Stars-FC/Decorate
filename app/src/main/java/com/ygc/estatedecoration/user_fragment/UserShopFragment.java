@@ -13,17 +13,24 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.adapter.UserShopMaterialAdapter;
 import com.ygc.estatedecoration.adapter.UserShopMaterialHeaderAdapter;
+import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
+import com.ygc.estatedecoration.bean.CaseStyleBean;
+import com.ygc.estatedecoration.bean.ShopRecommendMaterialsBean;
 import com.ygc.estatedecoration.user_activity.UserGoodListActivity;
 import com.ygc.estatedecoration.user_activity.UserGoodsDetailActivity;
 import com.ygc.estatedecoration.user_activity.UserSearchActivity;
 import com.ygc.estatedecoration.widget.TitleBar;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class UserShopFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
@@ -32,7 +39,7 @@ public class UserShopFragment extends BaseFragment implements SwipeRefreshLayout
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerView;
     private UserShopMaterialAdapter adapter;
-    private List<String> dataList = new ArrayList<>();
+    private UserShopMaterialHeaderAdapter mUserShopMaterialHeaderAdapter;
 
     public static UserShopFragment newInstance() {
         return new UserShopFragment();
@@ -52,9 +59,86 @@ public class UserShopFragment extends BaseFragment implements SwipeRefreshLayout
 
     @Override
     protected void initData(Bundle arguments) {
-        for (int i = 0; i < 11; i++) {
-            dataList.add("heh");
+        showDialog();
+        getMaterialsTypeData();
+        getMaterialsRecommendData();
+    }
+
+    private void getMaterialsRecommendData() {
+        APPApi.getInstance().service
+                .getRecommendMaterialsData("1")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ShopRecommendMaterialsBean>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        compositeDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(@NonNull ShopRecommendMaterialsBean shopRecommendMaterialsBean) {
+                        refreshFinish();
+                        cancelDialog();
+                        if (shopRecommendMaterialsBean.responseState.equals("1")) {
+                            List<ShopRecommendMaterialsBean.DataBean> data = shopRecommendMaterialsBean.getData();
+                            adapter.setNewData(data);
+                        } else {
+                            showToast(shopRecommendMaterialsBean.msg);
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        cancelDialog();
+                        refreshFinish();
+                        showToast(getResources().getString(R.string.network_error));
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    private void refreshFinish() {
+        if (mSwipeRefreshLayout != null && mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.setRefreshing(false);
         }
+    }
+
+    private void getMaterialsTypeData() {
+        APPApi.getInstance().service
+                .getCaseStyleData("4")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<CaseStyleBean>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        compositeDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(@NonNull CaseStyleBean caseStyleBean) {
+                        if (caseStyleBean.responseState.equals("1")) {
+                            List<CaseStyleBean.DataBean> data = caseStyleBean.getData();
+                            mUserShopMaterialHeaderAdapter.setNewData(data);
+                        } else {
+                            showToast(caseStyleBean.msg);
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        cancelDialog();
+                        showToast(getResources().getString(R.string.network_error));
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     @Override
@@ -63,14 +147,14 @@ public class UserShopFragment extends BaseFragment implements SwipeRefreshLayout
     }
 
     private void initRecyclerView() {
-        adapter = new UserShopMaterialAdapter(R.layout.item_user_shop_materials, dataList);
+        adapter = new UserShopMaterialAdapter();
         View headerView = LayoutInflater.from(mActivity).inflate(R.layout.header_find_materials, null);
         RecyclerView materialsHeaderRecyclerView = (RecyclerView) headerView.findViewById(R.id.recyclerview);
-        UserShopMaterialHeaderAdapter userShopMaterialHeaderAdapter = new UserShopMaterialHeaderAdapter(R.layout.item_user_shop_find_materials_header, dataList);
+        mUserShopMaterialHeaderAdapter = new UserShopMaterialHeaderAdapter();
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mActivity, 2, GridLayoutManager.HORIZONTAL, false);
         materialsHeaderRecyclerView.setLayoutManager(gridLayoutManager);
-        materialsHeaderRecyclerView.setAdapter(userShopMaterialHeaderAdapter);
-        userShopMaterialHeaderAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        materialsHeaderRecyclerView.setAdapter(mUserShopMaterialHeaderAdapter);
+        mUserShopMaterialHeaderAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(mActivity, UserGoodListActivity.class);
@@ -108,9 +192,8 @@ public class UserShopFragment extends BaseFragment implements SwipeRefreshLayout
 
     @Override
     public void onRefresh() {
-        if (mSwipeRefreshLayout.isRefreshing()) {
-            mSwipeRefreshLayout.setRefreshing(false);
-        }
+        getMaterialsTypeData();
+        getMaterialsRecommendData();
     }
 
     @OnClick({R.id.naviFrameRight})

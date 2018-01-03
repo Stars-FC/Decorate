@@ -6,6 +6,7 @@ import com.ygc.estatedecoration.bean.CaseStyleBean;
 import com.ygc.estatedecoration.bean.ContractContentBean;
 import com.ygc.estatedecoration.bean.ContractInfoBean;
 import com.ygc.estatedecoration.bean.DemandOfferBean;
+import com.ygc.estatedecoration.bean.EffectBean;
 import com.ygc.estatedecoration.bean.LoginBean;
 import com.ygc.estatedecoration.bean.MyActivitesBean;
 import com.ygc.estatedecoration.bean.MyBrightBean;
@@ -14,8 +15,11 @@ import com.ygc.estatedecoration.bean.NeedBean;
 import com.ygc.estatedecoration.bean.PanoramaBean;
 import com.ygc.estatedecoration.bean.RoleFindAllBean;
 import com.ygc.estatedecoration.bean.ScheduleBean;
+import com.ygc.estatedecoration.bean.ShopRecommendMaterialsBean;
 import com.ygc.estatedecoration.bean.UserAddressDataListBean;
 import com.ygc.estatedecoration.bean.UserBalanceOrderBean;
+import com.ygc.estatedecoration.bean.UserCaseEffectDetailBean;
+import com.ygc.estatedecoration.bean.UserCasePanoramaDetailBean;
 import com.ygc.estatedecoration.bean.UserCollectionMaterialBean;
 import com.ygc.estatedecoration.bean.UserCollectionPanoramaBean;
 import com.ygc.estatedecoration.bean.UserCollectionResultChartBean;
@@ -40,16 +44,6 @@ import retrofit2.http.POST;
 import retrofit2.http.PartMap;
 
 public interface APPService {
-
-    @FormUrlEncoded
-    @POST("CasePanorama/findAllPage.action")
-    Observable<PanoramaBean> queryCasePanoramaData();
-
-
-    @FormUrlEncoded
-    @POST("")
-    Observable<Base> queryUserHomeData();
-
 
     /*********************************************登录、注册、找回密码部分*******************************************/
 
@@ -294,4 +288,34 @@ public interface APPService {
     @FormUrlEncoded
     @POST("Role/findAllByType.action")
     Observable<CaseStyleBean> getCaseStyleData(@Field("type") String type);
+
+    @FormUrlEncoded
+    @POST("CasePanorama/findAllPage.action")
+    Observable<PanoramaBean> queryCasePanoramaData(@Field("pn") int pn, @Field("r_id") String r_id, @Field("status") String status, @Field("auId") String auId, @Field("upload_type") String upload_type);
+
+    @FormUrlEncoded
+    @POST("CaseEffect/findAllPage.action")
+    Observable<EffectBean> queryCaseEffectData(@Field("pn") int pn, @Field("r_id") String r_id, @Field("status") String status, @Field("auId") String auId, @Field("upload_type") String upload_type);
+
+    @FormUrlEncoded
+    @POST("CaseEffect/getById.action")
+    Observable<UserCaseEffectDetailBean> getCaseEffectDetailData(@Field("d_id") String d_id, @Field("auId") String auId);
+
+    @FormUrlEncoded
+    @POST("CasePanorama/getById.action")
+    Observable<UserCasePanoramaDetailBean> getCasePanoramaDetailData(@Field("cp_id") String cp_id, @Field("auId") String auId);
+
+    @FormUrlEncoded
+    @POST("UserCollect/doCollect.action")
+    Observable<Base> doCollect(@Field("auId") String auId, @Field("articleId") String articleId, @Field("articleType") String articleType);
+
+    @FormUrlEncoded
+    @POST("UserCollect/cancelCollect.action")
+    Observable<Base> cancelCollect(@Field("auId") String auId, @Field("articleId") String articleId, @Field("articleType") String articleType);
+
+    /*********************************************商城*******************************************/
+    @FormUrlEncoded
+    @POST("Commodity/findAll.action")
+    Observable<ShopRecommendMaterialsBean> getRecommendMaterialsData(@Field("top_flag") String top_flag);
+
 }

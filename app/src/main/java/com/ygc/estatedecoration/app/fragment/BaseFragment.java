@@ -77,9 +77,9 @@ public abstract class BaseFragment extends Fragment {
 
         mUnBinder = ButterKnife.bind(this, mRootView);
 
-        initData(getArguments());
-
         initDialog();
+
+        initData(getArguments());
 
         initView(savedInstanceState);
 

@@ -47,7 +47,6 @@ public class LookBuChongContractActivity extends BaseActivity {
     TextView mSupplementaryContractSupplementaryContent;
     @BindView(R.id.upload_pic_recyclerview)
     RecyclerView mUploadPicRecyclerview;
-    private SweetAlertDialog mPDialog;
     private String mConId;
     private String mRcId;
 
@@ -74,12 +73,11 @@ public class LookBuChongContractActivity extends BaseActivity {
     @Override
     protected void initData(Bundle savedInstanceState) {
         getIntentData();
-        initDialog();
         getContractInfoEvent();
     }
 
     private void getContractInfoEvent() {
-        mPDialog.show();
+        showDialog();
         APPApi.getInstance().service
                 .getContractInfo(mConId)
                 .subscribeOn(Schedulers.io())
@@ -153,19 +151,6 @@ public class LookBuChongContractActivity extends BaseActivity {
         DisplayBuChongContractFuJianPicAdapter adapter = new DisplayBuChongContractFuJianPicAdapter(R.layout.item_publish_need, imgUrlList);
         mUploadPicRecyclerview.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mUploadPicRecyclerview.setAdapter(adapter);
-    }
-
-    private void cancelDialog() {
-        if (mPDialog != null && mPDialog.isShowing()) {
-            mPDialog.dismiss();
-        }
-    }
-
-    private void initDialog() {
-        mPDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
-                .setTitleText("正在加载...");
-        mPDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-        mPDialog.setCancelable(false);
     }
 
     private void getIntentData() {

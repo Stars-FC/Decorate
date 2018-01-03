@@ -116,7 +116,7 @@ public class ServerMyAnLiActivity extends BaseActivity implements SwipeRefreshLa
     private void initFragment() {
         mFragmentManager = getSupportFragmentManager();
         PanoramaFragment panoramaFragment = PanoramaFragment.newInstance();
-        EffectFragment effectFragment = EffectFragment.newInstance("", "");
+        EffectFragment effectFragment = EffectFragment.newInstance();
         mFragmentList.add(panoramaFragment);
         mFragmentList.add(effectFragment);
     }
@@ -292,7 +292,7 @@ public class ServerMyAnLiActivity extends BaseActivity implements SwipeRefreshLa
 
     private void showStylePopupWindow() {
         if (mStylePopupWindow == null) {
-            initStylePopupWindow();
+//            initStylePopupWindow();
         }
         mStylePopupWindow.showAsDropDown(mLl_styleContainer);
     }
@@ -302,7 +302,7 @@ public class ServerMyAnLiActivity extends BaseActivity implements SwipeRefreshLa
 
     private BasePopupWindow mStylePopupWindow;
 
-    private void initStylePopupWindow() {
+    /*private void initStylePopupWindow() {
         mStylePopupWindow = new BasePopupWindow(this);
         View popupView = LayoutInflater.from(this).inflate(R.layout.popup_window_case_style, null);
         RecyclerView styleRecyclerView = (RecyclerView) popupView.findViewById(R.id.style_recyclerview);
@@ -319,7 +319,7 @@ public class ServerMyAnLiActivity extends BaseActivity implements SwipeRefreshLa
         });
         mStylePopupWindow.setContentView(popupView);
         mStylePopupWindow.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#70000000")));
-    }
+    }*/
 
 
     @Override

@@ -43,7 +43,6 @@ public class UserAddressActivity extends BaseActivity implements SwipeRefreshLay
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerView;
     private AddressAdapter mAddressAdapter;
-    private SweetAlertDialog mPDialog;
     private int curPageNum = 0;
 
     @Override
@@ -75,16 +74,8 @@ public class UserAddressActivity extends BaseActivity implements SwipeRefreshLay
     @Override
     protected void initData(Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
-        initDialog();
+        showDialog();
         getMyAddressDataList(0, Constant.NORMAL_REQUEST);
-    }
-
-    private void initDialog() {
-        mPDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
-                .setTitleText("正在加载...");
-        mPDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-        mPDialog.setCancelable(false);
-        mPDialog.show();
     }
 
     private void getMyAddressDataList(int curPage, final String requestMark) {
@@ -173,12 +164,6 @@ public class UserAddressActivity extends BaseActivity implements SwipeRefreshLay
     public void onLoadMoreRequested() {
         curPageNum += 1;
         getMyAddressDataList(curPageNum, Constant.NORMAL_REQUEST);
-    }
-
-    private void cancelDialog() {
-        if (mPDialog != null && mPDialog.isShowing()) {
-            mPDialog.dismiss();
-        }
     }
 
     private void loadMoreErrorEvent() {

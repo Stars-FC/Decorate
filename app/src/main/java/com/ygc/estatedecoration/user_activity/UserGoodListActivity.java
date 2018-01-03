@@ -52,7 +52,7 @@ public class UserGoodListActivity extends BaseActivity implements SwipeRefreshLa
     }
 
     private void initRecyclerView() {
-        adapter = new UserShopMaterialAdapter(R.layout.item_user_shop_find_materials_good_list, dataList);
+        adapter = new UserShopMaterialAdapter();
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         mRecyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {

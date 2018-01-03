@@ -54,7 +54,6 @@ public class DemandAndProgressActivity extends BaseActivity {
     private ArrayList<BaseFragment> fragmentList = new ArrayList<>();
 
     private NeedBean.DataBean mDataBean;
-    private SweetAlertDialog mPDialog;
     private int mContractState = -1;
     private String mConId;
     private int sign = 0;
@@ -78,7 +77,6 @@ public class DemandAndProgressActivity extends BaseActivity {
     protected void initData(Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
         getIntentData();
-        initDialog();
         fragmentList.add(TransactionManageNeedFragment.getInstance(mDataBean));
         fragmentList.add(ServiceProgressFragment.newInstance(mDataBean));
 
@@ -90,7 +88,7 @@ public class DemandAndProgressActivity extends BaseActivity {
     }
 
     private void getContractInfoEvent() {
-        mPDialog.show();
+        showDialog();
         APPApi.getInstance().service
                 .getContractInfo(String.valueOf(mDataBean.getDId()), UserUtils.sDataBean.getType())
                 .subscribeOn(Schedulers.io())
@@ -143,19 +141,6 @@ public class DemandAndProgressActivity extends BaseActivity {
 
                     }
                 });
-    }
-
-    private void initDialog() {
-        mPDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
-                .setTitleText("正在加载...");
-        mPDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-        mPDialog.setCancelable(false);
-    }
-
-    private void cancelDialog() {
-        if (mPDialog != null && mPDialog.isShowing()) {
-            mPDialog.dismiss();
-        }
     }
 
     private void getIntentData() {

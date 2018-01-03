@@ -1,5 +1,6 @@
 package com.ygc.estatedecoration.app.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import com.zhy.autolayout.AutoLayoutActivity;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.reactivex.disposables.CompositeDisposable;
 
 public abstract class BaseActivity extends AutoLayoutActivity {
@@ -35,6 +37,8 @@ public abstract class BaseActivity extends AutoLayoutActivity {
     private MyApplication application;
     private BaseActivity mContext;
 
+    private SweetAlertDialog mPDialog;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +47,7 @@ public abstract class BaseActivity extends AutoLayoutActivity {
         ImmersionBar.with(this).statusBarDarkFont(true, 0.2f).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         basicInitialize();
         mUnBinder = ButterKnife.bind(this);
+        initDialog();
         initData(savedInstanceState);
         initView();
         addListener();
@@ -101,6 +106,25 @@ public abstract class BaseActivity extends AutoLayoutActivity {
 
     public void showToast(String showInfo) {
         Toast.makeText(this, showInfo, Toast.LENGTH_SHORT).show();
+    }
+
+    private void initDialog() {
+        mPDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
+                .setTitleText("请求中...");
+        mPDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        mPDialog.setCancelable(false);
+    }
+
+    public void showDialog() {
+        if (mPDialog != null && !mPDialog.isShowing()) {
+            mPDialog.show();
+        }
+    }
+
+    public void cancelDialog() {
+        if (mPDialog != null && mPDialog.isShowing()) {
+            mPDialog.dismiss();
+        }
     }
 
     public boolean judgeNetworkIsConnect() {

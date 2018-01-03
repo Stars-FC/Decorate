@@ -72,7 +72,6 @@ public class LookMainContractActivity extends BaseActivity {
     @BindView(R.id.yi_time_tv)
     TextView mTv_yiTime;
     private ProjectMainStageAdapter mProjectStageAdapter;
-    private SweetAlertDialog mPDialog;
     private String mConId;
 
     @BindView(R.id.jia_agree_iv)
@@ -109,12 +108,12 @@ public class LookMainContractActivity extends BaseActivity {
     @Override
     protected void initData(Bundle savedInstanceState) {
         getIntentData();
-        initDialog();
+        showDialog();
         getContractInfoRequest();
     }
 
     private void getContractInfoRequest() {
-        mPDialog.show();
+        showDialog();
         APPApi.getInstance().service
                 .getContractInfo(mConId)
                 .subscribeOn(Schedulers.io())
@@ -190,20 +189,6 @@ public class LookMainContractActivity extends BaseActivity {
         mConId = getIntent().getStringExtra("conId");
     }
 
-    private void initDialog() {
-        mPDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
-                .setTitleText("请求中...");
-        mPDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-        mPDialog.setCancelable(false);
-        mPDialog.show();
-    }
-
-    private void cancelDialog() {
-        if (mPDialog != null && mPDialog.isShowing()) {
-            mPDialog.dismiss();
-        }
-    }
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_look_contract;
@@ -234,7 +219,7 @@ public class LookMainContractActivity extends BaseActivity {
     }
 
     private void sureContractEvent() {
-        mPDialog.show();
+        showDialog();
         APPApi.getInstance().service
                 .confimContract(String.valueOf(mConfirmId), mConId)
                 .subscribeOn(Schedulers.io())

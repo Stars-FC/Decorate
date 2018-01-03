@@ -112,7 +112,6 @@ public class UserPublishActivity extends BaseActivity {
     TagFlowLayout mTagFlowLayout;
     @BindView(R.id.type_ll)
     LinearLayout typeLl;
-    private SweetAlertDialog mPDialog;
 
     private String missionStartTime = null;//开始装修时间
     private String missionType = null;//装修类型
@@ -368,7 +367,7 @@ public class UserPublishActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        initDialog();
+        showDialog();
         getServiceTypeData();
         initPicRecyclerView();
     }
@@ -380,14 +379,6 @@ public class UserPublishActivity extends BaseActivity {
         mAdapter = new UploadPublishNeedPicAdapter(R.layout.item_publish_need, realPicUrlList, this);
         mUploadPicRecyclerview.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mUploadPicRecyclerview.setAdapter(mAdapter);
-    }
-
-    private void initDialog() {
-        mPDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
-                .setTitleText("请求中...");
-        mPDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-        mPDialog.setCancelable(false);
-        mPDialog.show();
     }
 
     private void getServiceTypeData() {
@@ -435,12 +426,6 @@ public class UserPublishActivity extends BaseActivity {
 
                     }
                 });
-    }
-
-    private void cancelDialog() {
-        if (mPDialog != null && mPDialog.isShowing()) {
-            mPDialog.dismiss();
-        }
     }
 
     @Override
@@ -730,7 +715,7 @@ public class UserPublishActivity extends BaseActivity {
         partMap.put("title" , titleBody);
         partMap.put("rId" , rIdBody);
         partMap.put("offerFlag" , offerFlagBody);
-        mPDialog.show();
+        showDialog();
         APPApi.getInstance().service
                 .publishDemand(partMap)
                 .subscribeOn(Schedulers.io())

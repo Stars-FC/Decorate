@@ -81,7 +81,6 @@ public class InitiatingContractActivity extends BaseActivity {
     MaxRecyclerView mMaxRecyclerView;
     private ProjectStageAdapter mProjectStageAdapter;
     private List<ProjectStageBean.DataBean> mDataBeanList = new ArrayList<>();
-    private SweetAlertDialog mPDialog;
     private NeedBean.DataBean mDataBean;
     private int mType;
 
@@ -112,24 +111,10 @@ public class InitiatingContractActivity extends BaseActivity {
     @Override
     protected void initData(Bundle savedInstanceState) {
         mType = UserUtils.sDataBean.getType();
-        initDialog();
+        showDialog();
         getContractContentRequest();
         getIntentData();
         EventBus.getDefault().register(this);
-    }
-
-    private void initDialog() {
-        mPDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
-                .setTitleText("正在加载...");
-        mPDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-        mPDialog.setCancelable(false);
-        mPDialog.show();
-    }
-
-    private void cancelDialog() {
-        if (mPDialog != null && mPDialog.isShowing()) {
-            mPDialog.dismiss();
-        }
     }
 
     private void getContractContentRequest() {
@@ -293,8 +278,7 @@ public class InitiatingContractActivity extends BaseActivity {
     }
 
     private void sureSponsorContractEvent(String contractContentStr, String userId, String s, String s1, String projectAllJinEStr, String startTime, String endTime, String allTimeStr, String zhiBaoJinD, String title, String detail, String price, String needDays, String s2) {
-        mPDialog.setTitleText("请求中...");
-        mPDialog.show();
+        showDialog();
         APPApi.getInstance().service
                 .faQiContract(contractContentStr, userId, s, s1, projectAllJinEStr, startTime, endTime, allTimeStr,
                         zhiBaoJinD, title, detail, price, needDays, s2)

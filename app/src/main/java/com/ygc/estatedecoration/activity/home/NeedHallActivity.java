@@ -116,7 +116,6 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
 
     private String curSelectedMissionTypePosition = null;
     private String curSelectedConstructionStatusQuoPosition = null;
-    private SweetAlertDialog mPDialog;
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
@@ -154,7 +153,7 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
 
                 mDataBeanList.clear();
                 mAdapter.notifyDataSetChanged();
-                mPDialog.show();
+                showDialog();
                 queryNeedDataEvent(0, Constant.NORMAL_REQUEST, missionType, constructionStatusQuo, mStartTimeStr, mEndTimeStr, mMinAreaStr, mMaxAreaStr, null);
 
                 nowsAdapter.setCheckItem(0);
@@ -312,7 +311,7 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
 
                 mDataBeanList.clear();
                 mAdapter.notifyDataSetChanged();
-                mPDialog.show();
+                showDialog();
                 queryNeedDataEvent(0, Constant.NORMAL_REQUEST, missionType, constructionStatusQuo, mStartTimeStr, mEndTimeStr, mMinAreaStr, mMaxAreaStr, mAddressStr);
             }
         });
@@ -340,7 +339,7 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
 
                 mDataBeanList.clear();
                 mAdapter.notifyDataSetChanged();
-                mPDialog.show();
+                showDialog();
                 queryNeedDataEvent(0, Constant.NORMAL_REQUEST, missionType, constructionStatusQuo, mStartTimeStr, mEndTimeStr, mMinAreaStr, mMaxAreaStr, mAddressStr);
             }
         });
@@ -351,11 +350,7 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
     @Override
     protected void initData(Bundle savedInstanceState) {
         //查询全部的需求
-        mPDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
-                .setTitleText("正在加载...");
-        mPDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-        mPDialog.setCancelable(false);
-        mPDialog.show();
+        showDialog();
         queryNeedDataEvent(0, Constant.NORMAL_REQUEST, missionType, constructionStatusQuo, mStartTimeStr, mEndTimeStr, mMinAreaStr, mMaxAreaStr, mAddressStr);
     }
 
@@ -417,12 +412,6 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
 
                     }
                 });
-    }
-
-    private void cancelDialog() {
-        if (mPDialog != null && mPDialog.isShowing()) {
-            mPDialog.dismiss();
-        }
     }
 
     private void loadMoreFinishEvent() {
@@ -537,7 +526,7 @@ public class NeedHallActivity extends BaseActivity implements SwipeRefreshLayout
                 mAddressStr = null;
             }
         }
-        mPDialog.show();
+        showDialog();
         Log.i("521", "sureSelectCondition: curSelectedMissionTypePosition:" + curSelectedMissionTypePosition);
         Log.i("521", "sureSelectCondition: curSelectedConstructionStatusQuoPosition:" + curSelectedConstructionStatusQuoPosition);
 

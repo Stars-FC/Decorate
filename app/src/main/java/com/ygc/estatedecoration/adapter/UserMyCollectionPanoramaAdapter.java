@@ -22,16 +22,16 @@ public class UserMyCollectionPanoramaAdapter extends BaseQuickAdapter<UserCollec
 
     @Override
     protected void convert(BaseViewHolder helper, UserCollectionPanoramaBean.DataBean bean) {
-        helper.setText(R.id.tv_panorama_title, bean.getArticle().getTitle());
-        helper.setText(R.id.tv_panorama_city, bean.getArticle().getCity());
-        helper.setText(R.id.tv_panorama_address, bean.getArticle().getAddress());
-        helper.setText(R.id.tv_panorama_house_type, bean.getArticle().getHouse_type());
+        helper.setText(R.id.title_tv, bean.getArticle().getTitle());
+        helper.setText(R.id.city_tv, bean.getArticle().getCity());
+        helper.setText(R.id.housing_tv, bean.getArticle().getAddress());
+        helper.setText(R.id.huxing_tv, bean.getArticle().getHouse_type());
 
         String dynamic_picture = Constant.BASE_IMG+ bean.getArticle().getDynamic_picture();
         Glide.with(mContext)
                 .load(dynamic_picture)
                 .placeholder(R.drawable.iv_error)
                 .error(R.drawable.iv_error)
-                .into((ImageView) helper.getView(R.id.iv_static_picture));
+                .into((ImageView) helper.getView(R.id.pic_iv));
     }
 }

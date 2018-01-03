@@ -17,6 +17,14 @@ public class CaseStyleBean extends Base {
     }
 
     public static class DataBean {
+        public boolean isSelected() {
+            return isSelected;
+        }
+
+        public void setSelected(boolean selected) {
+            isSelected = selected;
+        }
+
         /**
          * r_id : 19
          * r_name : 欧式
@@ -24,6 +32,7 @@ public class CaseStyleBean extends Base {
          * type : 5
          */
 
+        private boolean isSelected = false;
         private int r_id;
         private String r_name;
         private String r_picture;

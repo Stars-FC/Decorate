@@ -47,7 +47,6 @@ public class EditMainContractStageActivity extends BaseActivity {
     @BindView(R.id.supplementary_contract_day)
     TextView mSupplementaryContractDay;
     private ContractInfoBean.DataBean.ContractStageListBean mContractStageListBean;
-    private SweetAlertDialog mPDialog;
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
@@ -68,7 +67,6 @@ public class EditMainContractStageActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        initDialog();
         getIntentData();
         mSupplementaryContractName.setText(mContractStageListBean.getTitle());
         mSupplementaryContractContent.setText(mContractStageListBean.getDetail());
@@ -76,19 +74,6 @@ public class EditMainContractStageActivity extends BaseActivity {
         mTv_startTime.setText(mContractStageListBean.getStageStartTime());
         mTv_endTime.setText(mContractStageListBean.getStageEndTime());
         mSupplementaryContractDay.setText(mContractStageListBean.getNeedDays());
-    }
-
-    private void initDialog() {
-        mPDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
-                .setTitleText("请求中...");
-        mPDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-        mPDialog.setCancelable(false);
-    }
-
-    private void cancelDialog() {
-        if (mPDialog != null && mPDialog.isShowing()) {
-            mPDialog.dismiss();
-        }
     }
 
     private void getIntentData() {
@@ -157,7 +142,7 @@ public class EditMainContractStageActivity extends BaseActivity {
     }
 
     private void requestNetwork(String conId, String nameStr, String contentStr, String moneyD, String dayStr) {
-        mPDialog.show();
+        showDialog();
         APPApi.getInstance().service
                 .modifyMainContractStage(conId, nameStr, contentStr, moneyD, dayStr)
                 .subscribeOn(Schedulers.io())

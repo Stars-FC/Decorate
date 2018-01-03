@@ -24,12 +24,12 @@ public class UserMyCollectionResultChartAdapter extends BaseQuickAdapter<UserCol
 
     @Override
     protected void convert(BaseViewHolder helper, UserCollectionResultChartBean.DataBean bean) {
-        helper.setText(R.id.iv_effect_title, bean.getArticle().getTitle());
+        helper.setText(R.id.title_tv, bean.getArticle().getTitle());
         String effect_picture = Constant.BASE_IMG + bean.getArticle().getEffect_picture();
         Glide.with(mContext)
                 .load(effect_picture)
                 .placeholder(R.drawable.iv_error)
                 .error(R.drawable.iv_error)
-                .into((ImageView) helper.getView(R.id.iv_effect_picture));
+                .into((ImageView) helper.getView(R.id.pic_iv));
     }
 }

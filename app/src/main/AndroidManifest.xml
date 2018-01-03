@@ -147,6 +147,8 @@
         </activity>
         <activity android:name=".activity.home.LookBuChongContractActivity">
         </activity>
+        <activity android:name=".user_activity.UserPanoramaActivity">
+        </activity>
     </application>
 
 </manifest>

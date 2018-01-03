@@ -3,41 +3,43 @@ package com.ygc.estatedecoration.fragment;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.androidkun.xtablayout.XTabLayout;
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.adapter.CaseStyleAdapter;
 import com.ygc.estatedecoration.adapter.DemandAndProgressLazyFragmentPagerAdapter;
-import com.ygc.estatedecoration.adapter.HomeMyStoreAdapter;
 import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
 import com.ygc.estatedecoration.bean.CaseStyleBean;
+import com.ygc.estatedecoration.bean.ContractContentBean;
+import com.ygc.estatedecoration.entity.base.Constant;
+import com.ygc.estatedecoration.event.CaseEvent;
 import com.ygc.estatedecoration.fragment.cas.EffectFragment;
 import com.ygc.estatedecoration.fragment.cas.PanoramaFragment;
-import com.ygc.estatedecoration.utils.LogUtil;
 import com.ygc.estatedecoration.utils.RecyclerSpace;
 import com.ygc.estatedecoration.widget.BasePopupWindow;
 import com.ygc.estatedecoration.widget.TitleBar;
+import com.zhy.autolayout.AutoLinearLayout;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.pedant.SweetAlert.SweetAlertDialog;
+import cn.bingoogolapple.bgabanner.BGABanner;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -49,12 +51,12 @@ import io.reactivex.schedulers.Schedulers;
  * 案例界面
  */
 
-public class CaseFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+public class CaseFragment extends BaseFragment {
 
     private static final String ARG_C = "content";
 
-    @BindView(R.id.swiperefreshLayout)
-    SwipeRefreshLayout mSwipeRefreshLayout;
+    @BindView(R.id.banner)
+    BGABanner mBGABanner;
     @BindView(R.id.anli_state_ll)
     LinearLayout mLl_stateContainer;
     @BindView(R.id.anli_style_ll)
@@ -69,9 +71,8 @@ public class CaseFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     private BasePopupWindow mCasePopupWindow;
 
-    private int curTab = 0;
-    private int curCaseState = 0;//当前案例的状态
-    private List<CaseStyleBean.DataBean> mDataBeanList;//案例风格数据
+    private String curCaseStyle = null;//当前案例风格
+    private String curCaseState = null;//当前案例的状态
 
     public static CaseFragment newInstance(String content) {
         Bundle args = new Bundle();
@@ -87,27 +88,36 @@ public class CaseFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         return true;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-    private List<String> caseStyleList = new ArrayList<>();
+    private List<CaseStyleBean.DataBean> mDataBeanList = new ArrayList<>();//案例风格数据
     private CaseStyleAdapter mCaseStyleAdapter;
     private void initStylePopupWindow() {
         mCasePopupWindow = new BasePopupWindow(mActivity);
         View popupView = LayoutInflater.from(mActivity).inflate(R.layout.popup_window_case_style, null);
         RecyclerView styleRecyclerView = (RecyclerView) popupView.findViewById(R.id.style_recyclerview);
-        mCaseStyleAdapter = new CaseStyleAdapter(R.layout.item_case_style, caseStyleList);
+        mCaseStyleAdapter = new CaseStyleAdapter(R.layout.item_case_style, mDataBeanList);
         styleRecyclerView.setLayoutManager(new GridLayoutManager(mActivity, 3));
         styleRecyclerView.addItemDecoration(new RecyclerSpace(30, Color.parseColor("#f6f6f6")));
         styleRecyclerView.setAdapter(mCaseStyleAdapter);
         mCaseStyleAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Log.i("521", "onItemClick: style:" + caseStyleList.get(position));
+                List<CaseStyleBean.DataBean> dataList = mCaseStyleAdapter.getData();
+                if (position == 0) {
+                    curCaseStyle = null;
+                } else {
+                    curCaseStyle = String.valueOf(dataList.get(position).getR_id());
+                }
+                for (int i = 0; i < dataList.size(); i++) {
+                    CaseStyleBean.DataBean dataBean = dataList.get(i);
+                    if (position == i) {
+                        dataBean.setSelected(true);
+                    } else {
+                        dataBean.setSelected(false);
+                    }
+                }
+                mCaseStyleAdapter.notifyDataSetChanged();
                 mCasePopupWindow.dismiss();
+                updateDataEvent();
             }
         });
         mCasePopupWindow.setContentView(popupView);
@@ -119,7 +129,66 @@ public class CaseFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         initFragmentTitle();
         initFragment();
         initStylePopupWindow();
+        getBannerData();
         getCaseStyleData();
+    }
+
+    private void getBannerData() {
+        APPApi.getInstance().service
+                .getContractContentData()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ContractContentBean>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        compositeDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(@NonNull ContractContentBean contractContentBean) {
+                        if (contractContentBean.responseState.equals("1")) {
+                            String sys_case_banner = contractContentBean.getData().getSys_case_banner();
+                            List<String> imgUrlList = new ArrayList<>();
+                            String[] split = sys_case_banner.split(",");
+                            for (String urlStr : split) {
+                                imgUrlList.add(Constant.BASE_IMG + urlStr);
+                            }
+                            setAdvData(imgUrlList);
+                        } else {
+                            showToast(contractContentBean.msg);
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        showToast(getResources().getString(R.string.network_error));
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    private void setAdvData(List<String> imgUrlList) {
+        List<String> imgTitleList = new ArrayList<>();
+        for (int i = 0; i < imgTitleList.size(); i++) {
+            imgTitleList.add("");
+        }
+        BGABanner.Adapter<AutoLinearLayout, String> bgaBannerAdapter = new BGABanner.Adapter<AutoLinearLayout, String>() {
+            @Override
+            public void fillBannerItem(BGABanner banner, AutoLinearLayout itemView, String model, int position) {
+                ImageView iconIv = (ImageView) itemView.findViewById(R.id.banner_iv);
+                Glide.with(itemView.getContext())
+                        .load(model)
+                        .error(R.drawable.banner_default_icon)
+                        .dontAnimate()
+                        .into(iconIv);
+            }
+        };
+        mBGABanner.setAdapter(bgaBannerAdapter);
+        mBGABanner.setData(R.layout.item_banner, imgUrlList, imgTitleList);
     }
 
     private void getCaseStyleData() {
@@ -138,16 +207,16 @@ public class CaseFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                     public void onNext(@NonNull CaseStyleBean caseStyleBean) {
                         cancelDialog();
                         if (caseStyleBean.responseState.equals("1")) {
-                            mDataBeanList = caseStyleBean.getData();
-                            if (caseStyleList.size() > 0) {
-                                caseStyleList.clear();
+                            List<CaseStyleBean.DataBean> data = caseStyleBean.getData();
+                            mDataBeanList.clear();
+                            if (data != null && data.size() > 0) {
+                                CaseStyleBean.DataBean dataBean = new CaseStyleBean.DataBean();
+                                dataBean.setR_name("全部");
+                                dataBean.setSelected(true);
+                                mDataBeanList.add(dataBean);
+                                mDataBeanList.addAll(data);
                             }
-                            caseStyleList.add("全部");
-                            for (CaseStyleBean.DataBean dataBean : mDataBeanList) {
-                                String r_name = dataBean.getR_name();
-                                caseStyleList.add(r_name);
-                                mCaseStyleAdapter.notifyDataSetChanged();
-                            }
+                            mCaseStyleAdapter.notifyDataSetChanged();
                         } else {
                             showToast(caseStyleBean.msg);
                         }
@@ -174,7 +243,7 @@ public class CaseFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     private void initFragment() {
         mChildFragmentManager = getChildFragmentManager();
         PanoramaFragment panoramaFragment = PanoramaFragment.newInstance();
-        EffectFragment effectFragment = EffectFragment.newInstance("", "");
+        EffectFragment effectFragment = EffectFragment.newInstance();
         mFragmentList.add(panoramaFragment);
         mFragmentList.add(effectFragment);
     }
@@ -186,31 +255,13 @@ public class CaseFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     private void initTabLayoutAndViewPager() {
         DemandAndProgressLazyFragmentPagerAdapter adapter = new DemandAndProgressLazyFragmentPagerAdapter(mChildFragmentManager, mFragmentList, mFragmentTitleList);
-//        HomeMyStoreAdapter homeMyStoreAdapter = new HomeMyStoreAdapter(mChildFragmentManager, mFragmentList, mFragmentTitleList);
         mViewPager.setAdapter(adapter);
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
     @Override
     protected void addListener() {
-        mSwipeRefreshLayout.setColorSchemeColors(Color.parseColor("#4EBE65"));
-        mSwipeRefreshLayout.setOnRefreshListener(this);
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                curTab = position;
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
     }
 
     @Override
@@ -261,7 +312,8 @@ public class CaseFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                 stateFinishTv.setTextColor(Color.parseColor("#000000"));
                 stateNoFinishTv.setBackgroundResource(R.drawable.white_bg);
                 stateNoFinishTv.setTextColor(Color.parseColor("#000000"));
-                curCaseState = 0;
+                curCaseState = null;
+                updateDataEvent();
             }
         });
         stateFinishTv.setOnClickListener(new View.OnClickListener() {
@@ -274,7 +326,8 @@ public class CaseFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                 stateAllTv.setTextColor(Color.parseColor("#000000"));
                 stateNoFinishTv.setBackgroundResource(R.drawable.white_bg);
                 stateNoFinishTv.setTextColor(Color.parseColor("#000000"));
-                curCaseState = 1;
+                curCaseState = "2";
+                updateDataEvent();
             }
         });
         stateNoFinishTv.setOnClickListener(new View.OnClickListener() {
@@ -287,7 +340,8 @@ public class CaseFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                 stateFinishTv.setTextColor(Color.parseColor("#000000"));
                 stateAllTv.setBackgroundResource(R.drawable.white_bg);
                 stateAllTv.setTextColor(Color.parseColor("#000000"));
-                curCaseState = 2;
+                curCaseState = "1";
+                updateDataEvent();
             }
         });
         mStatePopupWindow.setContentView(popupView);
@@ -301,10 +355,7 @@ public class CaseFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         mCasePopupWindow.showAsDropDown(mLl_styleContainer);
     }
 
-    @Override
-    public void onRefresh() {
-        if (mSwipeRefreshLayout.isRefreshing()) {
-            mSwipeRefreshLayout.setRefreshing(false);
-        }
+    private void updateDataEvent() {
+        EventBus.getDefault().postSticky(new CaseEvent(curCaseStyle, curCaseState));
     }
 }

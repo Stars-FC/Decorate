@@ -4,13 +4,13 @@ import com.ygc.estatedecoration.entity.base.Base;
 
 import java.util.List;
 
-public class PanoramaBean extends Base {
+public class EffectBean extends Base {
 
 
     /**
      * message : 查询成功
-     * data : [{"cp_id":1,"au_id":"1","d_id":"50","title":"小户型改造","city":"沈阳","address":"亚泰花园","house_type":"田园","static_picture":"/pictures/1.jpg","dynamic_picture":"","r_id":"1","create_time":"2017-12-14 09:07:35.0","upload_type":0,"userInfo":{"au_id":1,"type":1,"r_id":null,"username":"18742494800","password":"123456","head_portrait":"","nickname":"小月","sex":0,"warranty_gold":"","gold_coin":0,"balance":64.51,"openid":"","certification":1,"real_name":"","number":"","tel":"","picture_url":"","create_time":"2017-12-05 11:45:30.0"},"collect":false},{"cp_id":3,"au_id":"3","d_id":"50","title":"小户型改造","city":"沈阳","address":"亚泰花园","house_type":"田园","static_picture":"/pictures/1.jpg","dynamic_picture":"","r_id":"3","create_time":"2017-12-14 09:07:35.0","upload_type":0,"userInfo":{"au_id":3,"type":3,"r_id":null,"username":"15902475318","password":"1","head_portrait":"","nickname":"1","sex":0,"warranty_gold":"","gold_coin":0,"balance":0,"openid":null,"certification":0,"real_name":"","number":"","tel":"","picture_url":"","create_time":"2017-12-07 13:43:39.0"},"collect":false},{"cp_id":4,"au_id":"9","d_id":"50","title":"小户型改造","city":"沈阳","address":"亚泰花园","house_type":"田园","static_picture":"/pictures/1.jpg","dynamic_picture":"","r_id":"2","create_time":"2017-12-14 09:07:35.0","upload_type":0,"userInfo":{"au_id":9,"type":4,"r_id":4,"username":"17054088454","password":"1234","head_portrait":"/pictures/ed790580cd054a5cbdcf76e258c2b2c3.jpg","nickname":"好啦","sex":1,"warranty_gold":"","gold_coin":0,"balance":0,"openid":null,"certification":1,"real_name":"","number":"","tel":"","picture_url":"","create_time":"2017-12-12 14:47:14.0"},"collect":false},{"cp_id":6,"au_id":"2","d_id":"50","title":"小户型改造","city":"沈阳","address":"亚泰花园","house_type":"田园","static_picture":"/pictures/1.jpg","dynamic_picture":"","r_id":"2","create_time":"2017-12-14 09:07:35.0","upload_type":0,"userInfo":{"au_id":2,"type":2,"r_id":null,"username":"13804221090","password":"123456","head_portrait":"","nickname":"小梅","sex":0,"warranty_gold":"","gold_coin":0,"balance":0,"openid":"1","certification":0,"real_name":"","number":"","tel":"","picture_url":"","create_time":"2017-12-05 16:13:06.0"},"collect":false},{"cp_id":7,"au_id":"3","d_id":"50","title":"小户型改造","city":"沈阳","address":"亚泰花园","house_type":"田园","static_picture":"/pictures/1.jpg","dynamic_picture":"","r_id":"3","create_time":"2017-12-14 09:07:35.0","upload_type":0,"userInfo":{"au_id":3,"type":3,"r_id":null,"username":"15902475318","password":"1","head_portrait":"","nickname":"1","sex":0,"warranty_gold":"","gold_coin":0,"balance":0,"openid":null,"certification":0,"real_name":"","number":"","tel":"","picture_url":"","create_time":"2017-12-07 13:43:39.0"},"collect":false},{"cp_id":9,"au_id":"1","d_id":"50","title":"小户型改造","city":"沈阳","address":"亚泰花园","house_type":"田园","static_picture":"/pictures/1.jpg","dynamic_picture":"","r_id":"2","create_time":"2017-12-14 09:07:35.0","upload_type":0,"userInfo":{"au_id":1,"type":1,"r_id":null,"username":"18742494800","password":"123456","head_portrait":"","nickname":"小月","sex":0,"warranty_gold":"","gold_coin":0,"balance":64.51,"openid":"","certification":1,"real_name":"","number":"","tel":"","picture_url":"","create_time":"2017-12-05 11:45:30.0"},"collect":false}]
-     * page : {"pageNow":1,"pageSize":20,"totalCount":6,"totalPageCount":1,"startPos":0,"hasFirst":false,"hasPre":false,"hasNext":true,"hasLast":true}
+     * data : [{"ce_id":1,"au_id":"1","d_id":"50","title":"大苏打","r_id":"1","effect_picture":"/pictures/1.jpg","create_time":"2017-12-11 10:25:58.0","upload_type":0,"userInfo":{"au_id":1,"type":1,"r_id":null,"username":"18742494800","password":"123456","head_portrait":"","nickname":"小月","sex":0,"warranty_gold":"","gold_coin":0,"balance":64.51,"openid":"","certification":1,"real_name":"","number":"","tel":"","picture_url":"","create_time":"2017-12-05 11:45:30.0"},"collect":false},{"ce_id":2,"au_id":"1","d_id":"50","title":"大苏打","r_id":"2","effect_picture":"/pictures/1.jpg","create_time":"2017-12-11 10:25:58.0","upload_type":0,"userInfo":{"au_id":1,"type":1,"r_id":null,"username":"18742494800","password":"123456","head_portrait":"","nickname":"小月","sex":0,"warranty_gold":"","gold_coin":0,"balance":64.51,"openid":"","certification":1,"real_name":"","number":"","tel":"","picture_url":"","create_time":"2017-12-05 11:45:30.0"},"collect":false},{"ce_id":3,"au_id":"1","d_id":"50","title":"大苏打","r_id":"3","effect_picture":"/pictures/1.jpg","create_time":"2017-12-11 10:25:58.0","upload_type":0,"userInfo":{"au_id":1,"type":1,"r_id":null,"username":"18742494800","password":"123456","head_portrait":"","nickname":"小月","sex":0,"warranty_gold":"","gold_coin":0,"balance":64.51,"openid":"","certification":1,"real_name":"","number":"","tel":"","picture_url":"","create_time":"2017-12-05 11:45:30.0"},"collect":false},{"ce_id":4,"au_id":"1","d_id":"50","title":"大苏打","r_id":"2","effect_picture":"/pictures/1.jpg","create_time":"2017-12-11 10:25:58.0","upload_type":0,"userInfo":{"au_id":1,"type":1,"r_id":null,"username":"18742494800","password":"123456","head_portrait":"","nickname":"小月","sex":0,"warranty_gold":"","gold_coin":0,"balance":64.51,"openid":"","certification":1,"real_name":"","number":"","tel":"","picture_url":"","create_time":"2017-12-05 11:45:30.0"},"collect":false},{"ce_id":5,"au_id":"1","d_id":"50","title":"大苏打","r_id":"1","effect_picture":"/pictures/1.jpg","create_time":"2017-12-11 10:25:58.0","upload_type":0,"userInfo":{"au_id":1,"type":1,"r_id":null,"username":"18742494800","password":"123456","head_portrait":"","nickname":"小月","sex":0,"warranty_gold":"","gold_coin":0,"balance":64.51,"openid":"","certification":1,"real_name":"","number":"","tel":"","picture_url":"","create_time":"2017-12-05 11:45:30.0"},"collect":false},{"ce_id":6,"au_id":"1","d_id":"50","title":"大苏打","r_id":"2","effect_picture":"/pictures/1.jpg","create_time":"2017-12-11 10:25:58.0","upload_type":0,"userInfo":{"au_id":1,"type":1,"r_id":null,"username":"18742494800","password":"123456","head_portrait":"","nickname":"小月","sex":0,"warranty_gold":"","gold_coin":0,"balance":64.51,"openid":"","certification":1,"real_name":"","number":"","tel":"","picture_url":"","create_time":"2017-12-05 11:45:30.0"},"collect":false},{"ce_id":7,"au_id":"1","d_id":"50","title":"大苏打","r_id":"3","effect_picture":"/pictures/1.jpg","create_time":"2017-12-11 10:25:58.0","upload_type":0,"userInfo":{"au_id":1,"type":1,"r_id":null,"username":"18742494800","password":"123456","head_portrait":"","nickname":"小月","sex":0,"warranty_gold":"","gold_coin":0,"balance":64.51,"openid":"","certification":1,"real_name":"","number":"","tel":"","picture_url":"","create_time":"2017-12-05 11:45:30.0"},"collect":false},{"ce_id":8,"au_id":"1","d_id":"50","title":"大苏打","r_id":"2","effect_picture":"/pictures/1.jpg","create_time":"2017-12-11 10:25:58.0","upload_type":0,"userInfo":{"au_id":1,"type":1,"r_id":null,"username":"18742494800","password":"123456","head_portrait":"","nickname":"小月","sex":0,"warranty_gold":"","gold_coin":0,"balance":64.51,"openid":"","certification":1,"real_name":"","number":"","tel":"","picture_url":"","create_time":"2017-12-05 11:45:30.0"},"collect":false}]
+     * page : {"pageNow":1,"pageSize":20,"totalCount":8,"totalPageCount":1,"startPos":0,"hasFirst":false,"hasPre":false,"hasNext":true,"hasLast":true}
      */
 
     private String message;
@@ -45,7 +45,7 @@ public class PanoramaBean extends Base {
         /**
          * pageNow : 1
          * pageSize : 20
-         * totalCount : 6
+         * totalCount : 8
          * totalPageCount : 1
          * startPos : 0
          * hasFirst : false
@@ -139,43 +139,35 @@ public class PanoramaBean extends Base {
 
     public static class DataBean {
         /**
-         * cp_id : 1
+         * ce_id : 1
          * au_id : 1
          * d_id : 50
-         * title : 小户型改造
-         * city : 沈阳
-         * address : 亚泰花园
-         * house_type : 田园
-         * static_picture : /pictures/1.jpg
-         * dynamic_picture :
+         * title : 大苏打
          * r_id : 1
-         * create_time : 2017-12-14 09:07:35.0
+         * effect_picture : /pictures/1.jpg
+         * create_time : 2017-12-11 10:25:58.0
          * upload_type : 0
          * userInfo : {"au_id":1,"type":1,"r_id":null,"username":"18742494800","password":"123456","head_portrait":"","nickname":"小月","sex":0,"warranty_gold":"","gold_coin":0,"balance":64.51,"openid":"","certification":1,"real_name":"","number":"","tel":"","picture_url":"","create_time":"2017-12-05 11:45:30.0"}
          * collect : false
          */
 
-        private int cp_id;
+        private int ce_id;
         private String au_id;
         private String d_id;
         private String title;
-        private String city;
-        private String address;
-        private String house_type;
-        private String static_picture;
-        private String dynamic_picture;
         private String r_id;
+        private String effect_picture;
         private String create_time;
         private int upload_type;
         private UserInfoBean userInfo;
         private boolean collect;
 
-        public int getCp_id() {
-            return cp_id;
+        public int getCe_id() {
+            return ce_id;
         }
 
-        public void setCp_id(int cp_id) {
-            this.cp_id = cp_id;
+        public void setCe_id(int ce_id) {
+            this.ce_id = ce_id;
         }
 
         public String getAu_id() {
@@ -202,52 +194,20 @@ public class PanoramaBean extends Base {
             this.title = title;
         }
 
-        public String getCity() {
-            return city;
-        }
-
-        public void setCity(String city) {
-            this.city = city;
-        }
-
-        public String getAddress() {
-            return address;
-        }
-
-        public void setAddress(String address) {
-            this.address = address;
-        }
-
-        public String getHouse_type() {
-            return house_type;
-        }
-
-        public void setHouse_type(String house_type) {
-            this.house_type = house_type;
-        }
-
-        public String getStatic_picture() {
-            return static_picture;
-        }
-
-        public void setStatic_picture(String static_picture) {
-            this.static_picture = static_picture;
-        }
-
-        public String getDynamic_picture() {
-            return dynamic_picture;
-        }
-
-        public void setDynamic_picture(String dynamic_picture) {
-            this.dynamic_picture = dynamic_picture;
-        }
-
         public String getR_id() {
             return r_id;
         }
 
         public void setR_id(String r_id) {
             this.r_id = r_id;
+        }
+
+        public String getEffect_picture() {
+            return effect_picture;
+        }
+
+        public void setEffect_picture(String effect_picture) {
+            this.effect_picture = effect_picture;
         }
 
         public String getCreate_time() {

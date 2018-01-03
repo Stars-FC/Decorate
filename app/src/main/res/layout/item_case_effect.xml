@@ -17,16 +17,15 @@
         android:orientation="vertical">
 
         <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/iv_effect_picture"
+            android:id="@+id/pic_iv"
             android:layout_width="280px"
             android:layout_height="280px"
             android:scaleType="fitXY"
             android:src="@drawable/shang_pin"
-            app:riv_corner_radius="15px"/>
-
-        <!--   android:scaleType="fitCenter"
-           app:riv_mutate_background="true"
-           app:riv_tile_mode="repeat"-->
+            app:riv_corner_radius_top_left="15px"
+            app:riv_corner_radius_top_right="15px"
+            app:riv_mutate_background="true"
+            app:riv_tile_mode="repeat"/>
 
         <com.zhy.autolayout.AutoLinearLayout
             android:layout_width="match_parent"
@@ -36,7 +35,7 @@
             android:paddingLeft="20px">
 
             <TextView
-                android:id="@+id/iv_effect_title"
+                android:id="@+id/title_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="案例标题"
@@ -50,12 +49,14 @@
 
             <com.zhy.autolayout.AutoRelativeLayout
                 android:layout_width="68px"
-                android:layout_height="68px">
+                android:layout_height="68px"
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="28px"
                     android:layout_height="28px"
-                    android:layout_centerInParent="true"/>
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/lajitong"/>
 
             </com.zhy.autolayout.AutoRelativeLayout>
 

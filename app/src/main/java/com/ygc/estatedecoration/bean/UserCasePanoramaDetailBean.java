@@ -2,153 +2,35 @@ package com.ygc.estatedecoration.bean;
 
 import com.ygc.estatedecoration.entity.base.Base;
 
-import java.util.List;
 
-public class PanoramaBean extends Base {
-
+public class UserCasePanoramaDetailBean extends Base {
 
     /**
-     * message : 查询成功
-     * data : [{"cp_id":1,"au_id":"1","d_id":"50","title":"小户型改造","city":"沈阳","address":"亚泰花园","house_type":"田园","static_picture":"/pictures/1.jpg","dynamic_picture":"","r_id":"1","create_time":"2017-12-14 09:07:35.0","upload_type":0,"userInfo":{"au_id":1,"type":1,"r_id":null,"username":"18742494800","password":"123456","head_portrait":"","nickname":"小月","sex":0,"warranty_gold":"","gold_coin":0,"balance":64.51,"openid":"","certification":1,"real_name":"","number":"","tel":"","picture_url":"","create_time":"2017-12-05 11:45:30.0"},"collect":false},{"cp_id":3,"au_id":"3","d_id":"50","title":"小户型改造","city":"沈阳","address":"亚泰花园","house_type":"田园","static_picture":"/pictures/1.jpg","dynamic_picture":"","r_id":"3","create_time":"2017-12-14 09:07:35.0","upload_type":0,"userInfo":{"au_id":3,"type":3,"r_id":null,"username":"15902475318","password":"1","head_portrait":"","nickname":"1","sex":0,"warranty_gold":"","gold_coin":0,"balance":0,"openid":null,"certification":0,"real_name":"","number":"","tel":"","picture_url":"","create_time":"2017-12-07 13:43:39.0"},"collect":false},{"cp_id":4,"au_id":"9","d_id":"50","title":"小户型改造","city":"沈阳","address":"亚泰花园","house_type":"田园","static_picture":"/pictures/1.jpg","dynamic_picture":"","r_id":"2","create_time":"2017-12-14 09:07:35.0","upload_type":0,"userInfo":{"au_id":9,"type":4,"r_id":4,"username":"17054088454","password":"1234","head_portrait":"/pictures/ed790580cd054a5cbdcf76e258c2b2c3.jpg","nickname":"好啦","sex":1,"warranty_gold":"","gold_coin":0,"balance":0,"openid":null,"certification":1,"real_name":"","number":"","tel":"","picture_url":"","create_time":"2017-12-12 14:47:14.0"},"collect":false},{"cp_id":6,"au_id":"2","d_id":"50","title":"小户型改造","city":"沈阳","address":"亚泰花园","house_type":"田园","static_picture":"/pictures/1.jpg","dynamic_picture":"","r_id":"2","create_time":"2017-12-14 09:07:35.0","upload_type":0,"userInfo":{"au_id":2,"type":2,"r_id":null,"username":"13804221090","password":"123456","head_portrait":"","nickname":"小梅","sex":0,"warranty_gold":"","gold_coin":0,"balance":0,"openid":"1","certification":0,"real_name":"","number":"","tel":"","picture_url":"","create_time":"2017-12-05 16:13:06.0"},"collect":false},{"cp_id":7,"au_id":"3","d_id":"50","title":"小户型改造","city":"沈阳","address":"亚泰花园","house_type":"田园","static_picture":"/pictures/1.jpg","dynamic_picture":"","r_id":"3","create_time":"2017-12-14 09:07:35.0","upload_type":0,"userInfo":{"au_id":3,"type":3,"r_id":null,"username":"15902475318","password":"1","head_portrait":"","nickname":"1","sex":0,"warranty_gold":"","gold_coin":0,"balance":0,"openid":null,"certification":0,"real_name":"","number":"","tel":"","picture_url":"","create_time":"2017-12-07 13:43:39.0"},"collect":false},{"cp_id":9,"au_id":"1","d_id":"50","title":"小户型改造","city":"沈阳","address":"亚泰花园","house_type":"田园","static_picture":"/pictures/1.jpg","dynamic_picture":"","r_id":"2","create_time":"2017-12-14 09:07:35.0","upload_type":0,"userInfo":{"au_id":1,"type":1,"r_id":null,"username":"18742494800","password":"123456","head_portrait":"","nickname":"小月","sex":0,"warranty_gold":"","gold_coin":0,"balance":64.51,"openid":"","certification":1,"real_name":"","number":"","tel":"","picture_url":"","create_time":"2017-12-05 11:45:30.0"},"collect":false}]
-     * page : {"pageNow":1,"pageSize":20,"totalCount":6,"totalPageCount":1,"startPos":0,"hasFirst":false,"hasPre":false,"hasNext":true,"hasLast":true}
+     * data : {"cp_id":1,"au_id":"1","d_id":"1","title":"小户型改造","city":"沈阳","address":"亚泰花园","house_type":"田园","static_picture":"/pictures/98f9948622874a39a03a0df2d3f4fa45.jpg","dynamic_picture":"","r_id":null,"create_time":"2017-12-14 09:07:35.0","upload_type":0,"userInfo":{"au_id":1,"type":1,"r_id":null,"username":"18742494800","password":"123456","head_portrait":"","nickname":"小月","sex":0,"warranty_gold":"","gold_coin":0,"balance":64.51,"openid":"","certification":1,"real_name":"","number":"","tel":"","picture_url":"","create_time":"2017-12-05 11:45:30.0"},"collect":false}
      */
 
-    private String message;
-    private PageBean page;
-    private List<DataBean> data;
+    private DataBean data;
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public PageBean getPage() {
-        return page;
-    }
-
-    public void setPage(PageBean page) {
-        this.page = page;
-    }
-
-    public List<DataBean> getData() {
+    public DataBean getData() {
         return data;
     }
 
-    public void setData(List<DataBean> data) {
+    public void setData(DataBean data) {
         this.data = data;
-    }
-
-    public static class PageBean {
-        /**
-         * pageNow : 1
-         * pageSize : 20
-         * totalCount : 6
-         * totalPageCount : 1
-         * startPos : 0
-         * hasFirst : false
-         * hasPre : false
-         * hasNext : true
-         * hasLast : true
-         */
-
-        private int pageNow;
-        private int pageSize;
-        private int totalCount;
-        private int totalPageCount;
-        private int startPos;
-        private boolean hasFirst;
-        private boolean hasPre;
-        private boolean hasNext;
-        private boolean hasLast;
-
-        public int getPageNow() {
-            return pageNow;
-        }
-
-        public void setPageNow(int pageNow) {
-            this.pageNow = pageNow;
-        }
-
-        public int getPageSize() {
-            return pageSize;
-        }
-
-        public void setPageSize(int pageSize) {
-            this.pageSize = pageSize;
-        }
-
-        public int getTotalCount() {
-            return totalCount;
-        }
-
-        public void setTotalCount(int totalCount) {
-            this.totalCount = totalCount;
-        }
-
-        public int getTotalPageCount() {
-            return totalPageCount;
-        }
-
-        public void setTotalPageCount(int totalPageCount) {
-            this.totalPageCount = totalPageCount;
-        }
-
-        public int getStartPos() {
-            return startPos;
-        }
-
-        public void setStartPos(int startPos) {
-            this.startPos = startPos;
-        }
-
-        public boolean isHasFirst() {
-            return hasFirst;
-        }
-
-        public void setHasFirst(boolean hasFirst) {
-            this.hasFirst = hasFirst;
-        }
-
-        public boolean isHasPre() {
-            return hasPre;
-        }
-
-        public void setHasPre(boolean hasPre) {
-            this.hasPre = hasPre;
-        }
-
-        public boolean isHasNext() {
-            return hasNext;
-        }
-
-        public void setHasNext(boolean hasNext) {
-            this.hasNext = hasNext;
-        }
-
-        public boolean isHasLast() {
-            return hasLast;
-        }
-
-        public void setHasLast(boolean hasLast) {
-            this.hasLast = hasLast;
-        }
     }
 
     public static class DataBean {
         /**
          * cp_id : 1
          * au_id : 1
-         * d_id : 50
+         * d_id : 1
          * title : 小户型改造
          * city : 沈阳
          * address : 亚泰花园
          * house_type : 田园
-         * static_picture : /pictures/1.jpg
+         * static_picture : /pictures/98f9948622874a39a03a0df2d3f4fa45.jpg
          * dynamic_picture :
-         * r_id : 1
+         * r_id : null
          * create_time : 2017-12-14 09:07:35.0
          * upload_type : 0
          * userInfo : {"au_id":1,"type":1,"r_id":null,"username":"18742494800","password":"123456","head_portrait":"","nickname":"小月","sex":0,"warranty_gold":"","gold_coin":0,"balance":64.51,"openid":"","certification":1,"real_name":"","number":"","tel":"","picture_url":"","create_time":"2017-12-05 11:45:30.0"}
@@ -164,7 +46,7 @@ public class PanoramaBean extends Base {
         private String house_type;
         private String static_picture;
         private String dynamic_picture;
-        private String r_id;
+        private Object r_id;
         private String create_time;
         private int upload_type;
         private UserInfoBean userInfo;
@@ -242,11 +124,11 @@ public class PanoramaBean extends Base {
             this.dynamic_picture = dynamic_picture;
         }
 
-        public String getR_id() {
+        public Object getR_id() {
             return r_id;
         }
 
-        public void setR_id(String r_id) {
+        public void setR_id(Object r_id) {
             this.r_id = r_id;
         }
 

@@ -77,7 +77,6 @@ public class EditMainContractActivity extends BaseActivity {
     @BindView(R.id.yi_time_tv)
     TextView mTv_yiTime;
     private ProjectMainStageAdapter2 mProjectStageAdapter;
-    private SweetAlertDialog mPDialog;
     private String mConId;
 
     @BindView(R.id.jia_agree_iv)
@@ -113,12 +112,11 @@ public class EditMainContractActivity extends BaseActivity {
     protected void initData(Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
         getIntentData();
-        initDialog();
         getContractInfoRequest();
     }
 
     private void getContractInfoRequest() {
-        mPDialog.show();
+        showDialog();
         APPApi.getInstance().service
                 .getContractInfo(mConId)
                 .subscribeOn(Schedulers.io())
@@ -181,20 +179,6 @@ public class EditMainContractActivity extends BaseActivity {
         mConId = getIntent().getStringExtra("conId");
     }
 
-    private void initDialog() {
-        mPDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
-                .setTitleText("请求中...");
-        mPDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-        mPDialog.setCancelable(false);
-        mPDialog.show();
-    }
-
-    private void cancelDialog() {
-        if (mPDialog != null && mPDialog.isShowing()) {
-            mPDialog.dismiss();
-        }
-    }
-
     @OnClick({R.id.naviFrameLeft, R.id.gongqi_rl, R.id.zhibaojin_rl, R.id.project_stage_rl, R.id.activity_initiating_contract_submit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -224,7 +208,7 @@ public class EditMainContractActivity extends BaseActivity {
         }
         java.text.DecimalFormat decimalFormat = new DecimalFormat("0.00");
         String zhiBaoJinD = decimalFormat.format(Double.valueOf(zhiBaoJinEStr));
-        mPDialog.show();
+        showDialog();
         APPApi.getInstance().service
                 .modifyMainContractInfo(mConId, zhiBaoJinD)
                 .subscribeOn(Schedulers.io())

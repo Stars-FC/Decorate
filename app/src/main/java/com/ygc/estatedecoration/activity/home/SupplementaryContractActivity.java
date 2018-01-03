@@ -68,7 +68,6 @@ public class SupplementaryContractActivity extends BaseActivity {
     RecyclerView mRecyclerView;
     @BindView(R.id.supplementary_contract_submit)
     Button mBtn_submit;
-    private SweetAlertDialog mPDialog;
     private String mConIdStr;//发起补充合同是主合同的id，编辑合同是补充合同的id
     private int mSign;
     private String mMark;
@@ -105,12 +104,11 @@ public class SupplementaryContractActivity extends BaseActivity {
     @Override
     protected void initData(Bundle savedInstanceState) {
         getIntentData();
-        initDialog();
         getContractInfoEvent();
     }
 
     private void getContractInfoEvent() {
-        mPDialog.show();
+        showDialog();
         APPApi.getInstance().service
                 .getContractInfo(mConIdStr)
                 .subscribeOn(Schedulers.io())
@@ -178,13 +176,6 @@ public class SupplementaryContractActivity extends BaseActivity {
             mBtn_submit.setText("确定修改");
             mRcId = intent.getStringExtra("rcId");
         }
-    }
-
-    private void initDialog() {
-        mPDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
-                .setTitleText("请求中...");
-        mPDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-        mPDialog.setCancelable(false);
     }
 
     @Override
@@ -316,7 +307,7 @@ public class SupplementaryContractActivity extends BaseActivity {
             }
         }*/
 
-        mPDialog.show();
+       showDialog();
         Map<String, RequestBody> partMap = new HashMap<>();
         if (fileList.size() > 0) {
             for (File file : fileList) {
@@ -386,12 +377,6 @@ public class SupplementaryContractActivity extends BaseActivity {
 
                     }
                 });
-    }
-
-    private void cancelDialog() {
-        if (mPDialog != null && mPDialog.isShowing()) {
-            mPDialog.dismiss();
-        }
     }
 
     @Override
