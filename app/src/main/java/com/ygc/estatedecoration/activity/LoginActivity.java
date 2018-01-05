@@ -48,7 +48,6 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class LoginActivity extends AutoLayoutActivity {
 
-
     private Unbinder mUnBinder;
 
     @BindView(R.id.et_number)
@@ -176,16 +175,6 @@ public class LoginActivity extends AutoLayoutActivity {
      * 登陆
      */
     public void loginEvent() {
-        /*Intent intent = new Intent();
-        if (mordinaryuser.isChecked()) {
-            intent.setClass(LoginActivity.this, UserHomeActivity.class);
-            startActivity(intent);
-            finish();
-        } else if (mServiceuser.isChecked()) {
-            intent.setClass(LoginActivity.this, HomeActivity.class);
-            startActivity(intent);
-            finish();
-        }*/
         if (!NetWorkUtil.isNetWorkConnect(this)) {
             Toast.makeText(LoginActivity.this, "请检查网络设置", Toast.LENGTH_SHORT).show();
             return;

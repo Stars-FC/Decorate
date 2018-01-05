@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * Created by FC on 2017/12/18.
- * 我的亮点
+ * 我的活动
  */
 
 public class MyActivitesBean {

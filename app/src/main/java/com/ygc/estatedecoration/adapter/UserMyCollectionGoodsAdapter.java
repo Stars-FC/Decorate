@@ -23,10 +23,14 @@ public class UserMyCollectionGoodsAdapter extends BaseQuickAdapter<UserCollectio
     @Override
     protected void convert(BaseViewHolder helper, UserCollectionMaterialBean.DataBean bean) {
         helper.setText(R.id.tv_detail_cm_name, bean.getArticle().getCm_name());
-        helper.setText(R.id.tv_detail_cm_price, bean.getArticle().getCm_price());
-//        helper.setText(R.id.a,bean.getArticle().getCm_name());//付款人数
+        helper.setText(R.id.tv_detail_cm_price, "¥ " + bean.getArticle().getCm_price());
+        helper.setText(R.id.tv_detail_sale_num, bean.getArticle().getSale_num() + "人付款");//付款人数
 
         String detail_picture = Constant.BASE_IMG + bean.getArticle().getDetail_picture();
+
+        if (detail_picture.contains(",")) {//判断字符串中是否含有‘，’
+            detail_picture = detail_picture.substring(0, detail_picture.indexOf(","));//截取‘，’前面的字符串
+        }
 
         Glide.with(mContext)
                 .load(detail_picture)

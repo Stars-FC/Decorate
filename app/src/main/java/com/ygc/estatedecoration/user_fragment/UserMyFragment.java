@@ -78,6 +78,8 @@ public class UserMyFragment extends BaseFragment implements EasyPermissions.Perm
     TextView mTvName;
     @BindView(R.id.tv_sex)
     TextView mTvSex;
+    @BindView(R.id.real_name)
+    TextView mRealName;//实名状态
 
     private BasePopupWindow mSelectPicPopupWindow;
     private BasePopupWindow mModifyInfoPicPopupWindow;
@@ -551,6 +553,25 @@ public class UserMyFragment extends BaseFragment implements EasyPermissions.Perm
                             mTvSex.setText(sex);
                             mTvName.setText(userInformationBean.getData().getNickname());
 
+//                            certification 是否实名认证（0：未实名认证 1：提交实名认证（待审核） 2：审核通过 3：不通过）
+                            String cft = "未实名";
+                            int certification = userInformationBean.getData().getCertification();//是否实名的状态码
+                            if (certification == 0) {
+                                mRealName.setText(cft);
+                            } else if (certification == 1) {
+                                cft = "待审核";
+                                mRealName.setText(cft);
+                            } else if (certification == 2) {
+                                cft = "审核通过";
+                                mRealName.setText(cft);
+                            } else if (certification == 3) {
+                                cft = "未通过";
+                                mRealName.setText(cft);
+                            }/*else {
+                                mRealName.setVisibility(View.GONE);
+                            }*/
+
+
                             String picture_url = Constant.BASE_IMG + userInformationBean.getData().getHead_portrait();
                             Glide.with(mActivity)
                                     .load(picture_url)
@@ -558,6 +579,10 @@ public class UserMyFragment extends BaseFragment implements EasyPermissions.Perm
                                     .error(R.drawable.iv_error)
                                     .dontAnimate()
                                     .into(mImageView);
+
+                            //更新保存的用户信息，（修改用户信息后，在我的活动详情页面中使用到）
+                            UserUtils.sDataBean.setNickname(userInformationBean.getData().getNickname());//保存修改的用户昵称
+                            UserUtils.sDataBean.setHead_portrait(userInformationBean.getData().getHead_portrait());//保存修改的用户的头像
                         } else {
                             showToast(msg);
                         }

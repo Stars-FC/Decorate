@@ -103,8 +103,8 @@ public class UserMyCollectionMaterialFragment extends BaseFragment {
             return;
         }
         APPApi.getInstance().service
-//                .myCollectionMaterial(UserUtils.getUserId(), "3")
-                .myCollectionMaterial("1", "3")
+                .myCollectionMaterial(UserUtils.getUserId(), "3")
+//                .myCollectionMaterial("1", "3")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<UserCollectionMaterialBean>() {

@@ -24,6 +24,7 @@ public class UserMyCollectionResultChartAdapter extends BaseQuickAdapter<UserCol
 
     @Override
     protected void convert(BaseViewHolder helper, UserCollectionResultChartBean.DataBean bean) {
+        // TODO: 2018/1/4 等待后台修改 
         helper.setText(R.id.title_tv, bean.getArticle().getTitle());
         String effect_picture = Constant.BASE_IMG + bean.getArticle().getEffect_picture();
         Glide.with(mContext)

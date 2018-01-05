@@ -26,7 +26,7 @@
                 android:gravity="center"
                 android:text="交易额："
                 android:textColor="@color/black"
-                android:textSize="24px"/>
+                android:textSize="20px"/>
 
             <TextView
                 android:id="@+id/tv_mystore_turnover"
@@ -36,7 +36,7 @@
                 android:lines="1"
                 android:text="0.00万"
                 android:textColor="@color/orange"
-                android:textSize="24px"/>
+                android:textSize="20px"/>
 
             <TextView
                 android:layout_width="0dp"
@@ -45,7 +45,7 @@
                 android:gravity="center"
                 android:text="好评率:"
                 android:textColor="@color/black"
-                android:textSize="24px"/>
+                android:textSize="20px"/>
 
             <TextView
                 android:id="@+id/tv_mystore_comment"
@@ -54,16 +54,17 @@
                 android:layout_weight="0.7"
                 android:text="0%"
                 android:textColor="@color/orange"
-                android:textSize="24px"/>
+                android:textSize="20px"/>
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.2"
-                android:gravity="center_vertical"
+                android:gravity="center_vertical|right"
                 android:text="综合评分:"
+                android:paddingRight="10px"
                 android:textColor="@color/black"
-                android:textSize="24px"/>
+                android:textSize="20px"/>
 
             <TextView
                 android:id="@+id/tv_mystore_score"
@@ -72,7 +73,7 @@
                 android:layout_weight="0.6"
                 android:text="0"
                 android:textColor="@color/orange"
-                android:textSize="24px"/>
+                android:textSize="20px"/>
 
             <TextView
                 android:layout_width="0dp"
@@ -81,7 +82,7 @@
                 android:gravity="center"
                 android:text="中标次数:"
                 android:textColor="@color/black"
-                android:textSize="24px"/>
+                android:textSize="20px"/>
 
             <TextView
                 android:id="@+id/tv_mystore_bid_num"
@@ -90,7 +91,7 @@
                 android:layout_weight="0.6"
                 android:text="0"
                 android:textColor="@color/orange"
-                android:textSize="24px"/>
+                android:textSize="20px"/>
         </com.zhy.autolayout.AutoLinearLayout>
 
         <View

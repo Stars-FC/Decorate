@@ -38,6 +38,8 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -48,6 +50,9 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -99,14 +104,13 @@ public class AuthenticationActivity extends BaseActivity implements EasyPermissi
     public void onClickEvent(View view) {
         if (view != null) {
             switch (view.getId()) {
-                case R.id.naviFrameLeft:
+                case R.id.naviFrameLeft://后退
                     finish();
                     break;
-                case R.id.add_ic_iv:
+                case R.id.add_ic_iv://添加图片
                     addICEvent();
                     break;
-                case R.id.button:
-                    showToast("认证");
+                case R.id.button://开始认证
                     getAuthentication();
                     break;
             }
@@ -359,12 +363,12 @@ public class AuthenticationActivity extends BaseActivity implements EasyPermissi
         }
         String realName = MyPublic.getText(mEtRealName);
         if (TextUtils.isEmpty(realName)) {
-            showToast("请输入真实姓名");
+            showToast("请输入姓名");
             return;
         }
         String realIdNumber = MyPublic.getText(mEtRealIdNumber);
-        if (TextUtils.isEmpty(realIdNumber)) {
-            showToast("请输入身份证号");
+        if (TextUtils.isEmpty(realIdNumber) || !MyPublic.isIDCard(realIdNumber)) {
+            showToast("身份证号格式错误");
             return;
         }
         String realPhoto = MyPublic.getText(mEtRealPhoto);
@@ -378,8 +382,24 @@ public class AuthenticationActivity extends BaseActivity implements EasyPermissi
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
         pDialog.setCancelable(false);
         pDialog.show();
+
+
+        //判断图片是否存在
+        if (filepath == null) {
+            showToast("请添加上传图片");
+            return;
+        }
+
+        RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("au_id", UserUtils.getUserId().toString())
+                .addFormDataPart("real_name", realName)
+                .addFormDataPart("numbe", realIdNumber)
+                .addFormDataPart("tel", realPhoto)
+                .addFormDataPart("file", filepath.getName(), RequestBody.create(MediaType.parse("image"), filepath))
+                .build();
+
         APPApi.getInstance().service
-                .authentication(UserUtils.getUserId().toString(), realName, realIdNumber, realPhoto, filepath)
+                .authentication(requestBody)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<BaseBean>() {
@@ -389,20 +409,20 @@ public class AuthenticationActivity extends BaseActivity implements EasyPermissi
                     }
 
                     @Override
-                    public void onNext(BaseBean baseBean) {
+                    public void onNext(BaseBean bean) {
                         pDialog.cancel();
-                        String msg = baseBean.getMsg();
-                        if ("提交成功".equals(msg)) {
-
+                        String msg = bean.getMsg();
+                        if ("1".equals(bean.getResponseState())) {
+                            showToast(msg);
                         } else {
-
+                            showToast(msg);
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         pDialog.cancel();
-                        LogUtil.e("Fc_请求网路失败" + e.getMessage());
+                        LogUtil.e("Fc_实名认证，请求网路失败" + e.getMessage());
                         showToast("网络繁忙，请稍后再试");
                     }
 

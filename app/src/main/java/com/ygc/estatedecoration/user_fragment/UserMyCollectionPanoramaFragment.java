@@ -106,8 +106,8 @@ public class UserMyCollectionPanoramaFragment extends BaseFragment {
             return;
         }
         APPApi.getInstance().service
-//                .myCollectionPanorama(UserUtils.getUserId(), "2")
-                .myCollectionPanorama("1", "2")
+                .myCollectionPanorama(UserUtils.getUserId(), "2")
+//                .myCollectionPanorama("1", "2")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<UserCollectionPanoramaBean>() {

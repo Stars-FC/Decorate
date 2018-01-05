@@ -22,10 +22,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
 import com.ygc.estatedecoration.bean.BaseBean;
+import com.ygc.estatedecoration.entity.base.Constant;
 import com.ygc.estatedecoration.utils.LogUtil;
 import com.ygc.estatedecoration.utils.MyPublic;
 import com.ygc.estatedecoration.utils.NetWorkUtil;
@@ -105,7 +107,15 @@ public class LaunchActivitesActivity extends BaseActivity implements EasyPermiss
 
     @Override
     protected void initView() {
-
+        //获取本地缓存，设置发起人头像和昵称
+        mLaunchActivitesNick.setText(UserUtils.sDataBean.getNickname());
+        String head_portrait = Constant.BASE_IMG + UserUtils.sDataBean.getHead_portrait();
+        Glide.with(LaunchActivitesActivity.this)
+                .load(head_portrait)
+                .placeholder(R.drawable.iv_error)
+                .error(R.drawable.iv_error)
+                .dontAnimate()
+                .into(mLaunchActivitesIcon);
     }
 
     @Override
@@ -135,6 +145,9 @@ public class LaunchActivitesActivity extends BaseActivity implements EasyPermiss
         }
     }
 
+    /**
+     * 发起活动
+     */
     public void getDataFromNet() {
 
         if (!NetWorkUtil.isNetWorkConnect(this)) {
@@ -142,7 +155,7 @@ public class LaunchActivitesActivity extends BaseActivity implements EasyPermiss
             return;
         }
 
-        if(filepath!=null){
+        if (filepath != null) {
             PictureCompressUtil.getInstance().startCompress(this, Arrays.asList(new String[]{Environment.getExternalStorageDirectory()
                             + "/" + filepath.getName()}),
                     new PictureCompressUtil.CompressedPicResultCallBack() {
@@ -152,7 +165,7 @@ public class LaunchActivitesActivity extends BaseActivity implements EasyPermiss
                             setNet(file);
                         }
                     });
-        }else {
+        } else {
             showToast("请添加活动图片");
         }
 

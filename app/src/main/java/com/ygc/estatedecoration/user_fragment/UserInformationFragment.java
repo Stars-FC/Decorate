@@ -33,6 +33,8 @@ public class UserInformationFragment extends BaseFragment {
     TextView mTvTurnover;//交易额
     @BindView(R.id.et_comment)
     TextView mEtComment;//好评率
+    @BindView(R.id.tv_score)
+    TextView mTvScore;
     @BindView(R.id.tv_bid_num)
     TextView mTvBidNum;//中标次数
     @BindView(R.id.et_store_introduce)
@@ -74,13 +76,14 @@ public class UserInformationFragment extends BaseFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MyStoreBean bean) {
-
+        //接收UserLookStoreActivity.class传递过来的数据，为控件赋值
         mTvTurnover.setText(bean.getData().getTurnover() + "");
-//        mEtComment.setText(bean.getData().getBackground_info());//好评率
+        mEtComment.setText(bean.getData().getApplause_rate());//好评率
         mTvBidNum.setText(bean.getData().getBid_num() + "");
         mEtStoreIntroduce.setText(bean.getData().getIntroduce());
         mEtStoreBackground.setText(bean.getData().getBackground_info());
         mEtStoreWorkExperience.setText(bean.getData().getWork_experience());
+        mTvScore.setText(bean.getData().getComprehensive_score());//综合评分
     }
 
     @Override

@@ -108,8 +108,8 @@ public class UserMyCollectionResultChartFragment extends BaseFragment {
             return;
         }
         APPApi.getInstance().service
-//                .myCollectionResultChart(UserUtils.getUserId(), "1")
-                .myCollectionResultChart("1", "1")
+                .myCollectionResultChart(UserUtils.getUserId(), "1")
+//                .myCollectionResultChart("1", "1")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<UserCollectionResultChartBean>() {

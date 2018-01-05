@@ -389,11 +389,10 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="68px"
-                    android:layout_height="26px"
+                    android:id="@+id/real_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="10px"
-                    android:layout_marginRight="10px"
                     android:background="@drawable/bg_team_line"
                     android:gravity="center"
                     android:text="未实名"
@@ -443,7 +442,8 @@
                 android:layout_height="30px"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="17px" android:src="@drawable/gengduo"/>/>
+                android:layout_marginRight="17px"
+                android:src="@drawable/gengduo"/>/>
         </RelativeLayout>
 
         <View

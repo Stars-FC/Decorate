@@ -31,6 +31,7 @@ import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
 import com.ygc.estatedecoration.bean.BaseBean;
+import com.ygc.estatedecoration.bean.CaseStyleBean;
 import com.ygc.estatedecoration.utils.AddressPickTask;
 import com.ygc.estatedecoration.utils.LogUtil;
 import com.ygc.estatedecoration.utils.MyPublic;
@@ -81,12 +82,10 @@ public class ChangeStoreActivity extends BaseActivity implements EasyPermissions
     ScrollView mLinearLayout;
     @BindView(R.id.tv_show_place)
     TextView tv_show_place;//地点
-    @BindView(R.id.nice_spinner_sex)
-    NiceSpinner nice_spinner_sex;//性别
     @BindView(R.id.nice_spinner_type)
     NiceSpinner nice_spinner_type;//类别
-    @BindView(R.id.nice_spinner_work_time)
-    NiceSpinner nice_spinner_work_time;//工作经验
+    @BindView(R.id.et_work_time)
+    EditText et_work_time;//工作经验
     @BindView(R.id.nice_spinner_style)
     NiceSpinner nice_spinner_style;//擅长风格
     @BindView(R.id.iv_company_icon)
@@ -101,6 +100,7 @@ public class ChangeStoreActivity extends BaseActivity implements EasyPermissions
     private File filepath;
     Handler handler;
     private String mStoreId;
+    private List<String> mDataset4;
 
 
     @Override
@@ -117,40 +117,18 @@ public class ChangeStoreActivity extends BaseActivity implements EasyPermissions
 
     @Override
     protected void initView() {
-        final List<String> dataset = new LinkedList<>(Arrays.asList("男", "女"));
-        nice_spinner_sex.attachDataSource(dataset);
-        nice_spinner_sex.addOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                LogUtil.e("------------------" + i);
-                showToast(dataset.get(i));
-            }
-        });
-
         final List<String> dataset2 = new LinkedList<>(Arrays.asList("个体", "团体"));
         nice_spinner_type.attachDataSource(dataset2);
         nice_spinner_type.addOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                showToast(dataset2.get(i));
             }
         });
 
-        final List<String> dataset3 = new LinkedList<>(Arrays.asList("1年", "2年", "5年", "10年", "129 "));
-        nice_spinner_work_time.attachDataSource(dataset3);
-        nice_spinner_work_time.addOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                showToast(dataset3.get(i));
-            }
-        });
-
-        final List<String> dataset4 = new LinkedList<>(Arrays.asList("田园", "城市", "田园", "城市", "田园"));
-        nice_spinner_style.attachDataSource(dataset4);
+        //样式点击事件
         nice_spinner_style.addOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                showToast(dataset4.get(i));
             }
         });
 
@@ -158,9 +136,9 @@ public class ChangeStoreActivity extends BaseActivity implements EasyPermissions
 
     @Override
     protected void initData(Bundle savedInstanceState) {
+        getCaseStyleData();//获取样式风格
         handler = new Handler();
-        mStoreId = getIntent().getExtras().getString("storeId");
-        LogUtil.e("AASDASASA:" + mStoreId);
+        mStoreId = getIntent().getExtras().getString("storeId");  //我的店铺传递过来的店铺id
     }
 
     @Override
@@ -234,12 +212,14 @@ public class ChangeStoreActivity extends BaseActivity implements EasyPermissions
                 });*/
     }
 
+    /**
+     * 修改店铺信息
+     */
     private void setNet() {
 
         String nick = MyPublic.getText(mNick);
-        String sex = MyPublic.getText(nice_spinner_sex);
         String type = MyPublic.getText(nice_spinner_type);
-        String workTime = MyPublic.getText(nice_spinner_work_time);
+        String workTime = MyPublic.getText(et_work_time);
         String style = MyPublic.getText(nice_spinner_style);
         String place = MyPublic.getText(tv_show_place);
 
@@ -253,15 +233,15 @@ public class ChangeStoreActivity extends BaseActivity implements EasyPermissions
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
         pDialog.setCancelable(false);
         pDialog.show();
-        // TODO: 2017/12/27 性别，装修类型，
 
         RequestBody requestBody;
+        //判断图片是否存在（不存在，则不上传图片）
         if (filepath != null) {
             requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
                     .addFormDataPart("s_id", mStoreId)
-//                .addFormDataPart("start_time", sex)
+                    .addFormDataPart("s_name", nick)
                     .addFormDataPart("s_type", type)
-                    .addFormDataPart("work_experience", workTime)
+                    .addFormDataPart("work_year", workTime)
                     .addFormDataPart("r_id", style)
                     .addFormDataPart("s_province", mProvince)
                     .addFormDataPart("s_city", mCity)
@@ -270,9 +250,9 @@ public class ChangeStoreActivity extends BaseActivity implements EasyPermissions
         } else {
             requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
                     .addFormDataPart("s_id", mStoreId)
-//                .addFormDataPart("start_time", sex)
+                    .addFormDataPart("s_name", nick)
                     .addFormDataPart("s_type", type)
-                    .addFormDataPart("work_experience", workTime)
+                    .addFormDataPart("work_year", workTime)
                     .addFormDataPart("r_id", style)
                     .addFormDataPart("s_province", mProvince)
                     .addFormDataPart("s_city", mCity)
@@ -280,7 +260,7 @@ public class ChangeStoreActivity extends BaseActivity implements EasyPermissions
         }
 
         APPApi.getInstance().service
-                .addMyActivites(requestBody)
+                .editMyStore(requestBody)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<BaseBean>() {
@@ -311,6 +291,50 @@ public class ChangeStoreActivity extends BaseActivity implements EasyPermissions
                 });
     }
 
+    /**
+     * 获取样式风格
+     */
+    private void getCaseStyleData() {
+        showDialog();
+        APPApi.getInstance().service
+                .getCaseStyleData("5")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<CaseStyleBean>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        compositeDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(@NonNull CaseStyleBean caseStyleBean) {
+                        cancelDialog();
+                        mDataset4 = new ArrayList<>();
+                        if (caseStyleBean.responseState.equals("1")) {
+                            List<CaseStyleBean.DataBean> data = caseStyleBean.getData();
+                            if (data != null && data.size() > 0) {
+                                for (int i = 0; i < data.size(); i++) {
+                                    mDataset4.add(data.get(i).getR_name());//添加样式数据到集合中
+                                }
+                            }
+                            nice_spinner_style.attachDataSource(mDataset4);//显示样式风格
+                        } else {
+                            showToast(caseStyleBean.msg);
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        cancelDialog();
+                        showToast(getResources().getString(R.string.network_error));
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
 
     /**
      * 判断权限

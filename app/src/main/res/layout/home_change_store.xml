@@ -86,6 +86,7 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentEnd="true"
+                    android:layout_toRightOf="@+id/activites_tv_title"
                     android:background="@null"
                     android:gravity="right|center_vertical"
                     android:hint="请输入昵称"
@@ -101,32 +102,37 @@
                 android:layout_height="1px"
                 android:background="@color/line"/>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="90px"
-                android:orientation="horizontal"
                 android:paddingLeft="22px"
-                android:paddingRight="13px">
+                android:paddingRight="38px">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="90px"
-                    android:layout_marginRight="20px"
-                    android:layout_weight="1"
+                    android:id="@+id/activites_tv_endtime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
                     android:gravity="center_vertical"
-                    android:text="性别"
+                    android:text="工作经验"
                     android:textColor="@color/black"
                     android:textSize="27px"/>
 
-                <org.angmarch.views.NiceSpinner
-                    android:id="@+id/nice_spinner_sex"
+                <EditText
+                    android:id="@+id/et_work_time"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="5px"
-                    android:layout_marginTop="5px"
-                    android:minWidth="150px"
-                    />
-            </LinearLayout>
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_toRightOf="@+id/activites_tv_endtime"
+                    android:background="@null"
+                    android:gravity="right|center_vertical"
+                    android:hint="请输入工作时间（年）"
+                    android:inputType="number"
+                    android:maxLines="10"
+                    android:minWidth="300px"
+                    android:textSize="27px"/>
+            </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -164,37 +170,6 @@
                 android:layout_height="1px"
                 android:background="@color/line"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="90px"
-                android:paddingLeft="22px"
-                android:paddingRight="13px">
-
-                <TextView
-                    android:id="@+id/activites_tv_endtime"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentLeft="true"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="工作经验"
-                    android:textColor="@color/black"
-                    android:textSize="27px"/>
-
-                <org.angmarch.views.NiceSpinner
-                    android:id="@+id/nice_spinner_work_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="5px"
-                    android:layout_marginTop="5px"
-                    android:minWidth="150px"
-                    />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/line"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

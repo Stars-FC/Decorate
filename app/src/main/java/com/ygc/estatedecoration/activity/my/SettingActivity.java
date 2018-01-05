@@ -65,6 +65,7 @@ public class SettingActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.tv_cleancache://清除缓存
+//                UserUtils.clear(UserUtils.USER);//用户的个人信息
                 showToast("清除缓存成功");
                 break;
             case R.id.tv_aboutwe://关于我们

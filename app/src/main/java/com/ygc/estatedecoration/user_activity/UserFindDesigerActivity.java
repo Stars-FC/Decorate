@@ -8,20 +8,24 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.adapter.UserFindDesignerDetailAdapter;
 import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
+import com.ygc.estatedecoration.bean.ContractContentBean;
 import com.ygc.estatedecoration.bean.FindAllTypeBean;
 import com.ygc.estatedecoration.entity.base.Constant;
 import com.ygc.estatedecoration.utils.LogUtil;
 import com.ygc.estatedecoration.utils.NetWorkUtil;
 import com.ygc.estatedecoration.widget.MyScrollview;
 import com.ygc.estatedecoration.widget.TitleBar;
+import com.zhy.autolayout.AutoLinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +35,7 @@ import butterknife.OnClick;
 import cn.bingoogolapple.bgabanner.BGABanner;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MultipartBody;
@@ -86,6 +91,8 @@ public class UserFindDesigerActivity extends BaseActivity {
                 mAdapter.setEnableLoadMore(false);//这里的作用是防止下拉刷新的时候还可以上拉加载
                 mPager = 1;
                 findAllType(mPager, Constant.REFRESH_REQUEST);
+                //顶部轮播图
+                getBannerData();
             }
         });
 
@@ -117,6 +124,7 @@ public class UserFindDesigerActivity extends BaseActivity {
     @Override
     protected void initData(Bundle savedInstanceState) {
         mSwipeRefreshLayout.setRefreshing(true);
+        getBannerData();
         findAllType(mPager, Constant.REFRESH_REQUEST);
     }
 
@@ -186,6 +194,10 @@ public class UserFindDesigerActivity extends BaseActivity {
                                 mAdapter.loadMoreComplete();
                             }
                         } else {
+                            --mPager;
+                            if (mPager < 1) {
+                                mPager = 1;
+                            }
                             showToast(msg);
                         }
                         if (mSwipeRefreshLayout.isRefreshing()) {
@@ -214,5 +226,73 @@ public class UserFindDesigerActivity extends BaseActivity {
 
                     }
                 });
+    }
+
+
+    /**
+     * 顶部轮播图
+     */
+    private void getBannerData() {
+        APPApi.getInstance().service
+                .getContractContentData()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ContractContentBean>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        compositeDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(@NonNull ContractContentBean contractContentBean) {
+                        if (contractContentBean.responseState.equals("1")) {
+                            String sys_case_banner = contractContentBean.getData().getDesign_banner();
+                            List<String> imgUrlList = new ArrayList<>();
+                            String[] split = sys_case_banner.split(",");
+                            for (String urlStr : split) {
+                                imgUrlList.add(Constant.BASE_IMG + urlStr);
+                            }
+                            setAdvData(imgUrlList);
+                        } else {
+                            showToast(contractContentBean.msg);
+                        }
+                        if (mSwipeRefreshLayout.isRefreshing()) {
+                            mSwipeRefreshLayout.setRefreshing(false);
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        if (mSwipeRefreshLayout.isRefreshing()) {
+                            mSwipeRefreshLayout.setRefreshing(false);
+                        }
+                        showToast(getResources().getString(R.string.network_error));
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    private void setAdvData(List<String> imgUrlList) {
+        List<String> imgTitleList = new ArrayList<>();
+        for (int i = 0; i < imgTitleList.size(); i++) {
+            imgTitleList.add("");
+        }
+        BGABanner.Adapter<AutoLinearLayout, String> bgaBannerAdapter = new BGABanner.Adapter<AutoLinearLayout, String>() {
+            @Override
+            public void fillBannerItem(BGABanner banner, AutoLinearLayout itemView, String model, int position) {
+                ImageView iconIv = (ImageView) itemView.findViewById(R.id.banner_iv);
+                Glide.with(itemView.getContext())
+                        .load(model)
+                        .error(R.drawable.banner_default_icon)
+                        .dontAnimate()
+                        .into(iconIv);
+            }
+        };
+        mBGABanner.setAdapter(bgaBannerAdapter);
+        mBGABanner.setData(R.layout.item_banner, imgUrlList, imgTitleList);
     }
 }

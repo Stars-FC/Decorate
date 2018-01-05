@@ -72,8 +72,13 @@ public interface APPService {
 
     @FormUrlEncoded
     @POST("user/updatePwd.action")
-    Observable<LoginBean> updatePwd(@Field("username") String username, @Field("password")
+    Observable<BaseBean> updatePwd(@Field("username") String username, @Field("password")
             String password, @Field("code") String code);  //重置密码
+
+    @FormUrlEncoded
+    @POST("user/updatePwd.action")
+    Observable<BaseBean> panyPsw(@Field("username") String username, @Field("pay_password")
+            String pay_password, @Field("code") String code);  //重置支付密码
 
     @FormUrlEncoded
     @POST("user/login_wechat.action")
@@ -110,7 +115,8 @@ public interface APPService {
 //报价列表
 
     @FormUrlEncoded
-    @POST("wzd/Demand/getDemandOfferList.action")//报价列表
+    @POST("wzd/Demand/getDemandOfferList.action")
+//报价列表
     Observable<DemandOfferBean> getDemandOfferList(@Field("dId") String dId, @Field("page") String page);
 
     @FormUrlEncoded
@@ -127,53 +133,64 @@ public interface APPService {
     Observable<Base> publishDemand(@PartMap Map<String, RequestBody> params);//发布需求
 
     @FormUrlEncoded
-    @POST("wzd/Demand/updateDemandOfferSelectState.action")//需求选标
-    Observable<Base> demandSelected(@Field("dId") String dId , @Field("doId") String doId, @Field("category") int category);
+    @POST("wzd/Demand/updateDemandOfferSelectState.action")
+//需求选标
+    Observable<Base> demandSelected(@Field("dId") String dId, @Field("doId") String doId, @Field("category") int category);
 
     @FormUrlEncoded
-    @POST("wzd/Demand/getContract.action")//获取合同信息
-    Observable<ContractInfoBean> getContractInfo(@Field("dId") String dId , @Field("category") int category);
+    @POST("wzd/Demand/getContract.action")
+//获取合同信息
+    Observable<ContractInfoBean> getContractInfo(@Field("dId") String dId, @Field("category") int category);
 
     @FormUrlEncoded
-    @POST("wzd/Demand/getContract.action")//获取合同信息
+    @POST("wzd/Demand/getContract.action")
+//获取合同信息
     Observable<ContractInfoBean> getContractInfo(@Field("conId") String conId);
 
-//获取合同主体内容
+    //获取合同主体内容
     @FormUrlEncoded
-    @POST("wzd/Demand/editContractContent.action")//修改主体合同信息
+    @POST("wzd/Demand/editContractContent.action")
+//修改主体合同信息
     Observable<Base> modifyMainContractInfo(@Field("conId") String conId, @Field("qualityGuaranteeDeposit") String qualityGuaranteeDeposit);
 
     @FormUrlEncoded
-    @POST("wzd/Demand/updateContractStage.action")//修改主体合同阶段
+    @POST("wzd/Demand/updateContractStage.action")
+//修改主体合同阶段
     Observable<Base> modifyMainContractStage(@Field("conId") String conId, @Field("title") String title, @Field("detail") String detail, @Field("price") String price, @Field("needDays") String needDays);
 
     @FormUrlEncoded
-    @POST("wzd/Demand/updateContractState.action")//修改主体合同阶段状态
+    @POST("wzd/Demand/updateContractState.action")
+//修改主体合同阶段状态
     Observable<Base> modifyMainContractState(@Field("consId") String consId, @Field("state") String state);
 
     @FormUrlEncoded
-    @POST("wzd/Demand/updateContractState.action")//修改补充合同阶段状态
+    @POST("wzd/Demand/updateContractState.action")
+//修改补充合同阶段状态
     Observable<Base> modifyBuChongContractState(@Field("rcId") String rcId, @Field("state") String state);
 
-    @POST("wzd/Demand/getSystemData.action")//获取合同主体内容
+    @POST("wzd/Demand/getSystemData.action")
+//获取合同主体内容
     Observable<ContractContentBean> getContractContentData();
 
     @FormUrlEncoded
-    @POST("wzd/Demand/confimContract.action")//雇主确认合同
+    @POST("wzd/Demand/confimContract.action")
+//雇主确认合同
     Observable<Base> confimContract(@Field("auId") String auId, @Field("conId") String conId);
 
     @FormUrlEncoded
     @POST("wzd/Demand/addContract.action")
-    Observable<Base> faQiContract(@Field("contractDetail") String contractDetail, @Field("ServiceProvidersId") String ServiceProvidersId, @Field("confirmId") String confirmId,@Field("dId") String dId,@Field("totalPrice") String totalPrice,
-                                  @Field("stageStartTime") String startTime,@Field("stageEndTime") String endTime,@Field("needTime") String needTime,@Field("qualityGuaranteeDeposit") String qualityGuaranteeDeposit,
-                                  @Field("title") String title,@Field("detail") String detail,@Field("price") String price,@Field("needDays") String needDays,@Field("category") String category);//发布需求
+    Observable<Base> faQiContract(@Field("contractDetail") String contractDetail, @Field("ServiceProvidersId") String ServiceProvidersId, @Field("confirmId") String confirmId, @Field("dId") String dId, @Field("totalPrice") String totalPrice,
+                                  @Field("stageStartTime") String startTime, @Field("stageEndTime") String endTime, @Field("needTime") String needTime, @Field("qualityGuaranteeDeposit") String qualityGuaranteeDeposit,
+                                  @Field("title") String title, @Field("detail") String detail, @Field("price") String price, @Field("needDays") String needDays, @Field("category") String category);//发布需求
 
     @Multipart
-    @POST("wzd/Demand/addReplenishContract.action")//发起补充合同
+    @POST("wzd/Demand/addReplenishContract.action")
+//发起补充合同
     Observable<Base> addReplenishContract(@PartMap Map<String, RequestBody> params);
 
     @Multipart
-    @POST("wzd/Demand/editReplenishContract.action")//修改补充合同
+    @POST("wzd/Demand/editReplenishContract.action")
+//修改补充合同
     Observable<Base> editReplenishContract(@PartMap Map<String, RequestBody> params);
 
     /*********************************************个人中心*******************************************/
@@ -181,12 +198,8 @@ public interface APPService {
     @POST("user/getById.action")
     Observable<UserInformationBean> userInformation(@Field("au_id") String au_id);  //用户信息
 
-    @FormUrlEncoded
     @POST("user/subCertification.action")
-    Observable<BaseBean> authentication(@Field("au_id") String au_id, @Field("real_name") String real_name,
-                                        @Field("numbe") String numbe,
-                                        @Field("tel") String tel,
-                                        @Field("file") File file);  //实名认证
+    Observable<BaseBean> authentication(@Body RequestBody body);  //实名认证
 
     @FormUrlEncoded
     @POST("UserSparkle/findAllByAuId.action")
@@ -200,7 +213,7 @@ public interface APPService {
 
     @FormUrlEncoded
     @POST("user/getUserBalanceOrder.action")
-    Observable<UserBalanceOrderBean> queryBalanceOrder(@Field("auId") String au_id, @Field("page") int page);  //用户明细
+    Observable<UserBalanceOrderBean> queryBalanceOrder(@Field("auId") String au_id, @Field("page") int page);  //查询用户明细（我的钱包，交易记录）
 
     @FormUrlEncoded
     @POST("wzd/commodityCar/getCommodityCarInfo.action")
@@ -235,18 +248,9 @@ public interface APPService {
 
     @FormUrlEncoded
     @POST("wzd/Order/editAddress.action")
-    Observable<Base> editUserAddress(@Field("aId") String aId, @Field("auId") String auId, @Field("userName") String userName, @Field("userMobile") String userMobile, @Field("province") String province, @Field("detail") String detail);  //编辑用户地址
-
-
-    @FormUrlEncoded
-    @POST("wzd/bankCard/getBankCard.action")
-    Observable<BankCardBean> getBankCard(@Field("auId") String auId);  //获取银行卡信息
-
-    @FormUrlEncoded
-    @POST("wzd/bankCard/addBankCard.action")
-    Observable<BaseBean> addBankCard(@Field("bankNumber") String bankNumber, @Field("bankName") String bankName,
+    Observable<Base> editUserAddress(@Field("aId") String aId, @Field("auId") String auId,
                                      @Field("userName") String userName, @Field("userMobile") String userMobile,
-                                     @Field("auId") String auId);  //绑定银行卡
+                                     @Field("province") String province, @Field("detail") String detail);  //编辑用户地址
 
     @POST("user/update.action")
     Observable<BaseBean> updateInfo(@Body RequestBody body);   //编辑用户信息
@@ -333,9 +337,25 @@ public interface APPService {
     @POST("UserCollect/cancelCollect.action")
     Observable<Base> cancelCollect(@Field("auId") String auId, @Field("articleId") String articleId, @Field("articleType") String articleType);
 
+
     /*********************************************商城*******************************************/
     @FormUrlEncoded
     @POST("Commodity/findAll.action")
     Observable<ShopRecommendMaterialsBean> getRecommendMaterialsData(@Field("top_flag") String top_flag);
 
+
+    /*********************************************银行卡*******************************************/
+    @FormUrlEncoded
+    @POST("wzd/bankCard/getBankCard.action")
+    Observable<BankCardBean> getBankCard(@Field("auId") String auId);  //获取银行卡信息
+
+    @FormUrlEncoded
+    @POST("wzd/bankCard/addBankCard.action")
+    Observable<BaseBean> addBankCard(@Field("bankNumber") String bankNumber, @Field("bankName") String bankName,
+                                     @Field("userName") String userName, @Field("userMobile") String userMobile,
+                                     @Field("auId") String auId);  //绑定银行卡
+
+    @FormUrlEncoded
+    @POST("wzd/bankCard/deleteBankeCardByid.action")
+    Observable<BaseBean> deleteBankeCardByid(@Field("bcId") String bcId);  //解绑行卡
 }

@@ -13,6 +13,7 @@ import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.activity.LoginActivity;
 import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
+import com.ygc.estatedecoration.bean.BaseBean;
 import com.ygc.estatedecoration.bean.LoginBean;
 import com.ygc.estatedecoration.utils.LogUtil;
 import com.ygc.estatedecoration.utils.MyPublic;
@@ -155,14 +156,14 @@ public class ForgetPwdActivity extends BaseActivity {
                 .updatePwd(UserPhoto, psw, doSendCode)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<LoginBean>() {
+                .subscribe(new Observer<BaseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(LoginBean loginBean) {
+                    public void onNext(BaseBean loginBean) {
                         String msg = loginBean.getMsg();
                         if ("修改成功".equals(msg)) {
                             pDialog.cancel();

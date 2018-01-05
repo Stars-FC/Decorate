@@ -40,9 +40,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ActivitiesActivity extends BaseActivity {
 
-    public static final String ACTIVITES_BEAN = "activites_bean";//意图key
-
-
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerview;
 
@@ -75,7 +72,8 @@ public class ActivitiesActivity extends BaseActivity {
 //                showToast("mRecyclerview第" + position + "数据");
                 Intent intent = new Intent(ActivitiesActivity.this, ActivitiesDetailsActivity.class);
                 MyActivitesBean.DataBean dataBean = mData.get(position);
-                intent.putExtra(ACTIVITES_BEAN, dataBean);
+                intent.putExtra("type", 2);
+                intent.putExtra(ActivitiesDetailsActivity.ACTIVITES_BEAN, dataBean);
                 startActivity(intent);
             }
         });
@@ -153,7 +151,7 @@ public class ActivitiesActivity extends BaseActivity {
                         if (mSwipeRefreshLayout.isRefreshing()) {
                             mSwipeRefreshLayout.setRefreshing(false);
                         }
-                        LogUtil.e("Fc_请求网路失败" + e.getMessage());
+                        LogUtil.e("Fc_我的活动，请求失败失败" + e.getMessage());
                         showToast(getResources().getString(R.string.network_error));
                     }
 

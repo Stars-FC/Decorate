@@ -137,7 +137,7 @@ public class ChangeInfoActivity extends BaseActivity implements EasyPermissions.
             return;
         }
 
-        String nick = MyPublic.getText(mNick);
+        final String nick = MyPublic.getText(mNick);
 
         if (TextUtils.isEmpty(nick)) {
             showToast("请填写昵称");
@@ -182,6 +182,10 @@ public class ChangeInfoActivity extends BaseActivity implements EasyPermissions.
                         showToast(msg);
                         pDialog.cancel();
                         if ("1".equals(bean.getResponseState())) {
+                                         /*  .addFormDataPart("au_id", UserUtils.getUserId())
+                                    .addFormDataPart("nickname", nick)
+                                    .addFormDataPart("sex", String.valueOf(sexNum))
+                                    .addFormDataPart("file", filepath.getName(), RequestBody.create(MediaType.parse("image"), filepath))*/
                             EventBus.getDefault().postSticky(new InfoBevenBus());
                         }
                         finish();

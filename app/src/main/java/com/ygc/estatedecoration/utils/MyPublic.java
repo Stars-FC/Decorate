@@ -12,15 +12,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ygc.estatedecoration.R;
-import com.ygc.estatedecoration.activity.login.UserRegisterActivity;
 import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.bean.BaseBean;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -33,6 +36,8 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class MyPublic {
+    //数字表达式
+    private final static Pattern number_pattern = Pattern.compile("^[0-9]*$");
 
     /**
      * 加载网络图片
@@ -190,6 +195,118 @@ public class MyPublic {
         boolean isBankCard = cardId.charAt(cardId.length() - 1) == bit;
 //        KLog.e("银行卡：" + isBankCard);
         return isBankCard;
+    }
+
+    /**
+     * 验证身份证号码是否正确
+     *
+     * @param IDCardNo 身份证号码
+     * @return boolean
+     */
+    public static boolean isIDCard(String IDCardNo) {
+        //记录错误信息
+        String errmsg = "";
+        String[] ValCodeArr = {"1", "0", "x", "9", "8", "7", "6", "5", "4", "3", "2"};
+        String[] Wi = {"7", "9", "10", "5", "8", "4", "2", "1", "6", "3", "7", "9", "10", "5", "8", "4", "2"};
+        String Ai = "";
+
+        //================ 身份证号码的长度 15位或18位 ================
+        if (IDCardNo.length() != 15 && IDCardNo.length() != 18) {
+            errmsg = "身份证号码长度应该为15位或18位!";
+            AppLogMessageMgr.e("AppValidationMgr-->>isIDCard", errmsg);
+            return false;
+        }
+
+        //================ 数字 除最后以为都为数字 ================
+        if (IDCardNo.length() == 18) {
+            Ai = IDCardNo.substring(0, 17);
+        } else if (IDCardNo.length() == 15) {
+            Ai = IDCardNo.substring(0, 6) + "19" + IDCardNo.substring(6, 15);
+        }
+        if (isNumber(Ai) == false) {
+            errmsg = "身份证15位号码都应为数字 ; 18位号码除最后一位外，都应为数字";
+            AppLogMessageMgr.e("AppValidationMgr-->>isIDCard", errmsg);
+            return false;
+        }
+
+        //================ 出生年月是否有效 ================
+        //年份
+        String strYear = Ai.substring(6, 10);
+        //月份
+        String strMonth = Ai.substring(10, 12);
+        //日
+        String strDay = Ai.substring(12, 14);
+        if (AppSysDateMgr.getDateIsTrue(strYear, strMonth, strDay) == false) {
+            errmsg = "身份证生日无效";
+            AppLogMessageMgr.e("AppValidationMgr-->>isIDCard", errmsg);
+            return false;
+        }
+        GregorianCalendar gc = new GregorianCalendar();
+        SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            if ((gc.get(Calendar.YEAR) - Integer.parseInt(strYear)) > 150 || (gc.getTime().getTime() - s.parse(strYear + "-" + strMonth + "-" + strDay).getTime()) < 0) {
+                errmsg = "身份证生日不在有效范围";
+                AppLogMessageMgr.e("AppValidationMgr-->>isIDCard", errmsg);
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            errmsg = "身份证生日不在有效范围";
+            AppLogMessageMgr.e("AppValidationMgr-->>isIDCard", errmsg + e.getMessage());
+            return false;
+        } catch (java.text.ParseException e1) {
+            e1.printStackTrace();
+            errmsg = "身份证生日不在有效范围";
+            AppLogMessageMgr.e("AppValidationMgr-->>isIDCard", errmsg + e1.getMessage());
+            return false;
+        }
+        if (Integer.parseInt(strMonth) > 12 || Integer.parseInt(strMonth) == 0) {
+            errmsg = "身份证月份无效";
+            AppLogMessageMgr.e("AppValidationMgr-->>isIDCard", errmsg);
+            return false;
+        }
+        if (Integer.parseInt(strDay) > 31 || Integer.parseInt(strDay) == 0) {
+            errmsg = "身份证日期无效";
+            AppLogMessageMgr.e("AppValidationMgr-->>isIDCard", errmsg);
+            return false;
+        }
+
+        //================ 地区码时候有效 ================
+        Hashtable hashtable = AppInfoMgr.getAreaCodeAll();
+        if (hashtable.get(Ai.substring(0, 2)) == null) {
+            errmsg = "身份证地区编码错误";
+            AppLogMessageMgr.e("AppValidationMgr-->>isIDCard", errmsg);
+            return false;
+        }
+
+        //================ 判断最后一位的值 ================
+        int TotalmulAiWi = 0;
+        for (int i = 0; i < 17; i++) {
+            TotalmulAiWi = TotalmulAiWi + Integer.parseInt(String.valueOf(Ai.charAt(i))) * Integer.parseInt(Wi[i]);
+        }
+        int modValue = TotalmulAiWi % 11;
+        String strVerifyCode = ValCodeArr[modValue];
+        Ai = Ai + strVerifyCode;
+        if (IDCardNo.length() == 18) {
+            if (Ai.equals(IDCardNo) == false) {
+                errmsg = "身份证无效，不是合法的身份证号码";
+                AppLogMessageMgr.e("AppValidationMgr-->>isIDCard", errmsg);
+                return false;
+            }
+        } else {
+            return true;
+        }
+        return true;
+    }
+
+    /**
+     * 验证是数字
+     *
+     * @param str 验证字符
+     * @return boolean
+     */
+    public static boolean isNumber(String str) {
+        return number_pattern.matcher(str).matches();
     }
 
     /**

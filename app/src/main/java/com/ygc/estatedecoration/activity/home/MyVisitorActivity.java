@@ -67,7 +67,7 @@ public class MyVisitorActivity extends BaseActivity {
 
     @Override
     protected void addListener() {
-        
+
 
         mSwipeRefreshLayout.setColorSchemeColors(Color.parseColor("#4EBE65")); //设置下拉刷新箭头颜色
 
@@ -112,13 +112,12 @@ public class MyVisitorActivity extends BaseActivity {
     }
 
     /**
-     * 获取网络数据
+     * 获取我的访客信息
      */
     public void getDataFromNet() {
 
         APPApi.getInstance().service
-//                .findAllByAuId(UserUtils.getUserId())
-                .findAllByAuId("1")
+                .findAllByAuId(UserUtils.getUserId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<VisiterBean>() {

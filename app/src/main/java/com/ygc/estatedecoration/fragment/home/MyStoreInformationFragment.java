@@ -221,7 +221,7 @@ public class MyStoreInformationFragment extends BaseFragment {
                 .build();
 
         APPApi.getInstance().service
-                .addMyActivites(requestBody)
+                .editMyStore(requestBody)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<BaseBean>() {
@@ -259,7 +259,6 @@ public class MyStoreInformationFragment extends BaseFragment {
         mMyStoreIntroduce.setText(bean.getData().getIntroduce());
         mMyStoreBackground.setText(bean.getData().getBackground_info());
         mMyStoreWorkExperience.setText(bean.getData().getWork_experience());
-
         mTvMystoreScore.setText(bean.getData().getComprehensive_score());//综合评分
         mTvMystoreComment.setText(bean.getData().getApplause_rate());//好评率
 

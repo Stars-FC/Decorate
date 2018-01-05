@@ -89,6 +89,8 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
     TextView mWarrantyGold;//质保金
     @BindView(R.id.gold_coin)
     TextView mGoldCoin;//金币
+    @BindView(R.id.real_name)
+    TextView mRealName;//实名状态
 
     private static final String ARG_C = "content";
 
@@ -109,7 +111,8 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
     }
 
     @Override
-    protected void initData(Bundle arguments) {}
+    protected void initData(Bundle arguments) {
+    }
 
     @Override
     protected void initView(Bundle savedInstanceState) {
@@ -510,6 +513,24 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
                                 sex = "女";
                             }
                             mTvSex.setText(sex);
+                            // certification 是否实名认证（0：未实名认证 1：提交实名认证（待审核） 2：审核通过 3：不通过）
+                            String cft = "未实名";
+                            int certification = userInformationBean.getData().getCertification();//是否实名的状态码
+                            if (certification == 0) {
+                                mRealName.setText(cft);
+                            } else if (certification == 1) {
+                                cft = "待审核";
+                                mRealName.setText(cft);
+                            } else if (certification == 2) {
+                                cft = "审核通过";
+                                mRealName.setText(cft);
+                            } else if (certification == 3) {
+                                cft = "未通过";
+                                mRealName.setText(cft);
+                            }/*else {
+                                mRealName.setVisibility(View.GONE);
+                            }*/
+
                             mTvName.setText(userInformationBean.getData().getNickname());
                             mWarrantyGold.setText(userInformationBean.getData().getWarranty_gold());
                             mGoldCoin.setText(String.valueOf(userInformationBean.getData().getGold_coin()));
@@ -522,6 +543,10 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
                                     .error(R.drawable.iv_error)
                                     .dontAnimate()
                                     .into(mImageView);
+
+                            //更新保存的用户信息，（修改用户信息后，在我的活动详情页面中使用到）
+                            UserUtils.sDataBean.setNickname(userInformationBean.getData().getNickname());//保存修改的用户昵称
+                            UserUtils.sDataBean.setHead_portrait(userInformationBean.getData().getHead_portrait());//保存修改的用户的头像
                         } else {
                             showToast(msg);
                         }

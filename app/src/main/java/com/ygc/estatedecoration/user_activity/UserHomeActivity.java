@@ -87,9 +87,6 @@ public class UserHomeActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        /*if (UserUtils.getOnLineBoolean(getApplicationContext(), "")) {
-            toLogin();
-        }*/
 
         EventBus.getDefault().register(this);
         iv_iconList.add(mIv_home);
@@ -104,46 +101,6 @@ public class UserHomeActivity extends BaseActivity {
         initFragment(savedInstanceState);
     }
 
-    private void toLogin() {
-        APPApi.getInstance().service
-                .login(UserUtils.getUserName(), UserUtils.getUserPws(), 100)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<LoginBean>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        compositeDisposable.add(d);
-                    }
-
-                    @Override
-                    public void onNext(LoginBean roleFindAllBean) {
-                        String msg = roleFindAllBean.getMsg();
-                        if ("登录成功".equals(msg)) {
-                            int type = roleFindAllBean.getData().getType();//用户、服务端
-                            Intent intent = new Intent();
-                            if (type != 0) {
-                                //服务商端登陆
-                                intent.setClass(UserHomeActivity.this, HomeActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                        } else {
-                            Toast.makeText(UserHomeActivity.this, msg, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        LogUtil.e("Fc_请求网路失败" + e.getMessage());
-                        Toast.makeText(UserHomeActivity.this, getResources().getString(R.string.network_error), Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-    }
 
     private void initFragment(Bundle savedInstanceState) {
         if (savedInstanceState != null) {

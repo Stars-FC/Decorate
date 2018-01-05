@@ -8,21 +8,28 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.ygc.estatedecoration.R;
 import com.ygc.estatedecoration.activity.LoginActivity;
+import com.ygc.estatedecoration.activity.my.ActivitiesActivity;
+import com.ygc.estatedecoration.activity.my.ActivitiesDetailsActivity;
 import com.ygc.estatedecoration.adapter.UserFindDesignerAdapter;
 import com.ygc.estatedecoration.adapter.UserFindMaterialAdapter;
 import com.ygc.estatedecoration.adapter.UserRecommendActivityAdapter;
 import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
+import com.ygc.estatedecoration.bean.ContractContentBean;
 import com.ygc.estatedecoration.bean.FindActivitesBean;
 import com.ygc.estatedecoration.bean.FindAllTypeBean;
 import com.ygc.estatedecoration.bean.FindMaterialBean;
+import com.ygc.estatedecoration.bean.MyActivitesBean;
 import com.ygc.estatedecoration.bean.UserHomeSkillBean;
 import com.ygc.estatedecoration.entity.base.Constant;
 import com.ygc.estatedecoration.event.SkipUserShopMsg;
@@ -32,6 +39,7 @@ import com.ygc.estatedecoration.user_activity.UserMsgActivity;
 import com.ygc.estatedecoration.utils.LogUtil;
 import com.ygc.estatedecoration.utils.NetWorkUtil;
 import com.ygc.estatedecoration.widget.TitleBar;
+import com.zhy.autolayout.AutoLinearLayout;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -43,6 +51,7 @@ import butterknife.OnClick;
 import cn.bingoogolapple.bgabanner.BGABanner;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MultipartBody;
@@ -72,13 +81,12 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
     @BindView(R.id.recommend_activity_recyclerview)
     RecyclerView mRv_recommendActivity;
 
-//    private List<String> findDesignDataList = new ArrayList<>();
-
     private UserFindDesignerAdapter mDesignAdapter;//找设计
     private UserFindDesignerAdapter mFindImplementAdapter;//找施工
     private UserFindDesignerAdapter mFindSupervisorAdapter;//找监理
     private UserFindMaterialAdapter mFindMaterialsAdapter;//找材料
     private UserRecommendActivityAdapter mRecommendActivityAdapter;//推荐活动
+    private List<FindActivitesBean.DataBean> mData;
 
     public UserHomeFragment() {
     }
@@ -100,14 +108,15 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
     @Override
     protected void initData(Bundle arguments) {
         mSwipeRefreshLayout.setRefreshing(true);//启动页面显示刷新状态
+        //顶部轮播图
+        getBannerData();
         //获取 找设计/找施工/找监理信息
         for (int i = 1; i <= 3; i++) {
             findAllType(i);
         }
-        findMaterial();
-        findSkill();
-        findActivity();
-
+        findMaterial();//找材料
+        findSkill();   //小技巧
+        findActivity();//推荐活动
     }
 
     @Override
@@ -132,6 +141,28 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false);
         mRv_recommendActivity.setLayoutManager(linearLayoutManager);
         mRv_recommendActivity.setAdapter(mRecommendActivityAdapter);
+
+       /* mRecommendActivityAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(mActivity, ActivitiesDetailsActivity.class);
+                FindActivitesBean.DataBean dataBean = mData.get(position);
+                intent.putExtra("type", 1);
+                intent.putExtra("activity_home", dataBean);
+                startActivity(intent);
+            }
+        });*/
+        mRv_recommendActivity.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(mActivity, ActivitiesDetailsActivity.class);
+                FindActivitesBean.DataBean dataBean = mData.get(position);
+                intent.putExtra("type", 1);
+                intent.putExtra(ActivitiesDetailsActivity.ACTIVITES_HOME, dataBean);
+                startActivity(intent);
+            }
+        });
+
     }
 
     /*找材料*/
@@ -146,7 +177,7 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
 
     /*找监理*/
     private void initFindSupervisorRecyclerView() {
-        mFindSupervisorAdapter = new UserFindDesignerAdapter(R.layout.item_user_home_fragment_find_design);
+        mFindSupervisorAdapter = new UserFindDesignerAdapter(R.layout.item_user_home_fragment_find_design, 3);
         mRv_findDesign.setHasFixedSize(true);
         mRv_findDesign.setNestedScrollingEnabled(false);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false);
@@ -156,7 +187,7 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
 
     /*找施工*/
     private void initFindImplementRecyclerView() {
-        mFindImplementAdapter = new UserFindDesignerAdapter(R.layout.item_user_home_fragment_find_design);
+        mFindImplementAdapter = new UserFindDesignerAdapter(R.layout.item_user_home_fragment_find_design, 2);
         mRv_findDesign.setHasFixedSize(true);
         mRv_findDesign.setNestedScrollingEnabled(false);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false);
@@ -166,42 +197,13 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
 
     /*找设计*/
     private void initFindDesignRecyclerView() {
-        mDesignAdapter = new UserFindDesignerAdapter(R.layout.item_user_home_fragment_find_design);
+        mDesignAdapter = new UserFindDesignerAdapter(R.layout.item_user_home_fragment_find_design, 1);
         mRv_findDesign.setHasFixedSize(true);
         mRv_findDesign.setNestedScrollingEnabled(false);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false);
         mRv_findDesign.setLayoutManager(linearLayoutManager);
         mRv_findDesign.setAdapter(mDesignAdapter);
     }
-
-
-    /*private void setBannerData(BannerAndAdvBean bannerAndAdvBean) {
-        if (bannerAndAdvBean == null) {
-            return;
-        }
-        List<BannerAndAdvBean.BannerListBean> bannerList = bannerAndAdvBean.getBannerList();
-        if (bannerList != null && bannerList.size() > 0) {
-            List<String> imgUrlList = new ArrayList<>();
-            List<String> imgTitleList = new ArrayList<>();
-            for (int i = 0; i < bannerList.size(); i++) {
-                BannerAndAdvBean.BannerListBean bannerListBean = bannerList.get(i);
-                imgUrlList.add(UrlUtil.IP_PORT + "/" + bannerListBean.getImgUrl());
-                imgTitleList.add("");
-            }
-            BGABanner.Adapter<ImageView, String> bgaBannerAdapter = new BGABanner.Adapter<ImageView, String>() {
-                @Override
-                public void fillBannerItem(BGABanner banner, ImageView itemView, String model, int position) {
-                    Glide.with(itemView.getContext())
-                            .load(model)
-                            .dontAnimate()
-                            .centerCrop()
-                            .into(itemView);
-                }
-            };
-            mBGABanner.setAdapter(bgaBannerAdapter);
-            mBGABanner.setData(imgUrlList, imgTitleList);
-        }
-    }*/
 
     @Override
     protected void addListener() {
@@ -259,10 +261,8 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
 
     @Override
     public void onRefresh() {
-        /*if (mSwipeRefreshLayout.isRefreshing()) {
-            mSwipeRefreshLayout.setRefreshing(false);
-        }*/
-//        mSwipeRefreshLayout.setRefreshing(true);
+        //顶部轮播图
+        getBannerData();
         //获取 找设计/找施工/找监理信息
         for (int i = 1; i <= 3; i++) {
             findAllType(i);
@@ -329,7 +329,7 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
                             mSwipeRefreshLayout.setRefreshing(false);
                         }
                         LogUtil.e("Fc_用户端主页1-设计师/2-施工/3-监理，请求网路失败" + e.getMessage());
-                        showToast(getResources().getString(R.string.network_error));
+//                        showToast(getResources().getString(R.string.network_error));
                     }
 
                     @Override
@@ -360,8 +360,9 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
                     @Override
                     public void onNext(FindActivitesBean bean) {
                         String msg = bean.getMsg();
+                        mData = bean.getData();
                         if ("1".equals(bean.getResponseState())) {
-                            mRecommendActivityAdapter.setNewData(bean.getData());
+                            mRecommendActivityAdapter.setNewData(mData);
                         } else {
                             showToast(msg);
                         }
@@ -376,7 +377,7 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
                             mSwipeRefreshLayout.setRefreshing(false);
                         }
                         LogUtil.e("Fc_用户端主页推荐活动，请求网路失败" + e.getMessage());
-                        showToast(getResources().getString(R.string.network_error));
+//                        showToast(getResources().getString(R.string.network_error));
                     }
 
                     @Override
@@ -423,7 +424,7 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
                             mSwipeRefreshLayout.setRefreshing(false);
                         }
                         LogUtil.e("Fc_用户端主页找材料，请求网路失败" + e.getMessage());
-                        showToast(getResources().getString(R.string.network_error));
+//                        showToast(getResources().getString(R.string.network_error));
                     }
 
                     @Override
@@ -433,7 +434,6 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
                 });
 
     }
-
 
     /**
      * 小技巧
@@ -474,6 +474,47 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
                             mSwipeRefreshLayout.setRefreshing(false);
                         }
                         LogUtil.e("Fc_用户端主页小技巧，请求网路失败" + e.getMessage());
+//                        showToast(getResources().getString(R.string.network_error));
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    /**
+     * 顶部轮播图
+     */
+    private void getBannerData() {
+        APPApi.getInstance().service
+                .getContractContentData()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ContractContentBean>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        compositeDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(@NonNull ContractContentBean contractContentBean) {
+                        if (contractContentBean.responseState.equals("1")) {
+                            String sys_case_banner = contractContentBean.getData().getSys_banner();
+                            List<String> imgUrlList = new ArrayList<>();
+                            String[] split = sys_case_banner.split(",");
+                            for (String urlStr : split) {
+                                imgUrlList.add(Constant.BASE_IMG + urlStr);
+                            }
+                            setAdvData(imgUrlList);
+                        } else {
+                            showToast(contractContentBean.msg);
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
                         showToast(getResources().getString(R.string.network_error));
                     }
 
@@ -482,5 +523,25 @@ public class UserHomeFragment extends BaseFragment implements SwipeRefreshLayout
 
                     }
                 });
+    }
+
+    private void setAdvData(List<String> imgUrlList) {
+        List<String> imgTitleList = new ArrayList<>();
+        for (int i = 0; i < imgTitleList.size(); i++) {
+            imgTitleList.add("");
+        }
+        BGABanner.Adapter<AutoLinearLayout, String> bgaBannerAdapter = new BGABanner.Adapter<AutoLinearLayout, String>() {
+            @Override
+            public void fillBannerItem(BGABanner banner, AutoLinearLayout itemView, String model, int position) {
+                ImageView iconIv = (ImageView) itemView.findViewById(R.id.banner_iv);
+                Glide.with(itemView.getContext())
+                        .load(model)
+                        .error(R.drawable.banner_default_icon)
+                        .dontAnimate()
+                        .into(iconIv);
+            }
+        };
+        mBGABanner.setAdapter(bgaBannerAdapter);
+        mBGABanner.setData(R.layout.item_banner, imgUrlList, imgTitleList);
     }
 }

@@ -144,6 +144,10 @@ public class MyStoreEvaluateFragment extends BaseFragment {
                                 mAdapter.loadMoreComplete();
                             }
                         } else {
+                            --mPager;
+                            if (mPager < 0) {
+                                mPager = 0;
+                            }
                             showToast(bean.getMsg());
                         }
                         if (mSwipeRefreshLayout.isRefreshing()) {
@@ -159,8 +163,9 @@ public class MyStoreEvaluateFragment extends BaseFragment {
                         }
                         mAdapter.loadMoreFail();
                         mAdapter.setEnableLoadMore(true);
-                        mSwipeRefreshLayout.setRefreshing(false);
-
+                        if (mSwipeRefreshLayout.isRefreshing()) {
+                            mSwipeRefreshLayout.setRefreshing(false);
+                        }
                         LogUtil.e("Fc_请求网路失败" + e.getMessage());
                         showToast(getResources().getString(R.string.network_error));
                     }

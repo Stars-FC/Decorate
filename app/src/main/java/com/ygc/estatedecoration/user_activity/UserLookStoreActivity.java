@@ -62,8 +62,6 @@ public class UserLookStoreActivity extends BaseActivity {
     CircleImageView mMystoreIcon;//头像
     @BindView(R.id.mystore_name)
     TextView mMystoreName;//店铺名称
-    @BindView(R.id.mystore_sex)
-    ImageView mMystoreSex;//性别
     @BindView(R.id.mystore_type)
     TextView mMystoreType;//类型（个体、团体）
     @BindView(R.id.mystore_starview)
@@ -79,7 +77,7 @@ public class UserLookStoreActivity extends BaseActivity {
 
     private HomeMyStoreAdapter mAdapter;
 
-    private String mStoreId;
+    private String mAu_id;
 
     @Override
     protected boolean buildTitle(TitleBar bar) {
@@ -93,7 +91,6 @@ public class UserLookStoreActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        getDataMyStore();
     }
 
     @Override
@@ -117,7 +114,11 @@ public class UserLookStoreActivity extends BaseActivity {
         mViewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
 
-        getNetdoVisited();//访客访问向服务器提交数据
+        mAu_id = getIntent().getStringExtra("service_auid");//获取到，所查看的店铺商家的id
+
+        getNetdoVisited(mAu_id);//访客访问（向服务器提交访问数据）
+
+        getDataMyStore(mAu_id);//获取查看店铺信息
     }
 
     @Override
@@ -136,12 +137,12 @@ public class UserLookStoreActivity extends BaseActivity {
 
     /**
      * 访客
+     *
+     * @param au_id 被访客的id
      */
-    public void getNetdoVisited() {
-
-        // TODO: 2017/12/28  "9" --被访问者id（需要在主页面获取到被访问者id）
+    public void getNetdoVisited(String au_id) {
         APPApi.getInstance().service
-                .doVisited(UserUtils.getUserId(), "9")
+                .doVisited(UserUtils.getUserId(), au_id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<BaseBean>() {
@@ -171,10 +172,9 @@ public class UserLookStoreActivity extends BaseActivity {
     /**
      * 查询店铺信息
      */
-    public void getDataMyStore() {
+    public void getDataMyStore(String au_id) {
         APPApi.getInstance().service
-                .myStore(UserUtils.getUserId())
-//                .myStore("1")
+                .myStore(au_id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<MyStoreBean>() {
@@ -213,19 +213,15 @@ public class UserLookStoreActivity extends BaseActivity {
      * @param bean
      */
     public void setText(MyStoreBean bean) {
-
-
         EventBus.getDefault().post(bean);
 
-        // TODO: 2017/12/26  ，星星个数，擅长风格
-       /*
-        @BindView(R.id.mystore_starview)
-        StarView mMystoreStarview;//星星（设置个数）*/
-
-        //获取带店铺Id
-        mStoreId = String.valueOf(bean.getData().getS_id());
-
-        UserUtils.setParam(UserUtils.STOREID, "storeId", mStoreId);
+        //根据获取到的好评率，设置星星个数
+        double starNum = (Integer.parseInt(bean.getData().getApplause_rate())) * 0.05;
+        if (starNum != 0 && starNum <= 5) {
+            mMystoreStarview.setStar((int) starNum);
+        } else {
+            mMystoreStarview.setStar(0);
+        }
 
         String r_picture = Constant.BASE_IMG + bean.getData().getS_logo();
         Glide.with(UserLookStoreActivity.this)
@@ -238,15 +234,15 @@ public class UserLookStoreActivity extends BaseActivity {
         mMystoreType.setText(bean.getData().getS_type());
         mMystorePlace.setText(bean.getData().getS_province() + " " + bean.getData().getS_city());
         mMystoreNumber.setText("成交量" + bean.getData().getTurnover());
-        mMystoreWorkTime.setText(bean.getData().getWork_experience() + "年工作经验");
-        mMystoreStyle.setText(bean.getData().getRinfo().getR_name());
+        mMystoreWorkTime.setText(bean.getData().getWork_year() + "年工作经验");
+        mMystoreStyle.setText(bean.getData().getR_id());
     }
 
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        getDataMyStore();//从新获取数据
+        getDataMyStore(mAu_id);//从新获取数据
     }
 
 }

@@ -15,6 +15,7 @@ import com.ygc.estatedecoration.app.activity.BaseActivity;
 import com.ygc.estatedecoration.bean.UserBalanceOrderBean;
 import com.ygc.estatedecoration.entity.base.Constant;
 import com.ygc.estatedecoration.utils.LogUtil;
+import com.ygc.estatedecoration.utils.UserUtils;
 import com.ygc.estatedecoration.widget.TitleBar;
 
 import java.util.List;
@@ -107,8 +108,8 @@ public class AccountDetailActivity extends BaseActivity {
      */
     public void getUserBalanceOrder(final int pageNum, final String requestMark) {
         APPApi.getInstance().service
-//                .queryBalanceOrder(UserUtils.getUserId().toString(), pageNum)
-                .queryBalanceOrder("1", pageNum)
+                .queryBalanceOrder(UserUtils.getUserId().toString(), pageNum)
+//                .queryBalanceOrder("1", pageNum)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<UserBalanceOrderBean>() {
@@ -138,6 +139,10 @@ public class AccountDetailActivity extends BaseActivity {
                                 mAdapter.loadMoreComplete();
                             }
                         } else {
+                            --pager;
+                            if (pager < 0) {
+                                pager = 0;
+                            }
                             showToast(bean.getMsg());
                         }
                         if (mSwipeRefreshLayout.isRefreshing()) {

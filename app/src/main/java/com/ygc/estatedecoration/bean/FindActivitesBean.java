@@ -1,5 +1,6 @@
 package com.ygc.estatedecoration.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -43,7 +44,7 @@ public class FindActivitesBean {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable {
         /**
          * activity_id : 8
          * au_id : 12
@@ -178,7 +179,7 @@ public class FindActivitesBean {
             this.userInfo = userInfo;
         }
 
-        public static class UserInfoBean {
+        public static class UserInfoBean implements Serializable {
             /**
              * au_id : 12
              * type : 0

@@ -18,6 +18,7 @@ import com.ygc.estatedecoration.adapter.HomeMyStoreAdapter;
 import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
 import com.ygc.estatedecoration.app.fragment.BaseFragment;
+import com.ygc.estatedecoration.bean.CaseStyleBean;
 import com.ygc.estatedecoration.bean.MyStoreBean;
 import com.ygc.estatedecoration.entity.base.Constant;
 import com.ygc.estatedecoration.fragment.home.MyStoreBrightFragment;
@@ -40,6 +41,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
@@ -60,8 +62,6 @@ public class MyStoreActivity extends BaseActivity {
     CircleImageView mMystoreIcon;//头像
     @BindView(R.id.mystore_name)
     TextView mMystoreName;//店铺名称
-    @BindView(R.id.mystore_sex)
-    ImageView mMystoreSex;//性别
     @BindView(R.id.mystore_type)
     TextView mMystoreType;//类型（个体、团体）
     @BindView(R.id.mystore_starview)
@@ -133,18 +133,17 @@ public class MyStoreActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.rl_background://更换背景图片
-                showToast("更换背景图片");
+//                showToast("更换背景图片");
                 break;
         }
     }
 
     /**
-     * 获取网络数据
+     * 获取网络数据，看看自己店铺的信息
      */
     public void getDataMyStore() {
         APPApi.getInstance().service
-//                .myStore(UserUtils.getUserId())
-                .myStore("1")
+                .myStore(UserUtils.getUserId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<MyStoreBean>() {
@@ -187,10 +186,10 @@ public class MyStoreActivity extends BaseActivity {
 
         EventBus.getDefault().post(bean);
 
-        //设置星星个数
+        //根据获取到的好评率，设置星星个数
         double starNum = (Integer.parseInt(bean.getData().getApplause_rate())) * 0.05;
         if (starNum != 0 && starNum <= 5) {
-            mMystoreStarview.setStar((float) starNum);
+            mMystoreStarview.setStar((int) starNum);
         } else {
             mMystoreStarview.setStar(0);
         }
@@ -211,8 +210,8 @@ public class MyStoreActivity extends BaseActivity {
         mMystoreType.setText(bean.getData().getS_type());
         mMystorePlace.setText(bean.getData().getS_province() + " " + bean.getData().getS_city());
         mMystoreNumber.setText("成交量" + bean.getData().getTurnover());
-        mMystoreWorkTime.setText(bean.getData().getWork_experience() + "年工作经验");
-        mMystoreStyle.setText(bean.getData().getRinfo().getR_name());
+        mMystoreWorkTime.setText(bean.getData().getWork_year() + "年工作经验");
+        mMystoreStyle.setText(bean.getData().getR_id());
     }
 
 

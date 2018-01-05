@@ -109,7 +109,10 @@ public class UserRegisterActivity extends BaseActivity {
             showToast("请填写手机号");
             return;
         }
-
+        if (!ValidationUtil.isPhone(UserPhoto)) {
+            showToast("手机号格式错误");
+            return;
+        }
         String userNum = MyPublic.getText(mEtUserRandomNum);
         if (TextUtils.isEmpty(userNum)) {
             showToast("请填昵称");

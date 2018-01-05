@@ -10,7 +10,7 @@ public class  MyStoreBean {
     /**
      * responseState : 1
      * msg : 查询成功
-     * data : {"s_id":1,"au_id":"1","s_name":"小月的材料屋","s_logo":"/pictures/1.jpg","s_type":"","turnover":0,"bid_num":0,"introduce":"真诚服务","background_info":"","work_experience":"","work_year":"1","s_province":"辽宁","s_city":"沈阳","r_id":"1","create_time":"2017-12-07 16:52:19.0","applause_rate":"100","comprehensive_score":"5","rinfo":{"r_id":1,"r_name":"木工","r_picture":"/pictures/1.jpg","type":4}}
+     * data : {"s_id":6,"au_id":"9","s_name":"FengChen的店铺","s_logo":"/pictures/a5a3a468fea14409b0f64a70ebe4c0a9.jpg","s_type":"个体","turnover":0,"bid_num":0,"introduce":"我是一个粉刷匠,粉刷本领强","background_info":" ","work_experience":"1年","work_year":"1","s_province":"辽宁省","s_city":"锦州市","r_id":"地中海","create_time":"2017-12-07 16:52:19.0","applause_rate":"100","comprehensive_score":"5","rinfo":null}
      */
 
     private String responseState;
@@ -43,24 +43,24 @@ public class  MyStoreBean {
 
     public static class DataBean {
         /**
-         * s_id : 1
-         * au_id : 1
-         * s_name : 小月的材料屋
-         * s_logo : /pictures/1.jpg
-         * s_type :
+         * s_id : 6
+         * au_id : 9
+         * s_name : FengChen的店铺
+         * s_logo : /pictures/a5a3a468fea14409b0f64a70ebe4c0a9.jpg
+         * s_type : 个体
          * turnover : 0
          * bid_num : 0
-         * introduce : 真诚服务
+         * introduce : 我是一个粉刷匠,粉刷本领强
          * background_info :
-         * work_experience :
+         * work_experience : 1年
          * work_year : 1
-         * s_province : 辽宁
-         * s_city : 沈阳
-         * r_id : 1
+         * s_province : 辽宁省
+         * s_city : 锦州市
+         * r_id : 地中海
          * create_time : 2017-12-07 16:52:19.0
          * applause_rate : 100
          * comprehensive_score : 5
-         * rinfo : {"r_id":1,"r_name":"木工","r_picture":"/pictures/1.jpg","type":4}
+         * rinfo : null
          */
 
         private int s_id;
@@ -80,7 +80,7 @@ public class  MyStoreBean {
         private String create_time;
         private String applause_rate;
         private String comprehensive_score;
-        private RinfoBean rinfo;
+        private Object rinfo;
 
         public int getS_id() {
             return s_id;
@@ -218,58 +218,12 @@ public class  MyStoreBean {
             this.comprehensive_score = comprehensive_score;
         }
 
-        public RinfoBean getRinfo() {
+        public Object getRinfo() {
             return rinfo;
         }
 
-        public void setRinfo(RinfoBean rinfo) {
+        public void setRinfo(Object rinfo) {
             this.rinfo = rinfo;
-        }
-
-        public static class RinfoBean {
-            /**
-             * r_id : 1
-             * r_name : 木工
-             * r_picture : /pictures/1.jpg
-             * type : 4
-             */
-
-            private int r_id;
-            private String r_name;
-            private String r_picture;
-            private int type;
-
-            public int getR_id() {
-                return r_id;
-            }
-
-            public void setR_id(int r_id) {
-                this.r_id = r_id;
-            }
-
-            public String getR_name() {
-                return r_name;
-            }
-
-            public void setR_name(String r_name) {
-                this.r_name = r_name;
-            }
-
-            public String getR_picture() {
-                return r_picture;
-            }
-
-            public void setR_picture(String r_picture) {
-                this.r_picture = r_picture;
-            }
-
-            public int getType() {
-                return type;
-            }
-
-            public void setType(int type) {
-                this.type = type;
-            }
         }
     }
 }

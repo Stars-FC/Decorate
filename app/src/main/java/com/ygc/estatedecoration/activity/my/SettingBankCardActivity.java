@@ -23,6 +23,7 @@ import com.ygc.estatedecoration.adapter.MySettingBankCardAdapter;
 import com.ygc.estatedecoration.api.APPApi;
 import com.ygc.estatedecoration.app.activity.BaseActivity;
 import com.ygc.estatedecoration.bean.BankCardBean;
+import com.ygc.estatedecoration.bean.BaseBean;
 import com.ygc.estatedecoration.bean.LoginBean;
 import com.ygc.estatedecoration.utils.LogUtil;
 import com.ygc.estatedecoration.utils.NetWorkUtil;
@@ -59,6 +60,8 @@ public class SettingBankCardActivity extends BaseActivity {
 
     private BasePopupWindow mPopupWindow;
 
+    private List<BankCardBean.DataBean> mData;
+
     @Override
     protected boolean buildTitle(TitleBar bar) {
         bar.setTitleText("我的银行卡");
@@ -75,7 +78,7 @@ public class SettingBankCardActivity extends BaseActivity {
         mRecyclerview.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                showSelectPicPopupWindow();
+                showSelectPicPopupWindow(position);
             }
         });
 
@@ -127,7 +130,7 @@ public class SettingBankCardActivity extends BaseActivity {
     /**
      * 解绑银行卡popopwindows
      */
-    private void showSelectPicPopupWindow() {
+    private void showSelectPicPopupWindow(final int postion) {
         if (mPopupWindow == null) {
             mPopupWindow = new BasePopupWindow(SettingBankCardActivity.this);
             mPopupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
@@ -141,6 +144,8 @@ public class SettingBankCardActivity extends BaseActivity {
             popupView.findViewById(R.id.tv_ok).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    // 解绑银行卡
+                    deleteBankeCardByid(mData.get(postion).getBcId());
                     mPopupWindow.dismiss();
                 }
             });
@@ -163,6 +168,41 @@ public class SettingBankCardActivity extends BaseActivity {
         mPopupWindow.showAtLocation(mRelativeLayout, Gravity.BOTTOM, 0, 0);
     }
 
+    /**
+     * 解绑银行卡
+     *
+     * @param bcId 上传的银行卡id
+     */
+    private void deleteBankeCardByid(String bcId) {
+        APPApi.getInstance().service
+                .deleteBankeCardByid(bcId)
+                .observeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<BaseBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseBean bean) {
+                        String msg = bean.getMsg();
+                        showToast(msg);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtil.e("Fc_解绑银行卡" + e.getMessage());
+                        showToast(getResources().getString(R.string.network_error));
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
 
     /**
      * 获取银行卡信息
@@ -174,8 +214,7 @@ public class SettingBankCardActivity extends BaseActivity {
         }
 
         APPApi.getInstance().service
-//                .getBankCard(UserUtils.getUserId())
-                .getBankCard("1")
+                .getBankCard(UserUtils.getUserId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<BankCardBean>() {
@@ -188,7 +227,8 @@ public class SettingBankCardActivity extends BaseActivity {
                     public void onNext(BankCardBean bean) {
                         String msg = bean.getMsg();
                         if ("1".equals(bean.getResponseState())) {
-                            mAdapter.setNewData(bean.getData());
+                            mData = bean.getData();
+                            mAdapter.setNewData(mData);
                         } else {
                             showToast(msg);
                         }

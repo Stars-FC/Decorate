@@ -12,7 +12,7 @@ public class UserCollectionResultChartBean {
     /**
      * responseState : 1
      * msg : 查询成功
-     * data : [{"uc_id":1,"auId":"1","articleId":"1","articleType":1,"createTime":"2017-12-19 14:55:34.0","article":{"ce_id":1,"au_id":"1","d_id":"50","title":"大苏打","r_id":"1","effect_picture":"/pictures/1.jpg","create_time":"2017-12-11 10:25:58.0","upload_type":0,"userInfo":{"au_id":1,"type":1,"r_id":null,"username":"18742494800","password":"123456","head_portrait":"","nickname":"小月","sex":0,"warranty_gold":"","gold_coin":0,"balance":64.51,"openid":"","certification":1,"real_name":"","number":"","tel":"","picture_url":"","create_time":"2017-12-05 11:45:30.0"},"collect":true}}]
+     * data : [{"uc_id":1,"auId":"1","articleId":"50","articleType":1,"createTime":"2017-12-19 14:55:34.0","article":{"d_id":"50","ce_id_designer":"4","ce_id_construction":"2","ce_id_supervisor":"1","ce_id_material":"3","designerInfo":{"ce_id":4,"au_id":"14","d_id":"50","title":"大苏打","r_id":"2","effect_picture":"/pictures/1.jpg","create_time":"2017-12-11 10:25:58.0","upload_type":0,"storeInfo":null},"constructionInfo":{"ce_id":2,"au_id":"2","d_id":"50","title":"大苏打","r_id":"2","effect_picture":"/pictures/1.jpg","create_time":"2017-12-11 10:25:58.0","upload_type":0,"storeInfo":null},"supervisorInfo":{"ce_id":1,"au_id":"1","d_id":"50","title":"大苏打","r_id":"1","effect_picture":"/pictures/1.jpg","create_time":"2017-12-11 10:25:58.0","upload_type":0,"storeInfo":null},"materialInfo":{"ce_id":3,"au_id":"9","d_id":"50","title":"大苏打","r_id":"3","effect_picture":"/pictures/1.jpg","create_time":"2017-12-11 10:25:58.0","upload_type":0,"storeInfo":null},"collect":true,"title":"标题","effect_picture":"/pictures/1.jpg"}}]
      */
 
     private String responseState;
@@ -47,10 +47,10 @@ public class UserCollectionResultChartBean {
         /**
          * uc_id : 1
          * auId : 1
-         * articleId : 1
+         * articleId : 50
          * articleType : 1
          * createTime : 2017-12-19 14:55:34.0
-         * article : {"ce_id":1,"au_id":"1","d_id":"50","title":"大苏打","r_id":"1","effect_picture":"/pictures/1.jpg","create_time":"2017-12-11 10:25:58.0","upload_type":0,"userInfo":{"au_id":1,"type":1,"r_id":null,"username":"18742494800","password":"123456","head_portrait":"","nickname":"小月","sex":0,"warranty_gold":"","gold_coin":0,"balance":64.51,"openid":"","certification":1,"real_name":"","number":"","tel":"","picture_url":"","create_time":"2017-12-05 11:45:30.0"},"collect":true}
+         * article : {"d_id":"50","ce_id_designer":"4","ce_id_construction":"2","ce_id_supervisor":"1","ce_id_material":"3","designerInfo":{"ce_id":4,"au_id":"14","d_id":"50","title":"大苏打","r_id":"2","effect_picture":"/pictures/1.jpg","create_time":"2017-12-11 10:25:58.0","upload_type":0,"storeInfo":null},"constructionInfo":{"ce_id":2,"au_id":"2","d_id":"50","title":"大苏打","r_id":"2","effect_picture":"/pictures/1.jpg","create_time":"2017-12-11 10:25:58.0","upload_type":0,"storeInfo":null},"supervisorInfo":{"ce_id":1,"au_id":"1","d_id":"50","title":"大苏打","r_id":"1","effect_picture":"/pictures/1.jpg","create_time":"2017-12-11 10:25:58.0","upload_type":0,"storeInfo":null},"materialInfo":{"ce_id":3,"au_id":"9","d_id":"50","title":"大苏打","r_id":"3","effect_picture":"/pictures/1.jpg","create_time":"2017-12-11 10:25:58.0","upload_type":0,"storeInfo":null},"collect":true,"title":"标题","effect_picture":"/pictures/1.jpg"}
          */
 
         private int uc_id;
@@ -110,44 +110,32 @@ public class UserCollectionResultChartBean {
 
         public static class ArticleBean {
             /**
-             * ce_id : 1
-             * au_id : 1
              * d_id : 50
-             * title : 大苏打
-             * r_id : 1
-             * effect_picture : /pictures/1.jpg
-             * create_time : 2017-12-11 10:25:58.0
-             * upload_type : 0
-             * userInfo : {"au_id":1,"type":1,"r_id":null,"username":"18742494800","password":"123456","head_portrait":"","nickname":"小月","sex":0,"warranty_gold":"","gold_coin":0,"balance":64.51,"openid":"","certification":1,"real_name":"","number":"","tel":"","picture_url":"","create_time":"2017-12-05 11:45:30.0"}
+             * ce_id_designer : 4
+             * ce_id_construction : 2
+             * ce_id_supervisor : 1
+             * ce_id_material : 3
+             * designerInfo : {"ce_id":4,"au_id":"14","d_id":"50","title":"大苏打","r_id":"2","effect_picture":"/pictures/1.jpg","create_time":"2017-12-11 10:25:58.0","upload_type":0,"storeInfo":null}
+             * constructionInfo : {"ce_id":2,"au_id":"2","d_id":"50","title":"大苏打","r_id":"2","effect_picture":"/pictures/1.jpg","create_time":"2017-12-11 10:25:58.0","upload_type":0,"storeInfo":null}
+             * supervisorInfo : {"ce_id":1,"au_id":"1","d_id":"50","title":"大苏打","r_id":"1","effect_picture":"/pictures/1.jpg","create_time":"2017-12-11 10:25:58.0","upload_type":0,"storeInfo":null}
+             * materialInfo : {"ce_id":3,"au_id":"9","d_id":"50","title":"大苏打","r_id":"3","effect_picture":"/pictures/1.jpg","create_time":"2017-12-11 10:25:58.0","upload_type":0,"storeInfo":null}
              * collect : true
+             * title : 标题
+             * effect_picture : /pictures/1.jpg
              */
 
-            private int ce_id;
-            private String au_id;
             private String d_id;
-            private String title;
-            private String r_id;
-            private String effect_picture;
-            private String create_time;
-            private int upload_type;
-            private UserInfoBean userInfo;
+            private String ce_id_designer;
+            private String ce_id_construction;
+            private String ce_id_supervisor;
+            private String ce_id_material;
+            private DesignerInfoBean designerInfo;
+            private ConstructionInfoBean constructionInfo;
+            private SupervisorInfoBean supervisorInfo;
+            private MaterialInfoBean materialInfo;
             private boolean collect;
-
-            public int getCe_id() {
-                return ce_id;
-            }
-
-            public void setCe_id(int ce_id) {
-                this.ce_id = ce_id;
-            }
-
-            public String getAu_id() {
-                return au_id;
-            }
-
-            public void setAu_id(String au_id) {
-                this.au_id = au_id;
-            }
+            private String title;
+            private String effect_picture;
 
             public String getD_id() {
                 return d_id;
@@ -157,52 +145,68 @@ public class UserCollectionResultChartBean {
                 this.d_id = d_id;
             }
 
-            public String getTitle() {
-                return title;
+            public String getCe_id_designer() {
+                return ce_id_designer;
             }
 
-            public void setTitle(String title) {
-                this.title = title;
+            public void setCe_id_designer(String ce_id_designer) {
+                this.ce_id_designer = ce_id_designer;
             }
 
-            public String getR_id() {
-                return r_id;
+            public String getCe_id_construction() {
+                return ce_id_construction;
             }
 
-            public void setR_id(String r_id) {
-                this.r_id = r_id;
+            public void setCe_id_construction(String ce_id_construction) {
+                this.ce_id_construction = ce_id_construction;
             }
 
-            public String getEffect_picture() {
-                return effect_picture;
+            public String getCe_id_supervisor() {
+                return ce_id_supervisor;
             }
 
-            public void setEffect_picture(String effect_picture) {
-                this.effect_picture = effect_picture;
+            public void setCe_id_supervisor(String ce_id_supervisor) {
+                this.ce_id_supervisor = ce_id_supervisor;
             }
 
-            public String getCreate_time() {
-                return create_time;
+            public String getCe_id_material() {
+                return ce_id_material;
             }
 
-            public void setCreate_time(String create_time) {
-                this.create_time = create_time;
+            public void setCe_id_material(String ce_id_material) {
+                this.ce_id_material = ce_id_material;
             }
 
-            public int getUpload_type() {
-                return upload_type;
+            public DesignerInfoBean getDesignerInfo() {
+                return designerInfo;
             }
 
-            public void setUpload_type(int upload_type) {
-                this.upload_type = upload_type;
+            public void setDesignerInfo(DesignerInfoBean designerInfo) {
+                this.designerInfo = designerInfo;
             }
 
-            public UserInfoBean getUserInfo() {
-                return userInfo;
+            public ConstructionInfoBean getConstructionInfo() {
+                return constructionInfo;
             }
 
-            public void setUserInfo(UserInfoBean userInfo) {
-                this.userInfo = userInfo;
+            public void setConstructionInfo(ConstructionInfoBean constructionInfo) {
+                this.constructionInfo = constructionInfo;
+            }
+
+            public SupervisorInfoBean getSupervisorInfo() {
+                return supervisorInfo;
+            }
+
+            public void setSupervisorInfo(SupervisorInfoBean supervisorInfo) {
+                this.supervisorInfo = supervisorInfo;
+            }
+
+            public MaterialInfoBean getMaterialInfo() {
+                return materialInfo;
+            }
+
+            public void setMaterialInfo(MaterialInfoBean materialInfo) {
+                this.materialInfo = materialInfo;
             }
 
             public boolean isCollect() {
@@ -213,181 +217,91 @@ public class UserCollectionResultChartBean {
                 this.collect = collect;
             }
 
-            public static class UserInfoBean {
+            public String getTitle() {
+                return title;
+            }
+
+            public void setTitle(String title) {
+                this.title = title;
+            }
+
+            public String getEffect_picture() {
+                return effect_picture;
+            }
+
+            public void setEffect_picture(String effect_picture) {
+                this.effect_picture = effect_picture;
+            }
+
+            public static class DesignerInfoBean {
                 /**
-                 * au_id : 1
-                 * type : 1
-                 * r_id : null
-                 * username : 18742494800
-                 * password : 123456
-                 * head_portrait :
-                 * nickname : 小月
-                 * sex : 0
-                 * warranty_gold :
-                 * gold_coin : 0
-                 * balance : 64.51
-                 * openid :
-                 * certification : 1
-                 * real_name :
-                 * number :
-                 * tel :
-                 * picture_url :
-                 * create_time : 2017-12-05 11:45:30.0
+                 * ce_id : 4
+                 * au_id : 14
+                 * d_id : 50
+                 * title : 大苏打
+                 * r_id : 2
+                 * effect_picture : /pictures/1.jpg
+                 * create_time : 2017-12-11 10:25:58.0
+                 * upload_type : 0
+                 * storeInfo : null
                  */
 
-                private int au_id;
-                private int type;
-                private Object r_id;
-                private String username;
-                private String password;
-                private String head_portrait;
-                private String nickname;
-                private int sex;
-                private String warranty_gold;
-                private int gold_coin;
-                private double balance;
-                private String openid;
-                private int certification;
-                private String real_name;
-                private String number;
-                private String tel;
-                private String picture_url;
+                private int ce_id;
+                private String au_id;
+                private String d_id;
+                private String title;
+                private String r_id;
+                private String effect_picture;
                 private String create_time;
+                private int upload_type;
+                private Object storeInfo;
 
-                public int getAu_id() {
+                public int getCe_id() {
+                    return ce_id;
+                }
+
+                public void setCe_id(int ce_id) {
+                    this.ce_id = ce_id;
+                }
+
+                public String getAu_id() {
                     return au_id;
                 }
 
-                public void setAu_id(int au_id) {
+                public void setAu_id(String au_id) {
                     this.au_id = au_id;
                 }
 
-                public int getType() {
-                    return type;
+                public String getD_id() {
+                    return d_id;
                 }
 
-                public void setType(int type) {
-                    this.type = type;
+                public void setD_id(String d_id) {
+                    this.d_id = d_id;
                 }
 
-                public Object getR_id() {
+                public String getTitle() {
+                    return title;
+                }
+
+                public void setTitle(String title) {
+                    this.title = title;
+                }
+
+                public String getR_id() {
                     return r_id;
                 }
 
-                public void setR_id(Object r_id) {
+                public void setR_id(String r_id) {
                     this.r_id = r_id;
                 }
 
-                public String getUsername() {
-                    return username;
+                public String getEffect_picture() {
+                    return effect_picture;
                 }
 
-                public void setUsername(String username) {
-                    this.username = username;
-                }
-
-                public String getPassword() {
-                    return password;
-                }
-
-                public void setPassword(String password) {
-                    this.password = password;
-                }
-
-                public String getHead_portrait() {
-                    return head_portrait;
-                }
-
-                public void setHead_portrait(String head_portrait) {
-                    this.head_portrait = head_portrait;
-                }
-
-                public String getNickname() {
-                    return nickname;
-                }
-
-                public void setNickname(String nickname) {
-                    this.nickname = nickname;
-                }
-
-                public int getSex() {
-                    return sex;
-                }
-
-                public void setSex(int sex) {
-                    this.sex = sex;
-                }
-
-                public String getWarranty_gold() {
-                    return warranty_gold;
-                }
-
-                public void setWarranty_gold(String warranty_gold) {
-                    this.warranty_gold = warranty_gold;
-                }
-
-                public int getGold_coin() {
-                    return gold_coin;
-                }
-
-                public void setGold_coin(int gold_coin) {
-                    this.gold_coin = gold_coin;
-                }
-
-                public double getBalance() {
-                    return balance;
-                }
-
-                public void setBalance(double balance) {
-                    this.balance = balance;
-                }
-
-                public String getOpenid() {
-                    return openid;
-                }
-
-                public void setOpenid(String openid) {
-                    this.openid = openid;
-                }
-
-                public int getCertification() {
-                    return certification;
-                }
-
-                public void setCertification(int certification) {
-                    this.certification = certification;
-                }
-
-                public String getReal_name() {
-                    return real_name;
-                }
-
-                public void setReal_name(String real_name) {
-                    this.real_name = real_name;
-                }
-
-                public String getNumber() {
-                    return number;
-                }
-
-                public void setNumber(String number) {
-                    this.number = number;
-                }
-
-                public String getTel() {
-                    return tel;
-                }
-
-                public void setTel(String tel) {
-                    this.tel = tel;
-                }
-
-                public String getPicture_url() {
-                    return picture_url;
-                }
-
-                public void setPicture_url(String picture_url) {
-                    this.picture_url = picture_url;
+                public void setEffect_picture(String effect_picture) {
+                    this.effect_picture = effect_picture;
                 }
 
                 public String getCreate_time() {
@@ -396,6 +310,310 @@ public class UserCollectionResultChartBean {
 
                 public void setCreate_time(String create_time) {
                     this.create_time = create_time;
+                }
+
+                public int getUpload_type() {
+                    return upload_type;
+                }
+
+                public void setUpload_type(int upload_type) {
+                    this.upload_type = upload_type;
+                }
+
+                public Object getStoreInfo() {
+                    return storeInfo;
+                }
+
+                public void setStoreInfo(Object storeInfo) {
+                    this.storeInfo = storeInfo;
+                }
+            }
+
+            public static class ConstructionInfoBean {
+                /**
+                 * ce_id : 2
+                 * au_id : 2
+                 * d_id : 50
+                 * title : 大苏打
+                 * r_id : 2
+                 * effect_picture : /pictures/1.jpg
+                 * create_time : 2017-12-11 10:25:58.0
+                 * upload_type : 0
+                 * storeInfo : null
+                 */
+
+                private int ce_id;
+                private String au_id;
+                private String d_id;
+                private String title;
+                private String r_id;
+                private String effect_picture;
+                private String create_time;
+                private int upload_type;
+                private Object storeInfo;
+
+                public int getCe_id() {
+                    return ce_id;
+                }
+
+                public void setCe_id(int ce_id) {
+                    this.ce_id = ce_id;
+                }
+
+                public String getAu_id() {
+                    return au_id;
+                }
+
+                public void setAu_id(String au_id) {
+                    this.au_id = au_id;
+                }
+
+                public String getD_id() {
+                    return d_id;
+                }
+
+                public void setD_id(String d_id) {
+                    this.d_id = d_id;
+                }
+
+                public String getTitle() {
+                    return title;
+                }
+
+                public void setTitle(String title) {
+                    this.title = title;
+                }
+
+                public String getR_id() {
+                    return r_id;
+                }
+
+                public void setR_id(String r_id) {
+                    this.r_id = r_id;
+                }
+
+                public String getEffect_picture() {
+                    return effect_picture;
+                }
+
+                public void setEffect_picture(String effect_picture) {
+                    this.effect_picture = effect_picture;
+                }
+
+                public String getCreate_time() {
+                    return create_time;
+                }
+
+                public void setCreate_time(String create_time) {
+                    this.create_time = create_time;
+                }
+
+                public int getUpload_type() {
+                    return upload_type;
+                }
+
+                public void setUpload_type(int upload_type) {
+                    this.upload_type = upload_type;
+                }
+
+                public Object getStoreInfo() {
+                    return storeInfo;
+                }
+
+                public void setStoreInfo(Object storeInfo) {
+                    this.storeInfo = storeInfo;
+                }
+            }
+
+            public static class SupervisorInfoBean {
+                /**
+                 * ce_id : 1
+                 * au_id : 1
+                 * d_id : 50
+                 * title : 大苏打
+                 * r_id : 1
+                 * effect_picture : /pictures/1.jpg
+                 * create_time : 2017-12-11 10:25:58.0
+                 * upload_type : 0
+                 * storeInfo : null
+                 */
+
+                private int ce_id;
+                private String au_id;
+                private String d_id;
+                private String title;
+                private String r_id;
+                private String effect_picture;
+                private String create_time;
+                private int upload_type;
+                private Object storeInfo;
+
+                public int getCe_id() {
+                    return ce_id;
+                }
+
+                public void setCe_id(int ce_id) {
+                    this.ce_id = ce_id;
+                }
+
+                public String getAu_id() {
+                    return au_id;
+                }
+
+                public void setAu_id(String au_id) {
+                    this.au_id = au_id;
+                }
+
+                public String getD_id() {
+                    return d_id;
+                }
+
+                public void setD_id(String d_id) {
+                    this.d_id = d_id;
+                }
+
+                public String getTitle() {
+                    return title;
+                }
+
+                public void setTitle(String title) {
+                    this.title = title;
+                }
+
+                public String getR_id() {
+                    return r_id;
+                }
+
+                public void setR_id(String r_id) {
+                    this.r_id = r_id;
+                }
+
+                public String getEffect_picture() {
+                    return effect_picture;
+                }
+
+                public void setEffect_picture(String effect_picture) {
+                    this.effect_picture = effect_picture;
+                }
+
+                public String getCreate_time() {
+                    return create_time;
+                }
+
+                public void setCreate_time(String create_time) {
+                    this.create_time = create_time;
+                }
+
+                public int getUpload_type() {
+                    return upload_type;
+                }
+
+                public void setUpload_type(int upload_type) {
+                    this.upload_type = upload_type;
+                }
+
+                public Object getStoreInfo() {
+                    return storeInfo;
+                }
+
+                public void setStoreInfo(Object storeInfo) {
+                    this.storeInfo = storeInfo;
+                }
+            }
+
+            public static class MaterialInfoBean {
+                /**
+                 * ce_id : 3
+                 * au_id : 9
+                 * d_id : 50
+                 * title : 大苏打
+                 * r_id : 3
+                 * effect_picture : /pictures/1.jpg
+                 * create_time : 2017-12-11 10:25:58.0
+                 * upload_type : 0
+                 * storeInfo : null
+                 */
+
+                private int ce_id;
+                private String au_id;
+                private String d_id;
+                private String title;
+                private String r_id;
+                private String effect_picture;
+                private String create_time;
+                private int upload_type;
+                private Object storeInfo;
+
+                public int getCe_id() {
+                    return ce_id;
+                }
+
+                public void setCe_id(int ce_id) {
+                    this.ce_id = ce_id;
+                }
+
+                public String getAu_id() {
+                    return au_id;
+                }
+
+                public void setAu_id(String au_id) {
+                    this.au_id = au_id;
+                }
+
+                public String getD_id() {
+                    return d_id;
+                }
+
+                public void setD_id(String d_id) {
+                    this.d_id = d_id;
+                }
+
+                public String getTitle() {
+                    return title;
+                }
+
+                public void setTitle(String title) {
+                    this.title = title;
+                }
+
+                public String getR_id() {
+                    return r_id;
+                }
+
+                public void setR_id(String r_id) {
+                    this.r_id = r_id;
+                }
+
+                public String getEffect_picture() {
+                    return effect_picture;
+                }
+
+                public void setEffect_picture(String effect_picture) {
+                    this.effect_picture = effect_picture;
+                }
+
+                public String getCreate_time() {
+                    return create_time;
+                }
+
+                public void setCreate_time(String create_time) {
+                    this.create_time = create_time;
+                }
+
+                public int getUpload_type() {
+                    return upload_type;
+                }
+
+                public void setUpload_type(int upload_type) {
+                    this.upload_type = upload_type;
+                }
+
+                public Object getStoreInfo() {
+                    return storeInfo;
+                }
+
+                public void setStoreInfo(Object storeInfo) {
+                    this.storeInfo = storeInfo;
                 }
             }
         }

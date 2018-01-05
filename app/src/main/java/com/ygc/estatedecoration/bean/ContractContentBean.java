@@ -5,7 +5,7 @@ import com.ygc.estatedecoration.entity.base.Base;
 public class ContractContentBean extends Base{
 
     /**
-     * data : {"supervision_contract_model":"监理合同模板","material_contract_model":"材料商合同模板","create_time":1513843177000,"sys_demand_banner":"pictures/demand/11/20171221140510-fd475a90817e8f48211af1.jpg,pictures/demand/11/20171221140510-ab48f6b34edf82e487afe9.jpg,pictures/demand/11/20171221140510-ce4dd9bfa230de641cca4f.jpg","sys_case_banner":"pictures/demand/11/20171221140510-fd475a90817e8f48211af1.jpg,pictures/demand/11/20171221140510-ab48f6b34edf82e487afe9.jpg,pictures/demand/11/20171221140510-ce4dd9bfa230de641cca4f.jpg","construction_contract_model":"施工合同模板 ","citys":"北京,上海,广州,深圳,沈阳,青岛,葫芦岛","sys_banner":"pictures/demand/11/20171221140510-fd475a90817e8f48211af1.jpg,pictures/demand/11/20171221140510-ab48f6b34edf82e487afe9.jpg,pictures/demand/11/20171221140510-ce4dd9bfa230de641cca4f.jpg","design_contract_model":"设计师合同模板"}
+     * data : {"supervision_contract_model":"监理合同模板","design_banner":"pictures/demand/11/20171221140510-fd475a90817e8f48211af1.jpg,pictures/demand/11/20171221140510-ab48f6b34edf82e487afe9.jpg,pictures/demand/11/20171221140510-ce4dd9bfa230de641cca4f.jpg","material_contract_model":"材料商合同模板","create_time":1514965238000,"sys_demand_banner":"pictures/demand/11/20171221140510-fd475a90817e8f48211af1.jpg,pictures/demand/11/20171221140510-ab48f6b34edf82e487afe9.jpg,pictures/demand/11/20171221140510-ce4dd9bfa230de641cca4f.jpg","road_work_banner":"pictures/demand/11/20171221140510-fd475a90817e8f48211af1.jpg,pictures/demand/11/20171221140510-ab48f6b34edf82e487afe9.jpg,pictures/demand/11/20171221140510-ce4dd9bfa230de641cca4f.jpg","sys_case_banner":"pictures/demand/11/20171221140510-fd475a90817e8f48211af1.jpg,pictures/demand/11/20171221140510-ab48f6b34edf82e487afe9.jpg,pictures/demand/11/20171221140510-ce4dd9bfa230de641cca4f.jpg","supervisor_banner":"pictures/demand/11/20171221140510-fd475a90817e8f48211af1.jpg,pictures/demand/11/20171221140510-ab48f6b34edf82e487afe9.jpg,pictures/demand/11/20171221140510-ce4dd9bfa230de641cca4f.jpg","construction_contract_model":"施工合同模板 ","citys":"北京,上海,广州,深圳,沈阳,青岛,葫芦岛","sys_banner":"pictures/demand/11/20171221140510-fd475a90817e8f48211af1.jpg,pictures/demand/11/20171221140510-ab48f6b34edf82e487afe9.jpg,pictures/demand/11/20171221140510-ce4dd9bfa230de641cca4f.jpg","design_contract_model":"设计师合同模板"}
      */
 
     private DataBean data;
@@ -21,10 +21,13 @@ public class ContractContentBean extends Base{
     public static class DataBean {
         /**
          * supervision_contract_model : 监理合同模板
+         * design_banner : pictures/demand/11/20171221140510-fd475a90817e8f48211af1.jpg,pictures/demand/11/20171221140510-ab48f6b34edf82e487afe9.jpg,pictures/demand/11/20171221140510-ce4dd9bfa230de641cca4f.jpg
          * material_contract_model : 材料商合同模板
-         * create_time : 1513843177000
+         * create_time : 1514965238000
          * sys_demand_banner : pictures/demand/11/20171221140510-fd475a90817e8f48211af1.jpg,pictures/demand/11/20171221140510-ab48f6b34edf82e487afe9.jpg,pictures/demand/11/20171221140510-ce4dd9bfa230de641cca4f.jpg
+         * road_work_banner : pictures/demand/11/20171221140510-fd475a90817e8f48211af1.jpg,pictures/demand/11/20171221140510-ab48f6b34edf82e487afe9.jpg,pictures/demand/11/20171221140510-ce4dd9bfa230de641cca4f.jpg
          * sys_case_banner : pictures/demand/11/20171221140510-fd475a90817e8f48211af1.jpg,pictures/demand/11/20171221140510-ab48f6b34edf82e487afe9.jpg,pictures/demand/11/20171221140510-ce4dd9bfa230de641cca4f.jpg
+         * supervisor_banner : pictures/demand/11/20171221140510-fd475a90817e8f48211af1.jpg,pictures/demand/11/20171221140510-ab48f6b34edf82e487afe9.jpg,pictures/demand/11/20171221140510-ce4dd9bfa230de641cca4f.jpg
          * construction_contract_model : 施工合同模板
          * citys : 北京,上海,广州,深圳,沈阳,青岛,葫芦岛
          * sys_banner : pictures/demand/11/20171221140510-fd475a90817e8f48211af1.jpg,pictures/demand/11/20171221140510-ab48f6b34edf82e487afe9.jpg,pictures/demand/11/20171221140510-ce4dd9bfa230de641cca4f.jpg
@@ -32,10 +35,13 @@ public class ContractContentBean extends Base{
          */
 
         private String supervision_contract_model;
+        private String design_banner;
         private String material_contract_model;
         private long create_time;
         private String sys_demand_banner;
+        private String road_work_banner;
         private String sys_case_banner;
+        private String supervisor_banner;
         private String construction_contract_model;
         private String citys;
         private String sys_banner;
@@ -47,6 +53,14 @@ public class ContractContentBean extends Base{
 
         public void setSupervision_contract_model(String supervision_contract_model) {
             this.supervision_contract_model = supervision_contract_model;
+        }
+
+        public String getDesign_banner() {
+            return design_banner;
+        }
+
+        public void setDesign_banner(String design_banner) {
+            this.design_banner = design_banner;
         }
 
         public String getMaterial_contract_model() {
@@ -73,12 +87,28 @@ public class ContractContentBean extends Base{
             this.sys_demand_banner = sys_demand_banner;
         }
 
+        public String getRoad_work_banner() {
+            return road_work_banner;
+        }
+
+        public void setRoad_work_banner(String road_work_banner) {
+            this.road_work_banner = road_work_banner;
+        }
+
         public String getSys_case_banner() {
             return sys_case_banner;
         }
 
         public void setSys_case_banner(String sys_case_banner) {
             this.sys_case_banner = sys_case_banner;
+        }
+
+        public String getSupervisor_banner() {
+            return supervisor_banner;
+        }
+
+        public void setSupervisor_banner(String supervisor_banner) {
+            this.supervisor_banner = supervisor_banner;
         }
 
         public String getConstruction_contract_model() {

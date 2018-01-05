@@ -47,6 +47,7 @@
                 android:textSize="19px"/>
 
             <TextView
+                android:id="@+id/tv_detail_sale_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

@@ -10,8 +10,10 @@
     android:orientation="vertical">
 
     <EditText
+        android:id="@+id/pany_phone"
         style="@style/EtStyle"
-        android:hint="请输入您的手机号"/>
+        android:hint="请输入您的手机号"
+        android:inputType="number"/>
 
     <View
         android:layout_width="match_parent"
@@ -19,8 +21,10 @@
         android:background="@color/colorAccent"/>
 
     <EditText
+        android:id="@+id/pany_psw"
         style="@style/EtStyle"
-        android:hint="请输入您新的支付密码"/>
+        android:hint="请输入您新的支付密码"
+        android:inputType="textPassword"/>
 
     <View
         android:layout_width="match_parent"
@@ -29,8 +33,10 @@
 
 
     <EditText
+        android:id="@+id/pany_again_psw"
         style="@style/EtStyle"
-        android:hint="请确认你新的支付密码"/>
+        android:hint="请确认你新的支付密码"
+        android:inputType="textPassword"/>
 
     <View
         android:layout_width="match_parent"
@@ -50,6 +56,7 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:hint="请输入验证码"
+            android:inputType="number"
             android:textSize="24px"/>
 
         <View
@@ -67,12 +74,13 @@
             android:layout_toRightOf="@+id/et_verification"
             android:background="@color/line"/>
 
-        <TextView
+        <Button
             android:id="@+id/tv_get_verification"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_marginRight="50px"
+            android:background="@null"
             android:gravity="center"
             android:lines="1"
             android:text="获取验证码"
@@ -87,7 +95,7 @@
 
 
         <Button
-            android:id="@+id/login_btn"
+            android:id="@+id/again_psw"
             android:layout_width="520px"
             android:layout_height="80px"
             android:background="@drawable/shape_all_my_moneybag"

@@ -123,7 +123,7 @@ public class MyBrightActivity extends BaseActivity {
      */
     public void getDataFromNet() {
         APPApi.getInstance().service
-                .myBright(UserUtils.getUserId().toString())
+                .myBright(UserUtils.getUserId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<MyBrightBean>() {
